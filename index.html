@@ -326,6 +326,35 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 .pop { animation: popin .35s cubic-bezier(.2,1.4,.4,1); }
 @keyframes popin { from { transform: scale(.85); opacity: .4; } }
 
+/* En-tête : réglages */
+.tb-r { display: flex; align-items: center; gap: 2px; }
+.tb-r .icon-btn { width: 36px; height: 36px; }
+
+/* Courses : ticket de caisse */
+.receipt { position: relative; background: var(--surface); padding: 16px 16px 14px; border-radius: 4px 4px 0 0; display: flex; flex-direction: column; filter: drop-shadow(0 1px 1.5px rgba(18,22,28,.10)); margin-bottom: 10px; }
+.receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 8px; background: radial-gradient(circle at 6px 8px, transparent 5.5px, var(--surface) 6px) 0 0 / 12px 8px repeat-x; }
+.rc-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 10px; }
+.rc-head .brand { font-size: 12px; }
+.rc-head .brand-mark { width: 18px; height: 18px; box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--brand) 70%, #000 30%); }
+.rc-line { display: grid; grid-template-columns: 1fr auto; gap: 1px 12px; padding: 9px 0; border-top: 1px dashed var(--line); width: 100%; text-align: left; }
+.rc-line .nm { font-weight: 620; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rc-line .pr { font-family: var(--f-display); font-weight: 750; font-variant-numeric: tabular-nums; text-align: right; }
+.rc-line .q { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 0; }
+.rc-line .q.r { text-align: right; color: var(--faint); }
+.rc-line:active { background: var(--surface-2); }
+.rc-total { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-top: 2px dashed var(--ink); padding-top: 12px; margin-top: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: 12.5px; }
+.rc-total b { font-family: var(--f-display); font-stretch: 112%; font-weight: 900; font-size: 30px; letter-spacing: 0; text-transform: none; font-variant-numeric: tabular-nums; }
+.rc-sub { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; color: var(--muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.plan-row .inp { width: 72px; height: 40px; text-align: center; padding: 0 6px; font-family: var(--f-display); font-weight: 700; flex: none; }
+.plan-row .u { width: 20px; flex: none; }
+.plan-row { gap: 8px; }
+.shop-row { display: flex; align-items: center; border-top: 1px solid var(--line); }
+.shop-row:first-child { border-top: 0; }
+.shop-row .check { border-top: 0; flex: 1; min-width: 0; }
+.shop-pr { padding: 0 14px; align-self: stretch; font-family: var(--f-display); font-weight: 750; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.shop-row.on .shop-pr { color: var(--faint); }
+.wg-box { display: flex; flex-direction: column; gap: 8px; width: 100%; text-align: left; background: var(--surface-2); border-radius: 14px; padding: 12px 14px; }
+
 @media (max-width: 380px) {
   .sum-top { grid-template-columns: 112px 1fr; }
   .ring { width: 112px; height: 112px; }
@@ -356,140 +385,456 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 <script async src="https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js"></script>
 <script>
 /* Nexafit — données de référence.
-   Valeurs moyennes pour 100 g (ou 100 ml) : kcal, protéines, glucides, lipides.
-   Format : [nom, catégorie, kcal, P, G, L, nom de l'unité, grammes par unité] */
+   Aliments : valeurs moyennes pour 100 g (ou 100 ml).
+   Format : [nom, catégorie, kcal, protéines, glucides, lipides, nom de la portion, g par portion,
+             prix moyen €/kg (ou €/L, 0 = inconnu), taille du paquet en g (0 = au poids), marque, [aliment cru acheté, facteur]]
+   Prix : moyennes indicatives constatées en supermarché en France (fin 2026), modifiables dans l'appli.
+   Valeurs des produits de marque : d'après leurs étiquettes, à vérifier si la recette change. */
+(function () {
+const FE = 'Féculents', PA = 'Pains & viennoiseries', CE = 'Céréales petit-déj', VO = 'Volaille', VI = 'Viandes',
+  PO = 'Poissons & fruits de mer', CH = 'Charcuterie', OE = 'Œufs', LA = 'Produits laitiers', FR = 'Fromages',
+  FU = 'Fruits', FS = 'Fruits secs & oléagineux', LE = 'Légumes', LG = 'Légumineuses & soja', MG = 'Matières grasses',
+  SA = 'Sauces & condiments', SU = 'Sucré & desserts', BI = 'Biscuits & snacks', BO = 'Boissons', CO = 'Compléments',
+  PL = 'Plats préparés', FF = 'Fast-food & resto';
 window.NX_FOODS = [
-  // Féculents
-  ["Riz blanc cuit","Féculents",130,2.7,28,0.3,"",0],
-  ["Riz blanc cru","Féculents",356,7,79,0.6,"",0],
-  ["Riz basmati cuit","Féculents",121,3.5,25,0.4,"",0],
-  ["Pâtes cuites","Féculents",131,5,25,1.1,"",0],
-  ["Pâtes crues","Féculents",357,12.5,71,1.5,"",0],
-  ["Pâtes complètes cuites","Féculents",124,5.3,23,1.4,"",0],
-  ["Semoule cuite","Féculents",112,3.8,23,0.2,"",0],
-  ["Boulgour cuit","Féculents",83,3.1,18.6,0.2,"",0],
-  ["Quinoa cuit","Féculents",120,4.4,21,1.9,"",0],
-  ["Pomme de terre cuite","Féculents",80,2,17,0.1,"pomme de terre",150],
-  ["Patate douce cuite","Féculents",86,1.6,20,0.1,"",0],
-  ["Frites au four","Féculents",210,3,30,8,"portion",150],
-  ["Baguette","Féculents",270,9,56,1.2,"quart de baguette",62],
-  ["Pain complet","Féculents",240,9,43,3,"tranche",35],
-  ["Pain de mie","Féculents",265,8,49,4,"tranche",25],
-  ["Pain pita","Féculents",275,9,55,1.2,"pita",60],
-  ["Tortilla de blé","Féculents",305,8,50,8,"tortilla",60],
-  ["Flocons d'avoine","Féculents",370,13.5,59,7,"bol",60],
-  ["Muesli","Féculents",365,9,64,6,"bol",50],
-  ["Corn flakes","Féculents",378,7,84,0.9,"bol",40],
-  ["Lentilles cuites","Féculents",116,9,17,0.4,"",0],
-  ["Pois chiches cuits","Féculents",139,7.5,20,2.6,"",0],
-  ["Haricots rouges cuits","Féculents",115,8,15,0.5,"",0],
-  ["Galette de riz","Féculents",387,8,81,2.8,"galette",9],
-  // Viandes & poissons
-  ["Poulet (blanc) cuit","Viandes & poissons",151,31,0,2.6,"filet",130],
-  ["Blanc de poulet cru","Viandes & poissons",110,23,0,1.5,"filet",150],
-  ["Cuisse de poulet cuite","Viandes & poissons",210,26,0,11.5,"cuisse",150],
-  ["Escalope de dinde cuite","Viandes & poissons",135,29,0,1.7,"escalope",120],
-  ["Steak haché 5 % cuit","Viandes & poissons",160,27,0,5.5,"steak",100],
-  ["Steak haché 15 % cuit","Viandes & poissons",230,25,0,14,"steak",100],
-  ["Steak de bœuf cuit","Viandes & poissons",180,29,0,7,"",0],
-  ["Gigot d'agneau cuit","Viandes & poissons",230,26,0,14,"",0],
-  ["Jambon de dinde","Viandes & poissons",105,19,1.5,2.5,"tranche",30],
-  ["Thon au naturel","Viandes & poissons",110,25,0,1,"boîte égouttée",104],
-  ["Saumon cuit","Viandes & poissons",206,22,0,13,"pavé",125],
-  ["Cabillaud cuit","Viandes & poissons",105,23,0,1,"",0],
-  ["Crevettes cuites","Viandes & poissons",99,22,0,1,"",0],
-  ["Sardines à l'huile","Viandes & poissons",210,24,0,12.5,"boîte",85],
-  ["Merguez","Viandes & poissons",300,15,1.5,26,"merguez",50],
-  ["Köfte","Viandes & poissons",230,18,5,15,"boulette",30],
-  ["Sucuk (bœuf)","Viandes & poissons",380,17,2,34,"tranche",10],
-  // Œufs & laitiers
-  ["Œuf entier","Œufs & laitiers",143,12.6,0.7,9.5,"œuf",55],
-  ["Blanc d'œuf","Œufs & laitiers",48,10.7,0.7,0.2,"blanc",33],
-  ["Lait demi-écrémé","Œufs & laitiers",46,3.3,4.8,1.6,"verre",250],
-  ["Lait entier","Œufs & laitiers",64,3.2,4.7,3.6,"verre",250],
-  ["Yaourt nature","Œufs & laitiers",60,4,5,3,"pot",125],
-  ["Skyr nature","Œufs & laitiers",63,11,4,0.2,"pot",150],
-  ["Fromage blanc 0 %","Œufs & laitiers",47,7.5,4,0.1,"",0],
-  ["Fromage blanc 3 %","Œufs & laitiers",75,7,4,3.2,"",0],
-  ["Emmental râpé","Œufs & laitiers",380,28,0,30,"poignée",20],
-  ["Mozzarella","Œufs & laitiers",250,18,1,19,"boule",125],
-  ["Feta","Œufs & laitiers",265,14,1,22,"",0],
-  ["Comté","Œufs & laitiers",410,27,0,33,"portion",30],
-  ["Ayran","Œufs & laitiers",37,1.7,2.7,2,"verre",250],
-  ["Beurre","Œufs & laitiers",745,0.7,0.6,82,"noisette",10],
-  ["Crème fraîche 30 %","Œufs & laitiers",292,2.4,3,30,"c. à soupe",15],
-  // Fruits
-  ["Banane","Fruits",90,1.1,20,0.3,"banane",120],
-  ["Pomme","Fruits",53,0.3,11.6,0.2,"pomme",150],
-  ["Orange","Fruits",47,0.9,9,0.2,"orange",150],
-  ["Fraises","Fruits",33,0.7,6,0.3,"",0],
-  ["Raisin","Fruits",70,0.6,16,0.2,"grappe",125],
-  ["Kiwi","Fruits",61,1.1,11,0.5,"kiwi",75],
-  ["Mangue","Fruits",60,0.8,14,0.4,"",0],
-  ["Myrtilles","Fruits",57,0.7,12,0.3,"",0],
-  ["Dattes","Fruits",282,2.5,66,0.4,"datte",8],
-  ["Avocat","Fruits",160,2,2,15,"demi-avocat",70],
-  // Légumes
-  ["Brocoli cuit","Légumes",35,2.4,4,0.4,"",0],
-  ["Haricots verts cuits","Légumes",31,1.8,4.6,0.2,"",0],
-  ["Carotte","Légumes",36,0.8,7,0.3,"carotte",80],
-  ["Tomate","Légumes",18,0.9,3,0.2,"tomate",120],
-  ["Concombre","Légumes",15,0.7,2.6,0.1,"",0],
-  ["Salade verte","Légumes",15,1.3,1.5,0.2,"bol",50],
-  ["Épinards cuits","Légumes",25,3,1,0.5,"",0],
-  ["Courgette cuite","Légumes",18,1.2,2.4,0.3,"",0],
-  ["Poivron","Légumes",27,1,5,0.3,"poivron",150],
-  ["Oignon","Légumes",40,1.1,9,0.1,"oignon",100],
-  ["Maïs doux","Légumes",98,3,18,1.5,"",0],
-  ["Petits pois","Légumes",70,5,9,0.5,"",0],
-  // Matières grasses & oléagineux
-  ["Huile d'olive","Gras & oléagineux",900,0,0,100,"c. à soupe",10],
-  ["Beurre de cacahuète","Gras & oléagineux",600,25,14,50,"c. à soupe",16],
-  ["Amandes","Gras & oléagineux",600,21,8,52,"poignée",30],
-  ["Noix de cajou","Gras & oléagineux",575,18,27,44,"poignée",30],
-  ["Noix","Gras & oléagineux",680,15,7,65,"poignée",30],
-  ["Cacahuètes grillées","Gras & oléagineux",600,26,12,49,"poignée",30],
-  ["Graines de chia","Gras & oléagineux",490,17,8,31,"c. à soupe",12],
-  // Sucré & snacks
-  ["Miel","Sucré & snacks",320,0.4,80,0,"c. à café",7],
-  ["Confiture","Sucré & snacks",250,0.4,60,0.1,"c. à soupe",15],
-  ["Pâte à tartiner chocolat","Sucré & snacks",540,6,57,31,"c. à soupe",15],
-  ["Chocolat noir 70 %","Sucré & snacks",580,8,33,42,"carré",5],
-  ["Chocolat au lait","Sucré & snacks",545,7,57,31,"carré",5],
-  ["Barre protéinée","Sucré & snacks",360,33,30,12,"barre",55],
-  ["Petit-beurre","Sucré & snacks",440,7,74,12,"biscuit",8],
-  ["Croissant","Sucré & snacks",420,8,46,22,"croissant",60],
-  ["Pain au chocolat","Sucré & snacks",420,7,47,22,"pain au chocolat",70],
-  ["Céréales chocolatées","Sucré & snacks",390,8,76,5,"bol",40],
-  ["Simit","Sucré & snacks",330,10,58,7,"simit",110],
-  ["Baklava","Sucré & snacks",430,6,52,23,"part",40],
-  // Boissons
-  ["Jus d'orange","Boissons",45,0.7,10,0.1,"verre",200],
-  ["Soda","Boissons",42,0,10.6,0,"canette",330],
-  ["Café noir","Boissons",2,0.1,0,0,"tasse",100],
-  ["Thé","Boissons",1,0,0.2,0,"tasse",200],
-  ["Lait d'avoine","Boissons",45,1,6.5,1.5,"verre",250],
-  // Compléments
-  ["Whey protéine","Compléments",380,78,7,5,"dose",30],
-  ["Caséine","Compléments",360,80,6,1.5,"dose",30],
-  ["Gainer","Compléments",380,20,68,4,"dose",100],
-  // Plats
-  ["Pizza margherita","Plats",250,11,31,9,"part",125],
-  ["Burger classique","Plats",255,13,25,11,"burger",200],
-  ["Lasagnes","Plats",160,9,13,8,"part",300],
-  ["Couscous poulet","Plats",140,9,15,5,"assiette",400],
-  ["Tacos (fast-food)","Plats",230,10,22,11,"tacos",350],
-  ["Kebab (sandwich complet)","Plats",240,12,24,11,"kebab",350],
-  ["Sandwich poulet crudités","Plats",220,12,25,8,"sandwich",250],
-  ["Maki (sushi)","Plats",150,5,28,2,"pièce",25],
-  ["Lahmacun","Plats",230,10,32,7,"lahmacun",130],
-  ["Pide à la viande","Plats",250,12,30,9,"part",200],
-  ["Menemen","Plats",110,6,4,8,"assiette",250],
-  ["Börek au fromage","Plats",290,9,27,16,"part",120],
-  ["Mercimek çorbası","Plats",70,4,10,1.8,"bol",300]
-];
+  // ---------- Féculents
+  ["Riz blanc cru", FE, 356, 7, 79, 0.6, "", 0, 2.2, 1000, ""],
+  ["Riz blanc cuit", FE, 130, 2.7, 28, 0.3, "", 0, 0.8, 0, "", ["Riz blanc cru", 0.36]],
+  ["Riz basmati cru", FE, 352, 8, 78, 0.8, "", 0, 3.8, 1000, ""],
+  ["Riz basmati cuit", FE, 121, 3.5, 25, 0.4, "", 0, 1.4, 0, "", ["Riz basmati cru", 0.36]],
+  ["Riz thaï cru", FE, 355, 7, 79, 0.6, "", 0, 3.5, 1000, ""],
+  ["Riz thaï cuit", FE, 128, 2.6, 28, 0.3, "", 0, 1.3, 0, "", ["Riz thaï cru", 0.36]],
+  ["Riz complet cru", FE, 350, 8, 72, 2.7, "", 0, 3.2, 1000, ""],
+  ["Riz complet cuit", FE, 124, 2.7, 25, 1, "", 0, 1.2, 0, "", ["Riz complet cru", 0.37]],
+  ["Riz basmati express", FE, 150, 3.2, 31, 1.5, "sachet", 250, 8, 250, "Ben's Original"],
+  ["Riz basmati", FE, 352, 8, 78, 0.8, "", 0, 5.5, 1000, "Taureau Ailé"],
+  ["Riz long grain", FE, 356, 7, 79, 0.9, "", 0, 4.5, 1000, "Ben's Original"],
+  ["Pâtes crues", FE, 357, 12.5, 71, 1.5, "", 0, 1.9, 500, ""],
+  ["Pâtes cuites", FE, 131, 5, 25, 1.1, "", 0, 0.75, 0, "", ["Pâtes crues", 0.4]],
+  ["Pâtes complètes crues", FE, 348, 13, 64, 2.5, "", 0, 2.8, 500, ""],
+  ["Pâtes complètes cuites", FE, 124, 5.3, 23, 1.4, "", 0, 1.15, 0, "", ["Pâtes complètes crues", 0.42]],
+  ["Spaghetti n°5", FE, 359, 12.5, 71, 2, "", 0, 2.8, 500, "Barilla"],
+  ["Penne rigate", FE, 359, 12.5, 71, 2, "", 0, 2.8, 500, "Barilla"],
+  ["Fusilli", FE, 359, 12.5, 71, 2, "", 0, 2.8, 500, "Barilla"],
+  ["Coquillettes", FE, 358, 12, 72, 1.5, "", 0, 2.6, 500, "Panzani"],
+  ["Spaghetti", FE, 358, 12, 72, 1.5, "", 0, 2.6, 500, "Panzani"],
+  ["Pâtes protéinées", FE, 350, 22, 58, 2.5, "", 0, 7, 400, ""],
+  ["Tagliatelles aux œufs", FE, 370, 14, 68, 3.5, "", 0, 5, 250, "Lustucru"],
+  ["Gnocchi de pommes de terre", FE, 150, 3.5, 33, 0.3, "", 0, 4, 500, ""],
+  ["Semoule de blé crue", FE, 360, 12, 73, 1.5, "", 0, 2, 1000, ""],
+  ["Semoule cuite", FE, 112, 3.8, 23, 0.2, "", 0, 0.75, 0, "", ["Semoule de blé crue", 0.36]],
+  ["Boulgour cru", FE, 350, 12, 69, 1.5, "", 0, 3.2, 500, ""],
+  ["Boulgour cuit", FE, 83, 3.1, 18.6, 0.2, "", 0, 1.2, 0, "", ["Boulgour cru", 0.37]],
+  ["Quinoa cru", FE, 368, 14, 64, 6, "", 0, 9, 500, ""],
+  ["Quinoa cuit", FE, 120, 4.4, 21, 1.9, "", 0, 3.3, 0, "", ["Quinoa cru", 0.37]],
+  ["Polenta crue", FE, 360, 8, 77, 1.5, "", 0, 4, 500, ""],
+  ["Nouilles chinoises crues", FE, 360, 11, 72, 2, "", 0, 5, 250, ""],
+  ["Nouilles instantanées", FE, 450, 9, 60, 19, "sachet", 85, 7, 85, ""],
+  ["Pomme de terre crue", FE, 77, 2, 17, 0.1, "pomme de terre", 150, 1.5, 2500, ""],
+  ["Pomme de terre cuite", FE, 80, 2, 17, 0.1, "pomme de terre", 150, 1.5, 0, "", ["Pomme de terre crue", 1]],
+  ["Purée de pommes de terre maison", FE, 90, 2, 14, 3, "portion", 200, 1.8, 0, ""],
+  ["Purée en flocons (sèche)", FE, 350, 8, 75, 1, "", 0, 7, 500, "Mousline"],
+  ["Patate douce crue", FE, 86, 1.6, 20, 0.1, "", 0, 3, 1000, ""],
+  ["Patate douce cuite", FE, 90, 2, 21, 0.1, "", 0, 3, 0, "", ["Patate douce crue", 1]],
+  ["Frites au four (surgelées)", FE, 150, 2.5, 23, 5, "portion", 150, 3, 1000, "McCain"],
+  ["Potatoes surgelées", FE, 170, 2.5, 24, 7, "portion", 150, 3.5, 1000, ""],
+  ["Frites de friteuse", FE, 290, 3.4, 36, 15, "portion", 150, 0, 0, ""],
+  ["Farine de blé T55", FE, 350, 10, 73, 1.2, "", 0, 1.1, 1000, ""],
+  ["Tortilla de blé", FE, 305, 8, 50, 8, "tortilla", 60, 5, 360, ""],
+  ["Wrap complet", FE, 290, 9, 46, 7, "wrap", 60, 5.5, 370, ""],
+  ["Galette de riz soufflé", FE, 387, 8, 81, 2.8, "galette", 9, 10, 130, ""],
+  ["Galettes de maïs soufflé", FE, 380, 8, 80, 3, "galette", 8, 12, 120, ""],
+  ["Châtaignes cuites", FE, 180, 2.5, 37, 1.5, "", 0, 14, 0, ""],
 
-/* Exercices : [nom, groupe] */
+  // ---------- Pains & viennoiseries
+  ["Baguette", PA, 270, 9, 56, 1.2, "baguette", 250, 4.4, 250, ""],
+  ["Baguette tradition", PA, 280, 9.5, 57, 1.5, "baguette", 250, 5.6, 250, ""],
+  ["Pain complet", PA, 240, 9, 43, 3, "tranche", 35, 5, 500, ""],
+  ["Pain aux céréales", PA, 265, 10, 44, 5, "tranche", 35, 6, 500, ""],
+  ["Pain de campagne", PA, 250, 8.5, 50, 1.5, "tranche", 40, 4.8, 500, ""],
+  ["Pain de seigle", PA, 230, 7, 45, 1.5, "tranche", 35, 6, 500, ""],
+  ["Pain de mie", PA, 265, 8, 49, 4, "tranche", 25, 3.2, 500, ""],
+  ["Pain de mie complet", PA, 250, 9, 43, 4, "tranche", 25, 3.8, 500, ""],
+  ["American Sandwich nature", PA, 270, 8.5, 49, 4, "tranche", 27, 4.8, 550, "Harrys"],
+  ["100 % mie complet", PA, 250, 9, 43, 4.5, "tranche", 25, 5.5, 500, "Harrys"],
+  ["Pain burger (bun)", PA, 280, 9, 49, 5, "pain", 75, 4.5, 300, ""],
+  ["Pain burger brioché", PA, 300, 9, 50, 6.5, "pain", 75, 6, 300, "Harrys"],
+  ["Pain pita", PA, 275, 9, 55, 1.2, "pita", 60, 6, 360, ""],
+  ["Pain suédois croustillant", PA, 340, 10, 62, 2, "tranche", 11, 7, 275, "Wasa"],
+  ["Biscottes", PA, 410, 11, 73, 7, "biscotte", 8, 5.5, 300, "Heudebert"],
+  ["Croissant", PA, 420, 8, 46, 22, "croissant", 60, 12, 0, ""],
+  ["Pain au chocolat", PA, 420, 7, 47, 22, "pain au chocolat", 70, 12, 0, ""],
+  ["Pain aux raisins", PA, 330, 6, 46, 13, "pièce", 100, 12, 0, ""],
+  ["Chausson aux pommes", PA, 320, 4, 40, 16, "chausson", 100, 12, 0, ""],
+  ["Brioche tranchée", PA, 360, 8, 52, 13, "tranche", 30, 5.5, 500, "Pasquier"],
+  ["Pains au lait", PA, 350, 9, 53, 11, "pain au lait", 35, 6, 350, "Pasquier"],
+  ["Crêpe nature", PA, 210, 6, 30, 7, "crêpe", 50, 7, 0, ""],
+  ["Pancake", PA, 230, 6, 35, 7, "pancake", 40, 8, 0, ""],
+  ["Pain d'épices", PA, 320, 4, 73, 1.5, "tranche", 30, 6, 350, ""],
+
+  // ---------- Céréales petit-déjeuner
+  ["Flocons d'avoine", CE, 370, 13.5, 59, 7, "bol", 60, 1.9, 1000, ""],
+  ["Flocons d'avoine", CE, 370, 13.5, 59, 7, "bol", 60, 4.5, 500, "Quaker"],
+  ["Crème de riz", CE, 360, 7, 80, 1, "portion", 50, 10, 1000, ""],
+  ["Muesli floconneux", CE, 360, 10, 62, 6, "bol", 50, 5, 750, ""],
+  ["Muesli croustillant", CE, 440, 8, 63, 16, "bol", 50, 6, 500, ""],
+  ["Granola chocolat", CE, 470, 9, 60, 20, "bol", 45, 9, 400, ""],
+  ["Corn Flakes", CE, 378, 7, 84, 0.9, "bol", 40, 6, 500, "Kellogg's"],
+  ["Special K nature", CE, 375, 9, 79, 1.5, "bol", 40, 8, 450, "Kellogg's"],
+  ["Miel Pops", CE, 377, 7, 84, 1.4, "bol", 40, 8, 400, "Kellogg's"],
+  ["Coco Pops", CE, 387, 5, 84, 2.5, "bol", 40, 8, 400, "Kellogg's"],
+  ["Trésor chocolat noisettes", CE, 450, 7.5, 66, 17, "bol", 40, 8.5, 410, "Kellogg's"],
+  ["Chocapic", CE, 384, 8.6, 73, 5.4, "bol", 40, 7.5, 430, "Nestlé"],
+  ["Golden Grahams", CE, 390, 6.8, 79, 4.5, "bol", 40, 8, 375, "Nestlé"],
+  ["Fitness nature", CE, 375, 8, 77, 2, "bol", 40, 7.5, 375, "Nestlé"],
+  ["Lion", CE, 410, 6.5, 74, 9, "bol", 40, 8, 400, "Nestlé"],
+  ["Weetabix", CE, 362, 12, 69, 2, "biscuit", 19, 7, 430, "Weetabix"],
+  ["Céréales chocolatées", CE, 390, 8, 76, 5, "bol", 40, 4, 500, ""],
+
+  // ---------- Volaille
+  ["Filet de poulet cru", VO, 110, 23, 0, 1.5, "filet", 150, 11.5, 1000, ""],
+  ["Filet de poulet cuit", VO, 151, 31, 0, 2.6, "filet", 115, 15, 0, "", ["Filet de poulet cru", 1.33]],
+  ["Aiguillettes de poulet crues", VO, 110, 23, 0, 1.5, "", 0, 13, 400, ""],
+  ["Haut de cuisse de poulet cru", VO, 170, 18, 0, 11, "pièce", 120, 7.5, 1000, ""],
+  ["Cuisse de poulet rôtie", VO, 210, 26, 0, 11.5, "cuisse", 150, 0, 0, "", ["Haut de cuisse de poulet cru", 1.3]],
+  ["Poulet rôti avec peau", VO, 215, 27, 0, 12, "portion", 150, 9, 0, ""],
+  ["Escalope de dinde crue", VO, 105, 23, 0, 1.2, "escalope", 120, 12, 600, ""],
+  ["Escalope de dinde cuite", VO, 135, 29, 0, 1.7, "escalope", 95, 0, 0, "", ["Escalope de dinde crue", 1.3]],
+  ["Émincés de poulet rôti", VO, 140, 25, 1, 4, "barquette", 200, 20, 200, "Le Gaulois"],
+  ["Filet de poulet rôti tranché", VO, 120, 24, 1, 2, "tranche", 30, 22, 150, "Le Gaulois"],
+  ["Nuggets de poulet", VO, 250, 14, 18, 13, "nugget", 20, 9, 400, ""],
+  ["Cordon bleu de dinde", VO, 240, 14, 15, 14, "cordon bleu", 100, 9, 400, "Père Dodu"],
+  ["Filet de dinde pané", VO, 220, 16, 14, 11, "pané", 100, 10, 400, "Père Dodu"],
+  ["Magret de canard cuit", VO, 250, 24, 0, 17, "", 0, 22, 0, ""],
+  ["Foie de volaille", VO, 120, 18, 0.5, 5, "", 0, 6, 500, ""],
+  ["Saucisse de volaille", VO, 220, 14, 2, 17, "saucisse", 60, 10, 400, ""],
+  ["Knacki 100 % volaille", VO, 230, 13, 3, 19, "saucisse", 35, 9, 350, "Herta"],
+
+  // ---------- Viandes
+  ["Steak haché 5 % cru", VI, 125, 21, 0, 5, "steak", 100, 13, 1000, ""],
+  ["Steak haché 5 % cuit", VI, 160, 27, 0, 5.5, "steak", 80, 0, 0, "", ["Steak haché 5 % cru", 1.25]],
+  ["Steak haché 15 % cru", VI, 215, 18, 0, 15, "steak", 100, 10.5, 1000, ""],
+  ["Steak haché 15 % cuit", VI, 230, 25, 0, 14, "steak", 80, 0, 0, "", ["Steak haché 15 % cru", 1.25]],
+  ["Le Haché 5 %", VI, 125, 21, 0, 5, "steak", 100, 16, 200, "Charal"],
+  ["Le Haché 15 %", VI, 215, 18, 0, 15, "steak", 100, 14, 200, "Charal"],
+  ["Bœuf haché 5 % (vrac)", VI, 125, 21, 0, 5, "", 0, 13, 500, ""],
+  ["Steak de bœuf cru (rumsteck)", VI, 130, 22, 0, 4.5, "steak", 150, 22, 300, ""],
+  ["Steak de bœuf cuit", VI, 180, 29, 0, 7, "steak", 115, 0, 0, "", ["Steak de bœuf cru (rumsteck)", 1.3]],
+  ["Entrecôte crue", VI, 200, 20, 0, 13, "pièce", 250, 30, 0, ""],
+  ["Bœuf à bourguignon cru", VI, 150, 21, 0, 7, "", 0, 16, 1000, ""],
+  ["Rôti de bœuf cuit", VI, 170, 28, 0, 6, "tranche", 50, 28, 0, ""],
+  ["Escalope de veau crue", VI, 110, 22, 0, 2, "escalope", 120, 30, 0, ""],
+  ["Gigot d'agneau cuit", VI, 230, 26, 0, 14, "tranche", 80, 25, 0, ""],
+  ["Côtelette d'agneau crue", VI, 230, 17, 0, 18, "côtelette", 60, 28, 0, ""],
+  ["Lapin cru", VI, 135, 21, 0, 5.5, "", 0, 14, 0, ""],
+
+  // ---------- Poissons & fruits de mer
+  ["Thon au naturel (égoutté)", PO, 110, 25, 0, 1, "boîte", 104, 18, 104, ""],
+  ["Thon à l'huile (égoutté)", PO, 190, 26, 0, 9, "boîte", 104, 18, 104, ""],
+  ["Thon entier au naturel", PO, 110, 26, 0, 0.8, "boîte", 112, 26, 112, "Petit Navire"],
+  ["Miettes de thon à la tomate", PO, 130, 16, 3, 6, "boîte", 160, 14, 160, "Saupiquet"],
+  ["Saumon frais cru", PO, 200, 20, 0, 13, "pavé", 125, 26, 250, ""],
+  ["Saumon cuit", PO, 206, 22, 0, 13, "pavé", 110, 0, 0, "", ["Saumon frais cru", 1.15]],
+  ["Saumon fumé", PO, 180, 22, 0, 10, "tranche", 25, 35, 150, ""],
+  ["Cabillaud cru", PO, 80, 18, 0, 0.7, "filet", 125, 18, 400, ""],
+  ["Cabillaud cuit", PO, 105, 23, 0, 1, "filet", 100, 0, 0, "", ["Cabillaud cru", 1.25]],
+  ["Colin d'Alaska surgelé", PO, 75, 17, 0, 0.8, "filet", 100, 10, 1000, ""],
+  ["Panés de colin", PO, 200, 12, 17, 9, "pané", 100, 9, 400, ""],
+  ["Bâtonnets de poisson pané", PO, 200, 12, 18, 9, "bâtonnet", 25, 9, 450, "Findus"],
+  ["Truite crue", PO, 140, 20, 0, 6.5, "filet", 125, 20, 0, ""],
+  ["Truite fumée", PO, 150, 23, 0, 6, "tranche", 20, 40, 120, ""],
+  ["Crevettes cuites décortiquées", PO, 99, 22, 0, 1, "", 0, 25, 200, ""],
+  ["Crevettes crues surgelées", PO, 80, 18, 0, 1, "", 0, 18, 500, ""],
+  ["Sardines à l'huile (égouttées)", PO, 210, 24, 0, 12.5, "boîte", 85, 15, 85, ""],
+  ["Maquereau à la tomate", PO, 190, 14, 3, 13, "boîte", 125, 11, 125, ""],
+  ["Surimi", PO, 100, 8, 14, 1, "bâtonnet", 17, 9, 250, ""],
+  ["Moules cuites", PO, 120, 18, 4, 3, "", 0, 7, 1000, ""],
+  ["Calamars à la romaine", PO, 230, 11, 18, 12, "", 0, 13, 400, ""],
+
+  // ---------- Charcuterie (volaille et bœuf)
+  ["Jambon de dinde", CH, 105, 19, 1.5, 2.5, "tranche", 30, 14, 120, ""],
+  ["Jambon de poulet", CH, 100, 20, 1.5, 1.5, "tranche", 30, 15, 120, ""],
+  ["Blanc de poulet", CH, 100, 21, 1, 1.5, "tranche", 30, 18, 120, "Fleury Michon"],
+  ["Blanc de dinde", CH, 100, 21, 1, 1.5, "tranche", 30, 18, 120, "Herta"],
+  ["Viande des Grisons", CH, 160, 33, 0.5, 3, "tranche", 8, 50, 80, ""],
+  ["Bresaola", CH, 150, 32, 0.5, 2.5, "tranche", 8, 45, 80, ""],
+  ["Pastrami de bœuf", CH, 140, 24, 1, 4, "tranche", 15, 30, 100, ""],
+  ["Chorizo de bœuf", CH, 380, 22, 3, 31, "rondelle", 4, 25, 100, ""],
+  ["Lardons de volaille", CH, 160, 18, 1, 9, "", 0, 15, 150, ""],
+
+  // ---------- Œufs
+  ["Œuf entier", OE, 143, 12.6, 0.7, 9.5, "œuf", 55, 5.5, 660, ""],
+  ["Œuf dur", OE, 155, 13, 1, 11, "œuf", 50, 0, 0, "", ["Œuf entier", 1.1]],
+  ["Blanc d'œuf", OE, 48, 10.7, 0.7, 0.2, "blanc", 33, 0, 0, "", ["Œuf entier", 1.67]],
+  ["Jaune d'œuf", OE, 320, 16, 0.5, 28, "jaune", 17, 0, 0, "", ["Œuf entier", 3.2]],
+  ["Blancs d'œufs liquides", OE, 48, 10.5, 0.7, 0.2, "", 0, 7, 500, ""],
+  ["Omelette nature", OE, 160, 11, 1, 12, "omelette", 120, 0, 0, ""],
+
+  // ---------- Produits laitiers
+  ["Lait demi-écrémé", LA, 46, 3.3, 4.8, 1.6, "verre", 250, 1.05, 1000, ""],
+  ["Lait écrémé", LA, 34, 3.4, 4.9, 0.1, "verre", 250, 1, 1000, ""],
+  ["Lait entier", LA, 64, 3.2, 4.7, 3.6, "verre", 250, 1.3, 1000, ""],
+  ["Lait demi-écrémé sans lactose", LA, 46, 3.3, 4.8, 1.6, "verre", 250, 1.7, 1000, "Lactel"],
+  ["Lait chocolaté", LA, 75, 3.2, 10.5, 1.8, "verre", 250, 2, 1000, ""],
+  ["Yaourt nature", LA, 60, 4, 5, 3, "pot", 125, 2.5, 500, ""],
+  ["Yaourt nature 0 %", LA, 45, 4.5, 6, 0.1, "pot", 125, 2.6, 500, ""],
+  ["Yaourt aux fruits", LA, 95, 3.5, 14, 2.5, "pot", 125, 2.8, 500, ""],
+  ["Yaourt brassé vanille", LA, 100, 3.8, 14, 3, "pot", 125, 3, 500, ""],
+  ["Yaourt grec nature", LA, 130, 6, 4, 10, "pot", 150, 4, 500, ""],
+  ["Yaourt grec 0 %", LA, 54, 10.3, 3, 0, "pot", 150, 8, 500, "Fage"],
+  ["Skyr nature", LA, 63, 11, 4, 0.2, "pot", 150, 4.8, 450, ""],
+  ["Skyr nature", LA, 62, 10, 4, 0.2, "pot", 150, 7.5, 450, "Siggi's"],
+  ["Skyr vanille", LA, 80, 9.5, 9.5, 0.2, "pot", 150, 5, 450, ""],
+  ["HiPRO nature", LA, 51, 10, 3.5, 0.2, "pot", 160, 8, 640, "HiPRO"],
+  ["HiPRO vanille", LA, 57, 9.4, 4.8, 0.2, "pot", 160, 8, 640, "HiPRO"],
+  ["HiPRO boisson protéinée", LA, 60, 8.3, 5.7, 0.4, "bouteille", 300, 9, 300, "HiPRO"],
+  ["Fromage blanc 0 %", LA, 47, 7.5, 4, 0.1, "", 0, 2.6, 1000, ""],
+  ["Fromage blanc 3 %", LA, 75, 7, 4, 3.2, "", 0, 2.8, 1000, ""],
+  ["Faisselle", LA, 70, 6, 4, 3, "faisselle", 100, 4, 400, ""],
+  ["Petit-suisse nature", LA, 110, 9, 3.5, 7, "petit-suisse", 60, 4.5, 360, ""],
+  ["Danette chocolat", LA, 128, 3.1, 19.6, 3.9, "pot", 125, 4, 500, "Danone"],
+  ["Crème dessert vanille", LA, 115, 3, 18, 3, "pot", 125, 3, 500, ""],
+  ["Riz au lait", LA, 125, 3.2, 20, 3.5, "pot", 100, 6, 400, "La Laitière"],
+  ["Kéfir de lait", LA, 52, 3.3, 4, 2.5, "verre", 250, 3.5, 1000, ""],
+  ["Crème fraîche épaisse 30 %", LA, 292, 2.4, 3, 30, "c. à soupe", 15, 4.5, 200, ""],
+  ["Crème fraîche légère 15 %", LA, 160, 2.8, 4, 15, "c. à soupe", 15, 4, 200, ""],
+  ["Crème liquide 30 %", LA, 290, 2.2, 3, 30, "c. à soupe", 15, 4.5, 200, ""],
+
+  // ---------- Fromages
+  ["Emmental", FR, 380, 28, 0, 30, "portion", 30, 9, 250, ""],
+  ["Emmental râpé", FR, 380, 28, 0, 30, "poignée", 20, 10, 200, ""],
+  ["Comté", FR, 410, 27, 0, 33, "portion", 30, 18, 250, ""],
+  ["Camembert", FR, 280, 20, 0.5, 22, "portion", 30, 9, 250, "Président"],
+  ["Brie", FR, 330, 20, 0.5, 28, "portion", 30, 10, 0, ""],
+  ["Mozzarella", FR, 250, 18, 1, 19, "boule", 125, 9, 125, ""],
+  ["Mozzarella light", FR, 165, 19, 1, 9, "boule", 125, 10, 125, ""],
+  ["Feta", FR, 265, 14, 1, 22, "portion", 30, 12, 200, ""],
+  ["Chèvre bûche", FR, 290, 20, 1, 23, "rondelle", 20, 14, 0, ""],
+  ["Parmesan", FR, 400, 35, 0, 29, "c. à soupe", 5, 25, 0, ""],
+  ["Raclette", FR, 350, 23, 0, 29, "tranche", 30, 14, 0, ""],
+  ["Cheddar", FR, 400, 25, 0, 33, "tranche", 20, 12, 0, ""],
+  ["Gouda", FR, 360, 25, 0, 28, "tranche", 20, 10, 0, ""],
+  ["Ricotta", FR, 150, 9, 3.5, 11, "", 0, 9, 250, ""],
+  ["Babybel", FR, 304, 22, 0, 24, "mini", 20, 17, 0, "Babybel"],
+  ["La Vache qui rit", FR, 240, 9, 7, 18, "portion", 17, 11, 0, "La Vache qui rit"],
+  ["Boursin ail et fines herbes", FR, 401, 7, 3, 40, "portion", 20, 20, 150, "Boursin"],
+  ["Fromage à tartiner léger", FR, 160, 9, 5, 11, "portion", 20, 10, 0, ""],
+
+  // ---------- Fruits
+  ["Banane", FU, 90, 1.1, 20, 0.3, "banane", 120, 2.2, 1000, ""],
+  ["Pomme", FU, 53, 0.3, 11.6, 0.2, "pomme", 150, 2.5, 1000, ""],
+  ["Poire", FU, 55, 0.4, 12, 0.1, "poire", 150, 3, 1000, ""],
+  ["Orange", FU, 47, 0.9, 9, 0.2, "orange", 150, 2.5, 1000, ""],
+  ["Clémentine", FU, 47, 0.8, 10, 0.2, "clémentine", 60, 3, 1000, ""],
+  ["Kiwi", FU, 61, 1.1, 11, 0.5, "kiwi", 75, 5, 1000, ""],
+  ["Fraises", FU, 33, 0.7, 6, 0.3, "barquette", 250, 8, 250, ""],
+  ["Framboises", FU, 43, 1.2, 5, 0.3, "barquette", 125, 24, 125, ""],
+  ["Myrtilles", FU, 57, 0.7, 12, 0.3, "barquette", 125, 18, 125, ""],
+  ["Raisin", FU, 70, 0.6, 16, 0.2, "grappe", 125, 4.5, 500, ""],
+  ["Mangue", FU, 60, 0.8, 14, 0.4, "mangue", 300, 5, 0, ""],
+  ["Ananas", FU, 50, 0.5, 11, 0.1, "tranche", 80, 3, 0, ""],
+  ["Melon", FU, 34, 0.8, 7.5, 0.2, "tranche", 150, 3, 0, ""],
+  ["Pastèque", FU, 30, 0.6, 7, 0.2, "tranche", 250, 1.5, 0, ""],
+  ["Pêche", FU, 40, 0.9, 9, 0.2, "pêche", 150, 4, 1000, ""],
+  ["Abricot", FU, 48, 1, 10, 0.2, "abricot", 45, 5, 1000, ""],
+  ["Cerises", FU, 63, 1, 14, 0.3, "", 0, 10, 500, ""],
+  ["Prune", FU, 46, 0.7, 11, 0.3, "prune", 40, 4, 1000, ""],
+  ["Citron", FU, 29, 1, 3, 0.3, "citron", 100, 4, 1000, ""],
+  ["Avocat", FU, 160, 2, 2, 15, "avocat", 140, 7, 0, ""],
+  ["Compote de pommes sans sucres ajoutés", FU, 50, 0.3, 11, 0.2, "gourde", 90, 3.8, 360, ""],
+  ["Compote pomme nature", FU, 74, 0.3, 17, 0.2, "gourde", 90, 5.5, 360, "Materne"],
+  ["Salade de fruits", FU, 55, 0.5, 13, 0.1, "bol", 150, 6, 0, ""],
+
+  // ---------- Fruits secs & oléagineux
+  ["Dattes", FS, 282, 2.5, 66, 0.4, "datte", 8, 9, 500, ""],
+  ["Raisins secs", FS, 300, 3, 70, 0.5, "poignée", 30, 8, 250, ""],
+  ["Abricots secs", FS, 240, 3.5, 53, 0.5, "abricot", 8, 12, 250, ""],
+  ["Pruneaux", FS, 240, 2.2, 58, 0.4, "pruneau", 10, 10, 250, ""],
+  ["Figues sèches", FS, 250, 3.3, 58, 1, "figue", 20, 12, 250, ""],
+  ["Cranberries séchées", FS, 320, 0.1, 78, 1.4, "poignée", 30, 15, 150, ""],
+  ["Amandes", FS, 600, 21, 8, 52, "poignée", 30, 16, 200, ""],
+  ["Noix de cajou", FS, 575, 18, 27, 44, "poignée", 30, 18, 200, ""],
+  ["Noix", FS, 680, 15, 7, 65, "poignée", 30, 18, 200, ""],
+  ["Noisettes", FS, 650, 15, 7, 62, "poignée", 30, 18, 200, ""],
+  ["Cacahuètes grillées", FS, 600, 26, 12, 49, "poignée", 30, 8, 200, ""],
+  ["Pistaches grillées", FS, 590, 20, 16, 49, "poignée", 30, 22, 250, ""],
+  ["Mélange de noix", FS, 600, 18, 15, 52, "poignée", 30, 18, 200, ""],
+  ["Beurre de cacahuète", FS, 600, 25, 14, 50, "c. à soupe", 16, 8.5, 350, ""],
+  ["Beurre de cacahuète", FS, 600, 25, 13, 50, "c. à soupe", 16, 11, 350, "Calvé"],
+  ["Purée d'amandes", FS, 620, 24, 6, 55, "c. à soupe", 15, 25, 250, ""],
+  ["Graines de chia", FS, 490, 17, 8, 31, "c. à soupe", 12, 15, 250, ""],
+  ["Graines de courge", FS, 560, 30, 8, 46, "c. à soupe", 10, 20, 200, ""],
+  ["Graines de lin", FS, 530, 18, 2, 42, "c. à soupe", 10, 8, 250, ""],
+  ["Noix de coco râpée", FS, 660, 6.5, 7, 64, "c. à soupe", 8, 10, 200, ""],
+
+  // ---------- Légumes
+  ["Brocoli", LE, 34, 2.8, 4, 0.4, "", 0, 3.5, 500, ""],
+  ["Brocoli surgelé", LE, 28, 2.5, 3, 0.3, "", 0, 2.8, 1000, ""],
+  ["Haricots verts", LE, 31, 1.8, 4.6, 0.2, "", 0, 5, 500, ""],
+  ["Haricots verts surgelés", LE, 25, 1.8, 3.6, 0.2, "", 0, 2.4, 1000, ""],
+  ["Haricots verts en conserve", LE, 22, 1.4, 3, 0.1, "boîte", 440, 3, 440, ""],
+  ["Carotte", LE, 36, 0.8, 7, 0.3, "carotte", 80, 1.5, 1000, ""],
+  ["Carottes râpées", LE, 40, 0.8, 7, 0.5, "portion", 100, 5, 0, ""],
+  ["Tomate", LE, 18, 0.9, 3, 0.2, "tomate", 120, 3, 1000, ""],
+  ["Tomates cerises", LE, 20, 1, 3, 0.2, "barquette", 250, 6, 250, ""],
+  ["Concombre", LE, 15, 0.7, 2.6, 0.1, "concombre", 300, 2.5, 0, ""],
+  ["Salade verte", LE, 15, 1.3, 1.5, 0.2, "bol", 50, 6, 250, ""],
+  ["Épinards surgelés", LE, 25, 3, 1, 0.5, "", 0, 3, 1000, ""],
+  ["Courgette", LE, 18, 1.2, 2.4, 0.3, "courgette", 250, 2.8, 1000, ""],
+  ["Poivron", LE, 27, 1, 5, 0.3, "poivron", 150, 4.5, 0, ""],
+  ["Oignon", LE, 40, 1.1, 9, 0.1, "oignon", 100, 2, 1000, ""],
+  ["Ail", LE, 135, 6, 26, 0.5, "gousse", 5, 10, 0, ""],
+  ["Champignons de Paris", LE, 22, 3, 0.5, 0.3, "", 0, 5, 250, ""],
+  ["Aubergine", LE, 20, 1, 3, 0.2, "aubergine", 300, 3.5, 0, ""],
+  ["Chou-fleur", LE, 25, 2, 3, 0.3, "", 0, 3, 0, ""],
+  ["Poireau", LE, 27, 1.5, 4.5, 0.3, "poireau", 150, 3, 1000, ""],
+  ["Betterave cuite", LE, 40, 1.6, 7, 0.1, "", 0, 4, 500, ""],
+  ["Asperges", LE, 20, 2.2, 2, 0.2, "", 0, 8, 0, ""],
+  ["Radis", LE, 15, 1, 2, 0.1, "", 0, 5, 0, ""],
+  ["Petits pois surgelés", LE, 70, 5, 9, 0.5, "", 0, 3.5, 1000, ""],
+  ["Maïs doux en conserve", LE, 98, 3, 18, 1.5, "boîte", 285, 5, 285, ""],
+  ["Maïs doux", LE, 98, 3, 18, 1.5, "boîte", 285, 7, 285, "Bonduelle"],
+  ["Poêlée de légumes surgelés", LE, 50, 2, 6, 2, "portion", 200, 3.5, 1000, ""],
+  ["Ratatouille", LE, 55, 1.2, 6, 3, "portion", 200, 4, 375, ""],
+  ["Soupe de légumes", LE, 35, 1, 5, 1, "bol", 300, 2.5, 1000, ""],
+
+  // ---------- Légumineuses & soja
+  ["Lentilles vertes sèches", LG, 336, 24, 48, 1.5, "", 0, 4, 500, ""],
+  ["Lentilles cuites", LG, 116, 9, 17, 0.4, "", 0, 0, 0, "", ["Lentilles vertes sèches", 0.4]],
+  ["Lentilles corail sèches", LG, 340, 24, 52, 1.5, "", 0, 5, 500, ""],
+  ["Pois chiches en conserve (égouttés)", LG, 130, 7, 17, 2.6, "boîte", 265, 4, 265, ""],
+  ["Pois chiches secs", LG, 360, 20, 48, 6, "", 0, 4, 500, ""],
+  ["Haricots rouges en conserve (égouttés)", LG, 110, 8, 15, 0.5, "boîte", 250, 4, 250, ""],
+  ["Haricots blancs à la tomate", LG, 80, 4.7, 12.5, 0.2, "boîte", 415, 6, 415, "Heinz"],
+  ["Flageolets en conserve", LG, 95, 6.5, 13, 0.6, "boîte", 265, 4.5, 265, ""],
+  ["Edamame surgelés", LG, 120, 11, 7, 5, "", 0, 9, 400, ""],
+  ["Tofu nature", LG, 125, 13, 1.5, 7.5, "bloc", 200, 9, 200, ""],
+  ["Tofu fumé", LG, 150, 16, 1.5, 9, "bloc", 200, 11, 200, ""],
+  ["Protéines de soja texturées", LG, 340, 50, 20, 1.5, "", 0, 12, 250, ""],
+
+  // ---------- Matières grasses
+  ["Huile d'olive", MG, 900, 0, 0, 100, "c. à soupe", 10, 9, 1000, ""],
+  ["Huile de tournesol", MG, 900, 0, 0, 100, "c. à soupe", 10, 2.8, 1000, ""],
+  ["Huile de colza", MG, 900, 0, 0, 100, "c. à soupe", 10, 3, 1000, ""],
+  ["Huile de coco", MG, 900, 0, 0, 100, "c. à soupe", 10, 15, 0, ""],
+  ["Beurre doux", MG, 745, 0.7, 0.6, 82, "noisette", 10, 11, 250, ""],
+  ["Beurre demi-sel", MG, 740, 0.7, 0.6, 81, "noisette", 10, 12, 250, "Président"],
+  ["Margarine", MG, 540, 0.2, 0.5, 60, "noisette", 10, 7, 500, "Fruit d'Or"],
+
+  // ---------- Sauces & condiments
+  ["Ketchup", SA, 102, 1.2, 23, 0.1, "c. à soupe", 15, 6, 460, "Heinz"],
+  ["Mayonnaise", SA, 715, 1, 1.5, 78, "c. à soupe", 15, 9, 235, "Bénédicta"],
+  ["Mayonnaise allégée", SA, 300, 1, 8, 29, "c. à soupe", 15, 8, 235, ""],
+  ["Moutarde de Dijon", SA, 150, 7, 3.5, 11, "c. à café", 5, 6, 370, "Amora"],
+  ["Coulis de tomate", SA, 35, 1.5, 5.5, 0.3, "portion", 100, 3, 500, ""],
+  ["Sauce bolognaise", SA, 90, 4, 7, 4.5, "portion", 100, 7, 400, "Panzani"],
+  ["Sauce tomate basilic", SA, 60, 1.5, 8, 2.5, "portion", 100, 6, 400, "Barilla"],
+  ["Pesto alla genovese", SA, 450, 5, 6, 45, "c. à soupe", 15, 20, 190, "Barilla"],
+  ["Sauce soja", SA, 60, 8, 6, 0.5, "c. à soupe", 15, 8, 250, ""],
+  ["Vinaigrette", SA, 420, 0.5, 4, 44, "c. à soupe", 15, 6, 500, ""],
+  ["Sauce barbecue", SA, 150, 1, 35, 0.5, "c. à soupe", 15, 8, 0, ""],
+  ["Sauce curry", SA, 120, 2, 10, 8, "portion", 50, 8, 0, ""],
+
+  // ---------- Sucré & desserts
+  ["Miel", SU, 320, 0.4, 80, 0, "c. à café", 7, 12, 500, ""],
+  ["Confiture", SU, 250, 0.4, 60, 0.1, "c. à soupe", 15, 6, 370, ""],
+  ["Confiture extra", SU, 240, 0.5, 58, 0.1, "c. à soupe", 15, 10, 370, "Bonne Maman"],
+  ["Sucre blanc", SU, 400, 0, 100, 0, "morceau", 5, 1.4, 1000, ""],
+  ["Sirop d'érable", SU, 260, 0, 67, 0, "c. à soupe", 15, 30, 250, ""],
+  ["Pâte à tartiner chocolat", SU, 540, 6, 57, 31, "c. à soupe", 15, 6, 400, ""],
+  ["Nutella", SU, 539, 6.3, 57.5, 30.9, "c. à soupe", 15, 10, 400, "Ferrero"],
+  ["Chocolat noir 70 %", SU, 580, 8, 33, 42, "carré", 5, 16, 100, ""],
+  ["Excellence 85 % cacao", SU, 584, 12.5, 19, 46, "carré", 10, 30, 100, "Lindt"],
+  ["Chocolat au lait", SU, 545, 7, 57, 31, "carré", 5, 14, 100, "Milka"],
+  ["Kinder Bueno", SU, 572, 8.6, 49.5, 37.3, "barre", 21.5, 24, 43, "Ferrero"],
+  ["Kinder Chocolat", SU, 566, 8.7, 53.5, 35, "barre", 12.5, 24, 100, "Ferrero"],
+  ["Snickers", SU, 488, 8.6, 60, 23.5, "barre", 50, 14, 50, "Mars"],
+  ["Mars", SU, 449, 4, 70, 17, "barre", 51, 14, 51, "Mars"],
+  ["Twix", SU, 495, 4.4, 64.7, 23.7, "biscuit", 25, 14, 50, "Mars"],
+  ["KitKat", SU, 518, 6.4, 61, 27, "barre", 41.5, 14, 41.5, "Nestlé"],
+  ["M&M's cacahuète", SU, 515, 9.5, 57, 27, "sachet", 45, 18, 45, "Mars"],
+  ["Glace vanille", SU, 200, 3.5, 24, 10, "boule", 50, 7, 0, ""],
+  ["Brownie", SU, 440, 6, 50, 24, "part", 50, 15, 0, ""],
+  ["Bonbons gélifiés", SU, 340, 6, 77, 0.5, "poignée", 30, 10, 0, ""],
+
+  // ---------- Biscuits & snacks
+  ["Petit Beurre", BI, 440, 7, 74, 12, "biscuit", 8.3, 5, 200, "LU"],
+  ["Prince chocolat", BI, 467, 6.2, 69, 17.5, "biscuit", 19, 8, 300, "LU"],
+  ["Granola", BI, 499, 6.8, 61, 24.5, "biscuit", 14, 10, 200, "LU"],
+  ["BN chocolat", BI, 460, 6.5, 68, 17.5, "biscuit", 17.5, 9, 295, "BN"],
+  ["Belvita miel et pépites de chocolat", BI, 451, 8, 68, 15.5, "biscuit", 12.5, 9, 400, "Belvita"],
+  ["Speculoos", BI, 484, 4.9, 72.6, 19, "biscuit", 6.25, 9, 250, "Lotus"],
+  ["Oreo", BI, 476, 5, 69, 20, "biscuit", 11, 9, 154, "Oreo"],
+  ["Cookies aux pépites de chocolat", BI, 490, 6, 64, 23, "cookie", 12, 9, 0, ""],
+  ["Madeleine", BI, 450, 6, 52, 23, "madeleine", 25, 9, 0, "St Michel"],
+  ["Barre de céréales", BI, 400, 6, 70, 10, "barre", 25, 12, 0, ""],
+  ["Chips nature", BI, 535, 6, 51, 34, "poignée", 30, 10, 150, "Lay's"],
+  ["Pringles Original", BI, 534, 4.2, 53, 33, "poignée", 30, 15, 165, "Pringles"],
+  ["Tuc original", BI, 490, 8.5, 64, 21, "biscuit", 4, 9, 100, "Tuc"],
+  ["Pop-corn sucré", BI, 470, 4, 70, 18, "poignée", 20, 12, 0, ""],
+
+  // ---------- Boissons
+  ["Jus d'orange 100 %", BO, 45, 0.7, 10, 0.1, "verre", 200, 1.8, 1000, ""],
+  ["Jus de pomme", BO, 46, 0.1, 11, 0, "verre", 200, 1.6, 1000, ""],
+  ["Coca-Cola", BO, 42, 0, 10.6, 0, "canette", 330, 1.4, 1500, "Coca-Cola"],
+  ["Coca-Cola Zero", BO, 0.3, 0, 0, 0, "canette", 330, 1.4, 1500, "Coca-Cola"],
+  ["Ice Tea pêche", BO, 19, 0, 4.5, 0, "verre", 250, 1.4, 1500, "Lipton"],
+  ["Oasis Tropical", BO, 37, 0, 9, 0, "verre", 250, 1.6, 2000, "Oasis"],
+  ["Red Bull", BO, 46, 0, 11, 0, "canette", 250, 5.6, 250, "Red Bull"],
+  ["Monster Energy", BO, 47, 0, 12, 0, "canette", 500, 3.2, 500, "Monster"],
+  ["Smoothie fruits rouges", BO, 55, 0.6, 12, 0.2, "bouteille", 250, 6, 250, "Innocent"],
+  ["Lait d'avoine", BO, 45, 1, 6.5, 1.5, "verre", 250, 1.8, 1000, ""],
+  ["Lait d'avoine", BO, 46, 1, 6.6, 1.5, "verre", 250, 2.8, 1000, "Oatly"],
+  ["Boisson soja nature", BO, 39, 3, 2.5, 1.8, "verre", 250, 2.2, 1000, "Alpro"],
+  ["Boisson amande", BO, 22, 0.4, 2.4, 1.1, "verre", 250, 2.4, 1000, "Alpro"],
+  ["Café noir", BO, 2, 0.1, 0, 0, "tasse", 100, 0, 0, ""],
+  ["Thé", BO, 1, 0, 0.2, 0, "tasse", 200, 0, 0, ""],
+
+  // ---------- Compléments
+  ["Whey protéine", CO, 380, 78, 7, 5, "dose", 30, 28, 1000, ""],
+  ["Whey isolate", CO, 370, 88, 2, 1, "dose", 30, 40, 1000, ""],
+  ["Impact Whey Protein", CO, 400, 80, 6, 7, "dose", 25, 25, 1000, "Myprotein"],
+  ["Gold Standard 100 % Whey", CO, 380, 79, 9, 4.5, "dose", 30, 40, 908, "Optimum Nutrition"],
+  ["Caséine", CO, 360, 80, 6, 1.5, "dose", 30, 30, 1000, ""],
+  ["Protéine végétale (pois)", CO, 380, 75, 6, 6, "dose", 30, 25, 1000, ""],
+  ["Gainer", CO, 380, 20, 68, 4, "dose", 100, 10, 3000, ""],
+  ["Créatine monohydrate", CO, 0, 0, 0, 0, "dose", 5, 25, 500, ""],
+  ["Barre protéinée", CO, 360, 33, 30, 12, "barre", 55, 36, 55, ""],
+  ["Carb Killer", CO, 357, 36, 28, 12, "barre", 60, 45, 60, "Grenade"],
+
+  // ---------- Plats préparés
+  ["Pizza margherita", PL, 250, 11, 31, 9, "part", 125, 10, 400, ""],
+  ["Pizza 4 fromages", PL, 270, 12, 28, 12, "part", 100, 10, 400, "Buitoni"],
+  ["Ristorante Mozzarella", PL, 245, 10, 23, 12, "pizza", 335, 10, 335, "Dr. Oetker"],
+  ["Lasagnes bolognaise", PL, 160, 9, 13, 8, "part", 300, 6, 1000, ""],
+  ["Hachis parmentier", PL, 120, 6, 10, 6, "part", 300, 6, 1000, ""],
+  ["Gratin dauphinois", PL, 130, 3, 12, 8, "part", 200, 5, 0, ""],
+  ["Raviolis pur bœuf", PL, 90, 3.5, 13, 2.5, "portion", 400, 4, 800, "Panzani"],
+  ["Chili con carne", PL, 110, 7, 11, 4, "portion", 300, 5, 840, "William Saurin"],
+  ["Bœuf bourguignon", PL, 110, 10, 4, 6, "portion", 300, 10, 0, ""],
+  ["Tortellini ricotta épinards", PL, 260, 9, 40, 7, "portion", 125, 12, 250, "Giovanni Rana"],
+  ["Sandwich poulet crudités", PL, 220, 12, 25, 8, "sandwich", 250, 12, 250, ""],
+  ["Salade composée au poulet", PL, 130, 8, 10, 6, "barquette", 300, 12, 300, ""],
+  ["Wrap poulet", PL, 230, 11, 26, 9, "wrap", 200, 14, 200, ""],
+  ["Maki saumon", PL, 150, 5, 28, 2, "pièce", 25, 25, 0, ""],
+  ["Nigiri saumon", PL, 160, 7, 26, 3, "pièce", 30, 25, 0, ""],
+
+  // ---------- Fast-food & resto (valeurs approximatives)
+  ["Big Mac", FF, 231, 11.9, 18.8, 11.5, "burger", 218, 0, 0, "McDonald's"],
+  ["Cheeseburger", FF, 260, 13.8, 26, 10.8, "burger", 116, 0, 0, "McDonald's"],
+  ["McChicken", FF, 249, 10.2, 25, 11.3, "burger", 177, 0, 0, "McDonald's"],
+  ["Royal Cheese", FF, 259, 14.5, 18, 14, "burger", 201, 0, 0, "McDonald's"],
+  ["Chicken McNuggets", FF, 245, 15, 17, 13, "nugget", 17, 0, 0, "McDonald's"],
+  ["Frites moyennes", FF, 290, 3.4, 36, 15, "portion", 114, 0, 0, "McDonald's"],
+  ["Whopper", FF, 228, 10, 17, 13, "burger", 290, 0, 0, "Burger King"],
+  ["Burger classique", FF, 255, 13, 25, 11, "burger", 200, 0, 0, ""],
+  ["Tacos français", FF, 230, 10, 22, 11, "tacos", 350, 0, 0, ""],
+  ["Pizza (part, restaurant)", FF, 260, 11, 30, 10, "part", 130, 0, 0, ""],
+  ["Sandwich sub poulet 15 cm", FF, 170, 11, 22, 3.5, "sandwich", 220, 0, 0, "Subway"],
+  ["Poulet frit (morceau)", FF, 260, 20, 9, 16, "morceau", 100, 0, 0, ""]
+];
+})();
+
 window.NX_EXERCISES = [
   ["Développé couché","Pectoraux"],["Développé couché haltères","Pectoraux"],
   ["Développé incliné","Pectoraux"],["Développé incliné haltères","Pectoraux"],
@@ -604,7 +949,7 @@ const defaultMain = () => ({
   goals: { k: 2800, p: 140, c: 350, f: 85, water: 2500, sleep: 8 },
   settings: { glass: 250, rest: 90 },
   foods: [], recipes: [], combos: [], fav: [], recent: [], barcodes: {},
-  programs: null, exCustom: [], shopping: [], active: null
+  programs: null, exCustom: [], shopping: [], active: null, prices: {}, basket: null, weightGoal: null
 });
 const S = NX.S = { main: defaultMain(), days: {} };
 const UI = NX.UI = { tab: 'journal', date: today(), range: 30, progEx: null };
@@ -640,9 +985,10 @@ function loadLocal() {
   } catch (e) { }
   return false;
 }
-function save() { clearTimeout(saveT); saveT = setTimeout(() => { saveLocal(); renderSync(); }, 250); }
+function save() { clearTimeout(saveT); saveT = setTimeout(() => { saveT = null; saveLocal(); renderSync(); }, 250); }
 NX.save = save;
-NX.flush = () => { clearTimeout(saveT); saveLocal(); };
+// n'écrit que s'il reste une modification en attente
+NX.flush = () => { if (saveT) { clearTimeout(saveT); saveT = null; saveLocal(); } };
 window.addEventListener('pagehide', NX.flush);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') NX.flush(); });
 NX.backupDue = () => Object.keys(S.days).length >= 5 && Date.now() - (S.main.lastExport || 0) > 14 * 86400000;
@@ -666,13 +1012,34 @@ NX.allFoods = () => {
     const w = f.weight || t.g || 1;
     out.push({ id: f.id, kind: 'recipe', name: f.name, cat: 'Mes recettes', per: { k: t.k / w * 100, p: t.p / w * 100, c: t.c / w * 100, f: t.f / w * 100 }, unit: ['portion', w / Math.max(1, f.servings || 1)] });
   }
-  for (const f of S.main.foods) out.push({ id: f.id, kind: 'mine', name: f.name, brand: f.brand, cat: 'Mes aliments', per: f.per, unit: f.unit && f.unit[1] ? f.unit : null, ai: f.ai, src: f.src });
-  (window.NX_FOODS || []).forEach((r, i) => out.push({ id: 'db' + i, kind: 'db', name: r[0], cat: r[1], per: { k: r[2], p: r[3], c: r[4], f: r[5] }, unit: r[7] ? [r[6], r[7]] : null }));
+  for (const f of S.main.foods) out.push({ id: f.id, kind: 'mine', name: f.name, brand: f.brand, cat: 'Mes aliments', per: f.per, price: f.price && f.price.kg > 0 ? f.price : null, unit: f.unit && f.unit[1] ? f.unit : null, ai: f.ai, src: f.src });
+  (window.NX_FOODS || []).forEach(r => out.push({ id: 'db:' + norm(r[0] + (r[10] ? ' ' + r[10] : '')), kind: 'db', name: r[0], brand: r[10] || '', cat: r[1], per: { k: r[2], p: r[3], c: r[4], f: r[5] }, unit: r[7] ? [r[6], r[7]] : null, price: r[8] > 0 ? { kg: r[8], pack: r[9] || 0 } : null, raw: r[11] || null }));
   out.forEach(f => f._n = norm(f.name + ' ' + (f.brand || '')));
   FOOD_CACHE = out; FOOD_SIG = sig;
   return out;
 };
 NX.foodById = id => NX.allFoods().find(f => f.id === id) || null;
+let NAME_MAP = null, NAME_SIG = '';
+NX.foodByName = name => {
+  const all = NX.allFoods();
+  if (!NAME_MAP || NAME_SIG !== FOOD_SIG) {
+    NAME_MAP = {};
+    for (const f of all) {
+      const a = norm(f.name + (f.brand ? ' · ' + f.brand : ''));
+      if (!NAME_MAP[a]) NAME_MAP[a] = f;
+      if (!f.brand && !NAME_MAP[norm(f.name)]) NAME_MAP[norm(f.name)] = f;
+    }
+    NAME_SIG = FOOD_SIG;
+  }
+  return NAME_MAP[norm(name)] || null;
+};
+NX.priceOf = f => {
+  if (!f) return null;
+  const o = S.main.prices && S.main.prices[f.id];
+  if (o && o.kg > 0) return { kg: o.kg, pack: o.pack || 0 };
+  return f.price && f.price.kg > 0 ? f.price : null;
+};
+const STAPLES = new Set(["filet de poulet cru", "filet de poulet cuit", "riz blanc cuit", "riz basmati cuit", "pates cuites", "oeuf entier", "steak hache 5 % cuit", "thon au naturel (egoutte)", "flocons d'avoine", "lait demi-ecreme", "banane", "pomme", "fromage blanc 3 %", "skyr nature", "whey proteine", "beurre de cacahuete", "pomme de terre cuite", "saumon cuit", "escalope de dinde cuite", "yaourt nature", "huile d'olive", "pain complet", "baguette"]);
 NX.searchFoods = q => {
   const words = norm(q).split(/\s+/).filter(Boolean);
   if (!words.length) return [];
@@ -682,7 +1049,10 @@ NX.searchFoods = q => {
     let s = 0;
     if (f._n.startsWith(words[0])) s += 3;
     else if (new RegExp('(^|[\\s\'-])' + words[0].replace(/[.*+?^${}()|[\]\\]/g, '')).test(f._n)) s += 1;
-    if (f.cat === 'Féculents' || f.cat === 'Viandes & poissons' || f.cat === 'Œufs & laitiers') s += 0.6;
+    if (['Féculents', 'Volaille', 'Viandes', 'Poissons & fruits de mer', 'Œufs', 'Produits laitiers', 'Céréales petit-déj'].includes(f.cat)) s += 0.6;
+    if (f.kind === 'db' && !f.brand) s += 0.4;
+    if (STAPLES.has(f._n)) s += 2.5;
+    if (f.cat === 'Fast-food & resto' || f.cat === 'Plats préparés') s -= 1;
     if (f.kind !== 'db') s += 2;
     if (S.main.fav.includes(f.id)) s += 2;
     if (S.main.recent.some(r => r.fid === f.id)) s += 1;
@@ -841,8 +1211,18 @@ document.addEventListener('submit', e => e.preventDefault());
 
 /* ---------- rendu ---------- */
 const VIEWS = NX.VIEWS = {};
+function migrate() {
+  const m = S.main;
+  if (!m.prices) m.prices = {};
+  if (!m.shopping) m.shopping = [];
+  // anciens identifiants d'aliments (base renumérotée)
+  if (m.recent && m.recent.some(r => /^db\d+$/.test(r.fid))) m.recent = m.recent.filter(r => !/^db\d+$/.test(r.fid));
+  if (m.fav && m.fav.some(id => /^db\d+$/.test(id))) m.fav = m.fav.filter(id => !/^db\d+$/.test(id));
+}
+NX.topRight = () => '<div class="tb-r"><span data-sync>' + NX.syncHtml() + '</span><button class="icon-btn plain" data-a="tab" data-tab="more" aria-label="Profil et réglages">' + ico('gear') + '</button></div>';
 NX.render = () => {
-  const tabs = [['journal', 'Journal', 'journal'], ['gym', 'Muscu', 'dumbbell'], ['add'], ['progress', 'Progrès', 'chart'], ['more', 'Plus', 'more']];
+  migrate();
+  const tabs = [['journal', 'Journal', 'journal'], ['gym', 'Muscu', 'dumbbell'], ['add'], ['shop', 'Courses', 'cart'], ['progress', 'Progrès', 'chart']];
   $('#tabs').innerHTML = tabs.map(t => t[0] === 'add'
     ? '<button class="fab" data-a="fab" aria-label="Ajouter un aliment">' + ico('plus') + '</button>'
     : '<button class="tab' + (UI.tab === t[0] ? ' on' : '') + '" data-a="tab" data-tab="' + t[0] + '"' + (UI.tab === t[0] ? ' aria-current="page"' : '') + '>' + ico(t[2]) + '<span>' + t[1] + '</span></button>').join('');
@@ -910,7 +1290,7 @@ NX.VIEWS.journal = () => {
   const streak = NX.streak();
   const glassN = Math.max(1, Math.round((g.water || 2500) / (S.main.settings.glass || 250)));
   const glassOn = Math.round((day.water || 0) / (S.main.settings.glass || 250));
-  let h = '<div class="topbar"><div class="brand"><span class="brand-mark"></span>Nexafit</div><span data-sync>' + NX.syncHtml() + '</span></div>';
+  let h = '<div class="topbar"><div class="brand"><span class="brand-mark"></span>Nexafit</div>' + NX.topRight() + '</div>';
   h += '<div class="daynav"><button class="icon-btn" data-a="day" data-d="-1" aria-label="Jour précédent">' + ico('left') + '</button>'
     + '<div class="title" style="flex:1;min-width:0"><h1 class="h-view">' + esc(dayTitle(k)) + '</h1><div class="sub">' + (isToday ? esc(longDate(k)) : '<button data-a="day-today" style="color:var(--carb);font-weight:650">Revenir à aujourd\'hui</button>') + (streak > 1 ? ' · <span class="streak">' + ico('flame', 'sm') + streak + ' jours de suite</span>' : '') + '</div></div>'
     + '<button class="icon-btn" data-a="day" data-d="1" aria-label="Jour suivant">' + ico('right') + '</button></div>';
@@ -921,7 +1301,7 @@ NX.VIEWS.journal = () => {
     + '<div class="kstats">'
     + '<div class="kstat"><b style="color:' + (rest < 0 ? 'var(--warn)' : 'var(--ink)') + '">' + (rest < 0 ? '+' + fmt(-rest) : fmt(rest)) + '</b><span>' + (rest < 0 ? 'kcal au-dessus' : 'kcal restantes') + '</span></div>'
     + '<div class="kstat"><b>' + fmt(Math.max(0, g.p - t.p)) + ' g</b><span>protéines à manger</span></div>'
-    + '<div class="kstat"><b>' + fmt(Math.round(t.k / Math.max(1, g.k) * 100)) + ' %</b><span>de l\'objectif</span></div>'
+    + costStat(day, t, g)
     + '<div class="kstat"><b>' + (wk ? wk + ' séance' + (wk > 1 ? 's' : '') : '–') + '</b><span>muscu</span></div>'
     + '</div></div>' + barbell(t, g)
     + '<div class="macros">' + macroBar('Protéines', t.p, g.p, 'var(--prot)') + macroBar('Glucides', t.c, g.c, 'var(--carb)') + macroBar('Lipides', t.f, g.f, 'var(--fat)') + '</div></section>';
@@ -947,6 +1327,15 @@ NX.VIEWS.journal = () => {
   h += '<div class="row-actions">' + (yN ? '<button class="chip" data-a="copy-yesterday">' + ico('copy', 'sm') + 'Copier les repas de la veille</button>' : '') + (S.main.combos.length ? '<button class="chip" data-a="combos-quick">' + ico('star', 'sm') + 'Repas favoris</button>' : '') + '</div>';
   return h;
 };
+function costStat(day, t, g) {
+  let c = 0, any = false;
+  if (NX.costOf) for (const [mk] of MEALS) for (const e of ((day.meals && day.meals[mk]) || [])) {
+    const fd = (e.fid && NX.foodById(e.fid)) || NX.foodByName(e.name), v = fd ? NX.costOf(fd, e.g) : null;
+    if (v != null) { c += v; any = true; }
+  }
+  return any ? '<div class="kstat"><b>' + NX.euro(c) + '</b><span>coût du jour</span></div>'
+    : '<div class="kstat"><b>' + fmt(Math.round(t.k / Math.max(1, g.k) * 100)) + ' %</b><span>de l\'objectif</span></div>';
+}
 function emptyMealText(mk) {
   return { b: 'Rien encore. Flocons d\'avoine, œufs, whey : un bon début pour la masse.', l: 'Rien encore. Vise une source de protéines et un féculent.', s: 'Une collation aide à atteindre tes calories sans te forcer.', d: 'Rien encore pour ce soir.' }[mk];
 }
@@ -1098,7 +1487,8 @@ function qtyPreview() {
     + '<div class="stat"><b>' + fmt(x.k) + '</b><span>kcal</span></div>'
     + '<div class="stat" style="box-shadow:inset 0 -3px 0 var(--prot),var(--shadow)"><b>' + fmt(x.p, 1) + '</b><span>prot.</span></div>'
     + '<div class="stat" style="box-shadow:inset 0 -3px 0 var(--carb),var(--shadow)"><b>' + fmt(x.c, 1) + '</b><span>gluc.</span></div>'
-    + '<div class="stat" style="box-shadow:inset 0 -3px 0 var(--fat),var(--shadow)"><b>' + fmt(x.f, 1) + '</b><span>lip.</span></div></div>';
+    + '<div class="stat" style="box-shadow:inset 0 -3px 0 var(--fat),var(--shadow)"><b>' + fmt(x.f, 1) + '</b><span>lip.</span></div></div>'
+    + (NX.costOf && NX.costOf(QTY.food, QTY.g || 0) != null ? '<p class="note" style="margin:8px 0 0">Prix ≈ ' + NX.euro(NX.costOf(QTY.food, QTY.g || 0)) + ' pour cette quantité</p>' : '');
 }
 function renderQty() {
   const f = QTY.food, isFav = S.main.fav.includes(f.id);
@@ -1174,6 +1564,7 @@ function openFoodEditor(food, opts = {}) {
       + '<div class="grid2"><label class="field"><span>Calories (kcal)</span><input class="inp" id="fe-k" inputmode="decimal" value="' + v(FE.per.k) + '" placeholder="calcul auto"></label><label class="field"><span>Protéines (g)</span><input class="inp" id="fe-p" inputmode="decimal" value="' + v(FE.per.p) + '"></label>'
       + '<label class="field"><span>Glucides (g)</span><input class="inp" id="fe-c" inputmode="decimal" value="' + v(FE.per.c) + '"></label><label class="field"><span>Lipides (g)</span><input class="inp" id="fe-f" inputmode="decimal" value="' + v(FE.per.f) + '"></label></div>'
       + '<div class="label">Portion habituelle</div><div class="grid2"><label class="field"><span>Nom de la portion</span><input class="inp" id="fe-un" value="' + esc(FE.unit[0] || '') + '" placeholder="pot, barre, tranche…"></label><label class="field"><span>Poids (g)</span><input class="inp" id="fe-ug" inputmode="decimal" value="' + v(FE.unit[1]) + '"></label></div>'
+      + '<div class="label">Prix (facultatif)</div><div class="grid2"><label class="field"><span>Prix du paquet (€)</span><input class="inp" id="fe-pp" inputmode="decimal" value="' + (FE.price ? fmt(FE.price.kg * (FE.price.pack || 1000) / 1000, 2).replace(/\s/g, '') : '') + '"></label><label class="field"><span>Contenu du paquet (g)</span><input class="inp" id="fe-pg" inputmode="decimal" value="' + (FE.price ? (FE.price.pack || 1000) : '') + '" placeholder="1000"></label></div>'
       + '<label class="field"><span>Code-barres (facultatif)</span><input class="inp" id="fe-bc" inputmode="numeric" value="' + esc(FE.barcode || '') + '"></label>'
       + '<p class="note">Si tu laisses les calories vides, Nexafit les calcule : 4 kcal par gramme de protéines ou de glucides, 9 par gramme de lipides.</p>';
     const foot = (FE.id ? '<button class="btn danger" data-a="fe-del" aria-label="Supprimer">' + ico('trash') + '</button>' : '') + '<button class="btn" style="flex:3" data-a="fe-save">' + (opts.thenAdd ? 'Enregistrer et ajouter' : 'Enregistrer') + '</button>';
@@ -1186,7 +1577,8 @@ function openFoodEditor(food, opts = {}) {
     let k = numOrNull($('#fe-k').value); if (k == null) k = Math.round(p * 4 + c * 4 + f * 9);
     const ug = numOrNull($('#fe-ug').value), un = $('#fe-un').value.trim() || 'portion';
     const bc = $('#fe-bc').value.replace(/\D/g, '');
-    const food = { id: FE.id || ('cf' + uid()), name, brand: $('#fe-brand').value.trim(), per: { k, p, c, f }, unit: ug ? [un, ug] : null, barcode: bc || undefined, ai: FE.ai || undefined, src: FE.src || undefined };
+    const ppr = numOrNull($('#fe-pp').value), ppg = num($('#fe-pg').value) || 1000;
+    const food = { id: FE.id || ('cf' + uid()), name, brand: $('#fe-brand').value.trim(), per: { k, p, c, f }, unit: ug ? [un, ug] : null, price: ppr > 0 ? { kg: Math.round(ppr / ppg * 1000 * 100) / 100, pack: ppg } : undefined, barcode: bc || undefined, ai: FE.ai || undefined, src: FE.src || undefined };
     const i = S.main.foods.findIndex(x => x.id === food.id);
     if (i >= 0) S.main.foods[i] = food; else S.main.foods.unshift(food);
     if (bc) S.main.barcodes[bc] = food.id;
@@ -1377,29 +1769,6 @@ A.combos = () => NX.openSheet({ id: 'combos', title: 'Repas favoris', render: ()
 }) });
 A['combo-del'] = el => { S.main.combos = S.main.combos.filter(c => c.id !== el.dataset.id); NX.touchMain(); NX.refreshSheet('combos'); };
 
-/* ================= LISTE DE COURSES ================= */
-A.shopping = () => NX.openSheet({ id: 'shop', full: true, title: 'Liste de courses', render: () => {
-  const L = S.main.shopping;
-  let h = '<div style="display:flex;gap:8px"><input class="inp" id="shop-in" placeholder="Ajouter un article…" data-enter="shop-add"><button class="btn" data-a="shop-add" aria-label="Ajouter" style="width:52px;padding:0">' + ico('plus') + '</button></div>';
-  if (S.main.recipes.length) h += '<div class="sec"><div class="label">Ajouter les ingrédients d\'une recette</div><div class="chips">' + S.main.recipes.map(r => '<button class="chip" data-a="shop-recipe" data-id="' + r.id + '">' + ico('plus', 'sm') + esc(r.name) + '</button>').join('') + '</div></div>';
-  if (L.length) {
-    const todo = L.filter(i => !i.done), done = L.filter(i => i.done);
-    h += '<div class="list">' + todo.concat(done).map(i => '<button class="check' + (i.done ? ' on' : '') + '" data-a="shop-tog" data-id="' + i.id + '"><span class="box">' + ico('check', 'sm') + '</span><span class="lt"><b>' + esc(i.name) + '</b>' + (i.qty ? '<span>' + esc(i.qty) + '</span>' : '') + '</span></button>').join('') + '</div>';
-  } else h += '<div class="callout">Ta liste est vide. Ajoute des articles à la main, ou les ingrédients d\'une recette avec les quantités déjà calculées.</div>';
-  return { body: h, foot: L.some(i => i.done) ? '<button class="btn ghost block" data-a="shop-clear">Retirer les articles cochés</button>' : '' };
-}, onOpen: () => { } });
-A['shop-add'] = () => { const i = $('#shop-in'); const v = i.value.trim(); if (!v) return; S.main.shopping.unshift({ id: uid(), name: v, done: false }); NX.touchMain(); NX.refreshSheet('shop'); setTimeout(() => { const j = $('#shop-in'); j && j.focus(); }, 30); };
-A['shop-tog'] = el => { const it = S.main.shopping.find(x => x.id === el.dataset.id); if (it) { it.done = !it.done; NX.touchMain(); NX.refreshSheet('shop'); } };
-A['shop-clear'] = () => { S.main.shopping = S.main.shopping.filter(x => !x.done); NX.touchMain(); NX.refreshSheet('shop'); };
-A['shop-recipe'] = el => {
-  const r = S.main.recipes.find(x => x.id === el.dataset.id); if (!r) return;
-  for (const it of r.items) {
-    const ex = S.main.shopping.find(x => !x.done && norm(x.name) === norm(it.name) && x.g != null);
-    if (ex) { ex.g += it.g; ex.qty = fmt(ex.g) + ' g'; }
-    else S.main.shopping.push({ id: uid(), name: it.name, g: it.g, qty: fmt(it.g) + ' g', done: false });
-  }
-  NX.touchMain(); NX.refreshSheet('shop'); NX.toast('Ingrédients de « ' + r.name + ' » ajoutés');
-};
 })();
 
 /* Nexafit — muscu : programmes, séance en cours, chrono de repos, records, historique. */
@@ -1416,7 +1785,7 @@ function homeView() {
   const all = NX.allWorkouts();
   const weekStart = (() => { const d = new Date(); const dow = (d.getDay() + 6) % 7; d.setDate(d.getDate() - dow); return NX.dateKey(d); })();
   const thisWeek = all.filter(w => w.date >= weekStart).length;
-  let h = '<div class="topbar"><h1 class="h-view">Muscu</h1><span data-sync>' + NX.syncHtml() + '</span></div>';
+  let h = '<div class="topbar"><h1 class="h-view">Muscu</h1>' + NX.topRight() + '</div>';
   h += '<div class="stat-row"><div class="stat"><b>' + thisWeek + '</b><span>séance' + (thisWeek > 1 ? 's' : '') + ' cette semaine</span></div><div class="stat"><b>' + all.length + '</b><span>au total</span></div><div class="stat"><b>' + countPRs(all) + '</b><span>records battus</span></div></div>';
   h += '<button class="btn block" data-a="w-start-free">' + ico('play') + 'Démarrer une séance libre</button>';
   h += '<section class="sec"><div class="sec-head"><h2 class="h-sec">Mes programmes</h2><button class="add-btn" data-a="prog-new">' + ico('plus') + 'Nouveau</button></div>';
@@ -1687,6 +2056,313 @@ async function wakeLock(on) {
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && S.main.active) wakeLock(true); if (REST) NX.renderTimer(); });
 })();
 
+/* Nexafit — courses : ce qu'il me faut (journée type ou journal), ticket avec prix, liste de courses. */
+(function () {
+'use strict';
+const { $, esc, uid, clone, num, numOrNull, fmt, norm, addDays, today, ico, S, UI, A, IN, CH } = NX;
+
+const euro = v => (v == null || !isFinite(v)) ? '–' : Number(v).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+NX.euro = euro;
+UI.shopTab = UI.shopTab || 'need';
+
+const STARTER = [["Flocons d'avoine", 80], ["Lait demi-écrémé", 400], ["Œuf entier", 165], ["Riz basmati cru", 120], ["Pâtes crues", 120], ["Filet de poulet cru", 250], ["Thon au naturel (égoutté)", 104], ["Fromage blanc 3 %", 200], ["Banane", 240], ["Pomme", 150], ["Beurre de cacahuète", 30], ["Huile d'olive", 15], ["Poêlée de légumes surgelés", 200]];
+// ces catégories gardent leurs quantités quand on ajuste la journée type
+const FIXED = ['Fruits', 'Légumes', 'Sauces & condiments', 'Boissons', 'Sucré & desserts', 'Biscuits & snacks'];
+const LIQ = /^(lait|jus|boisson|huile|coca|ice tea|oasis|red bull|monster|smoothie|kéfir|blancs d'œufs liquides|hipro boisson)/i;
+
+const dispName = f => f.name + (f.brand ? ' · ' + f.brand : '');
+const isLiquid = f => !!f && (f.cat === 'Boissons' || LIQ.test(f.name));
+const MEASURE = ['c. à soupe', 'c. à café', 'verre', 'portion', 'bol', 'poignée', 'noisette', 'dose', 'tranche', 'part', 'morceau', 'carré', 'rondelle', 'biscuit', 'galette', 'gousse'];
+const countable = u => !!(u && u[1] && !MEASURE.includes(u[0]));
+const plural = (w, n) => (n > 1 && !/[sx]$/.test(w) && !w.includes(' ') ? w + 's' : w);
+const wLabel = (g, liq) => liq ? (g >= 1000 ? fmt(g / 1000, 2) + ' L' : fmt(Math.round(g)) + ' ml') : (g >= 1000 ? fmt(g / 1000, 2) + ' kg' : fmt(Math.round(g)) + ' g');
+
+/* ---------- prix ---------- */
+function expand(f, g, name) {
+  // une recette est décomposée en ses ingrédients
+  if (f && f.kind === 'recipe') {
+    const r = S.main.recipes.find(x => x.id === f.id);
+    if (r && r.items.length) {
+      const w = r.weight || NX.recipeTotals(r).g || 1;
+      return r.items.flatMap(it => expand(NX.foodById(it.fid) || NX.foodByName(it.name), it.g * g / w, it.name));
+    }
+  }
+  return [{ food: f, g, name: f ? dispName(f) : name }];
+}
+function baseCost(f, g) {
+  if (!f) return null;
+  const p = NX.priceOf(f);
+  if (p) return g / 1000 * p.kg;
+  if (f.raw) { const rf = NX.foodByName(f.raw[0]), rp = rf && NX.priceOf(rf); if (rp) return g * f.raw[1] / 1000 * rp.kg; }
+  return null;
+}
+NX.costOf = (f, g) => {
+  if (!f) return null;
+  let t = 0;
+  for (const x of expand(f, g, '')) { const c = baseCost(x.food, x.g); if (c == null) return null; t += c; }
+  return t;
+};
+const priceForKey = (key, f) => f ? NX.priceOf(f) : (S.main.prices[key] && S.main.prices[key].kg > 0 ? S.main.prices[key] : null);
+
+/* ---------- journée type ---------- */
+function itemFrom(f, g) { return { id: uid(), fid: f.id, name: dispName(f), g, per: clone(f.per), unit: f.unit ? clone(f.unit) : null, cat: f.cat }; }
+const foodOf = it => NX.foodById(it.fid) || null;
+const perOf = it => (foodOf(it) || it).per;
+function basket() {
+  if (!S.main.basket) {
+    // panier de départ proposé selon les objectifs ; enregistré seulement quand l'utilisateur le modifie
+    const items = STARTER.map(([n, g]) => { const f = NX.foodByName(n); return f ? itemFrom(f, g) : null; }).filter(Boolean);
+    S.main.basket = { mode: 'plan', days: 7, items, seeded: true };
+    adjust(false);
+  }
+  return S.main.basket;
+}
+function roundG(g, unit) {
+  if (unit && unit[1] >= 30) return Math.max(unit[1], Math.round(g / unit[1]) * unit[1]);
+  return Math.max(5, Math.round(g / 5) * 5);
+}
+function planTotals() {
+  const t = { k: 0, p: 0, c: 0, f: 0, cost: 0, unknown: 0 };
+  for (const it of S.main.basket.items) {
+    const m = NX.macrosOf(perOf(it), it.g); t.k += m.k; t.p += m.p; t.c += m.c; t.f += m.f;
+    const c = NX.costOf(foodOf(it), it.g); if (c == null) t.unknown++; else t.cost += c;
+  }
+  return t;
+}
+function adjust(toast) {
+  const B = S.main.basket, g = S.main.goals;
+  const rows = B.items.map(it => ({ it, per: perOf(it), cat: (foodOf(it) || it).cat }));
+  let fK = 0, fP = 0, Kp = 0, Pp = 0, Ke = 0, Pe = 0;
+  for (const r of rows) {
+    const m = NX.macrosOf(r.per, r.it.g);
+    if (FIXED.includes(r.cat) || !(r.per.k > 0)) { fK += m.k; fP += m.p; continue; }
+    r.grp = r.per.p * 4 / r.per.k >= 0.33 ? 'p' : 'e';
+    if (r.grp === 'p') { Kp += m.k; Pp += m.p; } else { Ke += m.k; Pe += m.p; }
+  }
+  const K = Math.max(0, g.k - fK), P = Math.max(0, g.p - fP);
+  let a = NaN, b = NaN;
+  const det = Kp * Pe - Ke * Pp;
+  if (Kp > 0 && Ke > 0 && Math.abs(det) > 1e-6) { a = (K * Pe - Ke * P) / det; b = (Kp * P - K * Pp) / det; }
+  if (!(a > 0) || !(b > 0)) { const s = (Kp + Ke) > 0 ? K / (Kp + Ke) : 1; a = b = s; }
+  a = NX.clamp(a, 0.25, 4); b = NX.clamp(b, 0.25, 4);
+  for (const r of rows) if (r.grp) r.it.g = roundG(r.it.g * (r.grp === 'p' ? a : b), r.it.unit || (foodOf(r.it) || {}).unit);
+  if (toast) { const t = planTotals(); NX.toast('Ajusté : ' + fmt(t.k) + ' kcal et ' + fmt(t.p) + ' g de protéines par jour'); }
+}
+
+/* ---------- d'après le journal ---------- */
+function journalData() {
+  const keys = [];
+  let k = today();
+  for (let i = 0; i < 60 && keys.length < 14; i++, k = addDays(k, -1)) { const d = S.days[k]; if (d && NX.dayTotals(d).n) keys.push(k); }
+  const map = {};
+  for (const key of keys) for (const [mk] of NX.MEALS) for (const e of (S.days[key].meals[mk] || [])) {
+    const f = (e.fid && NX.foodById(e.fid)) || NX.foodByName(e.name);
+    const id = f ? f.id : 'n:' + norm(e.name);
+    const row = map[id] || (map[id] = { id, food: f, name: f ? dispName(f) : e.name, g: 0 });
+    row.g += e.g;
+  }
+  const n = keys.length;
+  return { n, lines: Object.values(map).map(r => Object.assign(r, { g: r.g / Math.max(1, n) })) };
+}
+
+/* ---------- ce qu'il faut acheter ---------- */
+function needLines() {
+  const B = basket();
+  if (B.mode === 'plan') return B.items.map(it => ({ food: foodOf(it), g: it.g, name: it.name }));
+  return journalData().lines;
+}
+function buyList(lines, days) {
+  const map = {};
+  for (const l of lines) for (const x of expand(l.food, l.g * days, l.name)) {
+    let f = x.food, g = x.g;
+    if (f && f.raw) { const rf = NX.foodByName(f.raw[0]); if (rf) { g *= f.raw[1]; f = rf; } }
+    const id = f ? f.id : 'n:' + norm(x.name);
+    const row = map[id] || (map[id] = { id, food: f, name: f ? dispName(f) : x.name, g: 0 });
+    row.g += g;
+  }
+  return Object.values(map).filter(r => r.g > 0.5).map(r => {
+    const p = priceForKey(r.id, r.food);
+    let n = 0, cost = null, exact = null;
+    if (p) {
+      exact = r.g / 1000 * p.kg;
+      if (p.pack > 0) { n = Math.max(1, Math.ceil(r.g / p.pack - 0.05)); cost = n * p.pack / 1000 * p.kg; } else cost = exact;
+    }
+    return Object.assign(r, { p, n, cost, exact });
+  }).sort((a, b) => (b.cost || 0) - (a.cost || 0));
+}
+function qtyLabel(r) {
+  const f = r.food, liq = isLiquid(f), u = f && f.unit;
+  if (r.p && r.p.pack > 0) {
+    const per = countable(u) ? r.p.pack / u[1] : 0;
+    if (per > 0.95 && per < 1.05) return r.n + ' ' + plural(u[0], r.n);
+    if (per >= 2 && Math.abs(per - Math.round(per)) < 0.05) return r.n + ' × ' + Math.round(per) + ' ' + plural(u[0], Math.round(per));
+    return r.n + ' × ' + wLabel(r.p.pack, liq);
+  }
+  if (countable(u) && u[1] >= 30) { const c = Math.max(1, Math.ceil(r.g / u[1] - 0.05)); return c + ' ' + plural(u[0], c); }
+  return wLabel(Math.ceil(r.g / 10) * 10, liq);
+}
+
+/* ================= VUE ================= */
+NX.VIEWS.shop = () => {
+  const n = S.main.shopping.filter(x => !x.done).length;
+  let h = '<div class="topbar"><h1 class="h-view">Courses</h1>' + NX.topRight() + '</div>';
+  h += '<div class="seg"><button class="' + (UI.shopTab === 'need' ? 'on' : '') + '" data-a="shop-tab" data-t="need">Ce qu\'il me faut</button><button class="' + (UI.shopTab === 'list' ? 'on' : '') + '" data-a="shop-tab" data-t="list">Ma liste' + (n ? ' · ' + n : '') + '</button></div>';
+  return h + (UI.shopTab === 'list' ? listView() : needView());
+};
+A['shop-tab'] = el => { UI.shopTab = el.dataset.t; NX.render(); };
+
+function needView() {
+  const B = basket(), days = B.days;
+  let h = '<div class="sec"><div class="label">Calculer d\'après</div><div class="seg"><button class="' + (B.mode === 'plan' ? 'on' : '') + '" data-a="need-mode" data-m="plan">Ma journée type</button><button class="' + (B.mode === 'journal' ? 'on' : '') + '" data-a="need-mode" data-m="journal">Mon journal</button></div>'
+    + '<div class="chips">' + [[7, '1 semaine'], [14, '2 semaines'], [30, '1 mois']].map(d => '<button class="chip' + (days === d[0] ? ' on' : '') + '" data-a="need-days" data-d="' + d[0] + '">' + d[1] + '</button>').join('') + '</div></div>';
+  if (B.mode === 'plan') h += planBlock();
+  else {
+    const J = journalData();
+    h += J.n ? '<p class="note">D\'après la moyenne de tes ' + J.n + ' dernier' + (J.n > 1 ? 's' : '') + ' jour' + (J.n > 1 ? 's' : '') + ' suivi' + (J.n > 1 ? 's' : '') + ', calculée sur ' + days + ' jours.</p>'
+      : '<div class="callout"><b>Pas encore de repas dans ton journal.</b> Note ce que tu manges pendant quelques jours : Nexafit calculera tes courses d\'après ce que tu manges vraiment. En attendant, utilise ta journée type.</div>';
+  }
+  const list = buyList(needLines(), days);
+  h += receipt(list, days);
+  if (list.length) h += '<button class="btn block" data-a="need-send">' + ico('cart') + 'Envoyer dans ma liste de courses</button>';
+  return h;
+}
+function planBlock() {
+  const B = S.main.basket, g = S.main.goals, t = planTotals();
+  const bar = (lbl, v, goal, c, u) => '<div class="macro" style="--c:' + c + '"><span style="font-size:12px;color:var(--muted)">' + lbl + '</span><b class="num" style="font-size:16px;font-weight:750">' + fmt(v) + '<span style="font-size:11px;font-weight:600;color:var(--faint);font-family:var(--f-body)"> / ' + fmt(goal) + u + '</span></b><div class="bar"><i style="width:' + (goal ? Math.min(100, v / goal * 100) : 0).toFixed(1) + '%"></i></div></div>';
+  let h = '<section class="sec"><div class="sec-head"><h2 class="h-sec">Ma journée type</h2><button class="add-btn" data-a="plan-add">' + ico('plus') + 'Aliment</button></div>';
+  if (B.seeded) h += '<div class="callout"><b>Journée type proposée selon tes objectifs.</b> Change les quantités, retire ou ajoute des aliments : tout se recalcule. Les quantités sont par jour.</div>';
+  h += '<div class="summary" style="gap:12px;padding:14px"><div class="macros" style="grid-template-columns:1.45fr 1fr 1fr 1fr;gap:10px">' + bar('Kcal', t.k, g.k, 'var(--steel)', '') + bar('Prot.', t.p, g.p, 'var(--prot)', ' g') + bar('Gluc.', t.c, g.c, 'var(--carb)', ' g') + bar('Lip.', t.f, g.f, 'var(--fat)', ' g') + '</div>'
+    + '<div class="sec-head"><span class="note" style="margin:0">Coût de cette journée</span><b class="num" style="font-size:18px">' + euro(t.cost) + (t.unknown ? ' <span class="faint" style="font-size:12px;font-family:var(--f-body)">+ ' + t.unknown + ' sans prix</span>' : '') + '</b></div></div>';
+  if (B.items.length) {
+    h += '<div class="list">' + B.items.map(it => {
+      const f = foodOf(it), m = NX.macrosOf(perOf(it), it.g), c = NX.costOf(f, it.g);
+      return '<div class="li plan-row"><span class="lt"><b>' + esc(it.name) + '</b><span>' + fmt(m.k) + ' kcal · P ' + fmt(m.p) + ' g · ' + (c != null ? euro(c) : 'prix ?') + '</span></span>'
+        + '<input class="inp" inputmode="decimal" value="' + fmt(it.g).replace(/\s/g, '') + '" data-ch="plan-g" data-id="' + it.id + '" aria-label="Quantité par jour"><span class="faint u">' + (isLiquid(f) ? 'ml' : 'g') + '</span>'
+        + '<button class="icon-btn plain" data-a="plan-rm" data-id="' + it.id + '" aria-label="Retirer">' + ico('x', 'sm') + '</button></div>';
+    }).join('') + '</div>';
+  } else h += '<div class="callout">Ta journée type est vide. Ajoute les aliments que tu manges d\'habitude.</div>';
+  h += '<button class="btn ghost block" data-a="plan-adjust">' + ico('spark') + 'Ajuster les quantités à mes objectifs</button></section>';
+  return h;
+}
+function receipt(list, days) {
+  if (!list.length) return '';
+  const total = list.reduce((a, r) => a + (r.cost || 0), 0), exact = list.reduce((a, r) => a + (r.exact || 0), 0), unknown = list.filter(r => !r.p).length;
+  let h = '<section class="receipt" aria-label="Ticket de courses"><div class="rc-head"><span class="brand"><span class="brand-mark"></span>Nexafit</span><span class="label">Courses · ' + days + ' jours</span></div>';
+  h += list.map(r => {
+    const liq = isLiquid(r.food);
+    return '<button class="rc-line" data-a="price-edit" data-key="' + esc(r.id) + '" data-name="' + esc(r.name) + '"><span class="nm">' + esc(r.name) + '</span><span class="pr">' + (r.p ? euro(r.cost) : '<span class="tag">Prix ?</span>') + '</span>'
+      + '<span class="q">' + esc(qtyLabel(r)) + ' · il te faut ' + esc(wLabel(r.g, liq)) + '</span><span class="q r">' + (r.p ? euro(r.p.kg) + (liq ? '/L' : '/kg') : '') + '</span></button>';
+  }).join('');
+  h += '<div class="rc-total"><span>Total à payer</span><b>' + euro(total) + '</b></div>'
+    + '<div class="rc-sub"><span>Ce que tu manges vraiment</span><span>' + euro(exact) + '</span></div>'
+    + '<div class="rc-sub"><span>Soit par jour</span><span>' + euro(exact / days) + '</span></div>'
+    + (days !== 30 ? '<div class="rc-sub"><span>Sur un mois</span><span>≈ ' + euro(exact / days * 30) + '</span></div>' : '')
+    + (unknown ? '<p class="note">' + unknown + ' article' + (unknown > 1 ? 's' : '') + ' sans prix : touche-les pour ajouter le prix.</p>' : '')
+    + '<p class="note">Le total compte des paquets entiers : il reste un peu de stock pour la suite. Prix moyens indicatifs en supermarché ; touche une ligne pour mettre le prix de ton magasin.</p></section>';
+  return h;
+}
+
+A['need-mode'] = el => { basket().mode = el.dataset.m; NX.touchMain(); NX.render(); };
+A['need-days'] = el => { basket().days = +el.dataset.d; NX.touchMain(); NX.render(); };
+CH['plan-g'] = el => { const it = basket().items.find(x => x.id === el.dataset.id); if (!it) return; it.g = Math.max(0, num(el.value)); S.main.basket.seeded = false; NX.touchMain(); NX.render(); };
+A['plan-rm'] = el => { const B = basket(), i = B.items.findIndex(x => x.id === el.dataset.id); if (i < 0) return; const old = B.items.splice(i, 1)[0]; B.seeded = false; NX.touchMain(); NX.render(); NX.toast(old.name + ' retiré', { label: 'Annuler', fn: () => { B.items.splice(i, 0, old); NX.touchMain(); NX.render(); } }); };
+A['plan-adjust'] = () => { const B = basket(); if (!B.items.length) return NX.toast('Ajoute d\'abord des aliments'); adjust(true); B.seeded = false; NX.touchMain(); NX.render(); };
+
+let PQ = '';
+function planRes() {
+  if (!PQ.trim()) return '<p class="note">Tape le nom d\'un aliment ou d\'une marque. Tu indiqueras ensuite la quantité par jour.</p>';
+  const r = NX.searchFoods(PQ).slice(0, 30);
+  if (!r.length) return '<div class="callout">Aucun aliment trouvé. Tu peux le créer depuis le bouton + du journal.</div>';
+  return '<div class="list">' + r.map(f => { const p = NX.priceOf(f); return '<button class="li" data-a="plan-pick" data-fid="' + esc(f.id) + '"><span class="lt"><b>' + esc(f.name) + (f.brand ? ' <span class="faint" style="font-weight:500">· ' + esc(f.brand) + '</span>' : '') + '</b><span>' + fmt(f.per.k) + ' kcal · P ' + fmt(f.per.p, 1) + ' g / 100 g' + (p ? ' · ' + euro(p.kg) + (isLiquid(f) ? '/L' : '/kg') : '') + '</span></span>' + ico('plus', 'sm') + '</button>'; }).join('') + '</div>';
+}
+A['plan-add'] = () => { PQ = ''; NX.openSheet({ id: 'plan-add', full: true, title: 'Ajouter à ma journée type', render: () => ({ body: '<div class="search">' + ico('search') + '<input class="inp" type="search" placeholder="Rechercher un aliment…" data-in="plan-q" autocomplete="off"></div><div id="plan-res">' + planRes() + '</div>' }), onOpen: el => setTimeout(() => { const i = $('[data-in="plan-q"]', el); i && i.focus(); }, 300) }); };
+IN['plan-q'] = el => { PQ = el.value; const r = $('#plan-res'); if (r) r.innerHTML = planRes(); };
+A['plan-pick'] = el => {
+  const f = NX.foodById(el.dataset.fid); if (!f) return;
+  const B = basket(); B.items.push(itemFrom(f, f.unit ? f.unit[1] : 100)); B.seeded = false;
+  NX.touchMain(); NX.closeSheet('plan-add'); NX.render(); NX.toast(f.name + ' ajouté à ta journée type');
+};
+
+/* ---------- modifier un prix ---------- */
+A['price-edit'] = el => {
+  const key = el.dataset.key, name = el.dataset.name, f = key.startsWith('n:') ? null : NX.foodById(key);
+  const cur = priceForKey(key, f), base = f && f.price, liq = isLiquid(f);
+  const pack = cur && cur.pack ? cur.pack : 1000;
+  NX.openSheet({ id: 'price', title: name, render: () => ({
+    body: '<div class="grid2"><label class="field"><span>Prix du paquet (€)</span><input class="inp" id="pe-price" inputmode="decimal" value="' + (cur ? fmt(cur.kg * pack / 1000, 2).replace(/\s/g, '') : '') + '" data-enter="pe-save"></label><label class="field"><span>Contenu du paquet (' + (liq ? 'ml' : 'g') + ')</span><input class="inp" id="pe-pack" inputmode="decimal" value="' + pack + '" data-enter="pe-save"></label></div>'
+      + '<p class="note">Exemple : un paquet de riz de 1 kg à 2,20 € → 2,20 € et 1000 g. Mets le contenu à 0 si tu achètes au poids (fruits, légumes, viande à la coupe) et le prix au kilo.</p>'
+      + (base ? '<p class="note">Prix moyen proposé par Nexafit : ' + euro(base.kg) + (liq ? '/L' : '/kg') + '.</p>' : ''),
+    foot: (S.main.prices[key] ? '<button class="btn ghost" data-a="pe-reset">Prix moyen</button>' : '') + '<button class="btn" data-a="pe-save">Enregistrer</button>'
+  }), onOpen: s => setTimeout(() => { const i = $('#pe-price', s); i && i.select(); }, 300) });
+  A['pe-save'] = () => {
+    const pr = numOrNull($('#pe-price').value), pk = num($('#pe-pack').value);
+    if (!(pr > 0)) return NX.toast('Entre un prix');
+    S.main.prices[key] = pk > 0 ? { kg: Math.round(pr / pk * 1000 * 100) / 100, pack: pk } : { kg: pr, pack: 0 };
+    NX.touchMain(); NX.closeSheet('price'); NX.render(); NX.toast('Prix enregistré');
+  };
+  A['pe-reset'] = () => { delete S.main.prices[key]; NX.touchMain(); NX.closeSheet('price'); NX.render(); };
+};
+
+A['need-send'] = () => {
+  const list = buyList(needLines(), basket().days);
+  for (const r of list) {
+    const ex = S.main.shopping.find(x => !x.done && x.key === r.id);
+    const line = { name: r.name, qty: qtyLabel(r), price: r.cost != null ? Math.round(r.cost * 100) / 100 : null, key: r.id };
+    if (ex) Object.assign(ex, line); else S.main.shopping.push(Object.assign({ id: uid(), done: false }, line));
+  }
+  NX.touchMain(); UI.shopTab = 'list'; NX.render(); window.scrollTo(0, 0);
+  NX.toast(list.length + ' article' + (list.length > 1 ? 's' : '') + ' dans ta liste');
+};
+
+/* ================= MA LISTE ================= */
+function listView() {
+  const L = S.main.shopping, pr = i => (i.price == null || i.price === '') ? 0 : num(i.price);
+  const tot = L.reduce((a, i) => a + pr(i), 0), cart = L.filter(i => i.done).reduce((a, i) => a + pr(i), 0);
+  const unknown = L.filter(i => i.price == null || i.price === '').length;
+  let h = '<div class="stat-row"><div class="stat"><b>' + euro(tot) + '</b><span>total de la liste</span></div><div class="stat" style="box-shadow:inset 0 -3px 0 var(--good),var(--shadow)"><b>' + euro(cart) + '</b><span>dans le panier</span></div><div class="stat"><b>' + euro(tot - cart) + '</b><span>reste à prendre</span></div></div>';
+  h += '<div style="display:flex;gap:8px"><input class="inp" id="shop-in" placeholder="Ajouter un article…" data-enter="shop-add" style="flex:1"><input class="inp" id="shop-price" placeholder="Prix €" inputmode="decimal" data-enter="shop-add" style="width:92px"><button class="btn" data-a="shop-add" aria-label="Ajouter" style="width:52px;padding:0;flex:none">' + ico('plus') + '</button></div>';
+  if (S.main.recipes.length) h += '<div class="sec"><div class="label">Ajouter les ingrédients d\'une recette</div><div class="chips">' + S.main.recipes.map(r => '<button class="chip" data-a="shop-recipe" data-id="' + r.id + '">' + ico('plus', 'sm') + esc(r.name) + '</button>').join('') + '</div></div>';
+  if (L.length) {
+    const todo = L.filter(i => !i.done), done = L.filter(i => i.done);
+    h += '<div class="list">' + todo.concat(done).map(i => '<div class="shop-row' + (i.done ? ' on' : '') + '"><button class="check' + (i.done ? ' on' : '') + '" data-a="shop-tog" data-id="' + i.id + '"><span class="box">' + ico('check', 'sm') + '</span><span class="lt"><b>' + esc(i.name) + '</b>' + (i.qty ? '<span>' + esc(i.qty) + '</span>' : '') + '</span></button><button class="shop-pr" data-a="shop-edit" data-id="' + i.id + '">' + (i.price == null || i.price === '' ? '<span class="tag">Prix ?</span>' : euro(pr(i))) + '</button></div>').join('') + '</div>';
+    if (unknown) h += '<p class="note">' + unknown + ' article' + (unknown > 1 ? 's' : '') + ' sans prix ne compte' + (unknown > 1 ? 'nt' : '') + ' pas dans le total. Touche « Prix ? » pour l\'ajouter.</p>';
+    h += '<div class="row-actions">' + (done.length ? '<button class="chip" data-a="shop-clear">' + ico('check', 'sm') + 'Retirer les articles cochés</button>' : '') + '<button class="chip" data-a="shop-empty" style="color:var(--brand)">' + ico('trash', 'sm') + 'Vider la liste</button></div>';
+  } else h += '<div class="callout"><b>Ta liste est vide.</b> Va dans « Ce qu\'il me faut » pour la remplir automatiquement avec les quantités et les prix, ou ajoute des articles à la main.</div>';
+  return h;
+}
+A['shop-add'] = () => {
+  const i = $('#shop-in'), p = $('#shop-price'), v = i.value.trim();
+  if (!v) return;
+  const f = NX.foodByName(v), price = numOrNull(p.value);
+  S.main.shopping.unshift({ id: uid(), name: v, done: false, price: price != null ? price : null, key: f ? f.id : null });
+  NX.touchMain(); NX.render();
+  setTimeout(() => { const j = $('#shop-in'); j && j.focus(); }, 30);
+};
+A['shop-tog'] = el => { const it = S.main.shopping.find(x => x.id === el.dataset.id); if (it) { it.done = !it.done; NX.touchMain(); NX.render(); } };
+A['shop-clear'] = () => { S.main.shopping = S.main.shopping.filter(x => !x.done); NX.touchMain(); NX.render(); };
+A['shop-empty'] = () => { const old = S.main.shopping; S.main.shopping = []; NX.touchMain(); NX.render(); NX.toast('Liste vidée', { label: 'Annuler', fn: () => { S.main.shopping = old; NX.touchMain(); NX.render(); } }); };
+A['shop-edit'] = el => {
+  const it = S.main.shopping.find(x => x.id === el.dataset.id); if (!it) return;
+  NX.openSheet({ id: 'shop-item', title: 'Article', render: () => ({
+    body: '<label class="field"><span>Nom</span><input class="inp" id="si-name" value="' + esc(it.name) + '"></label><div class="grid2"><label class="field"><span>Quantité</span><input class="inp" id="si-qty" value="' + esc(it.qty || '') + '" placeholder="Ex. 2 × 1 kg"></label><label class="field"><span>Prix (€)</span><input class="inp" id="si-price" inputmode="decimal" value="' + (it.price == null || it.price === '' ? '' : fmt(num(it.price), 2).replace(/\s/g, '')) + '" data-enter="si-save"></label></div>',
+    foot: '<button class="btn danger" data-a="si-del" aria-label="Supprimer">' + ico('trash') + '</button><button class="btn" style="flex:3" data-a="si-save">Enregistrer</button>'
+  }), onOpen: s => setTimeout(() => { const i = $('#si-price', s); i && i.focus(); }, 300) });
+  A['si-save'] = () => { it.name = $('#si-name').value.trim() || it.name; it.qty = $('#si-qty').value.trim(); const p = numOrNull($('#si-price').value); it.price = p != null ? p : null; NX.touchMain(); NX.closeSheet('shop-item'); NX.render(); };
+  A['si-del'] = () => { S.main.shopping = S.main.shopping.filter(x => x !== it); NX.touchMain(); NX.closeSheet('shop-item'); NX.render(); };
+};
+A['shop-recipe'] = el => {
+  const r = S.main.recipes.find(x => x.id === el.dataset.id); if (!r) return;
+  for (const it of r.items) {
+    const f = NX.foodById(it.fid) || NX.foodByName(it.name), key = f ? f.id : 'n:' + norm(it.name);
+    const cost = f ? NX.costOf(f, it.g) : null;
+    const ex = S.main.shopping.find(x => !x.done && x.key === key && x.g != null);
+    if (ex) { ex.g += it.g; ex.qty = fmt(ex.g) + ' g'; if (cost != null) ex.price = Math.round(((num(ex.price) || 0) + cost) * 100) / 100; }
+    else S.main.shopping.push({ id: uid(), name: it.name, g: it.g, qty: fmt(it.g) + ' g', price: cost != null ? Math.round(cost * 100) / 100 : null, done: false, key });
+  }
+  NX.touchMain(); NX.render(); NX.toast('Ingrédients de « ' + r.name + ' » ajoutés');
+};
+})();
+
 /* Nexafit — progrès, graphiques, profil et objectifs, accueil, réglages, sauvegarde. */
 (function () {
 'use strict';
@@ -1751,7 +2427,7 @@ NX.VIEWS.progress = () => {
   const n = UI.range, start = addDays(today(), -(n - 1));
   const keys = Array.from({ length: n }, (_, i) => addDays(start, i));
   const g = S.main.goals;
-  let h = '<div class="topbar"><h1 class="h-view">Progrès</h1><span data-sync>' + NX.syncHtml() + '</span></div>';
+  let h = '<div class="topbar"><h1 class="h-view">Progrès</h1>' + NX.topRight() + '</div>';
   h += '<div class="seg">' + [[7, '7 j'], [30, '30 j'], [90, '3 mois'], [365, '1 an']].map(r => '<button class="' + (n === r[0] ? 'on' : '') + '" data-a="range" data-n="' + r[0] + '">' + r[1] + '</button>').join('') + '</div>';
 
   // Poids
@@ -1761,8 +2437,8 @@ NX.VIEWS.progress = () => {
   const dW = wp.length >= 2 ? wp[wp.length - 1].y - wp[0].y : null;
   h += '<section class="chart-card"><div class="sec-head"><span class="label">Poids</span><button class="add-btn" data-a="weight-today">' + ico('plus') + 'Pesée</button></div>'
     + '<div class="cv"><b>' + (cur ? fmt(cur, 1) + ' kg' : '–') + '</b>' + (dW != null ? '<span class="delta ' + (Math.abs(dW) <= 0.05 ? 'flat' : ((dW > 0) !== (S.main.profile && S.main.profile.goal === 'cut') ? 'up' : 'down')) + '">' + (dW > 0 ? '+' : '') + fmt(dW, 1) + ' kg sur la période</span>' : '') + '</div>'
-    + lineChart(wp, { n, startKey: start, color: 'var(--steel)', dec: 1, label: 'Évolution du poids', empty: 'Pèse-toi au moins deux fois pour voir ta courbe.' })
-    + (sl != null && wp.length >= 4 ? '<div class="callout">' + paceText(sl * 7) + '</div>' : '') + '</section>';
+    + lineChart(wp, { n, startKey: start, color: 'var(--steel)', dec: 1, goal: S.main.weightGoal ? S.main.weightGoal.target : null, label: 'Évolution du poids', empty: 'Pèse-toi au moins deux fois pour voir ta courbe.' })
+    + goalBlock(cur, sl, wp.length) + '</section>';
 
   // Calories
   const kc = keys.map(k => { const t = NX.dayTotals(NX.day(k)); return t.n ? t.k : null; });
@@ -1810,6 +2486,87 @@ NX.VIEWS.progress = () => {
     + barChart(sv, { goal: g.sleep || 8, color: 'var(--sleep)', startKey: start, dec: 0, label: 'Heures de sommeil', empty: 'Note ton sommeil dans le journal pour le voir ici.' }) + '</section>';
   return h;
 };
+const fullDate = k => { const d = NX.keyToDate(k); return d.getDate() + ' ' + NX.MONTHS_L[d.getMonth()] + (d.getFullYear() !== new Date().getFullYear() ? ' ' + d.getFullYear() : ''); };
+const weeksTxt = d => d >= 14 ? Math.round(d / 7) + ' semaines' : d + ' jour' + (d > 1 ? 's' : '');
+function goalBlock(cur, sl, nPts) {
+  const G = S.main.weightGoal, trend = sl != null && nPts >= 4 ? sl * 7 : null;
+  if (!G) return (trend != null ? '<div class="callout">' + paceText(trend) + '</div>' : '') + '<button class="chip" data-a="wgoal-open" style="align-self:flex-start">' + ico('trophy', 'sm') + 'Fixer un objectif de poids</button>';
+  const cw = cur || G.start, tot = G.target - G.start, done = cw - G.start;
+  const pct = Math.abs(tot) < 0.05 ? 100 : NX.clamp(done / tot, 0, 1) * 100;
+  const left = G.target - cw, dl = Math.max(0, NX.daysBetween(today(), G.endDate)), need = dl > 0 ? left / (dl / 7) : 0;
+  const reached = Math.abs(left) < 0.2 || (tot > 0 ? left <= 0 : tot < 0 ? left >= 0 : false);
+  let msg = reached ? '<b>Objectif atteint, bravo !</b> Touche ici pour fixer le suivant.'
+    : dl === 0 ? 'La date est passée et il reste ' + fmt(Math.abs(left), 1) + ' kg. Touche ici pour fixer une nouvelle date.'
+    : 'Encore <b>' + fmt(Math.abs(left), 1) + ' kg</b> à ' + (left > 0 ? 'prendre' : 'perdre') + ' en ' + weeksTxt(dl) + ', soit ' + (need > 0 ? '+' : '') + fmt(need, 2) + ' kg par semaine.';
+  if (!reached && dl > 0 && trend != null) msg += ' ' + trackText(trend, need);
+  return '<button class="wg-box" data-a="wgoal-open"><div class="sec-head"><span><b>Objectif ' + fmt(G.target, 1) + ' kg</b> · ' + esc(fullDate(G.endDate)) + '</span><span class="faint">' + Math.round(pct) + ' %</span></div><div class="bar" style="--c:var(--good);height:10px"><i style="width:' + pct.toFixed(1) + '%"></i></div><span class="note" style="margin:0">' + msg + '</span></button>';
+}
+function trackText(trend, need) {
+  const v = (trend > 0 ? '+' : '') + fmt(trend, 2) + ' kg par semaine';
+  const ok = need > 0 ? trend >= need * 0.85 : trend <= need * 0.85;
+  if (ok) return 'Ta tendance actuelle (' + v + ') te met dans les temps.';
+  const kcal = Math.round(Math.abs(need - trend) * 1100 / 10) * 10;
+  return 'Ta tendance actuelle est de ' + v + ' : ' + (need > trend ? 'ajoute' : 'retire') + ' environ ' + fmt(kcal) + ' kcal par jour.';
+}
+
+/* ================= OBJECTIF DE POIDS ================= */
+let WG = null;
+function wgCalc() {
+  const cur = WG.current, diff = WG.target - cur, weeks = Math.max(1, WG.weeks), pace = diff / weeks;
+  const c = S.main.profile ? NX.calcGoals(S.main.profile) : null;
+  const kcal = c ? Math.round((c.tdee + pace * 7700 / 7) / 10) * 10 : null;
+  const a = Math.abs(pace);
+  let verdict, tone;
+  if (Math.abs(diff) < 0.5) { verdict = 'Objectif de maintien : tu gardes ton poids stable.'; tone = 'good'; }
+  else if (diff > 0) {
+    if (a <= 0.25) { verdict = 'Prise de masse très propre, mais lente.'; tone = 'good'; }
+    else if (a <= 0.5) { verdict = 'Rythme idéal pour prendre du muscle en limitant le gras.'; tone = 'good'; }
+    else if (a <= 0.75) { verdict = 'Rapide : une partie du poids pris sera du gras.'; tone = 'warn'; }
+    else { verdict = 'Trop rapide : allonge la durée pour prendre surtout du muscle.'; tone = 'bad'; }
+  } else {
+    if (a <= 0.5) { verdict = 'Sèche douce : tu gardes bien ton muscle.'; tone = 'good'; }
+    else if (a <= 1) { verdict = 'Bon rythme de sèche.'; tone = 'good'; }
+    else { verdict = 'Trop rapide : tu risques de perdre du muscle. Allonge la durée.'; tone = 'bad'; }
+  }
+  return { cur, diff, pace, kcal, verdict, tone, end: addDays(today(), weeks * 7) };
+}
+function wgRes() {
+  const r = wgCalc(), col = { good: 'var(--good)', warn: 'var(--warn)', bad: 'var(--brand)' }[r.tone];
+  return '<div class="res-goal"><span class="label" style="color:inherit;opacity:.7">Rythme nécessaire</span><div class="big">' + (r.pace > 0 ? '+' : '') + fmt(r.pace, 2) + ' kg <span style="font-size:16px;font-weight:700">par semaine</span></div>'
+    + '<div class="mm"><span><b>' + (r.diff > 0 ? '+' : '') + fmt(r.diff, 1) + '</b> kg</span><span>objectif le <b>' + esc(fullDate(r.end)) + '</b></span></div>'
+    + '<span style="font-size:13.5px;display:flex;gap:8px;align-items:baseline"><i style="width:9px;height:9px;border-radius:50%;background:' + col + ';flex:none;display:inline-block"></i>' + esc(r.verdict) + '</span></div>'
+    + (r.kcal ? '<button class="check' + (WG.apply ? ' on' : '') + '" data-a="wg-apply" style="border:0;padding:4px 0"><span class="box">' + ico('check', 'sm') + '</span><span class="lt" style="text-decoration:none"><b style="text-decoration:none;color:var(--ink)">Adapter mes calories : ' + fmt(r.kcal) + ' kcal par jour</b><span>Ta dépense estimée, plus ' + (r.pace >= 0 ? 'le surplus' : 'moins le déficit') + ' pour ce rythme (1 kg ≈ 7 700 kcal).</span></span></button>' : '<p class="note">Complète ton profil pour obtenir les calories conseillées.</p>');
+}
+function renderWG() {
+  const ex = S.main.weightGoal;
+  return {
+    body: '<div class="grid2"><div class="field"><span>Poids actuel</span><div class="inp" style="display:flex;align-items:center;font-weight:700;background:var(--surface-2)">' + fmt(WG.current, 1) + ' kg</div></div><label class="field"><span>Poids visé (kg)</span><input class="inp" id="wg-t" inputmode="decimal" value="' + fmt(WG.target, 1).replace(/\s/g, '') + '" data-in="wg-t"></label></div>'
+      + '<div class="sec"><div class="label">En combien de temps ?</div><div class="chips" style="flex-wrap:wrap">' + [[8, '2 mois'], [13, '3 mois'], [17, '4 mois'], [26, '6 mois'], [39, '9 mois'], [52, '1 an']].map(w => '<button class="chip' + (WG.weeks === w[0] ? ' on' : '') + '" data-a="wg-w" data-w="' + w[0] + '">' + w[1] + '</button>').join('') + '</div>'
+      + '<label class="field"><span>Ou en nombre de semaines</span><input class="inp" id="wg-wk" inputmode="numeric" value="' + WG.weeks + '" data-in="wg-wk"></label></div>'
+      + '<div id="wg-res" style="display:flex;flex-direction:column;gap:12px">' + wgRes() + '</div>',
+    foot: (ex ? '<button class="btn ghost" data-a="wg-del">Supprimer</button>' : '') + '<button class="btn" style="flex:2" data-a="wg-save">Enregistrer l\'objectif</button>'
+  };
+}
+const wgRefresh = () => { const r = $('#wg-res'); if (r) r.innerHTML = wgRes(); };
+A['wgoal-open'] = () => {
+  const ex = S.main.weightGoal, cur = NX.lastWeight() || (S.main.profile && S.main.profile.weight) || 70, goal = S.main.profile && S.main.profile.goal;
+  WG = { current: cur, target: ex ? ex.target : Math.round(cur + (goal === 'cut' ? -4 : goal === 'keep' ? 0 : 5)), weeks: ex ? Math.max(1, Math.round(NX.daysBetween(today(), ex.endDate) / 7)) : 17, apply: true };
+  NX.openSheet({ id: 'wgoal', title: 'Objectif de poids', render: renderWG });
+};
+IN['wg-t'] = el => { WG.target = num(el.value); wgRefresh(); };
+IN['wg-wk'] = el => { WG.weeks = Math.max(1, Math.round(num(el.value)) || 1); $$('[data-a="wg-w"]').forEach(b => b.classList.toggle('on', +b.dataset.w === WG.weeks)); wgRefresh(); };
+A['wg-w'] = el => { WG.weeks = +el.dataset.w; const i = $('#wg-wk'); if (i) i.value = WG.weeks; $$('[data-a="wg-w"]').forEach(b => b.classList.toggle('on', b === el)); wgRefresh(); };
+A['wg-apply'] = () => { WG.apply = !WG.apply; wgRefresh(); };
+A['wg-save'] = () => {
+  if (!(WG.target > 25 && WG.target < 300)) return NX.toast('Entre un poids visé valide');
+  const r = wgCalc();
+  S.main.weightGoal = { target: Math.round(WG.target * 10) / 10, start: r.cur, startDate: today(), endDate: r.end, weeks: WG.weeks };
+  if (WG.apply && r.kcal) { const g = S.main.goals; g.k = r.kcal; g.c = Math.max(0, Math.round((g.k - g.p * 4 - g.f * 9) / 4)); }
+  NX.touchMain(); NX.closeSheet('wgoal'); NX.render();
+  NX.toast('Objectif : ' + fmt(WG.target, 1) + ' kg le ' + fullDate(r.end) + (WG.apply && r.kcal ? ' · ' + fmt(r.kcal) + ' kcal/jour' : ''));
+};
+A['wg-del'] = () => { S.main.weightGoal = null; NX.touchMain(); NX.closeSheet('wgoal'); NX.render(); NX.toast('Objectif de poids supprimé'); };
+
 function paceText(perWeek) {
   const goal = S.main.profile && S.main.profile.goal;
   const v = (perWeek > 0 ? '+' : '') + fmt(perWeek, 2) + ' kg par semaine';
@@ -1916,16 +2673,16 @@ A['pf-save'] = () => {
 /* ================= PLUS ================= */
 NX.VIEWS.more = () => {
   const p = S.main.profile || {}, g = S.main.goals;
-  let h = '<div class="topbar"><h1 class="h-view">Plus</h1><span data-sync>' + NX.syncHtml() + '</span></div>';
+  let h = '<div class="topbar"><h1 class="h-view">Réglages</h1><span data-sync>' + NX.syncHtml() + '</span></div>';
   h += '<button class="res-goal" data-a="profile-edit" style="text-align:left;width:100%"><div class="sec-head"><span class="label" style="color:inherit;opacity:.7">' + esc((NX.GOALS[p.goal] || NX.GOALS.bulk)[0]) + '</span><span style="font-size:13px;font-weight:650;display:flex;align-items:center;gap:4px">Modifier' + ico('right', 'sm') + '</span></div><div class="big">' + fmt(g.k) + ' kcal</div><div class="mm"><span><i class="plate-dot" style="--c:var(--prot)"></i><b>' + fmt(g.p) + '</b> g</span><span><i class="plate-dot" style="--c:var(--carb)"></i><b>' + fmt(g.c) + '</b> g</span><span><i class="plate-dot" style="--c:var(--fat)"></i><b>' + fmt(g.f) + '</b> g</span><span><b>' + fmt(g.water / 1000, 1) + '</b> L</span></div></button>';
   const li = (a, i, t, s, c) => '<button class="li" data-a="' + a + '"><span class="lic"' + (c ? ' style="color:' + c + '"' : '') + '>' + ico(i) + '</span><span class="lt"><b>' + t + '</b><span>' + s + '</span></span>' + ico('right', 'sm') + '</button>';
   h += '<section class="sec"><div class="label">Cuisine</div><div class="list">'
     + li('recipes', 'book', 'Mes recettes', S.main.recipes.length ? S.main.recipes.length + ' recette' + (S.main.recipes.length > 1 ? 's' : '') : 'Tes plats maison, calculés par portion', 'var(--brand)')
     + li('combos', 'star', 'Repas favoris', S.main.combos.length ? S.main.combos.length + ' repas' : 'Un repas complet en un geste', 'var(--fat)')
     + li('my-foods', 'fork', 'Mes aliments', S.main.foods.length ? S.main.foods.length + ' aliment' + (S.main.foods.length > 1 ? 's' : '') + ' · ' + Object.keys(S.main.barcodes).length + ' code' + (Object.keys(S.main.barcodes).length > 1 ? 's' : '') + '-barres' : 'Créés par toi ou scannés')
-    + li('shopping', 'cart', 'Liste de courses', S.main.shopping.filter(x => !x.done).length ? S.main.shopping.filter(x => !x.done).length + ' article(s) à acheter' : 'Vide pour l\'instant', 'var(--good)')
     + '</div></section>';
   h += '<section class="sec"><div class="label">Réglages</div><div class="list">'
+    + li('wgoal-open', 'trophy', 'Objectif de poids', S.main.weightGoal ? fmt(S.main.weightGoal.target, 1) + ' kg le ' + fullDate(S.main.weightGoal.endDate) : 'Poids visé et délai', 'var(--good)')
     + li('set-glass', 'drop', 'Taille du verre d\'eau', S.main.settings.glass + ' ml par appui', 'var(--water)')
     + li('rest-cfg', 'timer', 'Temps de repos', (S.main.settings.rest || 90) + ' s entre les séries')
     + li('reminders', 'bell', 'Rappels', 'Pesée, eau, repas')
@@ -1943,7 +2700,7 @@ A['glass-set'] = el => { S.main.settings.glass = +el.dataset.v; NX.touchMain(); 
 A.reminders = () => NX.openSheet({ id: 'rem', title: 'Rappels', render: () => ({ body: '<div class="callout">Les applis web ne peuvent pas envoyer de notifications de façon fiable sur iPhone. Le plus simple : crée des rappels qui se répètent dans l\'appli <b>Rappels</b> de ton téléphone.</div><p class="note">Par exemple : « Pesée » tous les matins à 8 h, « Boire de l\'eau » toutes les 2 heures, « Collation » à 16 h.</p><p class="note">Dans Nexafit, la carte du journal te montre d\'un coup d\'œil ce qui manque aujourd\'hui : pesée, eau et sommeil.</p>' }) });
 A.about = () => NX.openSheet({ id: 'about', full: true, title: 'À propos de Nexafit', render: () => ({ body:
   '<div class="sec"><div class="label">Tes données</div><p class="note">Tout reste sur ton téléphone : pas de compte, pas de serveur, personne d\'autre ne peut voir tes données. Exporte une sauvegarde de temps en temps (Plus › Sauvegarde et export) : si tu supprimes l\'appli ou changes de téléphone, c\'est elle qui te permettra de tout récupérer.</p></div>'
-  + '<div class="sec"><div class="label">Les valeurs nutritionnelles</div><p class="note">La base intégrée contient plus de 120 aliments courants avec des valeurs moyennes, proches de la table Ciqual. Quand tu scannes un produit, Nexafit cherche ses valeurs dans <b>Open Food Facts</b>, une base alimentaire libre et collaborative (licence ODbL). Le produit est ensuite gardé sur ton téléphone et reconnu instantanément.</p></div>'
+  + '<div class="sec"><div class="label">Les valeurs nutritionnelles</div><p class="note">La base intégrée contient ' + (window.NX_FOODS || []).length + ' aliments courants et produits de marque, avec des valeurs moyennes proches de la table Ciqual et des prix moyens indicatifs, modifiables dans Courses. Quand tu scannes un produit, Nexafit cherche ses valeurs dans <b>Open Food Facts</b>, une base alimentaire libre et collaborative (licence ODbL). Le produit est ensuite gardé sur ton téléphone et reconnu instantanément.</p></div>'
   + '<div class="sec"><div class="label">Les calculs</div><p class="note">Besoins : formule de Mifflin-St Jeor × niveau d\'activité, puis surplus ou déficit selon l\'objectif. Protéines : 2 g par kg en prise de masse. Lipides : environ 27 % des calories. Glucides : le reste. Force : 1RM estimé avec la formule d\'Epley.</p></div>'
   + '<div class="sec"><div class="label">Installer l\'appli</div><p class="note">Sur iPhone, dans Safari : Partager puis « Sur l\'écran d\'accueil ». Sur Android, dans Chrome : menu ⋮ puis « Ajouter à l\'écran d\'accueil ». Une fois installée, Nexafit fonctionne même sans connexion (sauf la recherche des produits scannés).</p></div>'
   + '<p class="note" style="text-align:center">Nexafit · une création Nexalis</p>' }) });
