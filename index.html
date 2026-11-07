@@ -322,6 +322,20 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 /* En-tête : réglages */
 .tb-r { display: flex; align-items: center; gap: 2px; }
 .tb-r .icon-btn { width: 36px; height: 36px; }
+/* perte de poids */
+.loss-card { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.loss-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.loss-top > div:first-child { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.loss-top .faint { font-size: 13px; }
+.loss-big { font: 800 34px/1.05 var(--f-display); color: var(--good); letter-spacing: -.02em; }
+.loss-gauge { --p: 0; flex: none; width: 92px; height: 92px; border-radius: 50%; display: grid; place-content: center; text-align: center; background: radial-gradient(closest-side, var(--surface) 78%, transparent 80% 100%), conic-gradient(var(--good) calc(var(--p) * 360deg), var(--surface-2) 0); }
+.loss-gauge b { font: 800 18px/1 var(--f-display); }
+.loss-gauge span { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.loss-row { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; padding-top: 10px; border-top: 1px solid var(--line); }
+.loss-row span { color: var(--muted); }
+.tips { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.tip { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; line-height: 1.4; color: var(--muted); background: rgba(74,222,149,.06); border-radius: 14px; padding: 10px 12px; box-shadow: inset 0 0 0 1px rgba(74,222,149,.14); }
+.tip .ico { color: var(--good); flex: none; margin-top: 1px; }
 /* sélecteur de langue */
 .lang-dd { position: relative; z-index: 30; margin-left: 6px; }
 .lang-btn { display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 10px 0 5px; border-radius: 999px; background: rgba(255,255,255,.05); box-shadow: inset 0 0 0 1px rgba(255,255,255,.09); color: var(--ink); font: 650 13.5px/1 var(--f-body); transition: background .2s, box-shadow .2s; }
@@ -1319,7 +1333,23 @@ add([
 ['Ton objectif par jour', 'Your daily goal', 'Günlük hedefin'], ["L d'eau", 'L of water', 'L su'], ['g prot.', 'g protein', 'g protein'], ['g gluc.', 'g carbs', 'g karb.'], ['g lip.', 'g fat', 'g yağ'],
 ['Complète ton âge, ta taille et ton poids', 'Fill in your age, height and weight', 'Yaşını, boyunu ve kilonu doldur'], ['Complète ton profil', 'Complete your profile', 'Profilini tamamla'],
 ['Ajuster à la main (facultatif)', 'Adjust by hand (optional)', 'Elle ayarla (isteğe bağlı)'], ['Reprendre les valeurs calculées', 'Use the calculated values', 'Hesaplanan değerleri kullan'],
-['Grammes', 'Grams', 'Gram'], ['kcal en moyenne', 'kcal on average', 'kcal ortalama'], ['Pas encore assez de données. Il faut au moins deux mesures.', 'Not enough data yet. At least two readings are needed.', 'Henüz yeterli veri yok. En az iki ölçüm gerekli.'], ['Aucune donnée sur cette période.', 'No data for this period.', 'Bu dönem için veri yok.'], ['h', 'h', 'sa'], ['min', 'min', 'dk'], ['L', 'L', 'L'], ['record', 'record', 'rekor'], ['records', 'records', 'rekor'], ['Calories (kcal)', 'Calories (kcal)', 'Kalori (kcal)'], ['Protéines (g)', 'Protein (g)', 'Protein (g)'], ['Glucides (g)', 'Carbs (g)', 'Karbonhidrat (g)'], ['Lipides (g)', 'Fat (g)', 'Yağ (g)'],
+['Grammes', 'Grams', 'Gram'],
+['Perte de poids', 'Weight loss', 'Kilo verme'], ['Perte de poids douce', 'Gentle weight loss', 'Yavaş kilo verme'],
+['déficit du jour', "today's deficit", 'günün açığı'], ['kcal de déficit', 'kcal deficit', 'kcal açık'], ['kcal de surplus', 'kcal surplus', 'kcal fazla'],
+['Rien encore. Œufs, skyr, fruits : un petit-déjeuner qui cale sans trop de calories.', 'Nothing yet. Eggs, skyr, fruit: a filling breakfast without too many calories.', 'Henüz bir şey yok. Yumurta, skyr, meyve: çok kalori olmadan doyuran bir kahvaltı.'],
+["Rien encore. Remplis la moitié de l'assiette de légumes, un quart de protéines, un quart de féculents.", 'Nothing yet. Fill half the plate with vegetables, a quarter with protein, a quarter with starches.', 'Henüz bir şey yok. Tabağın yarısını sebze, çeyreğini protein, çeyreğini karbonhidrat ile doldur.'],
+["Une collation protéinée (skyr, fromage blanc, fruit) aide à tenir jusqu'au dîner.", 'A protein snack (skyr, quark, fruit) helps you last until dinner.', 'Proteinli bir ara öğün (skyr, lor, meyve) akşam yemeğine kadar dayanmana yardım eder.'],
+['Rien encore pour ce soir. Un dîner léger et riche en protéines aide la perte de poids.', 'Nothing yet for tonight. A light, high-protein dinner helps weight loss.', 'Bu akşam için henüz bir şey yok. Hafif ve proteinli bir akşam yemeği kilo vermeye yardım eder.'],
+['Calories remontées au minimum conseillé pour ta santé.', 'Calories raised to the healthy minimum.', 'Kalori, sağlığın için önerilen en düşük seviyeye çıkarıldı.'],
+['Pris depuis le début', 'Gained since the start', 'Başlangıçtan beri alınan'], ['Perdu depuis le début', 'Lost since the start', 'Başlangıçtan beri verilen'], ['Pèse-toi au moins deux fois pour voir ta perte.', 'Weigh yourself at least twice to see your loss.', 'Ne kadar verdiğini görmek için en az iki kez tartıl.'],
+['kg / sem.', 'kg / wk', 'kg / hafta'], ['Déficit moyen', 'Average deficit', 'Ortalama açık'], ['Dépense estimée', 'Estimated expenditure', 'Tahmini harcama'],
+['Note tes repas quelques jours pour voir ton déficit réel.', 'Log your meals for a few days to see your real deficit.', 'Gerçek açığını görmek için birkaç gün öğünlerini kaydet.'],
+['Tu manges à peu près ce que tu dépenses : retire 300 à 500 kcal par jour pour perdre du poids.', 'You eat about what you burn: cut 300 to 500 kcal a day to lose weight.', 'Yaktığın kadar yiyorsun: kilo vermek için günde 300-500 kcal azalt.'],
+["Ton déficit est très grand : tu risques de perdre du muscle et d'être épuisé. Remange un peu.", 'Your deficit is very large: you may lose muscle and feel drained. Eat a bit more.', 'Açığın çok büyük: kas kaybedebilir ve yorgun düşebilirsin. Biraz daha ye.'],
+['Bon déficit : à ce rythme tu perds surtout du gras.', 'Good deficit: at this pace you mostly lose fat.', 'İyi bir açık: bu tempoda çoğunlukla yağ verirsin.'],
+['Garde tes protéines hautes : elles protègent ton muscle et coupent la faim.', 'Keep your protein high: it protects your muscle and curbs hunger.', 'Proteinini yüksek tut: kasını korur ve açlığı bastırır.'],
+["Ton poids varie d'un jour à l'autre (eau, sel) : regarde la tendance sur 2 semaines.", 'Your weight varies day to day (water, salt): look at the 2-week trend.', 'Kilon günden güne değişir (su, tuz): 2 haftalık eğilime bak.'],
+['Dors 7 à 9 h : le manque de sommeil augmente la faim.', 'Sleep 7 to 9 h: lack of sleep increases hunger.', '7-9 saat uyu: uykusuzluk açlığı artırır.'], ['kcal en moyenne', 'kcal on average', 'kcal ortalama'], ['Pas encore assez de données. Il faut au moins deux mesures.', 'Not enough data yet. At least two readings are needed.', 'Henüz yeterli veri yok. En az iki ölçüm gerekli.'], ['Aucune donnée sur cette période.', 'No data for this period.', 'Bu dönem için veri yok.'], ['h', 'h', 'sa'], ['min', 'min', 'dk'], ['L', 'L', 'L'], ['record', 'record', 'rekor'], ['records', 'records', 'rekor'], ['Calories (kcal)', 'Calories (kcal)', 'Kalori (kcal)'], ['Protéines (g)', 'Protein (g)', 'Protein (g)'], ['Glucides (g)', 'Carbs (g)', 'Karbonhidrat (g)'], ['Lipides (g)', 'Fat (g)', 'Yağ (g)'],
 ['Eau (ml)', 'Water (ml)', 'Su (ml)'], ['Sommeil (h)', 'Sleep (h)', 'Uyku (sa)'], ['Profil et objectifs', 'Profile and goals', 'Profil ve hedefler'], ['Objectifs mis à jour', 'Goals updated', 'Hedefler güncellendi'],
 // journal
 ["Aujourd'hui", 'Today', 'Bugün'], ['Hier', 'Yesterday', 'Dün'], ['Demain', 'Tomorrow', 'Yarın'], ["Revenir à aujourd'hui", 'Back to today', 'Bugüne dön'],
@@ -1633,6 +1663,7 @@ rule('Objectif : ' + N + ' kcal par jour', m => L('Goal: ' + m[1] + ' kcal a day
 rule('Objectif : ' + N + ' kg le ([^·]+)', m => L('Goal: ' + m[1] + ' kg by ' + m[2], 'Hedef: ' + m[2] + ' tarihine kadar ' + m[1] + ' kg'));
 rule(N + ' kg le ([^·]+)', m => L(m[1] + ' kg by ' + m[2], m[2] + ' tarihine kadar ' + m[1] + ' kg'));
 rule('Objectif ' + N + ' kg', m => L('Goal ' + m[1] + ' kg', 'Hedef ' + m[1] + ' kg'));
+rule(N + ' kg → ' + N + ' kg', m => m[0]);
 rule(N + ' kcal/jour', m => L(m[1] + ' kcal/day', m[1] + ' kcal/gün'));
 rule('Dernière fois : (.+)', m => L('Last time: ' + m[1], 'Son seferde: ' + m[1]));
 rule('Record estimé \\(1RM\\) : (.+)', m => L('Estimated 1RM: ' + m[1], 'Tahmini 1RM: ' + m[1]));
@@ -2015,19 +2046,26 @@ NX.lastFor = (ex, excludeId) => {
 
 /* ---------- objectifs ---------- */
 const ACTIVITY = [[1.2, 'Sédentaire', 'Bureau, peu de marche'], [1.375, 'Légèrement actif', '1 à 3 séances par semaine'], [1.55, 'Actif', '3 à 5 séances par semaine'], [1.725, 'Très actif', '6 séances ou travail physique'], [1.9, 'Extrêmement actif', 'Sport intense tous les jours']];
-const GOALS = { lean: ['Prise de masse sèche', 250], bulk: ['Prise de masse', 450], keep: ['Maintien', 0], cut: ['Sèche', -400] };
+const GOALS = { lean: ['Prise de masse sèche', 250], bulk: ['Prise de masse', 450], slim: ['Perte de poids douce', -300], cut: ['Perte de poids', -500], keep: ['Maintien', 0] };
 NX.ACTIVITY = ACTIVITY; NX.GOALS = GOALS;
+const isLoss = g => g === 'cut' || g === 'slim';
+NX.isLoss = () => !!(S.main.profile && isLoss(S.main.profile.goal));
 NX.calcGoals = p => {
   const w = num(p.weight), h = num(p.height), a = num(p.age);
   if (!w || !h || !a) return null;
   const bmr = 10 * w + 6.25 * h - 5 * a + (p.sex === 'f' ? -161 : 5);
   const tdee = bmr * num(p.activity || 1.55);
-  const k = Math.round((tdee + (GOALS[p.goal] || GOALS.bulk)[1]) / 10) * 10;
-  const pg = Math.round(w * (p.goal === 'cut' ? 2.2 : p.goal === 'keep' ? 1.8 : 2));
+  // plancher de sécurité : jamais sous le métabolisme de base ni sous 1 200 / 1 500 kcal
+  const floor = Math.max(bmr, p.sex === 'f' ? 1200 : 1500);
+  let k = Math.round((tdee + (GOALS[p.goal] || GOALS.bulk)[1]) / 10) * 10, floored = false;
+  if (isLoss(p.goal) && k < floor) { k = Math.round(floor / 10) * 10; floored = true; }
+  // en perte de poids : protéines hautes pour garder le muscle, calculées sur un poids de référence (IMC 25 max)
+  const refW = isLoss(p.goal) ? Math.min(w, 25 * (h / 100) * (h / 100)) : w;
+  const pg = Math.round(refW * (isLoss(p.goal) ? 2.1 : p.goal === 'keep' ? 1.8 : 2));
   const fg = Math.round(k * 0.27 / 9);
   const cg = Math.max(0, Math.round((k - pg * 4 - fg * 9) / 4));
   const water = Math.round(w * 35 / 250) * 250;
-  return { bmr: Math.round(bmr), tdee: Math.round(tdee), k, p: pg, c: cg, f: fg, water: Math.max(1500, water) };
+  return { bmr: Math.round(bmr), tdee: Math.round(tdee), k, p: pg, c: cg, f: fg, water: Math.max(1500, water), floored };
 };
 
 /* ---------- streak ---------- */
@@ -2242,7 +2280,7 @@ NX.VIEWS.journal = () => {
     + '<div class="kstat"><b style="color:' + (rest < 0 ? 'var(--warn)' : 'var(--ink)') + '">' + (rest < 0 ? '+' + fmt(-rest) : fmt(rest)) + '</b><span>' + (rest < 0 ? 'kcal au-dessus' : 'kcal restantes') + '</span></div>'
     + '<div class="kstat"><b>' + fmt(Math.max(0, g.p - t.p)) + ' g</b><span>protéines à manger</span></div>'
     + costStat(day, t, g)
-    + '<div class="kstat"><b>' + (wk ? wk + ' séance' + (wk > 1 ? 's' : '') : '–') + '</b><span>muscu</span></div>'
+    + (NX.isLoss() ? deficitStat(t) : '<div class="kstat"><b>' + (wk ? wk + ' séance' + (wk > 1 ? 's' : '') : '–') + '</b><span>muscu</span></div>')
     + '</div></div>' + barbell(t, g)
     + '<div class="macros">' + macroBar('Protéines', t.p, g.p, 'var(--prot)') + macroBar('Glucides', t.c, g.c, 'var(--carb)') + macroBar('Lipides', t.f, g.f, 'var(--fat)') + '</div></section>';
   // check-in
@@ -2276,7 +2314,15 @@ function costStat(day, t, g) {
   return any ? '<div class="kstat"><b>' + NX.euro(c) + '</b><span>coût du jour</span></div>'
     : '<div class="kstat"><b>' + fmt(Math.round(t.k / Math.max(1, g.k) * 100)) + ' %</b><span>de l\'objectif</span></div>';
 }
+function deficitStat(t) {
+  const c = NX.calcGoals(S.main.profile);
+  if (!c || !t.n) return '<div class="kstat"><b>–</b><span>déficit du jour</span></div>';
+  const d = c.tdee - t.k;
+  return d >= 0 ? '<div class="kstat"><b style="color:var(--good)">−' + fmt(d) + '</b><span>kcal de déficit</span></div>'
+    : '<div class="kstat"><b style="color:var(--warn)">+' + fmt(-d) + '</b><span>kcal de surplus</span></div>';
+}
 function emptyMealText(mk) {
+  if (NX.isLoss()) return { b: 'Rien encore. Œufs, skyr, fruits : un petit-déjeuner qui cale sans trop de calories.', l: 'Rien encore. Remplis la moitié de l\'assiette de légumes, un quart de protéines, un quart de féculents.', s: 'Une collation protéinée (skyr, fromage blanc, fruit) aide à tenir jusqu\'au dîner.', d: 'Rien encore pour ce soir. Un dîner léger et riche en protéines aide la perte de poids.' }[mk];
   return { b: 'Rien encore. Flocons d\'avoine, œufs, whey : un bon début pour la masse.', l: 'Rien encore. Vise une source de protéines et un féculent.', s: 'Une collation aide à atteindre tes calories sans te forcer.', d: 'Rien encore pour ce soir.' }[mk];
 }
 function weightDelta(k) {
@@ -3306,7 +3352,7 @@ A['shop-recipe'] = el => {
 /* Nexafit — progrès, graphiques, profil et objectifs, accueil, réglages, sauvegarde. */
 (function () {
 'use strict';
-const { $, $$, esc, uid, clone, num, numOrNull, fmt, norm, addDays, today, shortDate, ico, S, UI, A, IN, CH } = NX;
+const { $, $$, esc, uid, clone, clamp, num, numOrNull, fmt, norm, addDays, today, shortDate, ico, S, UI, A, IN, CH } = NX;
 
 /* ================= GRAPHIQUES ================= */
 function niceRange(min, max, pad) {
@@ -3363,11 +3409,39 @@ function slope(pts) { // kg par jour (régression linéaire)
 
 /* ================= PROGRÈS ================= */
 const MEASURES = [['bras', 'Tour de bras'], ['poitrine', 'Poitrine'], ['taille', 'Tour de taille'], ['cuisse', 'Cuisse'], ['mollet', 'Mollet']];
+/* ---------- perte de poids ---------- */
+function lossBlock() {
+  const c = NX.calcGoals(S.main.profile);
+  const wk = Object.keys(S.days).filter(k => S.days[k].weight).sort();
+  const first = wk.length ? S.days[wk[0]].weight : null, last = NX.lastWeight();
+  const lost = first != null && last != null && wk.length > 1 ? first - last : null;
+  // déficit moyen sur les 7 derniers jours suivis (sur 30 jours)
+  const logged = [];
+  for (let i = 1; i <= 30 && logged.length < 7; i++) { const d = S.days[addDays(today(), -i)]; if (d && NX.dayTotals(d).n) logged.push(NX.dayTotals(d).k); }
+  const avg = logged.length ? logged.reduce((a, b) => a + b, 0) / logged.length : null;
+  const def = c && avg != null ? c.tdee - avg : null;
+  const perWeek = def != null ? def * 7 / 7700 : null;
+  let h = '<section class="sec loss"><div class="label">Perte de poids</div><div class="loss-card">'
+    + '<div class="loss-top"><div><span class="faint">' + (lost != null && lost < 0 ? 'Pris depuis le début' : 'Perdu depuis le début') + '</span><b class="loss-big"' + (lost != null && lost < 0 ? ' style="color:var(--warn)"' : '') + '>' + (lost != null ? (lost > 0 ? '−' : '+') + fmt(Math.abs(lost), 1) + ' kg' : '–') + '</b>'
+    + '<span class="faint" style="font-size:12.5px">' + (lost != null ? fmt(first, 1) + ' kg → ' + fmt(last, 1) + ' kg' : 'Pèse-toi au moins deux fois pour voir ta perte.') + '</span></div>'
+    + '<div class="loss-gauge" style="--p:' + (perWeek != null ? clamp(perWeek / 1, 0, 1) : 0) + '"><b>' + (perWeek != null ? (perWeek > 0 ? '−' : '+') + fmt(Math.abs(perWeek), 2) : '–') + '</b><span>kg / sem.</span></div></div>'
+    + '<div class="loss-row"><span>Déficit moyen</span><b>' + (def != null ? (def >= 0 ? '−' : '+') + fmt(Math.abs(Math.round(def / 10) * 10)) + ' kcal/jour' : '–') + '</b></div>'
+    + '<div class="loss-row"><span>Dépense estimée</span><b>' + (c ? fmt(c.tdee) + ' kcal/jour' : '–') + '</b></div>'
+    + '<p class="note" style="margin:6px 0 0">' + (def == null ? 'Note tes repas quelques jours pour voir ton déficit réel.'
+      : def < 100 ? 'Tu manges à peu près ce que tu dépenses : retire 300 à 500 kcal par jour pour perdre du poids.'
+      : perWeek > 1 ? 'Ton déficit est très grand : tu risques de perdre du muscle et d\'être épuisé. Remange un peu.'
+      : 'Bon déficit : à ce rythme tu perds surtout du gras.') + '</p></div>'
+    + '<div class="tips"><div class="tip">' + ico('flame', 'sm') + '<span>Garde tes protéines hautes : elles protègent ton muscle et coupent la faim.</span></div>'
+    + '<div class="tip">' + ico('scale', 'sm') + '<span>Ton poids varie d\'un jour à l\'autre (eau, sel) : regarde la tendance sur 2 semaines.</span></div>'
+    + '<div class="tip">' + ico('moon', 'sm') + '<span>Dors 7 à 9 h : le manque de sommeil augmente la faim.</span></div></div></section>';
+  return h;
+}
 NX.VIEWS.progress = () => {
   const n = UI.range, start = addDays(today(), -(n - 1));
   const keys = Array.from({ length: n }, (_, i) => addDays(start, i));
   const g = S.main.goals;
   let h = '<div class="topbar"><h1 class="h-view">Progrès</h1>' + NX.topRight() + '</div>';
+  if (NX.isLoss()) h += lossBlock();
   h += '<div class="seg">' + [[7, '7 j'], [30, '30 j'], [90, '3 mois'], [365, '1 an']].map(r => '<button class="' + (n === r[0] ? 'on' : '') + '" data-a="range" data-n="' + r[0] + '">' + r[1] + '</button>').join('') + '</div>';
 
   // Poids
@@ -3376,7 +3450,7 @@ NX.VIEWS.progress = () => {
   const cur = wp.length ? wp[wp.length - 1].y : NX.lastWeight();
   const dW = wp.length >= 2 ? wp[wp.length - 1].y - wp[0].y : null;
   h += '<section class="chart-card"><div class="sec-head"><span class="label">Poids</span><button class="add-btn" data-a="weight-today">' + ico('plus') + 'Pesée</button></div>'
-    + '<div class="cv"><b>' + (cur ? fmt(cur, 1) + ' kg' : '–') + '</b>' + (dW != null ? '<span class="delta ' + (Math.abs(dW) <= 0.05 ? 'flat' : ((dW > 0) !== (S.main.profile && S.main.profile.goal === 'cut') ? 'up' : 'down')) + '">' + (dW > 0 ? '+' : '') + fmt(dW, 1) + ' kg sur la période</span>' : '') + '</div>'
+    + '<div class="cv"><b>' + (cur ? fmt(cur, 1) + ' kg' : '–') + '</b>' + (dW != null ? '<span class="delta ' + (Math.abs(dW) <= 0.05 ? 'flat' : ((dW > 0) !== NX.isLoss() ? 'up' : 'down')) + '">' + (dW > 0 ? '+' : '') + fmt(dW, 1) + ' kg sur la période</span>' : '') + '</div>'
     + lineChart(wp, { n, startKey: start, color: 'var(--steel)', dec: 1, goal: S.main.weightGoal ? S.main.weightGoal.target : null, label: 'Évolution du poids', empty: 'Pèse-toi au moins deux fois pour voir ta courbe.' })
     + goalBlock(cur, sl, wp.length) + '</section>';
 
@@ -3490,7 +3564,7 @@ function renderWG() {
 const wgRefresh = () => { const r = $('#wg-res'); if (r) r.innerHTML = wgRes(); };
 A['wgoal-open'] = () => {
   const ex = S.main.weightGoal, cur = NX.lastWeight() || (S.main.profile && S.main.profile.weight) || 70, goal = S.main.profile && S.main.profile.goal;
-  WG = { current: cur, target: ex ? ex.target : Math.round(cur + (goal === 'cut' ? -4 : goal === 'keep' ? 0 : 5)), weeks: ex ? Math.max(1, Math.round(NX.daysBetween(today(), ex.endDate) / 7)) : 17, apply: true };
+  WG = { current: cur, target: ex ? ex.target : Math.round(cur + (goal === 'cut' ? -6 : goal === 'slim' ? -4 : goal === 'keep' ? 0 : 5)), weeks: ex ? Math.max(1, Math.round(NX.daysBetween(today(), ex.endDate) / 7)) : 17, apply: true };
   NX.openSheet({ id: 'wgoal', title: 'Objectif de poids', render: renderWG });
 };
 IN['wg-t'] = el => { WG.target = num(el.value); wgRefresh(); };
@@ -3510,7 +3584,7 @@ A['wg-del'] = () => { S.main.weightGoal = null; NX.touchMain(); NX.closeSheet('w
 function paceText(perWeek) {
   const goal = S.main.profile && S.main.profile.goal;
   const v = (perWeek > 0 ? '+' : '') + fmt(perWeek, 2) + ' kg par semaine';
-  if (goal === 'cut') return 'Tendance : <b>' + v + '</b>. ' + (perWeek < -1 ? 'Rythme rapide : tu risques de perdre du muscle, ajoute un peu de calories.' : perWeek < -0.2 ? 'Bon rythme de sèche.' : 'Ça stagne : baisse légèrement tes calories ou bouge un peu plus.');
+  if (goal === 'cut' || goal === 'slim') return 'Tendance : <b>' + v + '</b>. ' + (perWeek < -1 ? 'Rythme rapide : tu risques de perdre du muscle, ajoute un peu de calories.' : perWeek < -0.2 ? 'Bon rythme de sèche.' : 'Ça stagne : baisse légèrement tes calories ou bouge un peu plus.');
   if (goal === 'keep') return 'Tendance : <b>' + v + '</b>. ' + (Math.abs(perWeek) < 0.2 ? 'Poids stable, parfait pour un maintien.' : 'Ton poids bouge : ajuste tes calories de 100 à 200 kcal.');
   if (perWeek < 0.1) return 'Tendance : <b>' + v + '</b>. Tu ne prends pas encore de poids : ajoute environ 200 kcal par jour (une collation de plus, par exemple).';
   if (perWeek > 0.6) return 'Tendance : <b>' + v + '</b>. C\'est rapide : une partie risque d\'être du gras. Retire 150 à 200 kcal par jour.';
@@ -3560,7 +3634,7 @@ function profileForm(withOverride) {
 }
 function goalCard(c) {
   if (!c) return '<div class="callout">Remplis ton âge, ta taille et ton poids pour calculer tes besoins.</div>';
-  return '<div class="res-goal"><span class="label" style="color:inherit;opacity:.7">Ton objectif par jour</span><div class="big">' + fmt(c.k) + ' kcal</div><div class="mm"><span><i class="plate-dot" style="--c:var(--prot)"></i><b>' + c.p + '</b> g prot.</span><span><i class="plate-dot" style="--c:var(--carb)"></i><b>' + c.c + '</b> g gluc.</span><span><i class="plate-dot" style="--c:var(--fat)"></i><b>' + c.f + '</b> g lip.</span><span><b>' + fmt(c.water / 1000, 1) + '</b> L d\'eau</span></div><span style="font-size:12.5px;opacity:.75">Métabolisme de base ' + fmt(c.bmr) + ' kcal · dépense estimée ' + fmt(c.tdee) + ' kcal' + (PF.goal !== 'keep' ? ' · ' + (NX.GOALS[PF.goal][1] > 0 ? '+' : '') + NX.GOALS[PF.goal][1] + ' kcal pour ton objectif' : '') + '</span></div>';
+  return '<div class="res-goal"><span class="label" style="color:inherit;opacity:.7">Ton objectif par jour</span><div class="big">' + fmt(c.k) + ' kcal</div><div class="mm"><span><i class="plate-dot" style="--c:var(--prot)"></i><b>' + c.p + '</b> g prot.</span><span><i class="plate-dot" style="--c:var(--carb)"></i><b>' + c.c + '</b> g gluc.</span><span><i class="plate-dot" style="--c:var(--fat)"></i><b>' + c.f + '</b> g lip.</span><span><b>' + fmt(c.water / 1000, 1) + '</b> L d\'eau</span></div><span style="font-size:12.5px;opacity:.75">Métabolisme de base ' + fmt(c.bmr) + ' kcal · dépense estimée ' + fmt(c.tdee) + ' kcal' + (PF.goal !== 'keep' ? ' · ' + (c.k > c.tdee ? '+' : '−') + fmt(Math.abs(Math.round((c.k - c.tdee) / 10) * 10)) + ' kcal pour ton objectif' : '') + '</span>' + (c.floored ? '<span style="font-size:12.5px;color:var(--warn)">Calories remontées au minimum conseillé pour ta santé.</span>' : '') + '</div>';
 }
 const refreshPF = () => { const r = $('#pf-res'); if (r) r.innerHTML = goalCard(NX.calcGoals(PF)); };
 IN.pf = el => { PF[el.dataset.k] = el.value; refreshPF(); };
