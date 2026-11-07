@@ -9,16 +9,15 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Nexafit">
-<meta name="theme-color" content="#EDF0F3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0F1217" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0B0D12">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400..800&family=Manrope:wght@400..800&display=swap">
 <style>
-:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); }
+:root { color-scheme: dark; padding-top: env(safe-area-inset-top, 0px); }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 25; }
@@ -27,41 +26,34 @@ img { max-width: 100%; }
 .sheet { padding-top: calc(env(safe-area-inset-top, 0px) + 8px); }
 
 /* Layout : une colonne façon appli iPhone, barre d'onglets en bas, feuilles qui montent du bas.
-   Couleurs des macros = couleurs des disques olympiques (25 rouge, 20 bleu, 15 jaune). */
+   Thème sombre unique, choisi exprès : fond noir profond, cartes effet verre, accent braise.
+   Macros : protéines rose, glucides bleu, lipides jaune. */
 :root {
-  --bg: #EDF0F3;
-  --surface: #FFFFFF;
-  --surface-2: #F5F7F9;
-  --ink: #12161C;
-  --muted: #5D6571;
-  --faint: #8A929E;
-  --line: #DADFE6;
-  --brand: #D52E35;
-  --brand-ink: #FFFFFF;
-  --prot: #D52E35;
-  --carb: #1F5BD6;
-  --fat: #DCA50A;
-  --water: #1497C2;
-  --sleep: #6B5BD6;
-  --good: #1E8B4E;
-  --warn: #C2700A;
-  --steel: #2A313B;
-  --shadow: 0 1px 2px rgba(18,22,28,.06), 0 8px 24px rgba(18,22,28,.07);
-  --scrim: rgba(12,15,20,.42);
-  --f-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
-  --f-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --r: 16px;
+  color-scheme: dark;
+  --bg: #0B0D12;
+  --surface: #151922;
+  --surface-2: #1D222D;
+  --hero: #161B25;
+  --ink: #F2F4F8;
+  --muted: #A3ABBA;
+  --faint: #737B8D;
+  --line: #262C38;
+  --brand: #FF7A45;
+  --brand-ink: #0B0D12;
+  --prot: #FF5D73;
+  --carb: #5B9DFF;
+  --fat: #FFC857;
+  --water: #5CC8F5;
+  --sleep: #A898FF;
+  --good: #4ADE95;
+  --warn: #FFB347;
+  --steel: #F2F4F8;
+  --shadow: inset 0 0 0 1px rgba(255,255,255,.07), 0 12px 30px rgba(0,0,0,.35);
+  --scrim: rgba(0,0,0,.62);
+  --f-display: "Sora", "Manrope", system-ui, sans-serif;
+  --f-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 18px;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #0F1217; --surface: #171B22; --surface-2: #1D222A; --ink: #ECEFF3; --muted: #9AA3AF; --faint: #6F7884;
-  --line: #272D36; --brand: #F0474E; --brand-ink: #FFFFFF; --prot: #F0474E; --carb: #5089FF; --fat: #F0C236;
-  --water: #3BC2EA; --sleep: #9A8CFF; --good: #3DBB74; --warn: #F0A23A; --steel: #C9D0D9;
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.35); --scrim: rgba(0,0,0,.6); color-scheme: dark; } }
-:root[data-theme="dark"] {
-  --bg: #0F1217; --surface: #171B22; --surface-2: #1D222A; --ink: #ECEFF3; --muted: #9AA3AF; --faint: #6F7884;
-  --line: #272D36; --brand: #F0474E; --brand-ink: #FFFFFF; --prot: #F0474E; --carb: #5089FF; --fat: #F0C236;
-  --water: #3BC2EA; --sleep: #9A8CFF; --good: #3DBB74; --warn: #F0A23A; --steel: #C9D0D9;
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.35); --scrim: rgba(0,0,0,.6); color-scheme: dark; }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { background: var(--bg); color: var(--ink); }
@@ -84,14 +76,14 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
 .faint { color: var(--faint); }
 .label { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; font-weight: 650; color: var(--muted); }
 h1, h2, h3 { margin: 0; text-wrap: balance; }
-.h-view { font-family: var(--f-display); font-stretch: 118%; font-weight: 850; font-size: 30px; letter-spacing: -.01em; line-height: 1.05; }
-.h-sec { font-family: var(--f-display); font-stretch: 108%; font-weight: 750; font-size: 18px; }
+.h-view { font-family: var(--f-display); font-weight: 700; font-size: 30px; letter-spacing: -.01em; line-height: 1.05; }
+.h-sec { font-family: var(--f-display); font-weight: 750; font-size: 18px; }
 .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .sec { display: flex; flex-direction: column; gap: 10px; }
 
 /* En-tête */
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.brand { display: flex; align-items: center; gap: 8px; font-family: var(--f-display); font-stretch: 125%; font-weight: 900; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
+.brand { display: flex; align-items: center; gap: 8px; font-family: var(--f-display); font-weight: 800; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
 .brand-mark { width: 26px; height: 26px; border-radius: 50%; background: var(--brand); display: grid; place-items: center; box-shadow: inset 0 0 0 4px color-mix(in srgb, var(--brand) 70%, #000 30%); }
 .brand-mark::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--bg); }
 .sync { font-size: 12px; color: var(--faint); display: flex; align-items: center; gap: 6px; }
@@ -113,10 +105,10 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
 .ring { position: relative; width: 132px; height: 132px; }
 .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
 .ring .trk { stroke: var(--surface-2); }
-.ring .val { stroke: var(--steel); transition: stroke-dashoffset .7s cubic-bezier(.2,.8,.2,1); }
+.ring .val { stroke: var(--brand); transition: stroke-dashoffset .7s cubic-bezier(.2,.8,.2,1); }
 .ring.over .val { stroke: var(--warn); }
 .ring-c { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; align-content: center; }
-.ring-c b { font-family: var(--f-display); font-stretch: 112%; font-weight: 850; font-size: 30px; line-height: 1; }
+.ring-c b { font-family: var(--f-display); font-weight: 700; font-size: 30px; line-height: 1; }
 .ring-c span { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
 .kstats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
 .kstat { display: flex; flex-direction: column; min-width: 0; }
@@ -218,7 +210,7 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 .tag.ai { background: color-mix(in srgb, var(--sleep) 16%, transparent); color: var(--sleep); }
 
 /* Onglets */
-.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); border-top: 1px solid var(--line);
+.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: rgba(11,13,18,.9); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); border-top: 1px solid var(--line);
   padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(12px, env(safe-area-inset-right, 0px)); padding-bottom: max(8px, env(safe-area-inset-bottom, 0px)); padding-top: 6px; }
 .tabs-in { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); align-items: end; }
 .tab { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10.5px; font-weight: 650; color: var(--faint); padding: 4px 0; letter-spacing: .02em; }
@@ -231,15 +223,15 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 /* Feuilles (bottom sheets) */
 .sheet { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; justify-content: flex-end; }
 .sheet .scrim { position: absolute; inset: 0; background: var(--scrim); animation: fade .2s ease; }
-.sheet .panel { position: relative; background: var(--bg); border-radius: 22px 22px 0 0; max-height: 94%; display: flex; flex-direction: column; animation: up .28s cubic-bezier(.2,.8,.2,1); width: 100%; max-width: 600px; margin: 0 auto;
+.sheet .panel { position: relative; background: #0F1218; box-shadow: inset 0 1px 0 rgba(255,255,255,.08); border-radius: 22px 22px 0 0; max-height: 94%; display: flex; flex-direction: column; animation: up .28s cubic-bezier(.2,.8,.2,1); width: 100%; max-width: 600px; margin: 0 auto;
   padding-bottom: env(safe-area-inset-bottom, 0px); }
 .sheet.full .panel { height: 94%; }
 .panel-h { display: flex; align-items: center; gap: 10px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); }
 .panel-h::before { content: ""; position: absolute; top: 7px; left: 50%; width: 38px; height: 5px; margin-left: -19px; border-radius: 9px; background: var(--line); }
-.panel-h h2 { flex: 1; font-family: var(--f-display); font-stretch: 112%; font-weight: 800; font-size: 20px; padding-top: 12px; min-width: 0; }
+.panel-h h2 { flex: 1; font-family: var(--f-display); font-weight: 800; font-size: 20px; padding-top: 12px; min-width: 0; }
 .panel-h .icon-btn { margin-top: 10px; }
 .panel-b { overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 6px max(16px, env(safe-area-inset-right, 0px)) 20px max(16px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; gap: 16px; flex: 1; overscroll-behavior: contain; }
-.panel-f { padding: 10px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px)); border-top: 1px solid var(--line); background: var(--bg); display: flex; gap: 10px; }
+.panel-f { padding: 10px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px)); border-top: 1px solid var(--line); background: #0F1218; display: flex; gap: 10px; }
 .panel-f .btn { flex: 1; }
 @keyframes up { from { transform: translateY(100%); } }
 @keyframes fade { from { opacity: 0; } }
@@ -252,21 +244,22 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 .toast button { color: var(--fat); font-weight: 700; }
 
 /* Chrono de repos */
-.timer { position: fixed; z-index: 40; left: 50%; transform: translateX(-50%); bottom: calc(84px + env(safe-area-inset-bottom, 0px)); width: min(528px, calc(100% - 32px)); background: var(--steel); color: var(--bg); border-radius: 18px; padding: 10px 10px 10px 16px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); overflow: hidden; }
+.timer { position: fixed; z-index: 40; left: 50%; transform: translateX(-50%); bottom: calc(84px + env(safe-area-inset-bottom, 0px)); width: min(528px, calc(100% - 32px)); background: var(--hero); color: var(--ink); border-radius: 18px; padding: 10px 10px 10px 16px; border: 1px solid var(--line); display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); overflow: hidden; }
 .timer .tprog { position: absolute; left: 0; bottom: 0; height: 3px; background: var(--brand); transition: width 1s linear; }
-.timer b { font-family: var(--f-display); font-weight: 850; font-size: 24px; font-variant-numeric: tabular-nums; min-width: 64px; }
+.timer b { font-family: var(--f-display); font-weight: 700; font-size: 24px; font-variant-numeric: tabular-nums; min-width: 64px; }
 .timer .tl { flex: 1; font-size: 12.5px; opacity: .75; min-width: 0; }
-.timer button { height: 36px; min-width: 44px; padding: 0 10px; border-radius: 10px; background: color-mix(in srgb, var(--bg) 14%, transparent); color: var(--bg); font-weight: 700; font-size: 13px; }
-.timer.done { background: var(--good); }
+.timer button { height: 36px; min-width: 44px; padding: 0 10px; border-radius: 10px; background: rgba(255,255,255,.08); color: var(--ink); font-weight: 700; font-size: 13px; }
+.timer.done { background: var(--good); color: #0B0D12; }
+.timer.done button { color: #0B0D12; background: rgba(0,0,0,.12); }
 
 /* Muscu */
-.session-h { background: var(--steel); color: var(--bg); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-.session-h .h-sec { color: var(--bg); }
+.session-h { background: var(--hero); color: var(--ink); box-shadow: var(--shadow); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.session-h .h-sec { color: var(--ink); }
 .session-h .ss { display: flex; gap: 18px; font-size: 12.5px; opacity: .8; flex-wrap: wrap; }
 .session-h .ss b { font-family: var(--f-display); font-size: 17px; display: block; opacity: 1; font-variant-numeric: tabular-nums; }
 .exo { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 .exo-h { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-.exo-h b { font-family: var(--f-display); font-stretch: 105%; font-weight: 750; font-size: 16.5px; }
+.exo-h b { font-family: var(--f-display); font-weight: 750; font-size: 16.5px; }
 .exo-h .prev { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
 .sets { display: flex; flex-direction: column; gap: 6px; }
 .set { display: grid; grid-template-columns: 30px 1fr 1fr 46px; gap: 8px; align-items: center; }
@@ -288,7 +281,7 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 /* Graphiques */
 .chart-card { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 .chart-card .cv { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.chart-card .cv b { font-family: var(--f-display); font-stretch: 110%; font-weight: 850; font-size: 26px; font-variant-numeric: tabular-nums; }
+.chart-card .cv b { font-family: var(--f-display); font-weight: 700; font-size: 26px; font-variant-numeric: tabular-nums; }
 .delta { font-size: 13px; font-weight: 650; }
 .delta.up { color: var(--good); } .delta.down { color: var(--brand); } .delta.flat { color: var(--muted); }
 .chart { width: 100%; height: auto; display: block; overflow: visible; }
@@ -302,12 +295,12 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 
 /* Accueil */
 .welcome { display: flex; flex-direction: column; gap: 18px; padding-top: 10px; }
-.welcome .hero { font-family: var(--f-display); font-stretch: 125%; font-weight: 900; font-size: clamp(34px, 10vw, 46px); line-height: .98; letter-spacing: -.015em; text-transform: uppercase; }
+.welcome .hero { font-family: var(--f-display); font-weight: 800; font-size: clamp(34px, 10vw, 46px); line-height: .98; letter-spacing: -.015em; text-transform: uppercase; }
 .welcome .hero em { font-style: normal; color: var(--brand); }
 .plates-row { display: flex; align-items: center; gap: 0; height: 64px; }
 .plates-row i { display: block; border-radius: 4px; margin-right: 3px; }
-.res-goal { background: var(--steel); color: var(--bg); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
-.res-goal .big { font-family: var(--f-display); font-stretch: 115%; font-weight: 900; font-size: 34px; font-variant-numeric: tabular-nums; line-height: 1; }
+.res-goal { background: var(--hero); color: var(--ink); box-shadow: var(--shadow); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.res-goal .big { font-family: var(--f-display); font-weight: 800; font-size: 34px; font-variant-numeric: tabular-nums; line-height: 1; }
 .res-goal .mm { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; }
 .res-goal .mm b { font-family: var(--f-display); font-size: 17px; }
 
@@ -329,9 +322,36 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 /* En-tête : réglages */
 .tb-r { display: flex; align-items: center; gap: 2px; }
 .tb-r .icon-btn { width: 36px; height: 36px; }
+/* sélecteur de langue */
+.lang-dd { position: relative; z-index: 30; margin-left: 6px; }
+.lang-btn { display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 10px 0 5px; border-radius: 999px; background: rgba(255,255,255,.05); box-shadow: inset 0 0 0 1px rgba(255,255,255,.09); color: var(--ink); font: 650 13.5px/1 var(--f-body); transition: background .2s, box-shadow .2s; }
+.lang-btn:hover, .lang-dd.open .lang-btn { background: rgba(255,255,255,.09); box-shadow: inset 0 0 0 1px rgba(255,122,69,.45); }
+.lang-code { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 6px; border-radius: 999px; background: linear-gradient(140deg, #FF9A6B, var(--brand)); color: var(--brand-ink); font: 800 10.5px/1 var(--f-display); letter-spacing: .06em; }
+.lang-chev { width: 16px; height: 16px; fill: none; stroke: var(--muted); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s cubic-bezier(.3,.7,.2,1); }
+.lang-dd.open .lang-chev { transform: rotate(180deg); stroke: var(--ink); }
+.lang-menu { position: absolute; right: 0; top: calc(100% + 8px); width: 232px; padding: 6px; border-radius: 18px; background: rgba(22,27,37,.96); -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 18px 44px rgba(0,0,0,.55); opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.97); transform-origin: top right; transition: opacity .18s, transform .22s cubic-bezier(.3,.7,.2,1), visibility 0s .22s; }
+.lang-dd.open .lang-menu { opacity: 1; visibility: visible; transform: none; transition: opacity .18s, transform .22s cubic-bezier(.3,.7,.2,1), visibility 0s; }
+.lang-opt { display: flex; align-items: center; gap: 12px; width: 100%; padding: 9px 10px; border-radius: 12px; text-align: left; color: var(--ink); transition: background .15s; }
+.lang-opt + .lang-opt { margin-top: 2px; }
+.lang-opt:hover { background: rgba(255,255,255,.06); }
+.lang-opt .lang-code { background: rgba(255,255,255,.08); color: var(--ink); }
+.lang-opt.on { background: rgba(255,122,69,.12); }
+.lang-opt.on .lang-code { background: linear-gradient(140deg, #FF9A6B, var(--brand)); color: var(--brand-ink); }
+.lang-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.lang-txt b { font: 650 14.5px/1.2 var(--f-body); }
+.lang-txt span { font-size: 12px; color: var(--faint); }
+.lang-ok { width: 18px; height: 18px; fill: none; stroke: var(--brand); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: scale(.6); transition: opacity .15s, transform .2s; }
+.lang-opt.on .lang-ok { opacity: 1; transform: none; }
+.lang-dd.wide { margin: 0; }
+.lang-dd.wide .lang-btn { width: 100%; height: 58px; padding: 0 16px 0 12px; gap: 12px; border-radius: var(--r); background: var(--surface); box-shadow: var(--shadow); font-size: 15px; }
+.lang-dd.wide.open .lang-btn { box-shadow: inset 0 0 0 1px rgba(255,122,69,.5), 0 12px 30px rgba(0,0,0,.35); }
+.lang-dd.wide .lang-code { min-width: 34px; height: 34px; font-size: 11.5px; }
+.lang-dd.wide .lang-name { flex: 1; text-align: left; }
+.lang-dd.wide .lang-menu { left: 0; right: 0; width: auto; transform-origin: top center; }
+@media (prefers-reduced-motion: reduce) { .lang-menu, .lang-chev, .lang-ok { transition: none; } }
 
 /* Courses : ticket de caisse */
-.receipt { position: relative; background: var(--surface); padding: 16px 16px 14px; border-radius: 4px 4px 0 0; display: flex; flex-direction: column; filter: drop-shadow(0 1px 1.5px rgba(18,22,28,.10)); margin-bottom: 10px; }
+.receipt { position: relative; background: var(--surface); padding: 16px 16px 14px; border-radius: 6px 6px 0 0; display: flex; flex-direction: column; margin-bottom: 10px; }
 .receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 8px; background: radial-gradient(circle at 6px 8px, transparent 5.5px, var(--surface) 6px) 0 0 / 12px 8px repeat-x; }
 .rc-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 10px; }
 .rc-head .brand { font-size: 12px; }
@@ -343,7 +363,7 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 .rc-line .q.r { text-align: right; color: var(--faint); }
 .rc-line:active { background: var(--surface-2); }
 .rc-total { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-top: 2px dashed var(--ink); padding-top: 12px; margin-top: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: 12.5px; }
-.rc-total b { font-family: var(--f-display); font-stretch: 112%; font-weight: 900; font-size: 30px; letter-spacing: 0; text-transform: none; font-variant-numeric: tabular-nums; }
+.rc-total b { font-family: var(--f-display); font-weight: 800; font-size: 30px; letter-spacing: 0; text-transform: none; font-variant-numeric: tabular-nums; }
 .rc-sub { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; color: var(--muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
 .plan-row .inp { width: 72px; height: 40px; text-align: center; padding: 0 6px; font-family: var(--f-display); font-weight: 700; flex: none; }
 .plan-row .u { width: 20px; flex: none; }
@@ -863,6 +883,888 @@ window.NX_PROGRAMS = [
   ]]
 ];
 
+/* Nexafit — noms des aliments : [anglais, turc]. La clé est le nom français de data.js. */
+window.NX_FOODS_I18N = {
+"Riz blanc cru": ["White rice, raw", "Beyaz pirinç (çiğ)"],
+"Riz blanc cuit": ["White rice, cooked", "Beyaz pirinç (pişmiş)"],
+"Riz basmati cru": ["Basmati rice, raw", "Basmati pirinç (çiğ)"],
+"Riz basmati cuit": ["Basmati rice, cooked", "Basmati pirinç (pişmiş)"],
+"Riz thaï cru": ["Jasmine rice, raw", "Yasemin pirinci (çiğ)"],
+"Riz thaï cuit": ["Jasmine rice, cooked", "Yasemin pirinci (pişmiş)"],
+"Riz complet cru": ["Brown rice, raw", "Esmer pirinç (çiğ)"],
+"Riz complet cuit": ["Brown rice, cooked", "Esmer pirinç (pişmiş)"],
+"Riz basmati express": ["Microwave basmati rice", "Hazır basmati pirinç"],
+"Riz basmati": ["Basmati rice", "Basmati pirinç"],
+"Riz long grain": ["Long grain rice", "Uzun taneli pirinç"],
+"Pâtes crues": ["Pasta, dry", "Makarna (çiğ)"],
+"Pâtes cuites": ["Pasta, cooked", "Makarna (pişmiş)"],
+"Pâtes complètes crues": ["Wholewheat pasta, dry", "Tam buğday makarna (çiğ)"],
+"Pâtes complètes cuites": ["Wholewheat pasta, cooked", "Tam buğday makarna (pişmiş)"],
+"Spaghetti n°5": ["Spaghetti n°5", "Spagetti n°5"],
+"Penne rigate": ["Penne rigate", "Penne rigate"],
+"Fusilli": ["Fusilli", "Burgu makarna"],
+"Coquillettes": ["Macaroni elbows", "Dirsek makarna"],
+"Spaghetti": ["Spaghetti", "Spagetti"],
+"Pâtes protéinées": ["High-protein pasta", "Proteinli makarna"],
+"Tagliatelles aux œufs": ["Egg tagliatelle", "Yumurtalı tagliatelle"],
+"Gnocchi de pommes de terre": ["Potato gnocchi", "Patates gnocchi"],
+"Semoule de blé crue": ["Couscous semolina, dry", "İrmik (çiğ)"],
+"Semoule cuite": ["Couscous semolina, cooked", "İrmik (pişmiş)"],
+"Boulgour cru": ["Bulgur, dry", "Bulgur (çiğ)"],
+"Boulgour cuit": ["Bulgur, cooked", "Bulgur (pişmiş)"],
+"Quinoa cru": ["Quinoa, raw", "Kinoa (çiğ)"],
+"Quinoa cuit": ["Quinoa, cooked", "Kinoa (pişmiş)"],
+"Polenta crue": ["Polenta, dry", "Mısır irmiği (çiğ)"],
+"Nouilles chinoises crues": ["Egg noodles, dry", "Çin eriştesi (çiğ)"],
+"Nouilles instantanées": ["Instant noodles", "Hazır erişte"],
+"Pomme de terre crue": ["Potato, raw", "Patates (çiğ)"],
+"Pomme de terre cuite": ["Potato, boiled", "Patates (haşlanmış)"],
+"Purée de pommes de terre maison": ["Homemade mashed potatoes", "Ev yapımı patates püresi"],
+"Purée en flocons (sèche)": ["Instant mash flakes, dry", "Hazır patates püresi (toz)"],
+"Patate douce crue": ["Sweet potato, raw", "Tatlı patates (çiğ)"],
+"Patate douce cuite": ["Sweet potato, cooked", "Tatlı patates (pişmiş)"],
+"Frites au four (surgelées)": ["Oven chips, frozen", "Fırın patates (dondurulmuş)"],
+"Potatoes surgelées": ["Potato wedges, frozen", "Elma dilim patates (dondurulmuş)"],
+"Frites de friteuse": ["Deep-fried chips", "Kızarmış patates"],
+"Farine de blé T55": ["Plain wheat flour", "Buğday unu"],
+"Tortilla de blé": ["Wheat tortilla", "Buğday tortilla"],
+"Wrap complet": ["Wholewheat wrap", "Tam buğday dürüm lavaşı"],
+"Galette de riz soufflé": ["Puffed rice cake", "Pirinç patlağı"],
+"Galettes de maïs soufflé": ["Puffed corn cakes", "Mısır patlağı"],
+"Châtaignes cuites": ["Chestnuts, cooked", "Kestane (pişmiş)"],
+"Baguette": ["Baguette", "Baget ekmek"],
+"Baguette tradition": ["Traditional baguette", "Geleneksel baget"],
+"Pain complet": ["Wholemeal bread", "Tam buğday ekmeği"],
+"Pain aux céréales": ["Multigrain bread", "Tahıllı ekmek"],
+"Pain de campagne": ["Country bread", "Köy ekmeği"],
+"Pain de seigle": ["Rye bread", "Çavdar ekmeği"],
+"Pain de mie": ["Sandwich bread", "Tost ekmeği"],
+"Pain de mie complet": ["Wholemeal sandwich bread", "Tam buğday tost ekmeği"],
+"American Sandwich nature": ["American Sandwich bread", "American Sandwich tost ekmeği"],
+"100 % mie complet": ["100% wholemeal sandwich bread", "%100 tam buğday tost ekmeği"],
+"Pain burger (bun)": ["Burger bun", "Hamburger ekmeği"],
+"Pain burger brioché": ["Brioche burger bun", "Briyoş hamburger ekmeği"],
+"Pain pita": ["Pitta bread", "Pide ekmeği"],
+"Pain suédois croustillant": ["Swedish crispbread", "Çıtır İsveç ekmeği"],
+"Biscottes": ["Rusks", "Peksimet"],
+"Croissant": ["Croissant", "Kruvasan"],
+"Pain au chocolat": ["Pain au chocolat", "Çikolatalı kruvasan"],
+"Pain aux raisins": ["Raisin swirl", "Üzümlü çörek"],
+"Chausson aux pommes": ["Apple turnover", "Elmalı milföy"],
+"Brioche tranchée": ["Sliced brioche", "Dilimli briyoş"],
+"Pains au lait": ["Milk rolls", "Sütlü çörek"],
+"Crêpe nature": ["Plain crêpe", "Sade krep"],
+"Pancake": ["Pancake", "Pankek"],
+"Pain d'épices": ["Gingerbread", "Baharatlı kek"],
+"Flocons d'avoine": ["Rolled oats", "Yulaf ezmesi"],
+"Crème de riz": ["Cream of rice", "Pirinç kreması"],
+"Muesli floconneux": ["Muesli", "Müsli"],
+"Muesli croustillant": ["Crunchy muesli", "Çıtır müsli"],
+"Granola chocolat": ["Chocolate granola", "Çikolatalı granola"],
+"Corn Flakes": ["Corn Flakes", "Corn Flakes"],
+"Special K nature": ["Special K original", "Special K sade"],
+"Miel Pops": ["Honey Pops", "Ballı Pops"],
+"Coco Pops": ["Coco Pops", "Coco Pops"],
+"Trésor chocolat noisettes": ["Krave chocolate hazelnut", "Krave çikolata fındık"],
+"Chocapic": ["Chocapic", "Chocapic"],
+"Golden Grahams": ["Golden Grahams", "Golden Grahams"],
+"Fitness nature": ["Fitness original", "Fitness sade"],
+"Lion": ["Lion cereal", "Lion gevrek"],
+"Weetabix": ["Weetabix", "Weetabix"],
+"Céréales chocolatées": ["Chocolate cereal", "Çikolatalı gevrek"],
+"Filet de poulet cru": ["Chicken breast, raw", "Tavuk göğsü (çiğ)"],
+"Filet de poulet cuit": ["Chicken breast, cooked", "Tavuk göğsü (pişmiş)"],
+"Aiguillettes de poulet crues": ["Chicken tenderloins, raw", "Tavuk bonfile (çiğ)"],
+"Haut de cuisse de poulet cru": ["Chicken thigh, raw", "Tavuk but (çiğ)"],
+"Cuisse de poulet rôtie": ["Roast chicken leg", "Fırın tavuk but"],
+"Poulet rôti avec peau": ["Roast chicken with skin", "Derili fırın tavuk"],
+"Escalope de dinde crue": ["Turkey escalope, raw", "Hindi şnitzel (çiğ)"],
+"Escalope de dinde cuite": ["Turkey escalope, cooked", "Hindi şnitzel (pişmiş)"],
+"Émincés de poulet rôti": ["Roast chicken strips", "Fırın tavuk dilimleri"],
+"Filet de poulet rôti tranché": ["Sliced roast chicken breast", "Dilimlenmiş fırın tavuk göğsü"],
+"Nuggets de poulet": ["Chicken nuggets", "Tavuk nugget"],
+"Cordon bleu de dinde": ["Turkey cordon bleu", "Hindi cordon bleu"],
+"Filet de dinde pané": ["Breaded turkey fillet", "Pane hindi fileto"],
+"Magret de canard cuit": ["Duck breast, cooked", "Ördek göğsü (pişmiş)"],
+"Foie de volaille": ["Chicken liver", "Tavuk ciğeri"],
+"Saucisse de volaille": ["Chicken sausage", "Tavuk sosis"],
+"Knacki 100 % volaille": ["Knacki 100% poultry", "Knacki %100 tavuk sosis"],
+"Steak haché 5 % cru": ["5% beef burger, raw", "%5 yağlı köftelik kıyma (çiğ)"],
+"Steak haché 5 % cuit": ["5% beef burger, cooked", "%5 yağlı hamburger köftesi (pişmiş)"],
+"Steak haché 15 % cru": ["15% beef burger, raw", "%15 yağlı köftelik kıyma (çiğ)"],
+"Steak haché 15 % cuit": ["15% beef burger, cooked", "%15 yağlı hamburger köftesi (pişmiş)"],
+"Le Haché 5 %": ["5% beef burger", "%5 yağlı hamburger köftesi"],
+"Le Haché 15 %": ["15% beef burger", "%15 yağlı hamburger köftesi"],
+"Bœuf haché 5 % (vrac)": ["5% minced beef", "%5 yağlı dana kıyma"],
+"Steak de bœuf cru (rumsteck)": ["Rump steak, raw", "Dana bonfile (çiğ)"],
+"Steak de bœuf cuit": ["Beef steak, cooked", "Dana biftek (pişmiş)"],
+"Entrecôte crue": ["Ribeye steak, raw", "Antrikot (çiğ)"],
+"Bœuf à bourguignon cru": ["Stewing beef, raw", "Kuşbaşı dana eti (çiğ)"],
+"Rôti de bœuf cuit": ["Roast beef", "Rosto dana eti"],
+"Escalope de veau crue": ["Veal escalope, raw", "Dana şnitzel (çiğ)"],
+"Gigot d'agneau cuit": ["Roast leg of lamb", "Kuzu but (pişmiş)"],
+"Côtelette d'agneau crue": ["Lamb chop, raw", "Kuzu pirzola (çiğ)"],
+"Lapin cru": ["Rabbit, raw", "Tavşan eti (çiğ)"],
+"Thon au naturel (égoutté)": ["Tuna in water, drained", "Su içinde ton balığı (süzülmüş)"],
+"Thon à l'huile (égoutté)": ["Tuna in oil, drained", "Yağlı ton balığı (süzülmüş)"],
+"Thon entier au naturel": ["Whole tuna in water", "Bütün ton balığı (su içinde)"],
+"Miettes de thon à la tomate": ["Tuna flakes in tomato", "Domatesli ton balığı"],
+"Saumon frais cru": ["Fresh salmon, raw", "Taze somon (çiğ)"],
+"Saumon cuit": ["Salmon, cooked", "Somon (pişmiş)"],
+"Saumon fumé": ["Smoked salmon", "Füme somon"],
+"Cabillaud cru": ["Cod, raw", "Morina (çiğ)"],
+"Cabillaud cuit": ["Cod, cooked", "Morina (pişmiş)"],
+"Colin d'Alaska surgelé": ["Alaska pollock, frozen", "Alaska mezgiti (dondurulmuş)"],
+"Panés de colin": ["Breaded pollock", "Pane mezgit"],
+"Bâtonnets de poisson pané": ["Fish fingers", "Balık kroket"],
+"Truite crue": ["Trout, raw", "Alabalık (çiğ)"],
+"Truite fumée": ["Smoked trout", "Füme alabalık"],
+"Crevettes cuites décortiquées": ["Cooked peeled prawns", "Haşlanmış ayıklanmış karides"],
+"Crevettes crues surgelées": ["Raw prawns, frozen", "Çiğ karides (dondurulmuş)"],
+"Sardines à l'huile (égouttées)": ["Sardines in oil, drained", "Yağlı sardalya (süzülmüş)"],
+"Maquereau à la tomate": ["Mackerel in tomato", "Domatesli uskumru"],
+"Surimi": ["Surimi sticks", "Surimi"],
+"Moules cuites": ["Mussels, cooked", "Midye (pişmiş)"],
+"Calamars à la romaine": ["Battered squid rings", "Kalamar tava"],
+"Jambon de dinde": ["Turkey ham", "Hindi jambon"],
+"Jambon de poulet": ["Chicken ham", "Tavuk jambon"],
+"Blanc de poulet": ["Sliced chicken breast", "Dilim tavuk göğsü"],
+"Blanc de dinde": ["Sliced turkey breast", "Dilim hindi göğsü"],
+"Viande des Grisons": ["Air-dried beef", "Kurutulmuş dana eti"],
+"Bresaola": ["Bresaola", "Bresaola"],
+"Pastrami de bœuf": ["Beef pastrami", "Dana pastırma"],
+"Chorizo de bœuf": ["Beef chorizo", "Dana chorizo"],
+"Lardons de volaille": ["Poultry lardons", "Tavuk lardon"],
+"Œuf entier": ["Whole egg", "Yumurta"],
+"Œuf dur": ["Hard-boiled egg", "Haşlanmış yumurta"],
+"Blanc d'œuf": ["Egg white", "Yumurta akı"],
+"Jaune d'œuf": ["Egg yolk", "Yumurta sarısı"],
+"Blancs d'œufs liquides": ["Liquid egg whites", "Sıvı yumurta akı"],
+"Omelette nature": ["Plain omelette", "Sade omlet"],
+"Lait demi-écrémé": ["Semi-skimmed milk", "Yarım yağlı süt"],
+"Lait écrémé": ["Skimmed milk", "Yağsız süt"],
+"Lait entier": ["Whole milk", "Tam yağlı süt"],
+"Lait demi-écrémé sans lactose": ["Lactose-free semi-skimmed milk", "Laktozsuz yarım yağlı süt"],
+"Lait chocolaté": ["Chocolate milk", "Kakaolu süt"],
+"Yaourt nature": ["Plain yogurt", "Sade yoğurt"],
+"Yaourt nature 0 %": ["Fat-free plain yogurt", "Yağsız sade yoğurt"],
+"Yaourt aux fruits": ["Fruit yogurt", "Meyveli yoğurt"],
+"Yaourt brassé vanille": ["Vanilla yogurt", "Vanilyalı yoğurt"],
+"Yaourt grec nature": ["Greek yogurt", "Süzme yoğurt"],
+"Yaourt grec 0 %": ["Fat-free Greek yogurt", "Yağsız süzme yoğurt"],
+"Skyr nature": ["Plain skyr", "Sade skyr"],
+"Skyr vanille": ["Vanilla skyr", "Vanilyalı skyr"],
+"HiPRO nature": ["HiPRO plain", "HiPRO sade"],
+"HiPRO vanille": ["HiPRO vanilla", "HiPRO vanilyalı"],
+"HiPRO boisson protéinée": ["HiPRO protein drink", "HiPRO protein içeceği"],
+"Fromage blanc 0 %": ["Fat-free fromage frais", "Yağsız taze peynir (fromage blanc)"],
+"Fromage blanc 3 %": ["Fromage frais 3%", "%3 yağlı taze peynir (fromage blanc)"],
+"Faisselle": ["Faisselle curd cheese", "Lor peyniri (faisselle)"],
+"Petit-suisse nature": ["Petit-suisse", "Petit-suisse"],
+"Danette chocolat": ["Danette chocolate", "Danette çikolatalı"],
+"Crème dessert vanille": ["Vanilla custard", "Vanilyalı muhallebi"],
+"Riz au lait": ["Rice pudding", "Sütlaç"],
+"Kéfir de lait": ["Milk kefir", "Kefir"],
+"Crème fraîche épaisse 30 %": ["Crème fraîche 30%", "Krema (%30, koyu)"],
+"Crème fraîche légère 15 %": ["Light crème fraîche 15%", "Light krema (%15)"],
+"Crème liquide 30 %": ["Single cream 30%", "Sıvı krema (%30)"],
+"Emmental": ["Emmental", "Emmental peyniri"],
+"Emmental râpé": ["Grated Emmental", "Rendelenmiş emmental"],
+"Comté": ["Comté", "Comté peyniri"],
+"Camembert": ["Camembert", "Camembert"],
+"Brie": ["Brie", "Brie peyniri"],
+"Mozzarella": ["Mozzarella", "Mozzarella"],
+"Mozzarella light": ["Light mozzarella", "Light mozzarella"],
+"Feta": ["Feta", "Beyaz peynir (feta)"],
+"Chèvre bûche": ["Goat's cheese log", "Keçi peyniri"],
+"Parmesan": ["Parmesan", "Parmesan"],
+"Raclette": ["Raclette cheese", "Raclette peyniri"],
+"Cheddar": ["Cheddar", "Çedar"],
+"Gouda": ["Gouda", "Gouda"],
+"Ricotta": ["Ricotta", "Ricotta"],
+"Babybel": ["Babybel", "Babybel"],
+"La Vache qui rit": ["The Laughing Cow", "La Vache qui rit üçgen peynir"],
+"Boursin ail et fines herbes": ["Boursin garlic & herbs", "Boursin sarımsaklı otlu"],
+"Fromage à tartiner léger": ["Light cream cheese", "Light krem peynir"],
+"Banane": ["Banana", "Muz"],
+"Pomme": ["Apple", "Elma"],
+"Poire": ["Pear", "Armut"],
+"Orange": ["Orange", "Portakal"],
+"Clémentine": ["Clementine", "Mandalina"],
+"Kiwi": ["Kiwi", "Kivi"],
+"Fraises": ["Strawberries", "Çilek"],
+"Framboises": ["Raspberries", "Ahududu"],
+"Myrtilles": ["Blueberries", "Yaban mersini"],
+"Raisin": ["Grapes", "Üzüm"],
+"Mangue": ["Mango", "Mango"],
+"Ananas": ["Pineapple", "Ananas"],
+"Melon": ["Melon", "Kavun"],
+"Pastèque": ["Watermelon", "Karpuz"],
+"Pêche": ["Peach", "Şeftali"],
+"Abricot": ["Apricot", "Kayısı"],
+"Cerises": ["Cherries", "Kiraz"],
+"Prune": ["Plum", "Erik"],
+"Citron": ["Lemon", "Limon"],
+"Avocat": ["Avocado", "Avokado"],
+"Compote de pommes sans sucres ajoutés": ["Apple purée, no added sugar", "Şekersiz elma püresi"],
+"Compote pomme nature": ["Apple purée pouch", "Elma püresi (paket)"],
+"Salade de fruits": ["Fruit salad", "Meyve salatası"],
+"Dattes": ["Dates", "Hurma"],
+"Raisins secs": ["Raisins", "Kuru üzüm"],
+"Abricots secs": ["Dried apricots", "Kuru kayısı"],
+"Pruneaux": ["Prunes", "Kuru erik"],
+"Figues sèches": ["Dried figs", "Kuru incir"],
+"Cranberries séchées": ["Dried cranberries", "Kuru turna yemişi"],
+"Amandes": ["Almonds", "Badem"],
+"Noix de cajou": ["Cashews", "Kaju"],
+"Noix": ["Walnuts", "Ceviz"],
+"Noisettes": ["Hazelnuts", "Fındık"],
+"Cacahuètes grillées": ["Roasted peanuts", "Kavrulmuş yer fıstığı"],
+"Pistaches grillées": ["Roasted pistachios", "Kavrulmuş antep fıstığı"],
+"Mélange de noix": ["Mixed nuts", "Karışık kuruyemiş"],
+"Beurre de cacahuète": ["Peanut butter", "Fıstık ezmesi"],
+"Purée d'amandes": ["Almond butter", "Badem ezmesi"],
+"Graines de chia": ["Chia seeds", "Chia tohumu"],
+"Graines de courge": ["Pumpkin seeds", "Kabak çekirdeği"],
+"Graines de lin": ["Flaxseeds", "Keten tohumu"],
+"Noix de coco râpée": ["Desiccated coconut", "Hindistan cevizi rendesi"],
+"Brocoli": ["Broccoli", "Brokoli"],
+"Brocoli surgelé": ["Frozen broccoli", "Dondurulmuş brokoli"],
+"Haricots verts": ["Green beans", "Taze fasulye"],
+"Haricots verts surgelés": ["Frozen green beans", "Dondurulmuş taze fasulye"],
+"Haricots verts en conserve": ["Canned green beans", "Konserve taze fasulye"],
+"Carotte": ["Carrot", "Havuç"],
+"Carottes râpées": ["Grated carrots", "Rendelenmiş havuç"],
+"Tomate": ["Tomato", "Domates"],
+"Tomates cerises": ["Cherry tomatoes", "Çeri domates"],
+"Concombre": ["Cucumber", "Salatalık"],
+"Salade verte": ["Green salad", "Yeşil salata"],
+"Épinards surgelés": ["Frozen spinach", "Dondurulmuş ıspanak"],
+"Courgette": ["Courgette", "Kabak"],
+"Poivron": ["Bell pepper", "Dolmalık biber"],
+"Oignon": ["Onion", "Soğan"],
+"Ail": ["Garlic", "Sarımsak"],
+"Champignons de Paris": ["Button mushrooms", "Kültür mantarı"],
+"Aubergine": ["Aubergine", "Patlıcan"],
+"Chou-fleur": ["Cauliflower", "Karnabahar"],
+"Poireau": ["Leek", "Pırasa"],
+"Betterave cuite": ["Cooked beetroot", "Haşlanmış pancar"],
+"Asperges": ["Asparagus", "Kuşkonmaz"],
+"Radis": ["Radishes", "Turp"],
+"Petits pois surgelés": ["Frozen peas", "Dondurulmuş bezelye"],
+"Maïs doux en conserve": ["Canned sweetcorn", "Konserve mısır"],
+"Maïs doux": ["Sweetcorn", "Konserve mısır"],
+"Poêlée de légumes surgelés": ["Frozen stir-fry vegetables", "Dondurulmuş sebze karışımı"],
+"Ratatouille": ["Ratatouille", "Ratatouille (sebze yemeği)"],
+"Soupe de légumes": ["Vegetable soup", "Sebze çorbası"],
+"Lentilles vertes sèches": ["Green lentils, dry", "Yeşil mercimek (kuru)"],
+"Lentilles cuites": ["Lentils, cooked", "Mercimek (pişmiş)"],
+"Lentilles corail sèches": ["Red lentils, dry", "Kırmızı mercimek (kuru)"],
+"Pois chiches en conserve (égouttés)": ["Canned chickpeas, drained", "Konserve nohut (süzülmüş)"],
+"Pois chiches secs": ["Chickpeas, dry", "Nohut (kuru)"],
+"Haricots rouges en conserve (égouttés)": ["Canned kidney beans, drained", "Konserve barbunya (süzülmüş)"],
+"Haricots blancs à la tomate": ["Baked beans", "Domates soslu kuru fasulye"],
+"Flageolets en conserve": ["Canned flageolet beans", "Konserve flageolet fasulyesi"],
+"Edamame surgelés": ["Frozen edamame", "Dondurulmuş edamame"],
+"Tofu nature": ["Plain tofu", "Sade tofu"],
+"Tofu fumé": ["Smoked tofu", "Füme tofu"],
+"Protéines de soja texturées": ["Textured soy protein", "Soya kıyması"],
+"Huile d'olive": ["Olive oil", "Zeytinyağı"],
+"Huile de tournesol": ["Sunflower oil", "Ayçiçek yağı"],
+"Huile de colza": ["Rapeseed oil", "Kanola yağı"],
+"Huile de coco": ["Coconut oil", "Hindistan cevizi yağı"],
+"Beurre doux": ["Unsalted butter", "Tuzsuz tereyağı"],
+"Beurre demi-sel": ["Salted butter", "Tuzlu tereyağı"],
+"Margarine": ["Margarine", "Margarin"],
+"Ketchup": ["Ketchup", "Ketçap"],
+"Mayonnaise": ["Mayonnaise", "Mayonez"],
+"Mayonnaise allégée": ["Light mayonnaise", "Light mayonez"],
+"Moutarde de Dijon": ["Dijon mustard", "Dijon hardalı"],
+"Coulis de tomate": ["Tomato passata", "Domates sosu (passata)"],
+"Sauce bolognaise": ["Bolognese sauce", "Bolonez sos"],
+"Sauce tomate basilic": ["Tomato basil sauce", "Fesleğenli domates sosu"],
+"Pesto alla genovese": ["Pesto alla genovese", "Pesto sos"],
+"Sauce soja": ["Soy sauce", "Soya sosu"],
+"Vinaigrette": ["Vinaigrette", "Salata sosu (vinegret)"],
+"Sauce barbecue": ["Barbecue sauce", "Barbekü sos"],
+"Sauce curry": ["Curry sauce", "Köri sos"],
+"Miel": ["Honey", "Bal"],
+"Confiture": ["Jam", "Reçel"],
+"Confiture extra": ["Extra jam", "Ekstra reçel"],
+"Sucre blanc": ["White sugar", "Toz şeker"],
+"Sirop d'érable": ["Maple syrup", "Akçaağaç şurubu"],
+"Pâte à tartiner chocolat": ["Chocolate spread", "Çikolatalı krema"],
+"Nutella": ["Nutella", "Nutella"],
+"Chocolat noir 70 %": ["Dark chocolate 70%", "%70 bitter çikolata"],
+"Excellence 85 % cacao": ["Excellence 85% cocoa", "Excellence %85 kakao"],
+"Chocolat au lait": ["Milk chocolate", "Sütlü çikolata"],
+"Kinder Bueno": ["Kinder Bueno", "Kinder Bueno"],
+"Kinder Chocolat": ["Kinder Chocolate", "Kinder Chocolate"],
+"Snickers": ["Snickers", "Snickers"],
+"Mars": ["Mars bar", "Mars"],
+"Twix": ["Twix", "Twix"],
+"KitKat": ["KitKat", "KitKat"],
+"M&M's cacahuète": ["M&M's peanut", "M&M's fıstıklı"],
+"Glace vanille": ["Vanilla ice cream", "Vanilyalı dondurma"],
+"Brownie": ["Brownie", "Browni"],
+"Bonbons gélifiés": ["Gummy sweets", "Jelibon"],
+"Petit Beurre": ["Petit Beurre biscuits", "Petit Beurre bisküvi"],
+"Prince chocolat": ["Prince chocolate biscuits", "Prince çikolatalı bisküvi"],
+"Granola": ["Granola biscuits", "Granola bisküvi"],
+"BN chocolat": ["BN chocolate biscuits", "BN çikolatalı bisküvi"],
+"Belvita miel et pépites de chocolat": ["Belvita honey & choc chips", "Belvita ballı damla çikolatalı"],
+"Speculoos": ["Speculoos biscuits", "Lotus bisküvi"],
+"Oreo": ["Oreo", "Oreo"],
+"Cookies aux pépites de chocolat": ["Chocolate chip cookies", "Damla çikolatalı kurabiye"],
+"Madeleine": ["Madeleine", "Madlen kek"],
+"Barre de céréales": ["Cereal bar", "Tahıl bar"],
+"Chips nature": ["Ready salted crisps", "Sade cips"],
+"Pringles Original": ["Pringles Original", "Pringles Original"],
+"Tuc original": ["Tuc crackers", "Tuc kraker"],
+"Pop-corn sucré": ["Sweet popcorn", "Şekerli patlamış mısır"],
+"Jus d'orange 100 %": ["100% orange juice", "%100 portakal suyu"],
+"Jus de pomme": ["Apple juice", "Elma suyu"],
+"Coca-Cola": ["Coca-Cola", "Coca-Cola"],
+"Coca-Cola Zero": ["Coca-Cola Zero", "Coca-Cola Zero"],
+"Ice Tea pêche": ["Peach iced tea", "Şeftalili soğuk çay"],
+"Oasis Tropical": ["Oasis Tropical", "Oasis Tropical"],
+"Red Bull": ["Red Bull", "Red Bull"],
+"Monster Energy": ["Monster Energy", "Monster Energy"],
+"Smoothie fruits rouges": ["Red berry smoothie", "Kırmızı meyveli smoothie"],
+"Lait d'avoine": ["Oat drink", "Yulaf sütü"],
+"Boisson soja nature": ["Plain soy drink", "Sade soya sütü"],
+"Boisson amande": ["Almond drink", "Badem sütü"],
+"Café noir": ["Black coffee", "Sade kahve"],
+"Thé": ["Tea", "Çay"],
+"Whey protéine": ["Whey protein", "Whey protein"],
+"Whey isolate": ["Whey isolate", "Whey izolat"],
+"Impact Whey Protein": ["Impact Whey Protein", "Impact Whey Protein"],
+"Gold Standard 100 % Whey": ["Gold Standard 100% Whey", "Gold Standard %100 Whey"],
+"Caséine": ["Casein", "Kazein"],
+"Protéine végétale (pois)": ["Pea protein", "Bezelye proteini"],
+"Gainer": ["Mass gainer", "Gainer"],
+"Créatine monohydrate": ["Creatine monohydrate", "Kreatin monohidrat"],
+"Barre protéinée": ["Protein bar", "Protein bar"],
+"Carb Killer": ["Carb Killer", "Carb Killer"],
+"Pizza margherita": ["Margherita pizza", "Margarita pizza"],
+"Pizza 4 fromages": ["Four cheese pizza", "Dört peynirli pizza"],
+"Ristorante Mozzarella": ["Ristorante Mozzarella", "Ristorante Mozzarella"],
+"Lasagnes bolognaise": ["Beef lasagne", "Kıymalı lazanya"],
+"Hachis parmentier": ["Cottage pie", "Patates püreli kıyma graten"],
+"Gratin dauphinois": ["Potato gratin", "Patates graten"],
+"Raviolis pur bœuf": ["Beef ravioli", "Dana etli ravioli"],
+"Chili con carne": ["Chili con carne", "Chili con carne"],
+"Bœuf bourguignon": ["Beef bourguignon", "Şaraplı dana yahni"],
+"Tortellini ricotta épinards": ["Ricotta spinach tortellini", "Ricottalı ıspanaklı tortellini"],
+"Sandwich poulet crudités": ["Chicken salad sandwich", "Tavuklu sandviç"],
+"Salade composée au poulet": ["Chicken salad bowl", "Tavuklu salata"],
+"Wrap poulet": ["Chicken wrap", "Tavuk dürüm"],
+"Maki saumon": ["Salmon maki", "Somonlu maki"],
+"Nigiri saumon": ["Salmon nigiri", "Somonlu nigiri"],
+"Big Mac": ["Big Mac", "Big Mac"],
+"Cheeseburger": ["Cheeseburger", "Cheeseburger"],
+"McChicken": ["McChicken", "McChicken"],
+"Royal Cheese": ["Quarter Pounder with Cheese", "Royal Cheese"],
+"Chicken McNuggets": ["Chicken McNuggets", "Chicken McNuggets"],
+"Frites moyennes": ["Medium fries", "Orta patates kızartması"],
+"Whopper": ["Whopper", "Whopper"],
+"Burger classique": ["Classic burger", "Klasik burger"],
+"Tacos français": ["French tacos", "Fransız tacos"],
+"Pizza (part, restaurant)": ["Pizza slice (restaurant)", "Pizza dilimi (restoran)"],
+"Sandwich sub poulet 15 cm": ["6-inch chicken sub", "15 cm tavuklu sandviç"],
+"Poulet frit (morceau)": ["Fried chicken (piece)", "Kızarmış tavuk (parça)"]
+};
+
+/* Nexafit — langues : français (langue source), anglais, turc.
+   L'interface est écrite en français ; ce module traduit à l'affichage chaque texte de la page
+   (dictionnaire exact, puis modèles pour les textes avec des nombres). */
+(function () {
+'use strict';
+const LANGS = { fr: ['Français', 'fr-FR'], tr: ['Türkçe', 'tr-TR'], en: ['English', 'en-GB'] };
+let lang = 'fr';
+try {
+  const s = localStorage.getItem('nexafit-lang');
+  if (LANGS[s]) lang = s;
+  else { const n = (navigator.language || '').slice(0, 2).toLowerCase(); if (LANGS[n]) lang = n; }
+} catch (e) { }
+
+/* ---------- dictionnaire : français → [anglais, turc] ---------- */
+const D = new Map();
+const add = rows => rows.forEach(r => { if (!D.has(r[0])) D.set(r[0], [r[1], r[2]]); });
+
+add([
+// navigation, titres
+['Journal', 'Log', 'Günlük'], ['Muscu', 'Workout', 'Antrenman'], ['Courses', 'Groceries', 'Alışveriş'], ['Progrès', 'Progress', 'İlerleme'],
+['Réglages', 'Settings', 'Ayarlar'], ['Plus', 'More', 'Daha fazla'], ['Navigation', 'Navigation', 'Gezinme'], ['Profil et réglages', 'Profile and settings', 'Profil ve ayarlar'],
+['Fermer', 'Close', 'Kapat'], ['Annuler', 'Undo', 'Geri al'], ['Masquer', 'Hide', 'Gizle'], ['Modifier', 'Edit', 'Düzenle'], ['Supprimer', 'Delete', 'Sil'],
+['Enregistrer', 'Save', 'Kaydet'], ['Enregistré', 'Saved', 'Kaydedildi'], ['Ajouter', 'Add', 'Ekle'], ['Créer', 'Create', 'Oluştur'], ['Retirer', 'Remove', 'Çıkar'],
+['Effacer', 'Clear', 'Temizle'], ['Valider', 'Confirm', 'Onayla'], ['Rechercher', 'Search', 'Ara'], ['Rechercher…', 'Search…', 'Ara…'], ['Reprendre', 'Retake', 'Tekrar çek'],
+['Quitter', 'Leave', 'Çık'], ['Super', 'Great', 'Harika'], ['Nouveau', 'New', 'Yeni'], ['Copier', 'Copy', 'Kopyala'], ['Copié', 'Copied', 'Kopyalandı'],
+['Terminé', 'Done', 'Bitti'], ['Terminer', 'Finish', 'Bitir'], ['Moins', 'Less', 'Azalt'], ['Inclure', 'Include', 'Dahil et'], ['Arrêter', 'Stop', 'Durdur'],
+['Nexafit', 'Nexafit', 'Nexafit'], ['Nexafit · une création Nexalis', 'Nexafit · a Nexalis creation', 'Nexafit · bir Nexalis ürünü'],
+// accueil
+['Charge la barre,', 'Load the bar,', 'Barı yükle,'], ['repas après repas.', 'meal after meal.', 'öğün öğün.'],
+['Calories, protéines, muscu, sommeil : tout au même endroit, sans abonnement. Commence par calculer tes besoins, ça prend 30 secondes.', 'Calories, protein, training, sleep: everything in one place, no subscription. Start by working out your needs, it takes 30 seconds.', 'Kalori, protein, antrenman, uyku: hepsi tek yerde, abonelik yok. İhtiyaçlarını hesaplayarak başla, 30 saniye sürer.'],
+['Sexe', 'Sex', 'Cinsiyet'], ['Homme', 'Male', 'Erkek'], ['Femme', 'Female', 'Kadın'], ['Âge', 'Age', 'Yaş'], ['Taille', 'Height', 'Boy'], ['Poids', 'Weight', 'Kilo'],
+['ans', 'years', 'yaş'], ['cm', 'cm', 'cm'], ['kg', 'kg', 'kg'], ['Activité', 'Activity', 'Aktivite'], ['Objectif', 'Goal', 'Hedef'],
+['Sédentaire', 'Sedentary', 'Hareketsiz'], ['Bureau, peu de marche', 'Desk job, little walking', 'Masa başı, az yürüyüş'],
+['Légèrement actif', 'Lightly active', 'Az aktif'], ['1 à 3 séances par semaine', '1 to 3 workouts a week', 'Haftada 1-3 antrenman'],
+['Actif', 'Active', 'Aktif'], ['3 à 5 séances par semaine', '3 to 5 workouts a week', 'Haftada 3-5 antrenman'],
+['Très actif', 'Very active', 'Çok aktif'], ['6 séances ou travail physique', '6 workouts or physical job', '6 antrenman veya bedensel iş'],
+['Extrêmement actif', 'Extremely active', 'Aşırı aktif'], ['Sport intense tous les jours', 'Intense sport every day', 'Her gün yoğun spor'],
+['Prise de masse sèche', 'Lean bulk', 'Temiz bulk'], ['Prise de masse', 'Bulk', 'Kütle kazanımı'], ['Maintien', 'Maintenance', 'Koruma'], ['Sèche', 'Cut', 'Definasyon'],
+['Remplis ton âge, ta taille et ton poids pour calculer tes besoins.', 'Enter your age, height and weight to work out your needs.', 'İhtiyaçlarını hesaplamak için yaşını, boyunu ve kilonu gir.'],
+["C'est parti", "Let's go", 'Başlayalım'], ["J'ai déjà une sauvegarde", 'I already have a backup', 'Zaten bir yedeğim var'],
+["Calcul selon la formule de Mifflin-St Jeor, la plus utilisée par les diététiciens. Ce sont des estimations : tu pourras ajuster selon l'évolution de ton poids.", 'Calculated with the Mifflin-St Jeor equation, the one dietitians use most. These are estimates: you can adjust them as your weight changes.', 'Diyetisyenlerin en çok kullandığı Mifflin-St Jeor formülüyle hesaplanır. Bunlar tahmindir: kilonun gidişatına göre ayarlayabilirsin.'],
+['Ton objectif par jour', 'Your daily goal', 'Günlük hedefin'], ["L d'eau", 'L of water', 'L su'], ['g prot.', 'g protein', 'g protein'], ['g gluc.', 'g carbs', 'g karb.'], ['g lip.', 'g fat', 'g yağ'],
+['Complète ton âge, ta taille et ton poids', 'Fill in your age, height and weight', 'Yaşını, boyunu ve kilonu doldur'], ['Complète ton profil', 'Complete your profile', 'Profilini tamamla'],
+['Ajuster à la main (facultatif)', 'Adjust by hand (optional)', 'Elle ayarla (isteğe bağlı)'], ['Reprendre les valeurs calculées', 'Use the calculated values', 'Hesaplanan değerleri kullan'],
+['Grammes', 'Grams', 'Gram'], ['kcal en moyenne', 'kcal on average', 'kcal ortalama'], ['Pas encore assez de données. Il faut au moins deux mesures.', 'Not enough data yet. At least two readings are needed.', 'Henüz yeterli veri yok. En az iki ölçüm gerekli.'], ['Aucune donnée sur cette période.', 'No data for this period.', 'Bu dönem için veri yok.'], ['h', 'h', 'sa'], ['min', 'min', 'dk'], ['L', 'L', 'L'], ['record', 'record', 'rekor'], ['records', 'records', 'rekor'], ['Calories (kcal)', 'Calories (kcal)', 'Kalori (kcal)'], ['Protéines (g)', 'Protein (g)', 'Protein (g)'], ['Glucides (g)', 'Carbs (g)', 'Karbonhidrat (g)'], ['Lipides (g)', 'Fat (g)', 'Yağ (g)'],
+['Eau (ml)', 'Water (ml)', 'Su (ml)'], ['Sommeil (h)', 'Sleep (h)', 'Uyku (sa)'], ['Profil et objectifs', 'Profile and goals', 'Profil ve hedefler'], ['Objectifs mis à jour', 'Goals updated', 'Hedefler güncellendi'],
+// journal
+["Aujourd'hui", 'Today', 'Bugün'], ['Hier', 'Yesterday', 'Dün'], ['Demain', 'Tomorrow', 'Yarın'], ["Revenir à aujourd'hui", 'Back to today', 'Bugüne dön'],
+['Jour précédent', 'Previous day', 'Önceki gün'], ['Jour suivant', 'Next day', 'Sonraki gün'], ['Résumé du jour', 'Daily summary', 'Günün özeti'],
+['kcal restantes', 'kcal left', 'kcal kaldı'], ['kcal au-dessus', 'kcal over', 'kcal fazla'], ['protéines à manger', 'protein to eat', 'protein yenecek'], ["de l'objectif", 'of goal', 'hedefin'],
+['coût du jour', "today's cost", 'günün maliyeti'], ['muscu', 'workouts', 'antrenman'], ['Barre chargée selon tes macros', 'Bar loaded with your macros', 'Makrolarına göre yüklenen bar'],
+['Protéines', 'Protein', 'Protein'], ['Glucides', 'Carbs', 'Karbonhidrat'], ['Lipides', 'Fat', 'Yağ'], ['Prot.', 'Prot.', 'Prot.'], ['Gluc.', 'Carbs', 'Karb.'], ['Lip.', 'Fat', 'Yağ'],
+['prot.', 'prot.', 'prot.'], ['gluc.', 'carbs', 'karb.'], ['lip.', 'fat', 'yağ'], ['Kcal', 'Kcal', 'Kcal'], ['kcal', 'kcal', 'kcal'],
+['Eau', 'Water', 'Su'], ['Sommeil', 'Sleep', 'Uyku'], ['Peser', 'Weigh in', 'Tartıl'], ['Noter', 'Log', 'Gir'], ['à jeun, le matin', 'mornings, before eating', 'sabah, aç karnına'], ['première pesée', 'first weigh-in', 'ilk tartı'],
+['Petit-déjeuner', 'Breakfast', 'Kahvaltı'], ['Déjeuner', 'Lunch', 'Öğle yemeği'], ['Collation', 'Snack', 'Ara öğün'], ['Dîner', 'Dinner', 'Akşam yemeği'], ['Matin', 'Breakfast', 'Kahvaltı'],
+["Rien encore. Flocons d'avoine, œufs, whey : un bon début pour la masse.", 'Nothing yet. Oats, eggs, whey: a good start for bulking.', 'Henüz bir şey yok. Yulaf, yumurta, whey: kütle için iyi bir başlangıç.'],
+['Rien encore. Vise une source de protéines et un féculent.', 'Nothing yet. Aim for a protein source and some carbs.', 'Henüz bir şey yok. Bir protein kaynağı ve bir karbonhidrat hedefle.'],
+['Une collation aide à atteindre tes calories sans te forcer.', 'A snack helps you hit your calories without forcing it.', 'Bir ara öğün, kendini zorlamadan kalorine ulaşmana yardım eder.'],
+['Rien encore pour ce soir.', 'Nothing yet for tonight.', 'Bu akşam için henüz bir şey yok.'],
+['Copier les repas de la veille', "Copy yesterday's meals", 'Dünün öğünlerini kopyala'], ['Repas favoris', 'Favourite meals', 'Favori öğünler'],
+['Options du repas', 'Meal options', 'Öğün seçenekleri'], ['Enregistrer comme repas favori', 'Save as favourite meal', 'Favori öğün olarak kaydet'], ['Pour le rajouter en un geste', 'To add it again in one tap', 'Tek dokunuşla tekrar eklemek için'],
+['Copier au lendemain', 'Copy to the next day', 'Ertesi güne kopyala'], ['Copié au lendemain', 'Copied to the next day', 'Ertesi güne kopyalandı'], ['Vider ce repas', 'Clear this meal', 'Bu öğünü temizle'], ['Tu pourras annuler', 'You can undo', 'Geri alabilirsin'],
+['Nouveau repas favori', 'New favourite meal', 'Yeni favori öğün'], ['Petit-déjeuner type', 'Usual breakfast', 'Her zamanki kahvaltı'], ['Déjeuner type', 'Usual lunch', 'Her zamanki öğle yemeği'], ['Collation type', 'Usual snack', 'Her zamanki ara öğün'], ['Dîner type', 'Usual dinner', 'Her zamanki akşam yemeği'],
+['Repas favori', 'Favourite meal', 'Favori öğün'], ['Nom', 'Name', 'Ad'],
+['Poids du jour', "Today's weight", 'Bugünkü kilo'], ['Sommeil de la nuit', "Last night's sleep", 'Dün gecenin uykusu'], ['Entre une valeur', 'Enter a value', 'Bir değer gir'],
+["Pèse-toi le matin, à jeun, après être passé aux toilettes : c'est la mesure la plus fiable d'un jour à l'autre.", "Weigh yourself in the morning, before eating and after the toilet: it's the most reliable reading from one day to the next.", 'Sabah aç karnına, tuvaletten sonra tartıl: günden güne en güvenilir ölçüm budur.'],
+['Pendant une prise de masse, 7 à 9 h de sommeil aident la récupération et la croissance musculaire.', 'While bulking, 7 to 9 hours of sleep help recovery and muscle growth.', 'Kütle döneminde 7-9 saat uyku toparlanmaya ve kas gelişimine yardım eder.'],
+["Objectif d'eau atteint 💧", 'Water goal reached 💧', 'Su hedefine ulaşıldı 💧'],
+// ajout d'aliments
+['Ajouter un aliment', 'Add a food', 'Besin ekle'], ['Rechercher un aliment…', 'Search for a food…', 'Besin ara…'], ['Scanner', 'Scan', 'Tara'], ['code-barres', 'barcode', 'barkod'],
+['Taper', 'Type', 'Yaz'], ['le code-barres', 'the barcode', 'barkodu'], ['un aliment', 'a food', 'besin'], ['Étiquette', 'Label', 'Etiket'], ['photo + IA', 'photo + AI', 'fotoğraf + YZ'],
+['Décrire', 'Describe', 'Anlat'], ["avec l'IA", 'with AI', 'YZ ile'], ['Récents', 'Recent', 'Son kullanılanlar'], ['Favoris', 'Favourites', 'Favoriler'], ['Parcourir', 'Browse', 'Göz at'],
+['Astuce :', 'Tip:', 'İpucu:'],
+['les aliments que tu ajoutes apparaissent ici, avec la dernière quantité utilisée. Après quelques jours, la plupart de tes repas s\'ajoutent en deux gestes.', 'the foods you add show up here, with the last amount you used. After a few days, most of your meals take two taps.', 'eklediğin besinler son kullandığın miktarla burada görünür. Birkaç gün sonra öğünlerinin çoğunu iki dokunuşla eklersin.'],
+['créer cet aliment', 'create this food', 'bu besini oluşturabilirsin'], ['Aucun aliment trouvé. Tu peux le créer depuis le bouton + du journal.', 'No food found. You can create it from the + button in the log.', 'Besin bulunamadı. Günlükteki + düğmesinden oluşturabilirsin.'],
+['Repas', 'Meal', 'Öğün'], ['Quantité en grammes', 'Amount in grams', 'Gram cinsinden miktar'], ['Moins 10 grammes', 'Minus 10 grams', '10 gram azalt'], ['Plus 10 grammes', 'Plus 10 grams', '10 gram artır'],
+['★ Dans mes favoris', '★ In my favourites', '★ Favorilerimde'], ['☆ Ajouter aux favoris', '☆ Add to favourites', '☆ Favorilere ekle'], ["Modifier l'aliment", 'Edit food', 'Besini düzenle'],
+['Entre une quantité', 'Enter an amount', 'Bir miktar gir'], ['Modifié', 'Updated', 'Güncellendi'],
+['Valeurs moyennes, à ajuster si ton produit diffère.', 'Average values, adjust if your product differs.', 'Ortalama değerlerdir, ürünün farklıysa düzelt.'],
+['Source : Open Food Facts.', 'Source: Open Food Facts.', 'Kaynak: Open Food Facts.'], ["Estimation de l'IA, à vérifier.", 'AI estimate, please check.', 'YZ tahmini, kontrol et.'],
+['Nouvel aliment', 'New food', 'Yeni besin'], ['Ex. Skyr vanille', 'e.g. Vanilla skyr', 'Örn. Vanilyalı skyr'], ['Marque (facultatif)', 'Brand (optional)', 'Marka (isteğe bağlı)'],
+['Pour 100 g ou 100 ml', 'Per 100 g or 100 ml', '100 g veya 100 ml için'], ['calcul auto', 'auto', 'otomatik'], ['Portion habituelle', 'Usual serving', 'Her zamanki porsiyon'],
+['Nom de la portion', 'Serving name', 'Porsiyon adı'], ['pot, barre, tranche…', 'pot, bar, slice…', 'kase, bar, dilim…'], ['Poids (g)', 'Weight (g)', 'Ağırlık (g)'],
+['Prix (facultatif)', 'Price (optional)', 'Fiyat (isteğe bağlı)'], ['Prix du paquet (€)', 'Pack price (€)', 'Paket fiyatı (€)'], ['Contenu du paquet (g)', 'Pack size (g)', 'Paket içeriği (g)'], ['Contenu du paquet (ml)', 'Pack size (ml)', 'Paket içeriği (ml)'],
+['Code-barres (facultatif)', 'Barcode (optional)', 'Barkod (isteğe bağlı)'],
+['Si tu laisses les calories vides, Nexafit les calcule : 4 kcal par gramme de protéines ou de glucides, 9 par gramme de lipides.', 'If you leave calories empty, Nexafit works them out: 4 kcal per gram of protein or carbs, 9 per gram of fat.', 'Kaloriyi boş bırakırsan Nexafit hesaplar: protein veya karbonhidratın gramı 4 kcal, yağın gramı 9 kcal.'],
+['Enregistrer et ajouter', 'Save and add', 'Kaydet ve ekle'], ["Donne un nom à l'aliment", 'Give the food a name', 'Besine bir ad ver'], ['Aliment créé', 'Food created', 'Besin oluşturuldu'], ['Aliment modifié', 'Food updated', 'Besin güncellendi'], ['Aliment supprimé', 'Food deleted', 'Besin silindi'],
+['Vérifie les valeurs', 'Check the values', 'Değerleri kontrol et'], ["lues par l'IA avant d'enregistrer.", 'read by the AI before saving.', '(YZ tarafından okundu) kaydetmeden önce.'],
+// scanner
+['Code-barres', 'Barcode', 'Barkod'], ['Lecture du code-barres…', 'Reading the barcode…', 'Barkod okunuyor…'], ['Chiffres sous le code-barres', 'Digits under the barcode', 'Barkodun altındaki rakamlar'],
+['Chiffres du code-barres', 'Barcode digits', 'Barkod rakamları'], ['Code-barres incomplet', 'Incomplete barcode', 'Eksik barkod'], ['Ex. 3017620422003', 'e.g. 3017620422003', 'Örn. 3017620422003'],
+["Le code-barres n'a pas pu être lu sur cette photo. Rapproche-toi, évite les reflets et cadre bien les barres. Tu peux aussi taper les chiffres.", "The barcode couldn't be read on this photo. Move closer, avoid glare and frame the bars well. You can also type the digits.", 'Bu fotoğrafta barkod okunamadı. Yaklaş, yansımadan kaçın ve çizgileri iyi kadrajla. Rakamları da yazabilirsin.'],
+["L'IA lit les chiffres sous le code-barres…", 'The AI is reading the barcode digits…', 'YZ barkod rakamlarını okuyor…'], ['Code lu', 'Barcode read', 'Okunan barkod'],
+['Nouveau produit.', 'New product.', 'Yeni ürün.'], ['Nexafit fonctionne sans base de données payante : enregistre ce produit une fois et il sera reconnu instantanément aux prochains scans.', 'Nexafit works without a paid database: save this product once and it will be recognised instantly on the next scans.', 'Nexafit ücretli bir veritabanı olmadan çalışır: bu ürünü bir kez kaydet, sonraki taramalarda hemen tanınır.'],
+['Photographier le tableau nutritionnel', 'Photograph the nutrition label', 'Besin değerleri tablosunu fotoğrafla'], ["L'IA remplit les valeurs pour toi", 'The AI fills in the values for you', 'YZ değerleri senin için doldurur'],
+['Saisir les valeurs', 'Enter the values', 'Değerleri gir'], ["Recopie l'étiquette pour 100 g", 'Copy the label per 100 g', 'Etiketi 100 g için gir'],
+['Produit trouvé, mais des valeurs manquent.', 'Product found, but some values are missing.', 'Ürün bulundu ama bazı değerler eksik.'], ["Complète-les avec l'étiquette (pour 100 g).", 'Fill them in from the label (per 100 g).', 'Etiketten tamamla (100 g için).'],
+['Recherche impossible', 'Search failed', 'Arama yapılamadı'], ["(pas de connexion ?). Recopie les valeurs de l'étiquette pour 100 g : le produit sera reconnu aux prochains scans.", '(no connection?). Copy the label values per 100 g: the product will be recognised on the next scans.', '(bağlantı yok mu?). Etiket değerlerini 100 g için gir: ürün sonraki taramalarda tanınır.'],
+['Produit inconnu.', 'Unknown product.', 'Bilinmeyen ürün.'], ["Recopie les valeurs de l'étiquette pour 100 g : il sera reconnu instantanément aux prochains scans.", 'Copy the label values per 100 g: it will be recognised instantly on the next scans.', 'Etiket değerlerini 100 g için gir: sonraki taramalarda hemen tanınır.'],
+["Lecture de l'étiquette", 'Reading the label', 'Etiket okunuyor'], ["L'IA lit le tableau nutritionnel… (10 à 30 s)", 'The AI is reading the nutrition label… (10 to 30 s)', 'YZ besin tablosunu okuyor… (10-30 sn)'],
+['Étiquette illisible, réessaie avec une photo nette', 'Label unreadable, try again with a sharp photo', 'Etiket okunamadı, net bir fotoğrafla tekrar dene'],
+["L'IA n'est pas autorisée sur cette page", "AI isn't allowed on this page", 'Bu sayfada YZ izinli değil'], ["Trop de demandes à l'IA, réessaie dans un moment", 'Too many AI requests, try again in a moment', 'YZ’ye çok fazla istek, biraz sonra tekrar dene'],
+['Photo refusée, essaie une autre photo', 'Photo rejected, try another one', 'Fotoğraf reddedildi, başka bir fotoğraf dene'], ['Annulé', 'Cancelled', 'İptal edildi'], ["L'IA n'a pas pu répondre, réessaie", "The AI couldn't answer, try again", 'YZ yanıt veremedi, tekrar dene'],
+// IA : décrire un repas
+['Décrire ce que tu as mangé', 'Describe what you ate', 'Ne yediğini anlat'], ['En langage normal, avec les quantités si tu les connais', 'In plain words, with amounts if you know them', 'Sade bir dille, biliyorsan miktarlarla'],
+['Ex. une assiette de riz avec 2 cuisses de poulet et une sauce tomate, un verre de lait', 'e.g. a plate of rice with 2 chicken legs and tomato sauce, a glass of milk', 'Örn. 2 tavuk butlu ve domates soslu bir tabak pilav, bir bardak süt'],
+["L'IA estime les quantités et les valeurs…", 'The AI is estimating amounts and values…', 'YZ miktarları ve değerleri tahmin ediyor…'], ["À vérifier avant d'ajouter", 'Check before adding', 'Eklemeden önce kontrol et'],
+['Estimation : ajuste les grammes si besoin. Total ≈', 'Estimate: adjust the grams if needed. Total ≈', 'Tahmin: gerekirse gramları düzelt. Toplam ≈'], ['kcal.', 'kcal.', 'kcal.'], ['Relancer', 'Retry', 'Yeniden dene'], ['Analyser', 'Analyse', 'Analiz et'],
+["Décris ton repas d'abord", 'Describe your meal first', 'Önce öğününü anlat'], ['Aucun aliment reconnu, précise ta description', 'No food recognised, be more specific', 'Besin tanınmadı, açıklamanı netleştir'],
+// mes aliments, recettes, favoris
+['Mes aliments', 'My foods', 'Besinlerim'], ['Créer un aliment', 'Create a food', 'Besin oluştur'], ['Créés par toi ou scannés', 'Created by you or scanned', 'Senin oluşturduğun veya taranan'], ["Créés, scannés ou lus par l'IA", 'Created, scanned or read by AI', 'Oluşturulan, taranan veya YZ ile okunan'],
+["Les aliments que tu crées ou scannes apparaissent ici. Ils sont prioritaires dans la recherche.", 'Foods you create or scan show up here. They come first in search.', 'Oluşturduğun veya taradığın besinler burada görünür. Aramada önce çıkarlar.'],
+["Les aliments que tu crées, scannes ou fais lire par l'IA apparaissent ici. Ils sont prioritaires dans la recherche.", 'Foods you create, scan or have the AI read show up here. They come first in search.', 'Oluşturduğun, taradığın veya YZ’ye okuttuğun besinler burada görünür. Aramada önce çıkarlar.'],
+['Mes recettes', 'My recipes', 'Tariflerim'], ['Nouvelle recette', 'New recipe', 'Yeni tarif'], ['Modifier la recette', 'Edit recipe', 'Tarifi düzenle'], ['Tes plats maison, calculés par portion', 'Your home-made dishes, per serving', 'Ev yemeklerin, porsiyon başına'],
+["Enregistre un plat que tu prépares souvent (ex. ton riz-poulet du midi ou ton shake maison). Il s'ajoutera ensuite par portion, avec les valeurs déjà calculées.", 'Save a dish you often make (e.g. your chicken and rice or your home-made shake). You can then add it per serving, with the values already worked out.', 'Sık yaptığın bir yemeği kaydet (örn. öğlen tavuk-pilavın veya ev yapımı shake’in). Sonra değerleri hesaplanmış olarak porsiyon porsiyon eklersin.'],
+['Ex. Shake prise de masse', 'e.g. Bulking shake', 'Örn. Kütle shake’i'], ['Nombre de portions', 'Number of servings', 'Porsiyon sayısı'], ['Poids final cuit (g, facultatif)', 'Cooked weight (g, optional)', 'Pişmiş ağırlık (g, isteğe bağlı)'],
+['Par portion', 'Per serving', 'Porsiyon başına'], ['Ingrédients', 'Ingredients', 'Malzemeler'], ['Ajouter un ingrédient…', 'Add an ingredient…', 'Malzeme ekle…'], ['Enregistrer la recette', 'Save recipe', 'Tarifi kaydet'],
+['Donne un nom à la recette', 'Give the recipe a name', 'Tarife bir ad ver'], ['Ajoute au moins un ingrédient', 'Add at least one ingredient', 'En az bir malzeme ekle'], ['Recette enregistrée', 'Recipe saved', 'Tarif kaydedildi'], ['Recette supprimée', 'Recipe deleted', 'Tarif silindi'],
+['Un repas complet en un geste', 'A whole meal in one tap', 'Tek dokunuşla tam öğün'],
+["Dans le journal, touche les trois points d'un repas puis", "In the log, tap a meal's three dots then", 'Günlükte bir öğünün üç noktasına dokun, sonra'], ['. Tu pourras ensuite le rajouter en un seul geste depuis le bouton +.', '. You can then add it again in one tap from the + button.', '. Sonra + düğmesinden tek dokunuşla tekrar ekleyebilirsin.'],
+['Retirer', 'Remove', 'Çıkar'],
+// muscu
+['Démarrer une séance libre', 'Start a free workout', 'Serbest antrenman başlat'], ['Mes programmes', 'My programmes', 'Programlarım'], ['Modifier le programme', 'Edit programme', 'Programı düzenle'], ['Nouveau programme', 'New programme', 'Yeni program'],
+['Historique', 'History', 'Geçmiş'], ['séance cette semaine', 'workout this week', 'antrenman (bu hafta)'], ['séances cette semaine', 'workouts this week', 'antrenman (bu hafta)'], ['au total', 'in total', 'toplam'], ['records battus', 'records broken', 'kırılan rekor'],
+['Aucun programme. Crée le tien ou démarre une séance libre.', 'No programme. Create yours or start a free workout.', 'Program yok. Kendi programını oluştur veya serbest antrenman başlat.'],
+['Tes séances terminées apparaîtront ici, avec la durée, le volume et tes records.', 'Your finished workouts will show up here, with duration, volume and records.', 'Bitirdiğin antrenmanlar süre, hacim ve rekorlarınla burada görünecek.'],
+['Séance en cours', 'Workout in progress', 'Devam eden antrenman'], ['Durée', 'Duration', 'Süre'], ['Séries', 'Sets', 'Setler'], ['Volume', 'Volume', 'Hacim'], ['Série', 'Set', 'Set'], ['Reps', 'Reps', 'Tekrar'], ['reps', 'reps', 'tekrar'],
+['Valider la série', 'Complete set', 'Seti tamamla'], ['Retirer la dernière', 'Remove last', 'Sonuncuyu çıkar'], ['Ajouter un exercice', 'Add an exercise', 'Egzersiz ekle'], ['Abandonner la séance', 'Abandon workout', 'Antrenmanı bırak'],
+['Abandonner la séance ?', 'Abandon this workout?', 'Antrenman bırakılsın mı?'], ['Les séries de cette séance ne seront pas enregistrées.', "This workout's sets won't be saved.", 'Bu antrenmanın setleri kaydedilmeyecek.'], ['Continuer', 'Continue', 'Devam et'], ['Abandonner', 'Abandon', 'Bırak'],
+['Options de l\'exercice', 'Exercise options', 'Egzersiz seçenekleri'], ['Monter', 'Move up', 'Yukarı taşı'], ['Descendre', 'Move down', 'Aşağı taşı'], ["Remplacer l'exercice", 'Replace exercise', 'Egzersizi değiştir'],
+['Machine prise ? Change sans perdre ta place', 'Machine taken? Swap without losing your place', 'Makine dolu mu? Yerini kaybetmeden değiştir'], ['Voir la progression', 'See progress', 'İlerlemeyi gör'], ['Retirer de la séance', 'Remove from workout', 'Antrenmandan çıkar'],
+['Premier passage sur cet exercice', 'First time on this exercise', 'Bu egzersizde ilk kez'], ['Entre le nombre de répétitions', 'Enter the number of reps', 'Tekrar sayısını gir'], ['Une séance est déjà en cours', 'A workout is already in progress', 'Zaten devam eden bir antrenman var'],
+['Aucune série validée', 'No completed sets', 'Tamamlanan set yok'], ["Valide tes séries avec le bouton ✓ pour qu'elles soient enregistrées. Tu veux quitter la séance sans rien enregistrer ?", 'Complete your sets with the ✓ button so they get saved. Leave the workout without saving anything?', 'Setlerinin kaydedilmesi için ✓ düğmesiyle tamamla. Hiçbir şey kaydetmeden çıkmak istiyor musun?'],
+['Séance terminée', 'Workout finished', 'Antrenman bitti'], ['durée', 'duration', 'süre'], ['séries', 'sets', 'set'], ['kg soulevés', 'kg lifted', 'kg kaldırıldı'], ['Records battus', 'Records broken', 'Kırılan rekorlar'], ['Détail', 'Details', 'Ayrıntılar'],
+['Pense à manger une source de protéines dans les heures qui suivent : ta séance est enregistrée dans le journal du jour.', "Have some protein in the next few hours: your workout is saved in today's log.", 'Sonraki birkaç saat içinde protein almayı unutma: antrenmanın bugünün günlüğüne kaydedildi.'],
+['Supprimer cette séance', 'Delete this workout', 'Bu antrenmanı sil'], ['Séance supprimée', 'Workout deleted', 'Antrenman silindi'], ['Choisir un exercice', 'Choose an exercise', 'Egzersiz seç'], ['Créer un exercice', 'Create an exercise', 'Egzersiz oluştur'],
+['Déjà pratiqué', 'Done before', 'Daha önce yapıldı'], ['Aucun exercice trouvé. Crée-le avec le bouton en bas.', 'No exercise found. Create it with the button below.', 'Egzersiz bulunamadı. Alttaki düğmeyle oluştur.'],
+['Nouvel exercice', 'New exercise', 'Yeni egzersiz'], ['Ex. Rowing T-bar', 'e.g. T-bar row', 'Örn. T-bar row'], ['Groupe musculaire', 'Muscle group', 'Kas grubu'], ['Donne un nom', 'Give it a name', 'Bir ad ver'],
+['Nom du programme', 'Programme name', 'Program adı'], ['Ex. Prise de masse 4 jours', 'e.g. 4-day bulk', 'Örn. 4 günlük kütle'], ['Nom de la séance', 'Workout name', 'Antrenman adı'], ['Exercice', 'Exercise', 'Egzersiz'],
+['Ajouter une séance', 'Add a workout', 'Antrenman ekle'], ['Supprimer la séance', 'Delete workout', 'Antrenmanı sil'], ['Supprimer le programme', 'Delete programme', 'Programı sil'], ['Répétitions', 'Reps', 'Tekrar'],
+['Donne un nom au programme', 'Give the programme a name', 'Programa bir ad ver'], ['Programme enregistré', 'Programme saved', 'Program kaydedildi'], ['Programme supprimé', 'Programme deleted', 'Program silindi'], ['Séance', 'Workout', 'Antrenman'],
+['Arrêter le chrono', 'Stop timer', 'Sayacı durdur'], ['Go !', 'Go!', 'Başla!'], ['Série suivante', 'Next set', 'Sonraki set'], ['Temps de repos par défaut', 'Default rest time', 'Varsayılan dinlenme süresi'],
+["Pour la prise de masse : 1 à 2 min sur les exercices d'isolation, 2 à 3 min sur les gros mouvements (squat, développé couché, soulevé de terre).", 'For bulking: 1 to 2 min on isolation exercises, 2 to 3 min on big lifts (squat, bench press, deadlift).', 'Kütle için: izolasyon egzersizlerinde 1-2 dk, büyük hareketlerde 2-3 dk (squat, bench press, deadlift).'],
+['Séance libre', 'Free workout', 'Serbest antrenman'], ['Séance A', 'Workout A', 'Antrenman A'], ['Séance B', 'Workout B', 'Antrenman B'], ['Full body', 'Full body', 'Full body'], ['Push', 'Push', 'Push'], ['Pull', 'Pull', 'Pull'], ['Legs', 'Legs', 'Legs'],
+['Pectoraux', 'Chest', 'Göğüs'], ['Dos', 'Back', 'Sırt'], ['Épaules', 'Shoulders', 'Omuz'], ['Bras', 'Arms', 'Kol'], ['Jambes', 'Legs', 'Bacak'], ['Abdos', 'Abs', 'Karın'], ['Cardio', 'Cardio', 'Kardiyo'], ['Autre', 'Other', 'Diğer'], ['Perso', 'Custom', 'Özel'],
+// courses
+["Ce qu'il me faut", 'What I need', 'İhtiyacım olanlar'], ['Ma liste', 'My list', 'Listem'], ["Calculer d'après", 'Calculate from', 'Hesaplama kaynağı'], ['Ma journée type', 'My typical day', 'Örnek günüm'], ['Mon journal', 'My log', 'Günlüğüm'],
+['1 semaine', '1 week', '1 hafta'], ['2 semaines', '2 weeks', '2 hafta'], ['1 mois', '1 month', '1 ay'], ['Aliment', 'Food', 'Besin'],
+['Journée type proposée selon tes objectifs.', 'Typical day suggested from your goals.', 'Hedeflerine göre önerilen örnek gün.'],
+['Change les quantités, retire ou ajoute des aliments : tout se recalcule. Les quantités sont par jour.', 'Change amounts, remove or add foods: everything recalculates. Amounts are per day.', 'Miktarları değiştir, besin ekle veya çıkar: her şey yeniden hesaplanır. Miktarlar günlüktür.'],
+['Coût de cette journée', "This day's cost", 'Bu günün maliyeti'], ['prix ?', 'price?', 'fiyat?'], ['Quantité par jour', 'Amount per day', 'Günlük miktar'],
+["Ta journée type est vide. Ajoute les aliments que tu manges d'habitude.", 'Your typical day is empty. Add the foods you usually eat.', 'Örnek günün boş. Genelde yediğin besinleri ekle.'],
+['Ajuster les quantités à mes objectifs', 'Fit amounts to my goals', 'Miktarları hedeflerime göre ayarla'], ["Ajoute d'abord des aliments", 'Add some foods first', 'Önce besin ekle'],
+['Pas encore de repas dans ton journal.', 'No meals in your log yet.', 'Günlüğünde henüz öğün yok.'], ["Note ce que tu manges pendant quelques jours : Nexafit calculera tes courses d'après ce que tu manges vraiment. En attendant, utilise ta journée type.", 'Log what you eat for a few days: Nexafit will work out your groceries from what you really eat. Meanwhile, use your typical day.', 'Birkaç gün ne yediğini kaydet: Nexafit alışverişini gerçekte yediklerine göre hesaplar. O zamana kadar örnek gününü kullan.'],
+['Ticket de courses', 'Grocery receipt', 'Alışveriş fişi'], ['Total à payer', 'Total to pay', 'Ödenecek toplam'], ['Ce que tu manges vraiment', 'What you actually eat', 'Gerçekte yediğin'], ['Soit par jour', 'Per day', 'Günlük'], ['Sur un mois', 'Over a month', 'Aylık'],
+['Le total compte des paquets entiers : il reste un peu de stock pour la suite. Prix moyens indicatifs en supermarché ; touche une ligne pour mettre le prix de ton magasin.', 'The total counts whole packs: you keep a little stock for later. Indicative average supermarket prices; tap a line to set your shop’s price.', 'Toplam tam paketleri sayar: sonrası için biraz stok kalır. Süpermarket ortalama fiyatlarıdır; kendi marketinin fiyatını girmek için bir satıra dokun.'],
+['Envoyer dans ma liste de courses', 'Send to my shopping list', 'Alışveriş listeme gönder'], ['Ajouter à ma journée type', 'Add to my typical day', 'Örnek günüme ekle'],
+["Tape le nom d'un aliment ou d'une marque. Tu indiqueras ensuite la quantité par jour.", "Type a food or brand name. You'll then set the amount per day.", 'Bir besin veya marka adı yaz. Sonra günlük miktarı belirlersin.'],
+['Aucun aliment trouvé. Tu peux le créer depuis le bouton + du journal.', 'No food found. You can create it from the + button in the log.', 'Besin bulunamadı. Günlükteki + düğmesinden oluşturabilirsin.'],
+["Exemple : un paquet de riz de 1 kg à 2,20 € → 2,20 € et 1000 g. Mets le contenu à 0 si tu achètes au poids (fruits, légumes, viande à la coupe) et le prix au kilo.", 'Example: a 1 kg pack of rice at €2.20 → 2.20 and 1000 g. Set the size to 0 if you buy by weight (fruit, veg, butcher’s meat) and enter the price per kilo.', 'Örnek: 2,20 €’luk 1 kg pirinç paketi → 2,20 ve 1000 g. Tartıyla alıyorsan (meyve, sebze, kasap eti) içeriği 0 yap ve kilo fiyatını gir.'],
+['Prix moyen', 'Average price', 'Ortalama fiyat'], ['Entre un prix', 'Enter a price', 'Bir fiyat gir'], ['Prix enregistré', 'Price saved', 'Fiyat kaydedildi'],
+['total de la liste', 'list total', 'liste toplamı'], ['dans le panier', 'in the basket', 'sepette'], ['reste à prendre', 'still to get', 'alınacak'], ['Ajouter un article…', 'Add an item…', 'Ürün ekle…'], ['Prix €', 'Price €', 'Fiyat €'],
+["Ajouter les ingrédients d'une recette", "Add a recipe's ingredients", 'Bir tarifin malzemelerini ekle'], ['Retirer les articles cochés', 'Remove ticked items', 'İşaretlileri kaldır'], ['Vider la liste', 'Empty the list', 'Listeyi boşalt'], ['Liste vidée', 'List emptied', 'Liste boşaltıldı'],
+['Ta liste est vide.', 'Your list is empty.', 'Listen boş.'], ["Va dans « Ce qu'il me faut » pour la remplir automatiquement avec les quantités et les prix, ou ajoute des articles à la main.", 'Go to “What I need” to fill it automatically with amounts and prices, or add items by hand.', 'Miktar ve fiyatlarla otomatik doldurmak için “İhtiyacım olanlar” bölümüne git ya da elle ürün ekle.'],
+['Article', 'Item', 'Ürün'], ['Quantité', 'Amount', 'Miktar'], ['Prix (€)', 'Price (€)', 'Fiyat (€)'], ['Ex. 2 × 1 kg', 'e.g. 2 × 1 kg', 'Örn. 2 × 1 kg'],
+// progrès
+['7 j', '7 d', '7 g'], ['30 j', '30 d', '30 g'], ['3 mois', '3 months', '3 ay'], ['1 an', '1 year', '1 yıl'], ['Pesée', 'Weigh-in', 'Tartı'], ['Évolution du poids', 'Weight trend', 'Kilo değişimi'],
+['Pèse-toi au moins deux fois pour voir ta courbe.', 'Weigh yourself at least twice to see your curve.', 'Grafiğini görmek için en az iki kez tartıl.'], ['Calories', 'Calories', 'Kalori'], ['Calories par jour', 'Calories per day', 'Günlük kalori'],
+['Ajoute des repas pour voir tes calories jour par jour.', 'Add meals to see your calories day by day.', 'Günlük kalorini görmek için öğün ekle.'], ['jours objectif atteint', 'days on target', 'hedefe ulaşılan gün'], ['protéines / jour', 'protein / day', 'protein / gün'], ['jours suivis', 'days logged', 'kaydedilen gün'],
+['Force', 'Strength', 'Güç'], ['1RM estimé', 'Estimated 1RM', 'Tahmini 1RM'], ['Fais cet exercice au moins deux fois sur la période pour voir ta progression.', 'Do this exercise at least twice in the period to see your progress.', 'İlerlemeni görmek için bu egzersizi dönem içinde en az iki kez yap.'],
+["Le 1RM estimé (formule d'Epley) est la charge que tu pourrais soulever une fois. Il permet de comparer des séries de reps différentes.", 'Estimated 1RM (Epley formula) is the weight you could lift once. It lets you compare sets with different reps.', 'Tahmini 1RM (Epley formülü) bir kez kaldırabileceğin ağırlıktır. Farklı tekrarlı setleri karşılaştırmanı sağlar.'],
+['Termine une séance de muscu pour suivre ta force exercice par exercice.', 'Finish a workout to track your strength exercise by exercise.', 'Gücünü egzersiz egzersiz takip etmek için bir antrenman bitir.'], ['séances', 'workouts', 'antrenman'], ['volume total', 'total volume', 'toplam hacim'], ['records', 'records', 'rekor'],
+['Mes records', 'My records', 'Rekorlarım'], ['Mensurations', 'Measurements', 'Ölçüler'], ['Mesurer', 'Measure', 'Ölç'], ['Mensurations du jour', "Today's measurements", 'Bugünkü ölçüler'], ['Mensurations enregistrées', 'Measurements saved', 'Ölçüler kaydedildi'],
+['Mesure ton tour de bras, de poitrine et de taille toutes les 2 à 4 semaines. En prise de masse, ça montre si tu prends du muscle et pas seulement du gras.', 'Measure your arms, chest and waist every 2 to 4 weeks. When bulking, it shows whether you gain muscle and not just fat.', 'Kol, göğüs ve bel ölçünü 2-4 haftada bir al. Kütle döneminde sadece yağ değil kas kazanıp kazanmadığını gösterir.'],
+['Tour de bras', 'Arm', 'Kol çevresi'], ['Poitrine', 'Chest', 'Göğüs'], ['Tour de taille', 'Waist', 'Bel çevresi'], ['Cuisse', 'Thigh', 'Uyluk'], ['Mollet', 'Calf', 'Baldır'],
+['Tour de bras (cm)', 'Arm (cm)', 'Kol çevresi (cm)'], ['Poitrine (cm)', 'Chest (cm)', 'Göğüs (cm)'], ['Tour de taille (cm)', 'Waist (cm)', 'Bel çevresi (cm)'], ['Cuisse (cm)', 'Thigh (cm)', 'Uyluk (cm)'], ['Mollet (cm)', 'Calf (cm)', 'Baldır (cm)'],
+['Mesure toujours au même endroit : bras contracté au plus large, taille au niveau du nombril, cuisse à mi-hauteur.', 'Always measure at the same spot: flexed arm at its widest, waist at the navel, thigh halfway up.', 'Hep aynı yerden ölç: kol kasılıyken en geniş yerinden, bel göbek hizasından, uyluk ortasından.'],
+['Eau et sommeil', 'Water and sleep', 'Su ve uyku'], ["d'eau par jour", 'water per day', 'günlük su'], ['de sommeil par nuit', 'sleep per night', 'gecelik uyku'], ['Heures de sommeil', 'Hours of sleep', 'Uyku saatleri'],
+['Note ton sommeil dans le journal pour le voir ici.', 'Log your sleep in the log to see it here.', 'Burada görmek için uykunu günlüğe gir.'], ['Tendance :', 'Trend:', 'Eğilim:'],
+['Fixer un objectif de poids', 'Set a weight goal', 'Kilo hedefi belirle'], ['Objectif de poids', 'Weight goal', 'Kilo hedefi'], ['Poids visé et délai', 'Target weight and deadline', 'Hedef kilo ve süre'],
+['Poids actuel', 'Current weight', 'Mevcut kilo'], ['Poids visé (kg)', 'Target weight (kg)', 'Hedef kilo (kg)'], ['En combien de temps ?', 'How long?', 'Ne kadar sürede?'],
+['2 mois', '2 months', '2 ay'], ['4 mois', '4 months', '4 ay'], ['6 mois', '6 months', '6 ay'], ['9 mois', '9 months', '9 ay'], ['Ou en nombre de semaines', 'Or in weeks', 'Ya da hafta olarak'],
+['Rythme nécessaire', 'Required pace', 'Gereken tempo'], ['par semaine', 'per week', 'haftada'], ['objectif le', 'target date', 'hedef tarihi'],
+['Objectif de maintien : tu gardes ton poids stable.', 'Maintenance goal: you keep your weight stable.', 'Koruma hedefi: kilonu sabit tutarsın.'],
+['Prise de masse très propre, mais lente.', 'Very clean bulk, but slow.', 'Çok temiz bir bulk ama yavaş.'], ['Rythme idéal pour prendre du muscle en limitant le gras.', 'Ideal pace to build muscle while limiting fat.', 'Yağı sınırlayarak kas kazanmak için ideal tempo.'],
+['Rapide : une partie du poids pris sera du gras.', 'Fast: some of the weight gained will be fat.', 'Hızlı: alınan kilonun bir kısmı yağ olacak.'], ['Trop rapide : allonge la durée pour prendre surtout du muscle.', 'Too fast: extend the timeline to gain mostly muscle.', 'Çok hızlı: çoğunlukla kas kazanmak için süreyi uzat.'],
+['Sèche douce : tu gardes bien ton muscle.', 'Gentle cut: you keep your muscle.', 'Yumuşak definasyon: kasını korursun.'], ['Bon rythme de sèche.', 'Good cutting pace.', 'İyi bir definasyon temposu.'],
+['Trop rapide : tu risques de perdre du muscle. Allonge la durée.', 'Too fast: you may lose muscle. Extend the timeline.', 'Çok hızlı: kas kaybedebilirsin. Süreyi uzat.'],
+['Ta dépense estimée, plus le surplus pour ce rythme (1 kg ≈ 7 700 kcal).', 'Your estimated expenditure, plus the surplus for this pace (1 kg ≈ 7,700 kcal).', 'Tahmini harcaman artı bu tempo için fazlalık (1 kg ≈ 7.700 kcal).'],
+['Ta dépense estimée, moins le déficit pour ce rythme (1 kg ≈ 7 700 kcal).', 'Your estimated expenditure, minus the deficit for this pace (1 kg ≈ 7,700 kcal).', 'Tahmini harcaman eksi bu tempo için açık (1 kg ≈ 7.700 kcal).'],
+['Complète ton profil pour obtenir les calories conseillées.', 'Complete your profile to get suggested calories.', 'Önerilen kaloriyi görmek için profilini tamamla.'],
+['Supprimer', 'Delete', 'Sil'], ["Enregistrer l'objectif", 'Save goal', 'Hedefi kaydet'], ['Entre un poids visé valide', 'Enter a valid target weight', 'Geçerli bir hedef kilo gir'], ['Objectif de poids supprimé', 'Weight goal deleted', 'Kilo hedefi silindi'],
+['Objectif atteint, bravo !', 'Goal reached, well done!', 'Hedefe ulaştın, tebrikler!'], ['Touche ici pour fixer le suivant.', 'Tap here to set the next one.', 'Sonrakini belirlemek için buraya dokun.'],
+// réglages
+['Cuisine', 'Kitchen', 'Mutfak'], ["Taille du verre d'eau", 'Water glass size', 'Su bardağı boyutu'], ['Taille du verre', 'Glass size', 'Bardak boyutu'], ['Temps de repos', 'Rest time', 'Dinlenme süresi'], ['Rappels', 'Reminders', 'Hatırlatmalar'],
+['Pesée, eau, repas', 'Weigh-in, water, meals', 'Tartı, su, öğünler'], ['Mes données', 'My data', 'Verilerim'], ['Sauvegarde et export', 'Backup and export', 'Yedekleme ve dışa aktarma'], ['À propos de Nexafit', 'About Nexafit', 'Nexafit hakkında'],
+["Comment l'appli fonctionne", 'How the app works', 'Uygulama nasıl çalışır'], ['Langue', 'Language', 'Dil'], ['Chaque appui sur « + » dans la carte Eau ajoutera cette quantité.', 'Each tap on “+” in the Water card adds this amount.', 'Su kartındaki “+” her dokunuşta bu miktarı ekler.'],
+["Aucune sauvegarde pour l'instant", 'No backup yet', 'Henüz yedek yok'], ["Aucune sauvegarde pour l'instant.", 'No backup yet.', 'Henüz yedek yok.'],
+['Données sur cet appareil uniquement', 'Data on this device only', 'Veriler yalnızca bu cihazda'],
+['Tes données sont enregistrées sur ce téléphone.', 'Your data is stored on this phone.', 'Verilerin bu telefonda saklanıyor.'], ['Exporter une sauvegarde complète', 'Export a full backup', 'Tam yedek dışa aktar'],
+['Fichier .json à garder dans Fichiers ou iCloud', 'A .json file to keep in Files or iCloud', 'Dosyalar’da veya iCloud’da saklanacak .json dosyası'], ['Exporter le journal en tableau', 'Export the log as a table', 'Günlüğü tablo olarak dışa aktar'],
+['Fichier .csv lisible dans Excel ou Numbers', 'A .csv file for Excel or Numbers', 'Excel veya Numbers için .csv dosyası'], ['Importer une sauvegarde', 'Import a backup', 'Yedeği içe aktar'], ['Remplace les données actuelles', 'Replaces current data', 'Mevcut verilerin yerine geçer'],
+['Sauvegarde automatique active.', 'Automatic backup on.', 'Otomatik yedekleme açık.'], ['Données sur cet appareil.', 'Data on this device.', 'Veriler bu cihazda.'], ['Copie ce texte et garde-le dans Notes', 'Copy this text and keep it in Notes', 'Bu metni kopyala ve Notlar’da sakla'], ['Texte sélectionné, copie-le', 'Text selected, copy it', 'Metin seçildi, kopyala'],
+['Fichier enregistré', 'File saved', 'Dosya kaydedildi'], ['Export impossible sur ce navigateur', "Export isn't possible in this browser", 'Bu tarayıcıda dışa aktarma yapılamıyor'], ['Importer cette sauvegarde ?', 'Import this backup?', 'Bu yedek içe aktarılsın mı?'], ['Importer', 'Import', 'İçe aktar'],
+['Fichier illisible', 'Unreadable file', 'Dosya okunamadı'], ["Ce fichier n'est pas une sauvegarde Nexafit", "This file isn't a Nexafit backup", 'Bu dosya bir Nexafit yedeği değil'], ['Sauvegarde importée', 'Backup imported', 'Yedek içe aktarıldı'],
+['Synchronisation…', 'Syncing…', 'Eşitleniyor…'], ['Sauvegardé', 'Saved', 'Kaydedildi'], ['Sur cet appareil', 'On this device', 'Bu cihazda'], ['Espace de sauvegarde plein', 'Backup storage full', 'Yedek alanı dolu'], ['Sauvegarde en attente', 'Backup pending', 'Yedekleme bekliyor'],
+['Sauvegarde en ligne indisponible', 'Online backup unavailable', 'Çevrimiçi yedekleme kullanılamıyor'], ['Pense à sauvegarder', 'Remember to back up', 'Yedeklemeyi unutma'], ['Mémoire pleine', 'Storage full', 'Depolama dolu'],
+['Installe Nexafit :', 'Install Nexafit:', 'Nexafit’i yükle:'], ["dans Safari, touche Partager puis « Sur l'écran d'accueil ». Elle s'ouvrira en plein écran, même sans connexion.", 'in Safari, tap Share then “Add to Home Screen”. It will open full screen, even offline.', 'Safari’de Paylaş’a, sonra “Ana Ekrana Ekle”ye dokun. Tam ekran açılır, bağlantı olmasa bile.'],
+['Tes données', 'Your data', 'Verilerin'], ['Les valeurs nutritionnelles', 'Nutrition values', 'Besin değerleri'], ['Les calculs', 'The calculations', 'Hesaplamalar'], ["Installer l'appli", 'Install the app', 'Uygulamayı yükle'], ['Sur iPhone', 'On iPhone', 'iPhone’da'],
+["Tout reste sur ton téléphone : pas de compte, pas de serveur, personne d'autre ne peut voir tes données. Exporte une sauvegarde de temps en temps (Réglages › Sauvegarde et export) : si tu supprimes l'appli ou changes de téléphone, c'est elle qui te permettra de tout récupérer.", 'Everything stays on your phone: no account, no server, nobody else can see your data. Export a backup now and then (Settings › Backup and export): if you delete the app or change phones, it lets you get everything back.', 'Her şey telefonunda kalır: hesap yok, sunucu yok, verilerini kimse göremez. Arada bir yedek al (Ayarlar › Yedekleme ve dışa aktarma): uygulamayı silersen veya telefon değiştirirsen her şeyi geri almanı sağlar.'],
+[', une base alimentaire libre et collaborative (licence ODbL). Le produit est ensuite gardé sur ton téléphone et reconnu instantanément.', ', a free, collaborative food database (ODbL licence). The product is then kept on your phone and recognised instantly.', ', özgür ve ortak bir gıda veritabanı (ODbL lisansı). Ürün sonra telefonunda saklanır ve hemen tanınır.'],
+['Open Food Facts', 'Open Food Facts', 'Open Food Facts'],
+["Besoins : formule de Mifflin-St Jeor × niveau d'activité, puis surplus ou déficit selon l'objectif. Protéines : 2 g par kg en prise de masse. Lipides : environ 27 % des calories. Glucides : le reste. Force : 1RM estimé avec la formule d'Epley.", 'Needs: Mifflin-St Jeor equation × activity level, then a surplus or deficit for your goal. Protein: 2 g per kg when bulking. Fat: about 27% of calories. Carbs: the rest. Strength: 1RM estimated with the Epley formula.', 'İhtiyaç: Mifflin-St Jeor formülü × aktivite düzeyi, sonra hedefe göre fazlalık veya açık. Protein: kütlede kilo başına 2 g. Yağ: kalorinin yaklaşık %27’si. Karbonhidrat: geri kalanı. Güç: Epley formülüyle tahmini 1RM.'],
+["Sur iPhone, dans Safari : Partager puis « Sur l'écran d'accueil ». Sur Android, dans Chrome : menu ⋮ puis « Ajouter à l'écran d'accueil ». Une fois installée, Nexafit fonctionne même sans connexion (sauf la recherche des produits scannés).", 'On iPhone, in Safari: Share then “Add to Home Screen”. On Android, in Chrome: menu ⋮ then “Add to Home screen”. Once installed, Nexafit works even offline (except looking up scanned products).', 'iPhone’da Safari’de: Paylaş, sonra “Ana Ekrana Ekle”. Android’de Chrome’da: ⋮ menüsü, sonra “Ana ekrana ekle”. Yüklendikten sonra Nexafit bağlantısız da çalışır (taranan ürün araması hariç).'],
+["Dans Safari, touche Partager puis « Sur l'écran d'accueil » pour l'ouvrir comme une appli.", 'In Safari, tap Share then “Add to Home Screen” to open it like an app.', 'Uygulama gibi açmak için Safari’de Paylaş’a, sonra “Ana Ekrana Ekle”ye dokun.'],
+["Les applis web ne peuvent pas envoyer de notifications de façon fiable sur iPhone. Le plus simple : crée des rappels qui se répètent dans l'appli", "Web apps can't send notifications reliably on iPhone. The simplest way: create repeating reminders in the", 'Web uygulamaları iPhone’da güvenilir bildirim gönderemez. En kolayı: telefonunun'],
+['de ton téléphone.', 'app on your phone.', 'uygulamasında tekrarlanan hatırlatmalar oluştur.'],
+["Une page web ne peut pas envoyer de notifications sur iPhone. La solution la plus fiable : des rappels dans l'appli", "A web page can't send notifications on iPhone. The most reliable option: reminders in your iPhone’s", 'Bir web sayfası iPhone’da bildirim gönderemez. En güvenilir çözüm: iPhone’unun'], ['de ton iPhone.', 'app.', 'uygulamasındaki hatırlatmalar.'],
+["Dans Nexafit, la carte du journal te montre d'un coup d'œil ce qui manque aujourd'hui : pesée, eau et sommeil.", "In Nexafit, the log card shows at a glance what's missing today: weigh-in, water and sleep.", 'Nexafit’te günlük kartı bugün neyin eksik olduğunu bir bakışta gösterir: tartı, su ve uyku.'],
+['Par exemple : « Pesée » tous les matins à 8 h, « Boire de l\'eau » toutes les 2 heures, « Collation » à 16 h.', 'For example: “Weigh-in” every morning at 8 am, “Drink water” every 2 hours, “Snack” at 4 pm.', 'Örneğin: her sabah 08.00’de “Tartı”, 2 saatte bir “Su iç”, 16.00’da “Ara öğün”.'],
+['Une fois installée, Nexafit fonctionne même sans connexion.', 'Once installed, Nexafit works even offline.', 'Yüklendikten sonra Nexafit bağlantısız da çalışır.'],
+// prix
+['Prix ?', 'Price?', 'Fiyat?'],
+]);
+
+// phrases à variables (NXI.t)
+add([
+['{n} semaines', '{n} weeks', '{n} hafta'], ['{n} jours', '{n} days', '{n} gün'], ['{n} jour', '{n} day', '{n} gün'],
+['{x} kg par semaine', '{x} kg per week', 'haftada {x} kg'],
+['La date est passée et il reste {kg} kg. Touche ici pour fixer une nouvelle date.', 'The date has passed and {kg} kg are left. Tap here to set a new date.', 'Tarih geçti ve {kg} kg kaldı. Yeni bir tarih belirlemek için buraya dokun.'],
+['Encore <b>{kg} kg</b> à prendre en {time}, soit {pace} kg par semaine.', '<b>{kg} kg</b> left to gain in {time}, that is {pace} kg per week.', '{time} içinde alınacak <b>{kg} kg</b> kaldı, yani haftada {pace} kg.'],
+['Encore <b>{kg} kg</b> à perdre en {time}, soit {pace} kg par semaine.', '<b>{kg} kg</b> left to lose in {time}, that is {pace} kg per week.', '{time} içinde verilecek <b>{kg} kg</b> kaldı, yani haftada {pace} kg.'],
+['Ta tendance actuelle ({v}) te met dans les temps.', 'Your current trend ({v}) keeps you on schedule.', 'Mevcut eğilimin ({v}) seni zamanında hedefe götürür.'],
+['Ta tendance actuelle est de {v} : ajoute environ {kcal} kcal par jour.', 'Your current trend is {v}: add about {kcal} kcal a day.', 'Mevcut eğilimin {v}: günde yaklaşık {kcal} kcal ekle.'],
+['Ta tendance actuelle est de {v} : retire environ {kcal} kcal par jour.', 'Your current trend is {v}: cut about {kcal} kcal a day.', 'Mevcut eğilimin {v}: günde yaklaşık {kcal} kcal azalt.']
+]);
+
+// phrases du rythme de poids (précédées de ". " dans la page)
+const PACE = [
+['Rythme rapide : tu risques de perdre du muscle, ajoute un peu de calories.', 'Fast pace: you may lose muscle, add a few calories.', 'Hızlı tempo: kas kaybedebilirsin, biraz kalori ekle.'],
+['Bon rythme de sèche.', 'Good cutting pace.', 'İyi bir definasyon temposu.'],
+['Ça stagne : baisse légèrement tes calories ou bouge un peu plus.', "It's stalling: lower your calories slightly or move a bit more.", 'Duraklama var: kalorini biraz düşür veya biraz daha hareket et.'],
+['Poids stable, parfait pour un maintien.', 'Stable weight, perfect for maintenance.', 'Kilo sabit, koruma için mükemmel.'],
+['Ton poids bouge : ajuste tes calories de 100 à 200 kcal.', 'Your weight is moving: adjust your calories by 100 to 200 kcal.', 'Kilon değişiyor: kalorini 100-200 kcal ayarla.'],
+['Tu ne prends pas encore de poids : ajoute environ 200 kcal par jour (une collation de plus, par exemple).', "You're not gaining weight yet: add about 200 kcal a day (one more snack, for example).", 'Henüz kilo almıyorsun: günde yaklaşık 200 kcal ekle (örneğin bir ara öğün daha).'],
+["C'est rapide : une partie risque d'être du gras. Retire 150 à 200 kcal par jour.", "That's fast: some of it may be fat. Cut 150 to 200 kcal a day.", 'Bu hızlı: bir kısmı yağ olabilir. Günde 150-200 kcal azalt.'],
+["C'est le bon rythme pour une prise de masse propre (environ 0,25 à 0,5 kg par semaine).", "That's the right pace for a clean bulk (about 0.25 to 0.5 kg a week).", 'Temiz bir bulk için doğru tempo (haftada yaklaşık 0,25-0,5 kg).']
+];
+add(PACE); add(PACE.map(r => ['. ' + r[0], '. ' + r[1], '. ' + r[2]]));
+
+// catégories d'aliments
+add([
+['Féculents', 'Starches', 'Nişastalılar'], ['Pains & viennoiseries', 'Bread & pastries', 'Ekmek ve hamur işleri'], ['Céréales petit-déj', 'Breakfast cereals', 'Kahvaltılık gevrekler'],
+['Volaille', 'Poultry', 'Kümes hayvanları'], ['Viandes', 'Meat', 'Etler'], ['Poissons & fruits de mer', 'Fish & seafood', 'Balık ve deniz ürünleri'], ['Charcuterie', 'Cold cuts', 'Şarküteri'],
+['Œufs', 'Eggs', 'Yumurta'], ['Produits laitiers', 'Dairy', 'Süt ürünleri'], ['Fromages', 'Cheese', 'Peynirler'], ['Fruits', 'Fruit', 'Meyveler'], ['Fruits secs & oléagineux', 'Dried fruit & nuts', 'Kuru meyve ve kuruyemiş'],
+['Légumes', 'Vegetables', 'Sebzeler'], ['Légumineuses & soja', 'Pulses & soy', 'Baklagiller ve soya'], ['Matières grasses', 'Fats & oils', 'Yağlar'], ['Sauces & condiments', 'Sauces & condiments', 'Soslar'],
+['Sucré & desserts', 'Sweets & desserts', 'Tatlılar'], ['Biscuits & snacks', 'Biscuits & snacks', 'Bisküvi ve atıştırmalık'], ['Boissons', 'Drinks', 'İçecekler'], ['Compléments', 'Supplements', 'Takviyeler'],
+['Plats préparés', 'Ready meals', 'Hazır yemekler'], ['Fast-food & resto', 'Fast food & restaurants', 'Fast food ve restoran'], ['Mes recettes', 'My recipes', 'Tariflerim'], ['Mes aliments', 'My foods', 'Besinlerim']
+]);
+
+// exercices
+const EX = {
+'Développé couché': ['Bench press', 'Bench press'], 'Développé couché haltères': ['Dumbbell bench press', 'Dumbbell bench press'], 'Développé incliné': ['Incline bench press', 'Incline bench press'],
+'Développé incliné haltères': ['Incline dumbbell press', 'Incline dumbbell press'], 'Écarté poulie': ['Cable fly', 'Kablo fly'], 'Pec deck': ['Pec deck', 'Pec deck'], 'Dips': ['Dips', 'Dips'], 'Pompes': ['Push-ups', 'Şınav'],
+'Tractions': ['Pull-ups', 'Barfiks'], 'Rowing barre': ['Barbell row', 'Barbell row'], 'Rowing haltère': ['Dumbbell row', 'Dumbbell row'], 'Tirage vertical': ['Lat pulldown', 'Lat pulldown'],
+'Tirage horizontal': ['Seated cable row', 'Oturarak kablo row'], 'Soulevé de terre': ['Deadlift', 'Deadlift'], 'Pull-over poulie': ['Cable pullover', 'Kablo pullover'], 'Face pull': ['Face pull', 'Face pull'],
+'Développé militaire': ['Overhead press', 'Military press'], 'Développé haltères assis': ['Seated dumbbell press', 'Oturarak dumbbell omuz press'], 'Élévations latérales': ['Lateral raises', 'Yana açış'],
+'Oiseau': ['Rear delt fly', 'Arka omuz açış'], 'Shrugs': ['Shrugs', 'Shrug'], 'Curl barre': ['Barbell curl', 'Barbell curl'], 'Curl haltères': ['Dumbbell curl', 'Dumbbell curl'], 'Curl marteau': ['Hammer curl', 'Hammer curl'],
+'Curl pupitre': ['Preacher curl', 'Preacher curl'], 'Extension triceps poulie': ['Triceps pushdown', 'Kablo triceps pushdown'], 'Barre au front': ['Skull crusher', 'Skull crusher'],
+'Extension nuque haltère': ['Overhead triceps extension', 'Dumbbell overhead triceps'], 'Squat': ['Squat', 'Squat'], 'Presse à cuisses': ['Leg press', 'Leg press'], 'Fentes': ['Lunges', 'Lunge'],
+'Soulevé de terre roumain': ['Romanian deadlift', 'Romanian deadlift'], 'Leg extension': ['Leg extension', 'Leg extension'], 'Leg curl': ['Leg curl', 'Leg curl'], 'Hip thrust': ['Hip thrust', 'Hip thrust'],
+'Mollets debout': ['Standing calf raise', 'Ayakta baldır kaldırma'], 'Crunch': ['Crunch', 'Mekik'], 'Relevé de jambes': ['Leg raise', 'Bacak kaldırma'], 'Roue abdominale': ['Ab wheel', 'Ab wheel'], 'Gainage (secondes)': ['Plank (seconds)', 'Plank (saniye)']
+};
+for (const k in EX) if (!D.has(k)) D.set(k, EX[k]);
+const FI = window.NX_FOODS_I18N || {};
+for (const k in FI) if (!D.has(k)) D.set(k, FI[k]);
+
+// unités et noms comptables : français singulier → [anglais singulier, anglais pluriel, turc]
+const UNITS = {
+'sachet': ['sachet', 'sachets', 'paket'], 'pomme de terre': ['potato', 'potatoes', 'patates'], 'portion': ['serving', 'servings', 'porsiyon'], 'tortilla': ['tortilla', 'tortillas', 'tortilla'],
+'wrap': ['wrap', 'wraps', 'dürüm'], 'galette': ['cake', 'cakes', 'adet'], 'baguette': ['baguette', 'baguettes', 'baget'], 'tranche': ['slice', 'slices', 'dilim'], 'pain': ['bun', 'buns', 'ekmek'],
+'pita': ['pitta', 'pittas', 'pide'], 'biscotte': ['rusk', 'rusks', 'peksimet'], 'croissant': ['croissant', 'croissants', 'kruvasan'], 'pain au chocolat': ['pain au chocolat', 'pains au chocolat', 'çikolatalı kruvasan'],
+'pièce': ['piece', 'pieces', 'adet'], 'chausson': ['turnover', 'turnovers', 'adet'], 'pain au lait': ['milk roll', 'milk rolls', 'sütlü çörek'], 'crêpe': ['crêpe', 'crêpes', 'krep'], 'pancake': ['pancake', 'pancakes', 'pankek'],
+'bol': ['bowl', 'bowls', 'kase'], 'biscuit': ['biscuit', 'biscuits', 'bisküvi'], 'filet': ['fillet', 'fillets', 'fileto'], 'cuisse': ['leg', 'legs', 'but'], 'escalope': ['escalope', 'escalopes', 'şnitzel'],
+'barquette': ['tub', 'tubs', 'kap'], 'nugget': ['nugget', 'nuggets', 'nugget'], 'cordon bleu': ['cordon bleu', 'cordons bleus', 'cordon bleu'], 'pané': ['breaded fillet', 'breaded fillets', 'pane'],
+'saucisse': ['sausage', 'sausages', 'sosis'], 'steak': ['steak', 'steaks', 'köfte'], 'côtelette': ['chop', 'chops', 'pirzola'], 'boîte': ['can', 'cans', 'kutu'], 'pavé': ['fillet', 'fillets', 'fileto'],
+'bâtonnet': ['stick', 'sticks', 'çubuk'], 'rondelle': ['slice', 'slices', 'dilim'], 'œuf': ['egg', 'eggs', 'yumurta'], 'blanc': ['white', 'whites', 'akı'], 'jaune': ['yolk', 'yolks', 'sarısı'],
+'omelette': ['omelette', 'omelettes', 'omlet'], 'verre': ['glass', 'glasses', 'bardak'], 'pot': ['pot', 'pots', 'kase'], 'bouteille': ['bottle', 'bottles', 'şişe'], 'faisselle': ['tub', 'tubs', 'kap'],
+'petit-suisse': ['petit-suisse', 'petits-suisses', 'adet'], 'c. à soupe': ['tbsp', 'tbsp', 'yemek kaşığı'], 'poignée': ['handful', 'handfuls', 'avuç'], 'boule': ['ball', 'balls', 'top'], 'mini': ['mini', 'minis', 'mini'],
+'banane': ['banana', 'bananas', 'muz'], 'pomme': ['apple', 'apples', 'elma'], 'poire': ['pear', 'pears', 'armut'], 'orange': ['orange', 'oranges', 'portakal'], 'clémentine': ['clementine', 'clementines', 'mandalina'],
+'kiwi': ['kiwi', 'kiwis', 'kivi'], 'grappe': ['bunch', 'bunches', 'salkım'], 'mangue': ['mango', 'mangoes', 'mango'], 'pêche': ['peach', 'peaches', 'şeftali'], 'abricot': ['apricot', 'apricots', 'kayısı'],
+'prune': ['plum', 'plums', 'erik'], 'citron': ['lemon', 'lemons', 'limon'], 'avocat': ['avocado', 'avocados', 'avokado'], 'gourde': ['pouch', 'pouches', 'paket'], 'datte': ['date', 'dates', 'hurma'],
+'pruneau': ['prune', 'prunes', 'kuru erik'], 'figue': ['fig', 'figs', 'incir'], 'carotte': ['carrot', 'carrots', 'havuç'], 'tomate': ['tomato', 'tomatoes', 'domates'], 'concombre': ['cucumber', 'cucumbers', 'salatalık'],
+'courgette': ['courgette', 'courgettes', 'kabak'], 'poivron': ['pepper', 'peppers', 'biber'], 'oignon': ['onion', 'onions', 'soğan'], 'gousse': ['clove', 'cloves', 'diş'], 'aubergine': ['aubergine', 'aubergines', 'patlıcan'],
+'poireau': ['leek', 'leeks', 'pırasa'], 'bloc': ['block', 'blocks', 'blok'], 'noisette': ['knob', 'knobs', 'parça'], 'c. à café': ['tsp', 'tsp', 'çay kaşığı'], 'morceau': ['piece', 'pieces', 'parça'],
+'carré': ['square', 'squares', 'kare'], 'barre': ['bar', 'bars', 'bar'], 'part': ['slice', 'slices', 'dilim'], 'cookie': ['cookie', 'cookies', 'kurabiye'], 'madeleine': ['madeleine', 'madeleines', 'madlen'],
+'canette': ['can', 'cans', 'kutu'], 'tasse': ['cup', 'cups', 'fincan'], 'dose': ['scoop', 'scoops', 'ölçek'], 'pizza': ['pizza', 'pizzas', 'pizza'], 'sandwich': ['sandwich', 'sandwiches', 'sandviç'],
+'burger': ['burger', 'burgers', 'burger'], 'tacos': ['tacos', 'tacos', 'tacos'],
+// noms comptables
+'jour': ['day', 'days', 'gün'], 'semaine': ['week', 'weeks', 'hafta'], 'mois': ['month', 'months', 'ay'], 'an': ['year', 'years', 'yıl'], 'séance': ['workout', 'workouts', 'antrenman'],
+'série': ['set', 'sets', 'set'], 'exercice': ['exercise', 'exercises', 'egzersiz'], 'record': ['record', 'records', 'rekor'], 'aliment': ['food', 'foods', 'besin'], 'article': ['item', 'items', 'ürün'],
+'recette': ['recipe', 'recipes', 'tarif'], 'repas': ['meal', 'meals', 'öğün'], 'code-barres': ['barcode', 'barcodes', 'barkod'], 'codes-barres': ['barcode', 'barcodes', 'barkod']
+};
+const UMAP = {};
+for (const k in UNITS) { UMAP[k] = UNITS[k]; if (!/[sx]$/.test(k) && !k.includes(' ')) UMAP[k + 's'] = UNITS[k]; }
+
+/* ---------- modèles pour les textes avec des nombres ---------- */
+const N = '([-+−]?\\d(?:[\\d\\s\\u202f\\u00a0.,]*\\d)?)';
+const num = s => parseFloat(String(s).replace(/[\s  ]/g, '').replace('−', '-').replace(/,/g, '.'));
+const E = () => lang === 'en';
+const L = (en, tr) => (E() ? en : tr);
+const many = n => Math.abs(num(n)) > 1;
+const T = s => { const r = tr(s); return r == null ? s : r; };
+const P = [];
+const rule = (src, fn) => P.push([new RegExp('^' + src + '$'), fn]);
+const dur = (n, u) => n + ' ' + (lang === 'tr' ? ({ min: 'dk', s: 'sn', h: 'sa' }[u]) : u);
+
+rule('BARRE CHARGÉE À ' + N + ' %', m => L('BAR ' + m[1] + '% LOADED', 'BAR %' + m[1] + ' YÜKLÜ'));
+rule(N + ' jours? de suite', m => L(m[1] + '-day streak', m[1] + ' gün üst üste'));
+rule('sur ' + N + ' (kcal|L)', m => L('of ' + m[1] + ' ' + m[2], 'hedef ' + m[1] + ' ' + m[2]));
+rule('objectif ' + N + ' h', m => L('goal ' + m[1] + ' h', 'hedef ' + m[1] + ' sa'));
+rule('objectif ' + N, m => L('goal ' + m[1], 'hedef ' + m[1]));
+rule('(.+) vs (.+)', m => L(m[1] + ' since ' + m[2], m[1] + ' (' + m[2] + ' tarihinden beri)'));
+rule('(.+) sur la période', m => L(m[1] + ' over the period', 'dönem boyunca ' + m[1]));
+rule(N + ' kg par semaine', m => L(m[1] + ' kg per week', 'haftada ' + m[1] + ' kg'));
+rule('Depuis le (.+)', m => L('Since ' + m[1], m[1] + ' tarihinden beri'));
+rule('Aucun aliment trouvé pour « (.+) »\\. (Scanne son code-barres pour le retrouver automatiquement\\. )?Tu peux aussi', m => L('No food found for “' + m[1] + '”. ' + (m[2] ? 'Scan its barcode to find it automatically. ' : '') + 'You can also', '“' + m[1] + '” için besin bulunamadı. ' + (m[2] ? 'Barkodunu tarayarak otomatik bulabilirsin. ' : '') + 'Ayrıca'));
+rule('Aucun aliment trouvé pour « (.+) »\\. Essaie', m => L('No food found for “' + m[1] + '”. Try', '“' + m[1] + '” için besin bulunamadı. Şunu dene:'));
+rule(": écris ce que tu as mangé et l'IA estime les valeurs\\. Tu peux aussi", () => L(': write what you ate and the AI estimates the values. You can also', ': ne yediğini yaz, YZ değerleri tahmin etsin. Ayrıca'));
+rule('Recherche du produit (\\d+)…', m => L('Looking up product ' + m[1] + '…', m[1] + ' ürünü aranıyor…'));
+rule('Prix ≈ (.+) pour cette quantité', m => L('Price ≈ ' + m[1] + ' for this amount', 'Bu miktar için fiyat ≈ ' + m[1]));
+rule('Pour 100 g : (.+)', m => L('Per 100 g: ' + T(m[1]), '100 g için: ' + T(m[1])));
+rule('L ' + N + ' g\\.(?: (.+))?', m => L('F ', 'Y ') + m[1] + ' g.' + (m[2] ? ' ' + T(m[2]) : ''));
+rule('G ' + N + '( g)?', m => L('C ', 'K ') + m[1] + (m[2] || ''));
+rule('L ' + N + '( g)?', m => L('F ', 'Y ') + m[1] + (m[2] || ''));
+rule('P ' + N + ' g par portion', m => L('P ' + m[1] + ' g per serving', 'porsiyon başına P ' + m[1] + ' g'));
+rule(N + ' g la portion', m => L(m[1] + ' g per serving', 'porsiyon ' + m[1] + ' g'));
+rule(N + ' ml par appui', m => L(m[1] + ' ml per tap', 'dokunuş başına ' + m[1] + ' ml'));
+rule(N + ' s entre les séries', m => L(m[1] + ' s between sets', 'setler arası ' + m[1] + ' sn'));
+rule(N + ' (min|s|h)', m => dur(m[1], m[2]));
+rule(N + ' (min|h) ' + N, m => dur(m[1], m[2]) + ' ' + m[3]);
+rule(N + ' t soulevées', m => L(m[1] + ' t lifted', m[1] + ' t kaldırıldı'));
+rule(N + ' ajoutés?', m => L(m[1] + ' added', m[1] + ' eklendi'));
+rule(N + ' aliments? copiés?', m => L(m[1] + (many(m[1]) ? ' foods' : ' food') + ' copied', m[1] + ' besin kopyalandı'));
+rule(N + ' articles? dans ta liste', m => L(m[1] + (many(m[1]) ? ' items' : ' item') + ' in your list', 'listende ' + m[1] + ' ürün'));
+rule('\\+ ' + N + ' sans prix', m => L('+ ' + m[1] + ' without price', '+ ' + m[1] + ' fiyatsız'));
+rule(N + ' articles? sans prix : touche-les pour ajouter le prix\\.', m => L(m[1] + (many(m[1]) ? ' items have' : ' item has') + ' no price: tap to add it.', m[1] + ' ürünün fiyatı yok: eklemek için dokun.'));
+rule(N + ' articles? sans prix ne comptent? pas dans le total\\. Touche « Prix \\? » pour l\'ajouter\\.', m => L(m[1] + (many(m[1]) ? ' items' : ' item') + ' without a price ' + (many(m[1]) ? "aren't" : "isn't") + ' in the total. Tap “Price?” to add it.', 'Fiyatı olmayan ' + m[1] + ' ürün toplama dahil değil. Eklemek için “Fiyat?”a dokun.'));
+rule("D'après la moyenne de tes " + N + ' derniers? jours? suivis?, calculée sur ' + N + ' jours\\.', m => L('Based on the average of your last ' + m[1] + (many(m[1]) ? ' logged days' : ' logged day') + ', worked out over ' + m[2] + ' days.', 'Son kaydedilen ' + m[1] + ' günün ortalamasına göre, ' + m[2] + ' gün için hesaplandı.'));
+rule('Ajusté : ' + N + ' kcal et ' + N + ' g de protéines par jour', m => L('Adjusted: ' + m[1] + ' kcal and ' + m[2] + ' g of protein a day', 'Ayarlandı: günde ' + m[1] + ' kcal ve ' + m[2] + ' g protein'));
+rule('Adapter mes calories : ' + N + ' kcal par jour', m => L('Adjust my calories: ' + m[1] + ' kcal a day', 'Kalorimi ayarla: günde ' + m[1] + ' kcal'));
+rule('Métabolisme de base ' + N + ' kcal', m => L('Basal metabolism ' + m[1] + ' kcal', 'Bazal metabolizma ' + m[1] + ' kcal'));
+rule('dépense estimée ' + N + ' kcal', m => L('estimated expenditure ' + m[1] + ' kcal', 'tahmini harcama ' + m[1] + ' kcal'));
+rule(N + ' kcal pour ton objectif', m => L(m[1] + ' kcal for your goal', 'hedefin için ' + m[1] + ' kcal'));
+rule('Objectif : ' + N + ' kcal par jour', m => L('Goal: ' + m[1] + ' kcal a day', 'Hedef: günde ' + m[1] + ' kcal'));
+rule('Objectif : ' + N + ' kg le ([^·]+)', m => L('Goal: ' + m[1] + ' kg by ' + m[2], 'Hedef: ' + m[2] + ' tarihine kadar ' + m[1] + ' kg'));
+rule(N + ' kg le ([^·]+)', m => L(m[1] + ' kg by ' + m[2], m[2] + ' tarihine kadar ' + m[1] + ' kg'));
+rule('Objectif ' + N + ' kg', m => L('Goal ' + m[1] + ' kg', 'Hedef ' + m[1] + ' kg'));
+rule(N + ' kcal/jour', m => L(m[1] + ' kcal/day', m[1] + ' kcal/gün'));
+rule('Dernière fois : (.+)', m => L('Last time: ' + m[1], 'Son seferde: ' + m[1]));
+rule('Record estimé \\(1RM\\) : (.+)', m => L('Estimated 1RM: ' + m[1], 'Tahmini 1RM: ' + m[1]));
+rule('meilleure série (.+)', m => L('best set ' + m[1], 'en iyi set ' + m[1]));
+rule('Repos : (.+)', m => L('Rest: ' + T(m[1]), 'Dinlenme: ' + T(m[1])));
+rule('Repos', () => L('Rest', 'Dinlenme'));
+rule('Charge série ' + N, m => L('Weight, set ' + m[1], 'Ağırlık, set ' + m[1]));
+rule('Répétitions série ' + N, m => L('Reps, set ' + m[1], 'Tekrar, set ' + m[1]));
+rule('Jour ' + N, m => L('Day ' + m[1], 'Gün ' + m[1]));
+rule('Nouveau record sur (.+) : (.+)', m => L('New record on ' + T(m[1]) + ': ' + m[2], T(m[1]) + ' için yeni rekor: ' + m[2]));
+rule('« (.+) » ajouté aux favoris', m => L('“' + T(m[1]) + '” added to favourites', '“' + T(m[1]) + '” favorilere eklendi'));
+rule('Ingrédients de « (.+) » ajoutés', m => L('Ingredients of “' + m[1] + '” added', '“' + m[1] + '” malzemeleri eklendi'));
+rule('« (.+) » ajouté', m => L('“' + T(m[1]) + '” added', '“' + T(m[1]) + '” eklendi'));
+rule('(.+) ajouté à ta journée type', m => L(T(m[1]) + ' added to your typical day', T(m[1]) + ' örnek gününe eklendi'));
+rule('(.+) ajouté', m => L(T(m[1]) + ' added', T(m[1]) + ' eklendi'));
+rule('(.+) supprimé', m => L(T(m[1]) + ' deleted', T(m[1]) + ' silindi'));
+rule('(.+) retiré', m => L(T(m[1]) + ' removed', T(m[1]) + ' çıkarıldı'));
+rule('(.+) vidé', m => L(T(m[1]) + ' cleared', T(m[1]) + ' temizlendi'));
+rule('Produit trouvé : (.+)', m => L('Product found: ' + m[1], 'Ürün bulundu: ' + m[1]));
+rule('il te faut (.+)', m => L('you need ' + m[1], m[1] + ' gerekli'));
+rule('Dernière sauvegarde le (.+?)\\.?', m => L('Last backup ' + m[1], 'Son yedek: ' + m[1]));
+rule(N + ' jours? enregistrés?\\.', m => L(m[1] + (many(m[1]) ? ' days' : ' day') + ' saved.', m[1] + ' gün kayıtlı.'));
+rule('Fichier prêt : (.+)', m => L('File ready: ' + m[1], 'Dosya hazır: ' + m[1]));
+rule('Sauvegarde du (.+) avec ' + N + ' jours\\. Elle remplacera les données actuelles de Nexafit\\.', m => L('Backup from ' + m[1] + ' with ' + m[2] + ' days. It will replace the current Nexafit data.', m[1] + ' tarihli, ' + m[2] + ' günlük yedek. Mevcut Nexafit verilerinin yerine geçecek.'));
+rule('Exporte une sauvegarde de temps en temps et garde-la dans Fichiers ou iCloud Drive : elle te permet de tout récupérer si tu changes de téléphone\\.', () => L('Export a backup now and then and keep it in Files or iCloud Drive: it lets you get everything back if you change phones.', 'Arada bir yedek al ve Dosyalar’da veya iCloud Drive’da sakla: telefon değiştirirsen her şeyi geri almanı sağlar.'));
+rule("Exporte une sauvegarde pour ne rien perdre si tu effaces l'historique de Safari\\.", () => L("Export a backup so you don't lose anything if you clear Safari's history.", 'Safari geçmişini silersen bir şey kaybetmemek için yedek al.'));
+rule('La base intégrée contient ' + N + ' aliments courants et produits de marque, avec des valeurs moyennes \\(?proches de la table Ciqual\\)? et des prix moyens indicatifs, modifiables dans Courses\\.', m => L('The built-in database has ' + m[1] + ' common foods and branded products, with average values close to the Ciqual tables and indicative average prices you can edit in Groceries.', 'Dahili veritabanında ' + m[1] + ' yaygın besin ve markalı ürün var; Ciqual tablosuna yakın ortalama değerler ve Alışveriş’te düzenlenebilen yaklaşık ortalama fiyatlar içerir.'));
+rule('Les produits que tu scannes sont enregistrés une fois, puis reconnus instantanément\\.', () => L('Products you scan are saved once, then recognised instantly.', 'Taradığın ürünler bir kez kaydedilir, sonra hemen tanınır.'));
+rule('Quand tu scannes un produit, Nexafit cherche ses valeurs dans', () => L('When you scan a product, Nexafit looks up its values in', 'Bir ürün taradığında Nexafit değerlerini şurada arar:'));
+rule('Prix moyen proposé par Nexafit : (.+)\\.', m => L('Average price suggested by Nexafit: ' + m[1] + '.', 'Nexafit’in önerdiği ortalama fiyat: ' + m[1] + '.'));
+rule('Un verre = ' + N + ' ml\\. Tu peux changer la taille du verre dans les réglages \\(icône engrenage\\)\\.', m => L('One glass = ' + m[1] + ' ml. You can change the glass size in settings (gear icon).', 'Bir bardak = ' + m[1] + ' ml. Bardak boyutunu ayarlardan (dişli simgesi) değiştirebilirsin.'));
+rule('Ex\\. (.+)', m => L('e.g. ' + T(m[1]), 'Örn. ' + T(m[1])));
+rule(N + ' × (.+)', m => m[1] + ' × ' + T(m[2]));
+rule('Courses', () => L('Groceries', 'Alışveriş'));
+// quantité + unité : « 2 œufs », « 1 bol = 60 g », « 14 boîtes »
+rule(N + ' (.+?)( = .+)?', m => {
+  const u = UMAP[m[2]]; if (!u) return null;
+  return m[1] + ' ' + (lang === 'en' ? (many(m[1]) ? u[1] : u[0]) : u[2]) + (m[3] || '');
+});
+
+/* ---------- traduction d'un texte ---------- */
+const cache = new Map();
+function tr(s) {
+  if (lang === 'fr' || !s) return null;
+  const key = lang + '\u0001' + s;
+  if (cache.has(key)) return cache.get(key);
+  let r = null;
+  const d = D.get(s);
+  if (d) r = d[E() ? 0 : 1];
+  else {
+    for (const [re, fn] of P) { const m = s.match(re); if (m) { r = fn(m); if (r != null) break; } }
+    if (r == null && s.includes(' · ')) {
+      let ch = false; const o = s.split(' · ').map(p => { const x = tr(p); if (x != null) { ch = true; return x; } return p; });
+      if (ch) r = o.join(' · ');
+    }
+    if (r == null && /[.!?] [A-ZÀ-ÖØ-Þ«\d]/.test(s)) {
+      let ch = false; const o = s.split(/(?<=[.!?])\s+(?=[A-ZÀ-ÖØ-Þ«\d])/).map(p => { const x = tr(p); if (x != null) { ch = true; return x; } return p; });
+      if (ch) r = o.join(' ');
+    }
+    if (r == null && s.includes(', ')) {
+      const parts = s.replace(/…$/, '').split(', ');
+      if (parts.some(p => D.has(p))) r = parts.map(p => D.has(p) ? D.get(p)[E() ? 0 : 1] : p).join(', ') + (s.endsWith('…') ? '…' : '');
+    }
+    if (r == null && s.startsWith('· ')) { const x = tr(s.slice(2)); if (x != null) r = '· ' + x; }
+  }
+  if (cache.size > 5000) cache.clear();
+  cache.set(key, r);
+  return r;
+}
+
+/* ---------- traduction de la page ---------- */
+const ATTRS = ['placeholder', 'aria-label', 'title'];
+const SKIP = { STYLE: 1, SCRIPT: 1, TEXTAREA: 1, svg: 1, SVG: 1 };
+const done = new WeakMap();
+function trText(n) {
+  const p = n.parentNode;
+  if (!p || SKIP[p.nodeName] || (p.closest && p.closest('[data-notr]'))) return;
+  const raw = n.nodeValue;
+  if (done.get(n) === raw) return;
+  const s = raw.trim();
+  if (!s || !/[A-Za-zÀ-ÿ]/.test(s)) return;
+  const r = tr(s);
+  if (r != null && r !== s) { const out = raw.replace(s, r); done.set(n, out); n.nodeValue = out; }
+}
+function trEl(el) {
+  if (el.closest && el.closest('[data-notr]')) return;
+  for (const a of ATTRS) { const v = el.getAttribute(a); if (v) { const r = tr(v.trim()); if (r != null) el.setAttribute(a, r); } }
+}
+function walk(root) {
+  if (lang === 'fr' || !root) return;
+  if (root.nodeType === 3) return trText(root);
+  if (root.nodeType !== 1 || SKIP[root.nodeName]) return;
+  trEl(root);
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+  let x;
+  while ((x = w.nextNode())) { if (x.nodeType === 3) trText(x); else trEl(x); }
+}
+let observer = null;
+function start() {
+  if (observer || !document.body) return;
+  observer = new MutationObserver(ms => { if (lang === 'fr') return; for (const m of ms) { if (m.type === 'characterData') trText(m.target); else m.addedNodes.forEach(walk); } });
+  observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+  walk(document.body);
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+
+/* ---------- API ---------- */
+window.NXI = {
+  LANGS,
+  get lang() { return lang; },
+  locale: () => LANGS[lang][1],
+  set(l) {
+    if (!LANGS[l]) return;
+    lang = l;
+    try { localStorage.setItem('nexafit-lang', l); } catch (e) { }
+    document.documentElement.lang = l;
+  },
+  tr, T,
+  // phrase complète avec variables : t('Encore {kg} à prendre…', {kg: '…'})
+  t(fr, vars) {
+    let s = fr;
+    if (lang !== 'fr') { const d = D.get(fr); if (d) s = d[E() ? 0 : 1]; }
+    if (vars) for (const k in vars) s = s.split('{' + k + '}').join(vars[k]);
+    return s;
+  },
+  addTemplates: rows => add(rows),
+  searchText: name => { const f = D.get(name); return f ? f.join(' ') : ''; },
+  walk
+};
+document.documentElement.lang = lang;
+})();
+
 /* Nexafit — noyau : utilitaires, icônes, stockage, état, calculs, feuilles, délégation d'événements. */
 (function () {
 'use strict';
@@ -877,7 +1779,7 @@ const clone = o => JSON.parse(JSON.stringify(o));
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 const num = v => { const n = parseFloat(String(v ?? '').replace(',', '.')); return isFinite(n) ? n : 0; };
 const numOrNull = v => { if (v === '' || v == null) return null; const n = parseFloat(String(v).replace(',', '.')); return isFinite(n) ? n : null; };
-const fmt = (n, d = 0) => (n == null || !isFinite(n)) ? '–' : Number(n).toLocaleString('fr-FR', { maximumFractionDigits: d, minimumFractionDigits: 0 });
+const fmt = (n, d = 0) => (n == null || !isFinite(n)) ? '–' : Number(n).toLocaleString(LOC(), { maximumFractionDigits: d, minimumFractionDigits: 0 });
 const r0 = n => Math.round(n || 0);
 const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/œ/g, 'oe').trim();
 const pad = n => String(n).padStart(2, '0');
@@ -886,14 +1788,15 @@ const keyToDate = k => { const [y, m, d] = k.split('-').map(Number); return new 
 const addDays = (k, n) => { const d = keyToDate(k); d.setDate(d.getDate() + n); return dateKey(d); };
 const today = () => dateKey();
 const daysBetween = (a, b) => Math.round((keyToDate(b) - keyToDate(a)) / 86400000);
+const LOC = () => (window.NXI ? NXI.locale() : 'fr-FR');
 const MONTHS = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
 const MONTHS_L = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 const DAYS_L = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
-const shortDate = k => { const d = keyToDate(k); return d.getDate() + ' ' + MONTHS[d.getMonth()]; };
-const longDate = k => { const d = keyToDate(k); return DAYS_L[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS_L[d.getMonth()]; };
+const shortDate = k => { const d = keyToDate(k); if (LOC() !== 'fr-FR') return d.toLocaleDateString(LOC(), { day: 'numeric', month: 'short' }); return d.getDate() + ' ' + MONTHS[d.getMonth()]; };
+const longDate = k => { const d = keyToDate(k); if (LOC() !== 'fr-FR') return d.toLocaleDateString(LOC(), { weekday: 'long', day: 'numeric', month: 'long' }); return DAYS_L[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS_L[d.getMonth()]; };
 const dayTitle = k => { const t = today(); if (k === t) return "Aujourd'hui"; if (k === addDays(t, -1)) return 'Hier'; if (k === addDays(t, 1)) return 'Demain'; const s = longDate(k); return s.charAt(0).toUpperCase() + s.slice(1); };
 const durTxt = ms => { const m = Math.round(ms / 60000); return m < 60 ? m + ' min' : Math.floor(m / 60) + ' h ' + pad(m % 60); };
-Object.assign(NX, { $, $$, esc, uid, clone, clamp, num, numOrNull, fmt, r0, norm, dateKey, keyToDate, addDays, today, daysBetween, shortDate, longDate, dayTitle, durTxt, MONTHS_L, DAYS_L });
+Object.assign(NX, { LOC, $, $$, esc, uid, clone, clamp, num, numOrNull, fmt, r0, norm, dateKey, keyToDate, addDays, today, daysBetween, shortDate, longDate, dayTitle, durTxt, MONTHS_L, DAYS_L });
 
 /* ---------- icônes ---------- */
 const P = {
@@ -1004,7 +1907,7 @@ NX.isStandalone = () => window.navigator.standalone === true || (window.matchMed
 /* ---------- aliments ---------- */
 let FOOD_CACHE = null, FOOD_SIG = '';
 NX.allFoods = () => {
-  const sig = S.main.foods.length + ':' + S.main.recipes.length + ':' + S.main.updatedAt;
+  const sig = S.main.foods.length + ':' + S.main.recipes.length + ':' + S.main.updatedAt + ':' + (window.NXI ? NXI.lang : '');
   if (FOOD_CACHE && sig === FOOD_SIG) return FOOD_CACHE;
   const out = [];
   for (const f of S.main.recipes) {
@@ -1014,7 +1917,7 @@ NX.allFoods = () => {
   }
   for (const f of S.main.foods) out.push({ id: f.id, kind: 'mine', name: f.name, brand: f.brand, cat: 'Mes aliments', per: f.per, price: f.price && f.price.kg > 0 ? f.price : null, unit: f.unit && f.unit[1] ? f.unit : null, ai: f.ai, src: f.src });
   (window.NX_FOODS || []).forEach(r => out.push({ id: 'db:' + norm(r[0] + (r[10] ? ' ' + r[10] : '')), kind: 'db', name: r[0], brand: r[10] || '', cat: r[1], per: { k: r[2], p: r[3], c: r[4], f: r[5] }, unit: r[7] ? [r[6], r[7]] : null, price: r[8] > 0 ? { kg: r[8], pack: r[9] || 0 } : null, raw: r[11] || null }));
-  out.forEach(f => f._n = norm(f.name + ' ' + (f.brand || '')));
+  out.forEach(f => { f._n = norm(f.name + ' ' + (f.brand || '')); if (f.kind === 'db' && window.NXI && NXI.lang !== 'fr') f._t = norm(NXI.searchText(f.name)); });
   FOOD_CACHE = out; FOOD_SIG = sig;
   return out;
 };
@@ -1045,9 +1948,10 @@ NX.searchFoods = q => {
   if (!words.length) return [];
   const res = [];
   for (const f of NX.allFoods()) {
-    if (!words.every(w => f._n.includes(w))) continue;
+    const hay = f._t ? f._n + ' | ' + f._t : f._n;
+    if (!words.every(w => hay.includes(w))) continue;
     let s = 0;
-    if (f._n.startsWith(words[0])) s += 3;
+    if (f._n.startsWith(words[0]) || (f._t && (f._t.startsWith(words[0]) || f._t.includes(' ' + words[0])))) s += 3;
     else if (new RegExp('(^|[\\s\'-])' + words[0].replace(/[.*+?^${}()|[\]\\]/g, '')).test(f._n)) s += 1;
     if (['Féculents', 'Volaille', 'Viandes', 'Poissons & fruits de mer', 'Œufs', 'Produits laitiers', 'Céréales petit-déj'].includes(f.cat)) s += 0.6;
     if (f.kind === 'db' && !f.brand) s += 0.4;
@@ -1196,6 +2100,7 @@ const A = NX.A = {}, IN = NX.IN = {}, CH = NX.CH = {};
 A['sheet-close'] = () => NX.closeSheet();
 A['toast-act'] = () => { $('#toast').classList.remove('show'); if (NX._toastAct) NX._toastAct(); };
 document.addEventListener('click', e => {
+  if (!e.target.closest('.lang-dd')) closeLang();
   const el = e.target.closest('[data-a]');
   if (!el || el.disabled) return;
   const fn = A[el.dataset.a];
@@ -1204,10 +2109,43 @@ document.addEventListener('click', e => {
 document.addEventListener('input', e => { const el = e.target.closest('[data-in]'); if (el && IN[el.dataset.in]) IN[el.dataset.in](el, e); });
 document.addEventListener('change', e => { const el = e.target.closest('[data-ch]'); if (el && CH[el.dataset.ch]) CH[el.dataset.ch](el, e); });
 document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('.lang-dd.open')) return closeLang(true);
   if (e.key === 'Escape' && sheets.length) NX.closeSheet();
   if (e.key === 'Enter' && e.target.matches('[data-enter]')) { const fn = A[e.target.dataset.enter]; if (fn) { e.preventDefault(); fn(e.target, e); } }
 });
 document.addEventListener('submit', e => e.preventDefault());
+
+/* ---------- langue ---------- */
+const LANG_SUB = { fr: { fr: 'Français', tr: 'Turc', en: 'Anglais' }, en: { fr: 'French', tr: 'Turkish', en: 'English' }, tr: { fr: 'Fransızca', tr: 'Türkçe', en: 'İngilizce' } };
+NX.langDD = (wide) => {
+  const cur = NXI.lang, L = NXI.LANGS, sub = LANG_SUB[cur];
+  return '<div class="lang-dd' + (wide ? ' wide' : '') + '" data-notr>'
+    + '<button class="lang-btn" data-a="lang-toggle" aria-haspopup="listbox" aria-expanded="false" aria-label="' + ({ fr: 'Langue', en: 'Language', tr: 'Dil' })[cur] + '">'
+    + '<span class="lang-code">' + cur.toUpperCase() + '</span><span class="lang-name">' + L[cur][0] + '</span>'
+    + '<svg class="lang-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg></button>'
+    + '<div class="lang-menu" role="listbox">'
+    + ['fr', 'tr', 'en'].map(l => '<button class="lang-opt' + (l === cur ? ' on' : '') + '" role="option" aria-selected="' + (l === cur) + '" data-a="lang-set" data-l="' + l + '">'
+      + '<span class="lang-code">' + l.toUpperCase() + '</span><span class="lang-txt"><b>' + L[l][0] + '</b>' + (l !== cur ? '<span>' + sub[l] + '</span>' : '') + '</span>'
+      + '<svg class="lang-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>').join('')
+    + '</div></div>';
+};
+function closeLang(focus) {
+  $$('.lang-dd.open').forEach(d => { d.classList.remove('open'); const b = d.querySelector('.lang-btn'); b.setAttribute('aria-expanded', 'false'); if (focus) b.focus(); });
+}
+A['lang-toggle'] = el => {
+  const dd = el.closest('.lang-dd'), open = !dd.classList.contains('open');
+  closeLang(); dd.classList.toggle('open', open); el.setAttribute('aria-expanded', String(open));
+};
+A['lang-set'] = el => {
+  const l = el.dataset.l;
+  closeLang();
+  if (l === NXI.lang) return;
+  NXI.set(l);
+  if (S.main.profile) { S.main.settings.lang = l; NX.touchMain(); }
+  const y = window.scrollY;
+  NX.render(); window.scrollTo(0, y);
+  NX.toast(({ fr: 'Langue : Français', en: 'Language: English', tr: 'Dil: Türkçe' })[l]);
+};
 
 /* ---------- rendu ---------- */
 const VIEWS = NX.VIEWS = {};
@@ -1222,6 +2160,8 @@ function migrate() {
 NX.topRight = () => '<div class="tb-r"><span data-sync>' + NX.syncHtml() + '</span><button class="icon-btn plain" data-a="tab" data-tab="more" aria-label="Profil et réglages">' + ico('gear') + '</button></div>';
 NX.render = () => {
   migrate();
+  const sl = S.main.settings && S.main.settings.lang;
+  if (sl && sl !== NXI.lang) NXI.set(sl);
   const tabs = [['journal', 'Journal', 'journal'], ['gym', 'Muscu', 'dumbbell'], ['add'], ['shop', 'Courses', 'cart'], ['progress', 'Progrès', 'chart']];
   $('#tabs').innerHTML = tabs.map(t => t[0] === 'add'
     ? '<button class="fab" data-a="fab" aria-label="Ajouter un aliment">' + ico('plus') + '</button>'
@@ -1358,7 +2298,7 @@ A['water-open'] = () => {
     const pct = Math.min(100, (d.water || 0) / g * 100);
     return { body: '<div class="chart-card"><div class="cv"><b>' + fmt((d.water || 0) / 1000, 2) + ' L</b><span class="muted">sur ' + fmt(g / 1000, 1) + ' L</span></div><div class="bar" style="--c:var(--water);height:12px"><i style="width:' + pct + '%"></i></div></div>'
       + '<div class="grid3"><button class="btn soft" data-a="water-add" data-v="-' + gl + '">− ' + gl + ' ml</button><button class="btn" style="background:var(--water)" data-a="water-add" data-v="' + gl + '">+ ' + gl + ' ml</button><button class="btn soft" data-a="water-add" data-v="500">+ 500 ml</button></div>'
-      + '<p class="note">Un verre = ' + gl + ' ml. Tu peux changer la taille du verre dans Plus › Réglages.</p>' };
+      + '<p class="note">Un verre = ' + gl + ' ml. Tu peux changer la taille du verre dans les réglages (icône engrenage).</p>' };
   } });
   A['water-add'] = el => { const d = NX.touchDay(k); d.water = Math.max(0, (d.water || 0) + num(el.dataset.v)); NX.save('d-' + k); NX.refreshSheet('water'); NX.render(); if (d.water >= (S.main.goals.water || 2500) && d.water - num(el.dataset.v) < (S.main.goals.water || 2500)) NX.toast('Objectif d\'eau atteint 💧'); };
 };
@@ -1941,7 +2881,7 @@ NX.openExercisePicker = cb => {
   }) });
 };
 function pickRes() {
-  const q = norm(PICK.q), all = NX.allExercises().filter(e => !q || norm(e.name).includes(q));
+  const q = norm(PICK.q), all = NX.allExercises().filter(e => !q || norm(e.name + ' ' + NXI.searchText(e.name)).includes(q));
   const used = new Set(NX.allWorkouts().flatMap(w => w.exercises.map(e => e.ex)));
   if (!all.length) return '<div class="callout">Aucun exercice trouvé. Crée-le avec le bouton en bas.</div>';
   const groups = {};
@@ -2061,7 +3001,7 @@ document.addEventListener('visibilitychange', () => { if (document.visibilitySta
 'use strict';
 const { $, esc, uid, clone, num, numOrNull, fmt, norm, addDays, today, ico, S, UI, A, IN, CH } = NX;
 
-const euro = v => (v == null || !isFinite(v)) ? '–' : Number(v).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+const euro = v => (v == null || !isFinite(v)) ? '–' : NX.LOC() !== 'en-GB' ? Number(v).toLocaleString(NX.LOC(), { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €' : Number(v).toLocaleString(NX.LOC(), { style: 'currency', currency: 'EUR' });
 NX.euro = euro;
 UI.shopTab = UI.shopTab || 'need';
 
@@ -2486,8 +3426,8 @@ NX.VIEWS.progress = () => {
     + barChart(sv, { goal: g.sleep || 8, color: 'var(--sleep)', startKey: start, dec: 0, label: 'Heures de sommeil', empty: 'Note ton sommeil dans le journal pour le voir ici.' }) + '</section>';
   return h;
 };
-const fullDate = k => { const d = NX.keyToDate(k); return d.getDate() + ' ' + NX.MONTHS_L[d.getMonth()] + (d.getFullYear() !== new Date().getFullYear() ? ' ' + d.getFullYear() : ''); };
-const weeksTxt = d => d >= 14 ? Math.round(d / 7) + ' semaines' : d + ' jour' + (d > 1 ? 's' : '');
+const fullDate = k => { const d = NX.keyToDate(k); if (NX.LOC() !== 'fr-FR') return d.toLocaleDateString(NX.LOC(), d.getFullYear() !== new Date().getFullYear() ? { day: 'numeric', month: 'long', year: 'numeric' } : { day: 'numeric', month: 'long' }); return d.getDate() + ' ' + NX.MONTHS_L[d.getMonth()] + (d.getFullYear() !== new Date().getFullYear() ? ' ' + d.getFullYear() : ''); };
+const weeksTxt = d => d >= 14 ? NXI.t('{n} semaines', { n: Math.round(d / 7) }) : NXI.t(d > 1 ? '{n} jours' : '{n} jour', { n: d });
 function goalBlock(cur, sl, nPts) {
   const G = S.main.weightGoal, trend = sl != null && nPts >= 4 ? sl * 7 : null;
   if (!G) return (trend != null ? '<div class="callout">' + paceText(trend) + '</div>' : '') + '<button class="chip" data-a="wgoal-open" style="align-self:flex-start">' + ico('trophy', 'sm') + 'Fixer un objectif de poids</button>';
@@ -2496,17 +3436,17 @@ function goalBlock(cur, sl, nPts) {
   const left = G.target - cw, dl = Math.max(0, NX.daysBetween(today(), G.endDate)), need = dl > 0 ? left / (dl / 7) : 0;
   const reached = Math.abs(left) < 0.2 || (tot > 0 ? left <= 0 : tot < 0 ? left >= 0 : false);
   let msg = reached ? '<b>Objectif atteint, bravo !</b> Touche ici pour fixer le suivant.'
-    : dl === 0 ? 'La date est passée et il reste ' + fmt(Math.abs(left), 1) + ' kg. Touche ici pour fixer une nouvelle date.'
-    : 'Encore <b>' + fmt(Math.abs(left), 1) + ' kg</b> à ' + (left > 0 ? 'prendre' : 'perdre') + ' en ' + weeksTxt(dl) + ', soit ' + (need > 0 ? '+' : '') + fmt(need, 2) + ' kg par semaine.';
+    : dl === 0 ? NXI.t('La date est passée et il reste {kg} kg. Touche ici pour fixer une nouvelle date.', { kg: fmt(Math.abs(left), 1) })
+    : NXI.t(left > 0 ? 'Encore <b>{kg} kg</b> à prendre en {time}, soit {pace} kg par semaine.' : 'Encore <b>{kg} kg</b> à perdre en {time}, soit {pace} kg par semaine.', { kg: fmt(Math.abs(left), 1), time: weeksTxt(dl), pace: (need > 0 ? '+' : '') + fmt(need, 2) });
   if (!reached && dl > 0 && trend != null) msg += ' ' + trackText(trend, need);
-  return '<button class="wg-box" data-a="wgoal-open"><div class="sec-head"><span><b>Objectif ' + fmt(G.target, 1) + ' kg</b> · ' + esc(fullDate(G.endDate)) + '</span><span class="faint">' + Math.round(pct) + ' %</span></div><div class="bar" style="--c:var(--good);height:10px"><i style="width:' + pct.toFixed(1) + '%"></i></div><span class="note" style="margin:0">' + msg + '</span></button>';
+  return '<button class="wg-box" data-a="wgoal-open"><div class="sec-head"><span><b>Objectif ' + fmt(G.target, 1) + ' kg</b> · ' + esc(fullDate(G.endDate)) + '</span><span class="faint">' + Math.round(pct) + ' %</span></div><div class="bar" style="--c:var(--good);height:10px"><i style="width:' + pct.toFixed(1) + '%"></i></div><span class="note" style="margin:0"' + (reached ? '' : ' data-notr') + '>' + msg + '</span></button>';
 }
 function trackText(trend, need) {
-  const v = (trend > 0 ? '+' : '') + fmt(trend, 2) + ' kg par semaine';
+  const v = NXI.t('{x} kg par semaine', { x: (trend > 0 ? '+' : '') + fmt(trend, 2) });
   const ok = need > 0 ? trend >= need * 0.85 : trend <= need * 0.85;
-  if (ok) return 'Ta tendance actuelle (' + v + ') te met dans les temps.';
+  if (ok) return NXI.t('Ta tendance actuelle ({v}) te met dans les temps.', { v });
   const kcal = Math.round(Math.abs(need - trend) * 1100 / 10) * 10;
-  return 'Ta tendance actuelle est de ' + v + ' : ' + (need > trend ? 'ajoute' : 'retire') + ' environ ' + fmt(kcal) + ' kcal par jour.';
+  return NXI.t(need > trend ? 'Ta tendance actuelle est de {v} : ajoute environ {kcal} kcal par jour.' : 'Ta tendance actuelle est de {v} : retire environ {kcal} kcal par jour.', { v, kcal: fmt(kcal) });
 }
 
 /* ================= OBJECTIF DE POIDS ================= */
@@ -2535,7 +3475,7 @@ function wgRes() {
   return '<div class="res-goal"><span class="label" style="color:inherit;opacity:.7">Rythme nécessaire</span><div class="big">' + (r.pace > 0 ? '+' : '') + fmt(r.pace, 2) + ' kg <span style="font-size:16px;font-weight:700">par semaine</span></div>'
     + '<div class="mm"><span><b>' + (r.diff > 0 ? '+' : '') + fmt(r.diff, 1) + '</b> kg</span><span>objectif le <b>' + esc(fullDate(r.end)) + '</b></span></div>'
     + '<span style="font-size:13.5px;display:flex;gap:8px;align-items:baseline"><i style="width:9px;height:9px;border-radius:50%;background:' + col + ';flex:none;display:inline-block"></i>' + esc(r.verdict) + '</span></div>'
-    + (r.kcal ? '<button class="check' + (WG.apply ? ' on' : '') + '" data-a="wg-apply" style="border:0;padding:4px 0"><span class="box">' + ico('check', 'sm') + '</span><span class="lt" style="text-decoration:none"><b style="text-decoration:none;color:var(--ink)">Adapter mes calories : ' + fmt(r.kcal) + ' kcal par jour</b><span>Ta dépense estimée, plus ' + (r.pace >= 0 ? 'le surplus' : 'moins le déficit') + ' pour ce rythme (1 kg ≈ 7 700 kcal).</span></span></button>' : '<p class="note">Complète ton profil pour obtenir les calories conseillées.</p>');
+    + (r.kcal ? '<button class="check' + (WG.apply ? ' on' : '') + '" data-a="wg-apply" style="border:0;padding:4px 0"><span class="box">' + ico('check', 'sm') + '</span><span class="lt" style="text-decoration:none"><b style="text-decoration:none;color:var(--ink)">Adapter mes calories : ' + fmt(r.kcal) + ' kcal par jour</b><span>Ta dépense estimée, ' + (r.pace >= 0 ? 'plus le surplus' : 'moins le déficit') + ' pour ce rythme (1 kg ≈ 7 700 kcal).</span></span></button>' : '<p class="note">Complète ton profil pour obtenir les calories conseillées.</p>');
 }
 function renderWG() {
   const ex = S.main.weightGoal;
@@ -2633,7 +3573,7 @@ A['pf-apply'] = () => { const c = NX.calcGoals(PF); if (!c) return NX.toast('Com
 NX.VIEWS.welcome = () => {
   if (!PF) PF = { sex: 'h', age: '', height: '', weight: '', activity: 1.55, goal: 'bulk' };
   const plates = [['var(--prot)', 64, 16], ['var(--carb)', 58, 14], ['var(--fat)', 50, 12], ['var(--good)', 42, 10]];
-  return '<div class="welcome"><div class="topbar"><div class="brand"><span class="brand-mark"></span>Nexafit</div><span data-sync>' + NX.syncHtml() + '</span></div>'
+  return '<div class="welcome"><div class="topbar"><div class="brand"><span class="brand-mark"></span>Nexafit</div><div class="tb-r"><span data-sync>' + NX.syncHtml() + '</span>' + NX.langDD() + '</div></div>'
     + '<div class="plates-row" aria-hidden="true">' + plates.map(p => '<i style="background:' + p[0] + ';height:' + p[1] + 'px;width:' + p[2] + 'px"></i>').join('') + '<i style="background:var(--faint);height:6px;flex:1;border-radius:3px;opacity:.5"></i></div>'
     + '<h1 class="hero">Charge la barre,<br><em>repas après repas.</em></h1>'
     + '<p class="muted" style="margin:0;max-width:46ch">Calories, protéines, muscu, sommeil : tout au même endroit, sans abonnement. Commence par calculer tes besoins, ça prend 30 secondes.</p>'
@@ -2676,6 +3616,7 @@ NX.VIEWS.more = () => {
   let h = '<div class="topbar"><h1 class="h-view">Réglages</h1><span data-sync>' + NX.syncHtml() + '</span></div>';
   h += '<button class="res-goal" data-a="profile-edit" style="text-align:left;width:100%"><div class="sec-head"><span class="label" style="color:inherit;opacity:.7">' + esc((NX.GOALS[p.goal] || NX.GOALS.bulk)[0]) + '</span><span style="font-size:13px;font-weight:650;display:flex;align-items:center;gap:4px">Modifier' + ico('right', 'sm') + '</span></div><div class="big">' + fmt(g.k) + ' kcal</div><div class="mm"><span><i class="plate-dot" style="--c:var(--prot)"></i><b>' + fmt(g.p) + '</b> g</span><span><i class="plate-dot" style="--c:var(--carb)"></i><b>' + fmt(g.c) + '</b> g</span><span><i class="plate-dot" style="--c:var(--fat)"></i><b>' + fmt(g.f) + '</b> g</span><span><b>' + fmt(g.water / 1000, 1) + '</b> L</span></div></button>';
   const li = (a, i, t, s, c) => '<button class="li" data-a="' + a + '"><span class="lic"' + (c ? ' style="color:' + c + '"' : '') + '>' + ico(i) + '</span><span class="lt"><b>' + t + '</b><span>' + s + '</span></span>' + ico('right', 'sm') + '</button>';
+  h += '<section class="sec"><div class="label">Langue</div>' + NX.langDD(true) + '</section>';
   h += '<section class="sec"><div class="label">Cuisine</div><div class="list">'
     + li('recipes', 'book', 'Mes recettes', S.main.recipes.length ? S.main.recipes.length + ' recette' + (S.main.recipes.length > 1 ? 's' : '') : 'Tes plats maison, calculés par portion', 'var(--brand)')
     + li('combos', 'star', 'Repas favoris', S.main.combos.length ? S.main.combos.length + ' repas' : 'Un repas complet en un geste', 'var(--fat)')
@@ -2688,7 +3629,7 @@ NX.VIEWS.more = () => {
     + li('reminders', 'bell', 'Rappels', 'Pesée, eau, repas')
     + '</div></section>';
   h += '<section class="sec"><div class="label">Mes données</div><div class="list">'
-    + li('backup', 'cloud', 'Sauvegarde et export', S.main.lastExport ? 'Dernière sauvegarde le ' + new Date(S.main.lastExport).toLocaleDateString('fr-FR') : 'Aucune sauvegarde pour l\'instant')
+    + li('backup', 'cloud', 'Sauvegarde et export', S.main.lastExport ? 'Dernière sauvegarde le ' + new Date(S.main.lastExport).toLocaleDateString(NX.LOC()) : 'Aucune sauvegarde pour l\'instant')
     + li('about', 'heart', 'À propos de Nexafit', 'Comment l\'appli fonctionne')
     + '</div></section>';
   h += '<p class="note" style="text-align:center">Nexafit · une création Nexalis</p>';
@@ -2699,7 +3640,7 @@ A['set-glass'] = () => NX.openSheet({ id: 'glass', title: 'Taille du verre', ren
 A['glass-set'] = el => { S.main.settings.glass = +el.dataset.v; NX.touchMain(); NX.closeSheet('glass'); NX.render(); };
 A.reminders = () => NX.openSheet({ id: 'rem', title: 'Rappels', render: () => ({ body: '<div class="callout">Les applis web ne peuvent pas envoyer de notifications de façon fiable sur iPhone. Le plus simple : crée des rappels qui se répètent dans l\'appli <b>Rappels</b> de ton téléphone.</div><p class="note">Par exemple : « Pesée » tous les matins à 8 h, « Boire de l\'eau » toutes les 2 heures, « Collation » à 16 h.</p><p class="note">Dans Nexafit, la carte du journal te montre d\'un coup d\'œil ce qui manque aujourd\'hui : pesée, eau et sommeil.</p>' }) });
 A.about = () => NX.openSheet({ id: 'about', full: true, title: 'À propos de Nexafit', render: () => ({ body:
-  '<div class="sec"><div class="label">Tes données</div><p class="note">Tout reste sur ton téléphone : pas de compte, pas de serveur, personne d\'autre ne peut voir tes données. Exporte une sauvegarde de temps en temps (Plus › Sauvegarde et export) : si tu supprimes l\'appli ou changes de téléphone, c\'est elle qui te permettra de tout récupérer.</p></div>'
+  '<div class="sec"><div class="label">Tes données</div><p class="note">Tout reste sur ton téléphone : pas de compte, pas de serveur, personne d\'autre ne peut voir tes données. Exporte une sauvegarde de temps en temps (Réglages › Sauvegarde et export) : si tu supprimes l\'appli ou changes de téléphone, c\'est elle qui te permettra de tout récupérer.</p></div>'
   + '<div class="sec"><div class="label">Les valeurs nutritionnelles</div><p class="note">La base intégrée contient ' + (window.NX_FOODS || []).length + ' aliments courants et produits de marque, avec des valeurs moyennes proches de la table Ciqual et des prix moyens indicatifs, modifiables dans Courses. Quand tu scannes un produit, Nexafit cherche ses valeurs dans <b>Open Food Facts</b>, une base alimentaire libre et collaborative (licence ODbL). Le produit est ensuite gardé sur ton téléphone et reconnu instantanément.</p></div>'
   + '<div class="sec"><div class="label">Les calculs</div><p class="note">Besoins : formule de Mifflin-St Jeor × niveau d\'activité, puis surplus ou déficit selon l\'objectif. Protéines : 2 g par kg en prise de masse. Lipides : environ 27 % des calories. Glucides : le reste. Force : 1RM estimé avec la formule d\'Epley.</p></div>'
   + '<div class="sec"><div class="label">Installer l\'appli</div><p class="note">Sur iPhone, dans Safari : Partager puis « Sur l\'écran d\'accueil ». Sur Android, dans Chrome : menu ⋮ puis « Ajouter à l\'écran d\'accueil ». Une fois installée, Nexafit fonctionne même sans connexion (sauf la recherche des produits scannés).</p></div>'
@@ -2708,7 +3649,7 @@ A.about = () => NX.openSheet({ id: 'about', full: true, title: 'À propos de Nex
 /* ================= SAUVEGARDE ================= */
 A.backup = () => NX.openSheet({ id: 'backup', title: 'Sauvegarde et export', render: () => {
   const nDays = Object.keys(S.days).length, last = S.main.lastExport;
-  return { body: '<div class="callout"><b>Tes données sont enregistrées sur ce téléphone.</b> Exporte une sauvegarde de temps en temps et garde-la dans Fichiers ou iCloud Drive : elle te permet de tout récupérer si tu changes de téléphone. ' + (last ? 'Dernière sauvegarde le ' + new Date(last).toLocaleDateString('fr-FR') + '.' : 'Aucune sauvegarde pour l\'instant.') + ' ' + nDays + ' jour' + (nDays > 1 ? 's' : '') + ' enregistré' + (nDays > 1 ? 's' : '') + '.</div>'
+  return { body: '<div class="callout"><b>Tes données sont enregistrées sur ce téléphone.</b> Exporte une sauvegarde de temps en temps et garde-la dans Fichiers ou iCloud Drive : elle te permet de tout récupérer si tu changes de téléphone. ' + (last ? 'Dernière sauvegarde le ' + new Date(last).toLocaleDateString(NX.LOC()) + '.' : 'Aucune sauvegarde pour l\'instant.') + ' ' + nDays + ' jour' + (nDays > 1 ? 's' : '') + ' enregistré' + (nDays > 1 ? 's' : '') + '.</div>'
     + '<div class="list">'
     + '<button class="li" data-a="export-json"><span class="lic">' + ico('download') + '</span><span class="lt"><b>Exporter une sauvegarde complète</b><span>Fichier .json à garder dans Fichiers ou iCloud</span></span></button>'
     + '<button class="li" data-a="export-csv"><span class="lic">' + ico('list') + '</span><span class="lt"><b>Exporter le journal en tableau</b><span>Fichier .csv lisible dans Excel ou Numbers</span></span></button>'
@@ -2746,7 +3687,7 @@ $('#file-import').addEventListener('change', async e => {
   let data;
   try { data = JSON.parse(await f.text()); } catch (err) { return NX.toast('Fichier illisible'); }
   if (!data || !data.main || !data.days) return NX.toast('Ce fichier n\'est pas une sauvegarde Nexafit');
-  NX.openSheet({ id: 'import-ok', title: 'Importer cette sauvegarde ?', render: () => ({ body: '<p class="note">Sauvegarde du ' + esc(data.exportedAt ? new Date(data.exportedAt).toLocaleDateString('fr-FR') : '?') + ' avec ' + Object.keys(data.days).length + ' jours. Elle remplacera les données actuelles de Nexafit.</p>', foot: '<button class="btn ghost" data-a="sheet-close">Annuler</button><button class="btn" data-a="import-go">Importer</button>' }) });
+  NX.openSheet({ id: 'import-ok', title: 'Importer cette sauvegarde ?', render: () => ({ body: '<p class="note">Sauvegarde du ' + esc(data.exportedAt ? new Date(data.exportedAt).toLocaleDateString(NX.LOC()) : '?') + ' avec ' + Object.keys(data.days).length + ' jours. Elle remplacera les données actuelles de Nexafit.</p>', foot: '<button class="btn ghost" data-a="sheet-close">Annuler</button><button class="btn" data-a="import-go">Importer</button>' }) });
   A['import-go'] = () => {
     const now = Date.now();
     const oldDays = Object.keys(S.days);
