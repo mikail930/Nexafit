@@ -2230,7 +2230,7 @@ NX.VIEWS.journal = () => {
   const streak = NX.streak();
   const glassN = Math.max(1, Math.round((g.water || 2500) / (S.main.settings.glass || 250)));
   const glassOn = Math.round((day.water || 0) / (S.main.settings.glass || 250));
-  let h = '<div class="topbar"><div class="brand"><span class="brand-mark"></span>Nexafit</div>' + NX.topRight() + '</div>';
+  let h = '<div class="topbar"><div class="brand" lang="en"><span class="brand-mark"></span>Nexafit</div>' + NX.topRight() + '</div>';
   h += '<div class="daynav"><button class="icon-btn" data-a="day" data-d="-1" aria-label="Jour précédent">' + ico('left') + '</button>'
     + '<div class="title" style="flex:1;min-width:0"><h1 class="h-view">' + esc(dayTitle(k)) + '</h1><div class="sub">' + (isToday ? esc(longDate(k)) : '<button data-a="day-today" style="color:var(--carb);font-weight:650">Revenir à aujourd\'hui</button>') + (streak > 1 ? ' · <span class="streak">' + ico('flame', 'sm') + streak + ' jours de suite</span>' : '') + '</div></div>'
     + '<button class="icon-btn" data-a="day" data-d="1" aria-label="Jour suivant">' + ico('right') + '</button></div>';
@@ -3187,7 +3187,7 @@ function planBlock() {
 function receipt(list, days) {
   if (!list.length) return '';
   const total = list.reduce((a, r) => a + (r.cost || 0), 0), exact = list.reduce((a, r) => a + (r.exact || 0), 0), unknown = list.filter(r => !r.p).length;
-  let h = '<section class="receipt" aria-label="Ticket de courses"><div class="rc-head"><span class="brand"><span class="brand-mark"></span>Nexafit</span><span class="label">Courses · ' + days + ' jours</span></div>';
+  let h = '<section class="receipt" aria-label="Ticket de courses"><div class="rc-head"><span class="brand" lang="en"><span class="brand-mark"></span>Nexafit</span><span class="label">Courses · ' + days + ' jours</span></div>';
   h += list.map(r => {
     const liq = isLiquid(r.food);
     return '<button class="rc-line" data-a="price-edit" data-key="' + esc(r.id) + '" data-name="' + esc(r.name) + '"><span class="nm">' + esc(r.name) + '</span><span class="pr">' + (r.p ? euro(r.cost) : '<span class="tag">Prix ?</span>') + '</span>'
@@ -3573,7 +3573,7 @@ A['pf-apply'] = () => { const c = NX.calcGoals(PF); if (!c) return NX.toast('Com
 NX.VIEWS.welcome = () => {
   if (!PF) PF = { sex: 'h', age: '', height: '', weight: '', activity: 1.55, goal: 'bulk' };
   const plates = [['var(--prot)', 64, 16], ['var(--carb)', 58, 14], ['var(--fat)', 50, 12], ['var(--good)', 42, 10]];
-  return '<div class="welcome"><div class="topbar"><div class="brand"><span class="brand-mark"></span>Nexafit</div><div class="tb-r"><span data-sync>' + NX.syncHtml() + '</span>' + NX.langDD() + '</div></div>'
+  return '<div class="welcome"><div class="topbar"><div class="brand" lang="en"><span class="brand-mark"></span>Nexafit</div><div class="tb-r"><span data-sync>' + NX.syncHtml() + '</span>' + NX.langDD() + '</div></div>'
     + '<div class="plates-row" aria-hidden="true">' + plates.map(p => '<i style="background:' + p[0] + ';height:' + p[1] + 'px;width:' + p[2] + 'px"></i>').join('') + '<i style="background:var(--faint);height:6px;flex:1;border-radius:3px;opacity:.5"></i></div>'
     + '<h1 class="hero">Charge la barre,<br><em>repas après repas.</em></h1>'
     + '<p class="muted" style="margin:0;max-width:46ch">Calories, protéines, muscu, sommeil : tout au même endroit, sans abonnement. Commence par calculer tes besoins, ça prend 30 secondes.</p>'
