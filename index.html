@@ -466,6 +466,125 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 .chat-in { display: flex; gap: 8px; width: 100%; }
 .chat-in .inp { flex: 1; border-radius: 99px; padding: 0 16px; }
 .chat-in .send { width: 46px; height: 46px; border-radius: 50%; background: var(--brand); color: var(--brand-ink); box-shadow: none; flex: none; }
+/* coach de séance */
+.coach { display: flex; gap: 8px; align-items: flex-start; margin-top: 8px; padding: 8px 10px; border-radius: 12px; background: rgba(255,122,69,.1); box-shadow: inset 0 0 0 1px rgba(255,122,69,.3); color: var(--brand); }
+.coach.k-down { background: rgba(91,157,255,.1); box-shadow: inset 0 0 0 1px rgba(91,157,255,.3); color: var(--carb); }
+.coach .ico { flex: none; margin-top: 2px; }
+.coach span { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.coach b { font-size: 13.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.coach small { font-size: 12px; color: var(--muted); }
+/* séance du jour, planning */
+.today { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--surface); border-radius: var(--r); box-shadow: inset 0 0 0 1px rgba(255,122,69,.3), var(--shadow); }
+.today .lt { flex: 1; min-width: 0; } .today .lt > b { display: block; font-weight: 700; } .today .lt > span { display: block; font-size: 12.5px; color: var(--muted); }
+.today.ok { box-shadow: inset 0 0 0 1px rgba(74,222,149,.3), var(--shadow); } .today.ok .rh-i { background: rgba(74,222,149,.14); color: var(--good); }
+.today.rest { box-shadow: var(--shadow); } .today.rest .rh-i { background: rgba(168,152,255,.14); color: var(--sleep); }
+.today .btn.sm { flex: none; }
+.wk-strip { display: grid; grid-template-columns: repeat(7, 1fr) 36px; gap: 4px; align-items: center; background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 10px 6px 10px 10px; }
+.wk { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 0; }
+.wk span { font-size: 11px; font-weight: 700; color: var(--faint); }
+.wk.td span { color: var(--brand); }
+.wk i { width: 22px; height: 22px; border-radius: 50%; display: block; background: var(--surface-2); }
+.wk.plan i { box-shadow: inset 0 0 0 2px var(--brand); background: transparent; }
+.wk.done i { background: var(--brand); box-shadow: 0 0 10px rgba(255,122,69,.5); }
+.wk.miss i { box-shadow: inset 0 0 0 2px var(--line); background: transparent; }
+.wk small { font-size: 10px; color: var(--muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-height: 12px; }
+.sched .li { gap: 10px; }
+.sched select.inp { width: 52%; flex: none; height: 40px; padding: 0 10px; font-size: 14px; }
+.sw { width: 44px; height: 26px; border-radius: 99px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); position: relative; flex: none; transition: background .2s; }
+.sw i { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--muted); transition: transform .22s cubic-bezier(.3,.7,.2,1), background .2s; }
+.sw.on { background: var(--brand); } .sw.on i { transform: translateX(18px); background: #fff; }
+/* choix d'exercice, fiche */
+.li.pick-row { padding: 0 4px 0 0; gap: 0; }
+.pick-main { flex: 1; min-width: 0; display: flex; align-items: center; text-align: left; padding: 12px 14px; color: var(--ink); min-height: 52px; }
+.mm.mini { padding: 8px 4px 4px; max-width: 200px; flex: none; }
+.mm.mini svg { max-width: 90px; }
+.mu.static { cursor: default; }
+.fiche-top { display: flex; gap: 12px; align-items: flex-start; }
+.fiche-mu { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.fiche-mu .label { margin-top: 4px; }
+.fiche-mu .mm-ex span.p { background: rgba(255,122,69,.16); color: var(--brand); font-weight: 650; }
+.fv { font-size: 14px; font-variant-numeric: tabular-nums; }
+.tip.bad { background: rgba(255,93,115,.07); box-shadow: inset 0 0 0 1px rgba(255,93,115,.2); }
+.tip.bad .ico { color: var(--prot); }
+/* sans balance, que manger */
+.sec.hand .label { display: flex; align-items: center; gap: 6px; }
+.sec.hand .label .ico { color: var(--brand); }
+.chip.hot { box-shadow: inset 0 0 0 1px rgba(255,122,69,.5); color: var(--brand); }
+.eat-left { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.eat-nums { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 8px; }
+.eat-nums div { display: flex; flex-direction: column; gap: 2px; box-shadow: inset 0 -3px 0 var(--c, var(--brand)); padding-bottom: 6px; }
+.eat-nums b { font: 800 19px/1.1 var(--f-display); font-variant-numeric: tabular-nums; }
+.eat-nums span { font-size: 11.5px; color: var(--muted); }
+.idea { display: flex; flex-direction: column; gap: 8px; animation: fadeUp .25s ease both; }
+.idea .it { font: 700 16px var(--f-display); }
+.match { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 700; color: var(--good); background: rgba(74,222,149,.12); padding: 3px 8px; border-radius: 99px; }
+.idea-f { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+/* succès */
+.badge { --p: 0; position: relative; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; flex: none; color: #0B0D12; }
+.badge > .ico { width: 24px; height: 24px; stroke-width: 2.4; color: #0B0D12; opacity: .82; }
+.badge.bronze { background: radial-gradient(circle at 30% 25%, #F3C7A2, #C98A5B 60%, #8E5A35); box-shadow: 0 0 0 3px rgba(201,138,91,.25), 0 6px 16px rgba(201,138,91,.3); }
+.badge.silver { background: radial-gradient(circle at 30% 25%, #FFFFFF, #B8C2CF 60%, #7D8899); box-shadow: 0 0 0 3px rgba(184,194,207,.25), 0 6px 16px rgba(184,194,207,.25); }
+.badge.gold { background: radial-gradient(circle at 30% 25%, #FFF0B8, #FFC857 55%, #D69A1F); box-shadow: 0 0 0 3px rgba(255,200,87,.3), 0 6px 18px rgba(255,200,87,.35); }
+.badge.locked { background: conic-gradient(var(--brand) calc(var(--p) * 360deg), var(--surface-2) 0); color: var(--faint); }
+.badge.locked::before { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: var(--surface); }
+.badge.locked > .ico { position: relative; opacity: .6; color: var(--muted); }
+.badge .lk { position: absolute; right: -2px; bottom: -2px; width: 20px; height: 20px; border-radius: 50%; background: var(--surface-2); display: grid; place-items: center; color: var(--muted); box-shadow: 0 0 0 2px var(--bg); }
+.badge .lk .ico { width: 11px; height: 11px; }
+.streak-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--r); background: linear-gradient(120deg, rgba(255,122,69,.18), rgba(255,200,87,.06)); box-shadow: inset 0 0 0 1px rgba(255,122,69,.3); }
+.sf { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: rgba(255,122,69,.2); color: var(--brand); }
+.streak-card b { font: 800 20px var(--f-display); display: block; }
+.streak-card span { font-size: 12.5px; color: var(--muted); }
+.badges { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 6px; scrollbar-width: none; }
+.badges::-webkit-scrollbar { display: none; }
+.bd { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 76px; flex: none; text-align: center; }
+.bd span { font-size: 11.5px; color: var(--muted); line-height: 1.2; }
+.ach-next { display: flex; align-items: center; gap: 12px; background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); padding: 10px 12px; }
+.ach-next > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.ach-next b { font-size: 14px; } .ach-next span { font-size: 12px; color: var(--muted); }
+.ach-next em { font-style: normal; font-size: 12.5px; font-weight: 700; color: var(--brand); font-variant-numeric: tabular-nums; }
+.ach-next .bar { height: 5px; }
+.ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.ach { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; padding: 14px 10px; border-radius: var(--r); background: var(--surface); box-shadow: var(--shadow); }
+.ach b { font-size: 14px; } .ach span { font-size: 12px; color: var(--muted); line-height: 1.35; } .ach small { font-size: 11.5px; color: var(--faint); }
+.ach.on small { color: var(--brand); font-weight: 650; }
+.ach-pop { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: rgba(0,0,0,.6); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); animation: fadeIn .2s ease both; padding: 24px; }
+.ach-pop.out { animation: fadeOut .2s ease both; }
+.ach-card { position: relative; width: min(320px, 100%); background: #151922; border-radius: 26px; padding: 30px 22px 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 30px 80px rgba(0,0,0,.6); animation: popIn .45s cubic-bezier(.3,1.5,.5,1) both; overflow: hidden; }
+.ach-card .badge { width: 92px; height: 92px; margin-bottom: 8px; animation: spinIn .7s cubic-bezier(.3,1.4,.5,1) both .1s; }
+.ach-card .badge > .ico { width: 40px; height: 40px; }
+.ach-card b { font: 800 22px var(--f-display); }
+.ach-card p { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+.ach-rays { position: absolute; top: -60px; left: 50%; width: 260px; height: 260px; margin-left: -130px; background: radial-gradient(circle, rgba(255,200,87,.25), transparent 65%); pointer-events: none; }
+.ach-pop .cf { position: absolute; left: 50%; top: 42%; width: 9px; height: 14px; border-radius: 2px; background: var(--c); opacity: 0; animation: confetti .9s cubic-bezier(.2,.8,.3,1) forwards; }
+@keyframes confetti { 0% { opacity: 1; transform: translate(0, 0) rotate(0); } 100% { opacity: 0; transform: translate(var(--x), calc(var(--y) + 60px)) rotate(400deg); } }
+@keyframes popIn { from { opacity: 0; transform: scale(.85) translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes spinIn { from { transform: scale(.3) rotate(-120deg); } to { transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+/* calendrier d'activité */
+.heat { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+.hm-months { display: grid; gap: 3px; margin-left: 30px; font-size: 10.5px; color: var(--faint); text-transform: capitalize; }
+.hm-months span { white-space: nowrap; overflow: visible; }
+.hm-body { display: flex; gap: 6px; }
+.hm-days { display: grid; grid-template-rows: repeat(7, 1fr); width: 24px; font-size: 10px; color: var(--faint); text-transform: capitalize; }
+.hm-days span { align-self: center; }
+.hm-grid { flex: 1; display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px; }
+.hc { display: block; aspect-ratio: 1; border-radius: 4px; background: #1F2531; padding: 0; transition: transform .12s; -webkit-tap-highlight-color: transparent; }
+.hc.l1 { background: #4A2F25; } .hc.l2 { background: #8A4428; } .hc.l3 { background: #D9622F; } .hc.l4 { background: #FF7A45; box-shadow: 0 0 6px rgba(255,122,69,.5); }
+.hc.fut { background: transparent; }
+.hc.td { box-shadow: 0 0 0 1.5px var(--ink); }
+.hc.sel { box-shadow: 0 0 0 2px #fff; transform: scale(1.15); }
+.hm-leg { display: flex; align-items: center; gap: 4px; justify-content: flex-end; font-size: 11px; color: var(--faint); margin-top: 4px; }
+.hm-leg .hc { width: 12px; aspect-ratio: 1; }
+.hm-leg span { margin: 0 4px; }
+.hm-det { font-size: 13px; color: var(--muted); min-height: 18px; padding-top: 6px; border-top: 1px solid var(--line); }
+.hm-det b { color: var(--ink); }
+/* rapport */
+.rp-prev { border-radius: var(--r); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; display: grid; place-items: center; aspect-ratio: 1240 / 1754; max-height: 52vh; margin: 0 auto; width: 100%; max-width: 330px; }
+.rp-prev img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.rp-ph { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--muted); }
+.rp-ph .ico { width: 36px; height: 36px; color: var(--brand); }
+@media (prefers-reduced-motion: reduce) { .ach-card, .ach-card .badge, .ach-pop .cf, .idea { animation: none; } }
 /* perte de poids */
 .loss-card { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 .loss-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -1948,6 +2067,288 @@ add([
 ['Ko', 'KB', 'KB']
 ]);
 
+// coach, planning, fiches, que manger, sans balance, succès, activité, rapport
+add([
+['10 produits scannés', '10 products scanned', '10 ürün tarandı'],
+['10 séances terminées', '10 workouts finished', '10 antrenman tamamlandı'],
+['10 t soulevées au total', '10 t lifted in total', 'Toplam 10 t kaldırıldı'],
+['100 jours suivis de suite', '100 days logged in a row', 'Üst üste 100 gün kayıt'],
+['100 kg au développé couché', '100 kg on the bench press', 'Bench press’te 100 kg'],
+['100 séances terminées', '100 workouts finished', '100 antrenman tamamlandı'],
+['100 t soulevées au total', '100 t lifted in total', 'Toplam 100 t kaldırıldı'],
+['180 kg au soulevé de terre', '180 kg on the deadlift', 'Deadlift’te 180 kg'],
+['140 kg au squat', '140 kg on the squat', 'Squat’ta 140 kg'],
+['3 jours suivis de suite', '3 days logged in a row', 'Üst üste 3 gün kayıt'],
+['30 jours suivis de suite', '30 days logged in a row', 'Üst üste 30 gün kayıt'],
+['50 séances terminées', '50 workouts finished', '50 antrenman tamamlandı'],
+['500 t soulevées au total', '500 t lifted in total', 'Toplam 500 t kaldırıldı'],
+['7 jours suivis de suite', '7 days logged in a row', 'Üst üste 7 gün kayıt'],
+['7 nuits d\'au moins 7 h de suite', '7 nights of at least 7 h in a row', 'Üst üste en az 7 saatlik 7 gece'],
+['25 records battus', '25 records broken', '25 rekor kırıldı'],
+['10 pesées', '10 weigh-ins', '10 tartı'],
+['50 pesées', '50 weigh-ins', '50 tartı'],
+['Premier pas', 'First step', 'İlk adım'],
+['Noter ton premier repas', 'Log your first meal', 'İlk öğününü kaydet'],
+['Lancé', 'On a roll', 'Başladın'],
+['Une semaine parfaite', 'A perfect week', 'Mükemmel bir hafta'],
+['Machine', 'Machine', 'Makine'],
+['Légende', 'Legend', 'Efsane'],
+['Première séance', 'First workout', 'İlk antrenman'],
+['Terminer ta première séance', 'Finish your first workout', 'İlk antrenmanını bitir'],
+['Habitué', 'Regular', 'Müdavim'],
+['Pilier de la salle', 'Gym pillar', 'Salonun direği'],
+['Centurion', 'Centurion', 'Yüzbaşı'],
+['10 tonnes', '10 tonnes', '10 ton'],
+['100 tonnes', '100 tonnes', '100 ton'],
+['500 tonnes', '500 tonnes', '500 ton'],
+['Premier record', 'First record', 'İlk rekor'],
+['Battre un record', 'Break a record', 'Bir rekor kır'],
+['Collectionneur', 'Collector', 'Koleksiyoncu'],
+['Club des 100 kg', '100 kg club', '100 kg kulübü'],
+['Ton poids au développé', 'Your weight on the bench', 'Bench’te kendi kilon'],
+['Soulever ton poids au développé couché', 'Bench press your own body weight', 'Bench press’te kendi kilonu kaldır'],
+['Squat 140 kg', '140 kg squat', '140 kg squat'],
+['Soulevé 180 kg', '180 kg deadlift', '180 kg deadlift'],
+['Protéines au top', 'Protein on point', 'Protein tamam'],
+['Objectif de protéines 7 jours de suite', 'Protein goal 7 days in a row', 'Üst üste 7 gün protein hedefi'],
+['Bâtisseur', 'Builder', 'İnşaatçı'],
+['Objectif de protéines 30 jours de suite', 'Protein goal 30 days in a row', 'Üst üste 30 gün protein hedefi'],
+['Bien hydraté', 'Well hydrated', 'İyi hidrasyon'],
+['Objectif d\'eau 7 jours de suite', 'Water goal 7 days in a row', 'Üst üste 7 gün su hedefi'],
+['Grand dormeur', 'Great sleeper', 'Uykucu'],
+['Régulier', 'Consistent', 'Düzenli'],
+['Suivi sérieux', 'Serious tracker', 'Ciddi takip'],
+['Objectif atteint', 'Goal reached', 'Hedefe ulaşıldı'],
+['Atteindre ton objectif de poids', 'Reach your weight goal', 'Kilo hedefine ulaş'],
+['Discipline', 'Discipline', 'Disiplin'],
+['Un complément pris 30 jours de suite', 'A supplement taken 30 days in a row', 'Bir takviye üst üste 30 gün alındı'],
+['Scanner pro', 'Scanner pro', 'Tarama ustası'],
+['Chef', 'Chef', 'Şef'],
+['Créer ta première recette', 'Create your first recipe', 'İlk tarifini oluştur'],
+['Organisé', 'Organised', 'Düzenli planlayıcı'],
+['Créer ton menu de la semaine', 'Create your weekly menu', 'Haftalık menünü oluştur'],
+['Mètre ruban', 'Tape measure', 'Mezura'],
+['Noter tes premières mensurations', 'Log your first measurements', 'İlk ölçülerini kaydet'],
+['Succès', 'Achievements', 'Başarılar'],
+['Succès débloqué', 'Achievement unlocked', 'Başarı açıldı'],
+['Abdos serrés, dos rond, avance doucement.', 'Abs tight, back rounded, roll out slowly.', 'Karın sıkı, sırt yuvarlak, yavaşça ilerle.'],
+['Aisselles calées contre le pupitre.', 'Armpits pressed against the pad.', 'Koltuk altların sehpaya dayalı olsun.'],
+['Aller trop loin en arrière et forcer sur les épaules.', 'Going too far back and straining the shoulders.', 'Çok geriye gidip omuzları zorlamak.'],
+['Arrondir le bas du dos.', 'Rounding the lower back.', 'Bel bölgesini yuvarlamak.'],
+['Arrondir le dos pour descendre plus bas.', 'Rounding the back to go lower.', 'Daha aşağı inmek için sırtı yuvarlamak.'],
+['Arrondir le dos pour décoller la barre.', 'Rounding the back to lift the bar off the floor.', 'Barı yerden kaldırmak için sırtı yuvarlamak.'],
+['Avancer les coudes en montant.', 'Moving the elbows forward on the way up.', 'Kaldırırken dirsekleri öne almak.'],
+['Balancer le buste pour monter la barre.', 'Swinging the torso to lift the bar.', 'Barı kaldırmak için gövdeyi sallamak.'],
+['Banc à 30° environ : plus haut, ce sont surtout les épaules qui travaillent.', 'Bench at about 30°: any higher and the shoulders do most of the work.', 'Sehpa yaklaşık 30°: daha yüksekte işi çoğunlukla omuzlar yapar.'],
+['Banc à 30°, omoplates serrées.', 'Bench at 30°, shoulder blades squeezed.', 'Sehpa 30°, kürek kemikleri sıkılı.'],
+['Barre collée aux tibias, dos plat, poitrine sortie.', 'Bar against your shins, flat back, chest up.', 'Bar kaval kemiklerine yakın, sırt düz, göğüs önde.'],
+['Bas du dos bien collé au dossier.', 'Lower back pressed into the backrest.', 'Bel sırt dayanağına iyice yaslı.'],
+['Bras presque tendus, buste légèrement penché.', 'Arms almost straight, torso slightly leaning.', 'Kollar neredeyse düz, gövde hafif eğik.'],
+['Bras tendus, monte les épaules vers les oreilles.', 'Arms straight, raise your shoulders towards your ears.', 'Kollar düz, omuzlarını kulaklarına doğru kaldır.'],
+['Buste penché vers l\'avant, dos plat.', 'Torso leaning forward, flat back.', 'Gövde öne eğik, sırt düz.'],
+['Buste penché à 45°, dos plat.', 'Torso bent at 45°, flat back.', 'Gövde 45° eğik, sırt düz.'],
+['Cambrer fort le bas du dos.', 'Arching the lower back hard.', 'Beli çok fazla kavislendirmek.'],
+['Cambrer le dos au lieu de monter avec les hanches.', 'Arching the back instead of driving with the hips.', 'Kalçayla kaldırmak yerine sırtı kavislendirmek.'],
+['Cambrer le dos pour remonter.', 'Arching the back to push up.', 'Kaldırmak için sırtı kavislendirmek.'],
+['Corde à hauteur des yeux.', 'Rope at eye level.', 'Halat göz hizasında.'],
+['Corps gainé, droit des épaules aux talons.', 'Body braced, straight from shoulders to heels.', 'Gövde sıkı, omuzlardan topuklara düz.'],
+['Coudes collés au corps et immobiles.', 'Elbows tucked in and still.', 'Dirsekler gövdeye yakın ve sabit.'],
+['Coudes collés au corps, seuls les avant-bras bougent.', 'Elbows tucked in, only the forearms move.', 'Dirsekler gövdeye yakın, sadece ön kollar hareket eder.'],
+['Coudes légèrement fléchis et fixes pendant tout le mouvement.', 'Elbows slightly bent and fixed throughout.', 'Dirsekler hareket boyunca hafif bükülü ve sabit.'],
+['Coudes légèrement fléchis, mouvement lent.', 'Elbows slightly bent, slow movement.', 'Dirsekler hafif bükülü, yavaş hareket.'],
+['Coudes pointés vers le plafond, sans s\'écarter.', 'Elbows pointing at the ceiling, not flaring.', 'Dirsekler tavana bakar, açılmaz.'],
+['Coudes près de la tête, pointés vers le haut.', 'Elbows close to your head, pointing up.', 'Dirsekler başa yakın, yukarı bakar.'],
+['Coudes sous les épaules, corps bien droit.', 'Elbows under shoulders, body straight.', 'Dirsekler omuzların altında, gövde dümdüz.'],
+['Creuser le bas du dos.', 'Letting the lower back sag.', 'Beli çukurlaştırmak.'],
+['Descendre trop bas quand on a les épaules fragiles.', 'Going too deep with fragile shoulders.', 'Omuzlar hassasken çok aşağı inmek.'],
+['Descendre trop vite et perdre le contrôle.', 'Lowering too fast and losing control.', 'Çok hızlı inip kontrolü kaybetmek.'],
+['Descends au moins jusqu\'à ce que les cuisses soient parallèles au sol.', 'Go down at least until your thighs are parallel to the floor.', 'En az uyluklar yere paralel olana kadar in.'],
+['Descends complètement, bras tendus.', 'Lower all the way, arms straight.', 'Tamamen in, kollar düz.'],
+['Descends jusqu\'à 90° aux genoux environ.', 'Lower to about 90° at the knees.', 'Dizler yaklaşık 90° olana kadar in.'],
+['Descends jusqu\'à ce que le genou arrière frôle le sol.', 'Lower until your back knee almost touches the floor.', 'Arka diz neredeyse yere değene kadar in.'],
+['Descends jusqu\'à ce que les bras soient à peu près parallèles au sol.', 'Lower until your upper arms are about parallel to the floor.', 'Üst kollar yaklaşık yere paralel olana kadar in.'],
+['Descends l\'haltère derrière la nuque en contrôlant.', 'Lower the dumbbell behind your neck with control.', 'Dumbbell’ı kontrollü şekilde ensenin arkasına indir.'],
+['Descends la barre au bas des pectoraux, coudes à environ 45° du corps.', 'Lower the bar to your lower chest, elbows about 45° from your body.', 'Barı göğsün alt kısmına indir, dirsekler gövdeden yaklaşık 45°.'],
+['Descends la barre le long des cuisses jusqu\'à sentir l\'étirement.', 'Slide the bar down your thighs until you feel the stretch.', 'Barı esnemeyi hissedene kadar uylukların boyunca indir.'],
+['Descends la barre vers le front ou juste derrière la tête.', 'Lower the bar to your forehead or just behind your head.', 'Barı alnına ya da başının hemen arkasına indir.'],
+['Descends la barre vers le haut des pectoraux.', 'Lower the bar to your upper chest.', 'Barı göğsün üst kısmına indir.'],
+['Descends lentement jusqu\'à sentir l\'étirement des pectoraux.', 'Lower slowly until you feel your chest stretch.', 'Göğsünün gerildiğini hissedene kadar yavaşça in.'],
+['Descends lentement pour bien étirer.', 'Lower slowly for a full stretch.', 'İyice esnemek için yavaşça in.'],
+['Descends lentement, sans verrouiller complètement les coudes.', 'Lower slowly, without fully locking your elbows.', 'Dirsekleri tamamen kilitlemeden yavaşça in.'],
+['Descends les haltères sur les côtés de la poitrine, en contrôlant.', 'Lower the dumbbells to the sides of your chest, with control.', 'Dumbbell’ları kontrollü şekilde göğsün yanlarına indir.'],
+['Descends les haltères à hauteur des oreilles.', 'Lower the dumbbells to ear level.', 'Dumbbell’ları kulak hizasına indir.'],
+['Donner des coups pour monter la charge.', 'Jerking the weight up.', 'Ağırlığı savurarak kaldırmak.'],
+['Dos collé au dossier, genoux dans l\'axe de la machine.', 'Back against the pad, knees in line with the machine.', 'Sırt dayanağa yaslı, dizler makineyle aynı hizada.'],
+['Dos droit, épaules basses.', 'Back straight, shoulders down.', 'Sırt düz, omuzlar aşağıda.'],
+['Dossier presque droit, dos collé.', 'Backrest almost upright, back pressed in.', 'Sırt dayanağı neredeyse dik, sırt yaslı.'],
+['Décoller le bassin pour aider.', 'Lifting the hips to help.', 'Yardım için kalçayı kaldırmak.'],
+['Décoller les bras du pupitre.', 'Lifting your arms off the pad.', 'Kolları sehpadan kaldırmak.'],
+['Décoller les fesses du banc pour pousser plus lourd.', 'Lifting your glutes off the bench to push heavier.', 'Daha ağır itmek için kalçayı sehpadan kaldırmak.'],
+['Enroule le haut du dos, sans tirer sur la nuque.', 'Curl your upper back, without pulling on your neck.', 'Boynunu çekmeden sırtının üst kısmını kıvır.'],
+['Faire des mouvements trop courts et rapides.', 'Doing reps that are too short and fast.', 'Çok kısa ve hızlı tekrarlar yapmak.'],
+['Faire des rotations des épaules.', 'Rolling the shoulders.', 'Omuzları döndürmek.'],
+['Faire rebondir la barre sur la poitrine.', 'Bouncing the bar off your chest.', 'Barı göğsünden sektirmek.'],
+['Fessiers et abdos serrés, barre devant le visage.', 'Glutes and abs tight, bar in front of your face.', 'Kalça ve karın sıkı, bar yüzünün önünde.'],
+['Garde les coudes fixes contre le corps.', 'Keep your elbows fixed against your body.', 'Dirseklerini gövdene sabit tut.'],
+['Grand pas en avant, buste droit.', 'Big step forward, torso upright.', 'Öne büyük adım, gövde dik.'],
+['Hanches collées au banc.', 'Hips pressed into the bench.', 'Kalça sehpaya yaslı.'],
+['Haut du dos appuyé sur le banc, menton rentré.', 'Upper back on the bench, chin tucked.', 'Sırtın üst kısmı sehpada, çene içeride.'],
+['Jambes presque tendues, pousse les fesses en arrière.', 'Legs almost straight, push your hips back.', 'Bacaklar neredeyse düz, kalçanı geriye it.'],
+['Laisser le bassin s\'affaisser.', 'Letting the hips sag.', 'Kalçanın düşmesine izin vermek.'],
+['Laisser les genoux rentrer vers l\'intérieur.', 'Letting the knees cave in.', 'Dizlerin içe kapanmasına izin vermek.'],
+['Lever les fesses ou laisser tomber le bassin.', 'Raising the hips or letting them drop.', 'Kalçayı kaldırmak ya da düşürmek.'],
+['Mains un peu plus larges que les épaules, poitrine jusqu\'au sol.', 'Hands slightly wider than shoulders, chest to the floor.', 'Eller omuzlardan biraz geniş, göğüs yere kadar.'],
+['Monte jusqu\'à ce que le menton passe la barre.', 'Pull up until your chin clears the bar.', 'Çenen barı geçene kadar yüksel.'],
+['Monte le plus haut possible sur la pointe des pieds.', 'Rise as high as possible on your toes.', 'Parmak uçlarında olabildiğince yüksel.'],
+['Monte les bras sur les côtés jusqu\'à hauteur des épaules.', 'Raise your arms to the sides up to shoulder height.', 'Kollarını yanlardan omuz hizasına kadar kaldır.'],
+['Monte les jambes en enroulant le bassin.', 'Raise your legs by curling your pelvis.', 'Leğen kemiğini kıvırarak bacaklarını kaldır.'],
+['Monter les haltères avec les trapèzes.', 'Lifting the dumbbells with your traps.', 'Dumbbell’ları trapezle kaldırmak.'],
+['Monter trop vite et redescendre sans contrôle.', 'Lifting too fast and lowering without control.', 'Çok hızlı kaldırıp kontrolsüz indirmek.'],
+['Ne va pas plus loin que ce que tu contrôles.', 'Don\'t go further than you can control.', 'Kontrol edebildiğinden öteye gitme.'],
+['Omoplates serrées et basses, pieds bien ancrés au sol.', 'Shoulder blades squeezed and down, feet planted firmly.', 'Kürek kemikleri sıkılı ve aşağıda, ayaklar yere sağlam basıyor.'],
+['Ouvrir les coudes vers l\'extérieur.', 'Flaring the elbows out.', 'Dirsekleri dışa açmak.'],
+['Pars bras tendus, tire les coudes vers les hanches.', 'Start with arms straight, pull your elbows towards your hips.', 'Kollar düzken başla, dirseklerini kalçana doğru çek.'],
+['Penche-toi en avant pour les pectoraux, reste droit pour les triceps.', 'Lean forward for chest, stay upright for triceps.', 'Göğüs için öne eğil, triseps için dik kal.'],
+['Pieds largeur d\'épaules, genoux dans l\'axe des pieds.', 'Feet shoulder-width apart, knees in line with your toes.', 'Ayaklar omuz genişliğinde, dizler ayaklarla aynı hizada.'],
+['Plier les coudes et tirer avec les bras.', 'Bending the elbows and pulling with the arms.', 'Dirsekleri büküp kollarla çekmek.'],
+['Plier les coudes et transformer l\'exercice en développé.', 'Bending the elbows and turning it into a press.', 'Dirsekleri büküp hareketi press’e çevirmek.'],
+['Pouces vers le haut pendant tout le mouvement.', 'Thumbs up throughout the movement.', 'Hareket boyunca başparmaklar yukarıda.'],
+['Pousse au-dessus de la tête, la tête passe sous la barre en haut.', 'Press overhead, your head moves under the bar at the top.', 'Başının üzerine it, en üstte başın barın altına geçer.'],
+['Pousse avec les jambes puis tends les hanches en haut.', 'Drive with your legs, then lock out your hips at the top.', 'Bacaklarınla it, sonra en üstte kalçanı aç.'],
+['Pousse avec les talons et serre fort les fessiers en haut.', 'Drive through your heels and squeeze your glutes hard at the top.', 'Topuklarınla it ve en üstte kalçanı iyice sık.'],
+['Pousser avec la jambe arrière.', 'Pushing with the back leg.', 'Arka bacakla itmek.'],
+['Prendre de l\'élan avec le corps.', 'Using body momentum.', 'Gövdeden güç almak.'],
+['Prendre trop lourd et tirer avec le dos.', 'Going too heavy and pulling with your back.', 'Çok ağır alıp sırtla çekmek.'],
+['Prise un peu plus large que les épaules, poitrine sortie.', 'Grip slightly wider than shoulders, chest up.', 'Tutuş omuzlardan biraz geniş, göğüs önde.'],
+['Ramène la barre vers les cuisses en contractant le dos.', 'Bring the bar to your thighs by squeezing your back.', 'Sırtını sıkarak barı uyluklarına getir.'],
+['Redescends lentement, sans toucher le sol.', 'Lower slowly, without touching the floor.', 'Yere değmeden yavaşça in.'],
+['Remonte en rapprochant légèrement les haltères en haut.', 'Press up, bringing the dumbbells slightly together at the top.', 'Yukarıda dumbbell’ları hafifçe yaklaştırarak it.'],
+['Remonte les talons vers les fesses, redescends lentement.', 'Curl your heels towards your glutes, lower slowly.', 'Topuklarını kalçana doğru çek, yavaşça indir.'],
+['Reviens lentement, sans laisser les charges se toucher.', 'Return slowly, without letting the weights touch.', 'Ağırlıkların birbirine değmesine izin vermeden yavaşça dön.'],
+['Règle le siège pour avoir les poignées à hauteur de poitrine.', 'Set the seat so the handles are at chest height.', 'Koltuğu, tutamaklar göğüs hizasında olacak şekilde ayarla.'],
+['Se balancer d\'avant en arrière avec le buste.', 'Rocking the torso back and forth.', 'Gövdeyi ileri geri sallamak.'],
+['Se balancer pour lever les jambes.', 'Swinging to raise your legs.', 'Bacakları kaldırmak için sallanmak.'],
+['Se balancer pour monter.', 'Swinging to get up.', 'Çıkmak için sallanmak.'],
+['Serre les fessiers et les abdos, respire calmement.', 'Squeeze your glutes and abs, breathe calmly.', 'Kalça ve karnını sık, sakin nefes al.'],
+['Serre les pectoraux une seconde quand les mains se rejoignent.', 'Squeeze your chest for a second when your hands meet.', 'Ellerin birleşince göğsünü bir saniye sık.'],
+['Souffle en montant.', 'Breathe out on the way up.', 'Kalkarken nefes ver.'],
+['Taper les haltères en haut et perdre la tension.', 'Clanking the dumbbells at the top and losing tension.', 'Dumbbell’ları yukarıda çarpıştırıp gerginliği kaybetmek.'],
+['Tends complètement les bras en bas.', 'Fully straighten your arms at the bottom.', 'Altta kollarını tamamen düzelt.'],
+['Tiens une seconde en haut.', 'Hold for a second at the top.', 'Yukarıda bir saniye bekle.'],
+['Tiens une seconde jambes tendues.', 'Hold for a second with legs straight.', 'Bacaklar düzken bir saniye bekle.'],
+['Tire la barre jusqu\'en haut de la poitrine.', 'Pull the bar to your upper chest.', 'Barı göğsünün üst kısmına çek.'],
+['Tire la barre vers le nombril en serrant les omoplates.', 'Pull the bar to your navel, squeezing your shoulder blades.', 'Kürek kemiklerini sıkarak barı göbeğine çek.'],
+['Tire la poignée vers le ventre en serrant les omoplates.', 'Pull the handle to your stomach, squeezing your shoulder blades.', 'Kürek kemiklerini sıkarak tutamağı karnına çek.'],
+['Tire le coude vers la hanche, pas vers le plafond.', 'Pull your elbow to your hip, not to the ceiling.', 'Dirseğini tavana değil kalçana doğru çek.'],
+['Tire vers le visage en écartant les mains, coudes hauts.', 'Pull towards your face, hands apart, elbows high.', 'Ellerini ayırarak yüzüne doğru çek, dirsekler yüksek.'],
+['Tirer derrière la nuque ou se pencher trop en arrière.', 'Pulling behind the neck or leaning too far back.', 'Ensenin arkasına çekmek ya da çok geriye yaslanmak.'],
+['Tirer la tête avec les mains.', 'Pulling your head with your hands.', 'Başı ellerle çekmek.'],
+['Tourne la paume vers le haut en montant.', 'Turn your palm up as you lift.', 'Kaldırırken avucunu yukarı çevir.'],
+['Tourner le buste pour soulever plus lourd.', 'Twisting the torso to lift heavier.', 'Daha ağır kaldırmak için gövdeyi döndürmek.'],
+['Travaille aussi les avant-bras : idéal en fin de séance.', 'Also works the forearms: ideal at the end of a workout.', 'Ön kolları da çalıştırır: antrenman sonu için ideal.'],
+['Un genou et une main sur le banc, dos plat.', 'One knee and one hand on the bench, flat back.', 'Bir diz ve bir el sehpada, sırt düz.'],
+['Verrouiller complètement les genoux en haut.', 'Fully locking your knees at the top.', 'En üstte dizleri tamamen kilitlemek.'],
+['Écarte les bras sur les côtés en serrant l\'arrière des épaules.', 'Open your arms to the sides, squeezing your rear delts.', 'Arka omuzlarını sıkarak kollarını yanlara aç.'],
+['Écarter les coudes et pousser avec les épaules.', 'Flaring the elbows and pushing with the shoulders.', 'Dirsekleri açıp omuzlarla itmek.'],
+['Écarter les coudes à 90°, ce qui fatigue les épaules.', 'Flaring the elbows to 90°, which strains the shoulders.', 'Dirsekleri 90° açmak, bu omuzları yorar.'],
+['Muscles principaux', 'Main muscles', 'Ana kaslar'],
+['Muscles secondaires', 'Secondary muscles', 'Yardımcı kaslar'],
+['Dernière fois', 'Last time', 'Son seferde'],
+['Record estimé (1RM)', 'Estimated 1RM', 'Tahmini 1RM'],
+['Bien l\'exécuter', 'Good form', 'Doğru uygulama'],
+['Erreur fréquente', 'Common mistake', 'Sık yapılan hata'],
+['Exercice personnalisé : pas de fiche détaillée.', 'Custom exercise: no detailed sheet.', 'Özel egzersiz: ayrıntılı kart yok.'],
+['Fiche de l\'exercice', 'Exercise sheet', 'Egzersiz kartı'],
+['Muscles, conseils, erreur à éviter', 'Muscles, tips, mistake to avoid', 'Kaslar, ipuçları, kaçınılacak hata'],
+['Coach de séance', 'Workout coach', 'Antrenman koçu'],
+['Te propose la charge et les répétitions à chaque séance', 'Suggests the weight and reps every workout', 'Her antrenmanda ağırlık ve tekrar önerir'],
+['Coach de séance activé', 'Workout coach on', 'Antrenman koçu açık'],
+['Coach de séance désactivé', 'Workout coach off', 'Antrenman koçu kapalı'],
+['Même charge, une répétition de plus', 'Same weight, one more rep', 'Aynı ağırlık, bir tekrar fazla'],
+['Pas de progrès depuis 3 séances : allège de 10 % pour repartir', 'No progress for 3 workouts: drop 10% to bounce back', '3 antrenmandır ilerleme yok: toparlanmak için %10 hafiflet'],
+['Une répétition de plus que la dernière fois', 'One more rep than last time', 'Geçen seferden bir tekrar fazla'],
+['Planning de la semaine', 'Weekly schedule', 'Haftalık plan'],
+['Choisis la séance de chaque jour. Le journal et l\'onglet Muscu t\'affichent la séance du jour, prête à démarrer.', 'Choose each day\'s workout. The log and Workout tab show today\'s workout, ready to start.', 'Her günün antrenmanını seç. Günlük ve Antrenman sekmesi günün antrenmanını başlatmaya hazır gösterir.'],
+['Choisis tes jours de séance : Nexafit te dit quoi faire chaque jour', 'Choose your workout days: Nexafit tells you what to do each day', 'Antrenman günlerini seç: Nexafit her gün ne yapacağını söyler'],
+['Choisis tes jours de séance', 'Choose your workout days', 'Antrenman günlerini seç'],
+['Tes jours de séance sont planifiés', 'Your workout days are planned', 'Antrenman günlerin planlandı'],
+['Planifier ma semaine', 'Plan my week', 'Haftamı planla'],
+['Remplir automatiquement', 'Fill automatically', 'Otomatik doldur'],
+['Tout effacer', 'Clear all', 'Hepsini temizle'],
+['Repos', 'Rest', 'Dinlenme'],
+['Modifier le planning', 'Edit the schedule', 'Planı düzenle'],
+['Démarrer', 'Start', 'Başlat'],
+['Séance du jour faite', 'Today\'s workout done', 'Günün antrenmanı yapıldı'],
+['Bien joué, pense aux protéines', 'Well done, remember your protein', 'Aferin, proteini unutma'],
+['Aujourd\'hui : repos', 'Today: rest', 'Bugün: dinlenme'],
+['Tes muscles grandissent pendant la récupération', 'Your muscles grow while you recover', 'Kasların toparlanırken büyür'],
+['Sans balance', 'No scale', 'Tartısız'],
+['Paume : la taille et l\'épaisseur de ta paume, sans les doigts.', 'Palm: the size and thickness of your palm, without fingers.', 'Avuç içi: parmaklar hariç avucunun büyüklüğü ve kalınlığı.'],
+['Poing : la taille de ton poing fermé.', 'Fist: the size of your closed fist.', 'Yumruk: kapalı yumruğunun büyüklüğü.'],
+['Pouce : la taille de ton pouce entier.', 'Thumb: the size of your whole thumb.', 'Başparmak: başparmağının tamamı kadar.'],
+['Creux de main : ce que tient ta main en coupe.', 'Cupped hand: what fits in your cupped hand.', 'Avuç: avucunun alabildiği kadar.'],
+['Que manger ?', 'What to eat?', 'Ne yesem?'],
+['Il te reste', 'You have left', 'Kalan'],
+['Ajouter dans', 'Add to', 'Şuraya ekle'],
+['Autres idées', 'More ideas', 'Başka fikirler'],
+['Tu as déjà dépassé ton objectif du jour.', 'You\'ve already gone over today\'s goal.', 'Günlük hedefini zaten aştın.'],
+['Tu as presque atteint ton objectif du jour, bravo.', 'You\'ve almost hit today\'s goal, well done.', 'Günlük hedefine neredeyse ulaştın, tebrikler.'],
+['Il te manque encore des protéines : un skyr ou une dose de whey suffit.', 'You still need some protein: a skyr or a scoop of whey will do.', 'Hâlâ proteinin eksik: bir skyr ya da bir ölçek whey yeter.'],
+['Poulet, riz et légumes', 'Chicken, rice and vegetables', 'Tavuk, pilav ve sebze'],
+['Pâtes au thon', 'Tuna pasta', 'Ton balıklı makarna'],
+['Omelette, pain et fromage', 'Omelette, bread and cheese', 'Omlet, ekmek ve peynir'],
+['Bol skyr, muesli et fruit', 'Skyr bowl with muesli and fruit', 'Skyr, müsli ve meyve kasesi'],
+['Saumon et pommes de terre', 'Salmon and potatoes', 'Somon ve patates'],
+['Steak haché, pâtes et salade', 'Burger patty, pasta and salad', 'Köfte, makarna ve salata'],
+['Wrap au poulet', 'Chicken wrap', 'Tavuk dürüm'],
+['Shake protéiné', 'Protein shake', 'Protein shake'],
+['Sandwich jambon de dinde', 'Turkey ham sandwich', 'Hindi jambonlu sandviç'],
+['Yaourt et fruit', 'Yoghurt and fruit', 'Yoğurt ve meyve'],
+['Fruit et oléagineux', 'Fruit and nuts', 'Meyve ve kuruyemiş'],
+['Pois chiches et riz', 'Chickpeas and rice', 'Nohut ve pilav'],
+['Activité', 'Activity', 'Aktivite'],
+['Rien', 'Nothing', 'Hiçbir şey'],
+['Séance + objectif', 'Workout + goal', 'Antrenman + hedef'],
+['Touche un jour pour le détail.', 'Tap a day for details.', 'Ayrıntı için bir güne dokun.'],
+['Rien de noté', 'Nothing logged', 'Kayıt yok'],
+['Rapport du mois', 'Monthly report', 'Aylık rapor'],
+['Un PDF clair à garder ou à envoyer à un coach', 'A clear PDF to keep or send to a coach', 'Saklamak ya da koça göndermek için net bir PDF'],
+['Un résumé clair de ton mois en 2 pages : poids, calories, protéines, séances, records et muscles travaillés. Idéal à envoyer à un coach ou un diététicien.', 'A clear 2-page summary of your month: weight, calories, protein, workouts, records and muscles worked. Ideal to send to a coach or dietitian.', 'Ayının 2 sayfalık net özeti: kilo, kalori, protein, antrenmanlar, rekorlar ve çalışan kaslar. Bir koça ya da diyetisyene göndermek için ideal.'],
+['Ce mois-ci', 'This month', 'Bu ay'],
+['Mois dernier', 'Last month', 'Geçen ay'],
+['Créer le PDF', 'Create the PDF', 'PDF oluştur'],
+['Création…', 'Creating…', 'Oluşturuluyor…'],
+['Création du PDF impossible', 'Couldn\'t create the PDF', 'PDF oluşturulamadı'],
+['Créé avec Nexafit', 'Made with Nexafit', 'Nexafit ile oluşturuldu'],
+['Séances du mois', 'This month\'s workouts', 'Bu ayın antrenmanları'],
+['Aucune séance ce mois-ci.', 'No workouts this month.', 'Bu ay antrenman yok.'],
+['Records battus', 'Records broken', 'Kırılan rekorlar'],
+['Aucun record ce mois-ci.', 'No records this month.', 'Bu ay rekor yok.'],
+['Séries par muscle', 'Sets per muscle', 'Kas başına set'],
+['Semaine par semaine', 'Week by week', 'Hafta hafta'],
+['Semaine', 'Week', 'Hafta'],
+['Date', 'Date', 'Tarih'],
+['Eau / jour', 'Water / day', 'Su / gün'],
+['Pesées', 'Weigh-ins', 'Tartılar'],
+['objectif atteint (±10 %)', 'goal reached (±10%)', 'hedefe ulaşıldı (±%10)'],
+['en dessous', 'below', 'altında'],
+['au-dessus', 'above', 'üstünde'],
+['Coach : {wr}', 'Coach: {wr}', 'Koç: {wr}'],
+['Toutes tes séries réussies : +{inc} kg', 'All your sets completed: +{inc} kg', 'Tüm setlerin tamam: +{inc} kg'],
+['Aujourd\'hui : {s}', 'Today: {s}', 'Bugün: {s}'],
+['Idées pour un repas d\'environ {k} kcal : il te restera de quoi faire une collation.', 'Ideas for a meal of about {k} kcal: you\'ll still have room for a snack.', 'Yaklaşık {k} kcal’lik bir öğün için fikirler: ara öğün için de yer kalacak.'],
+['« {t} » ajouté · {k} kcal', '“{t}” added · {k} kcal', '“{t}” eklendi · {k} kcal'],
+['Suivant ({n})', 'Next ({n})', 'Sonraki ({n})'],
+['{n} jours de suite', '{n}-day streak', '{n} gün üst üste'],
+['{n} jour de suite', '{n}-day streak', '{n} gün üst üste'],
+['Meilleure série : {n} jours', 'Best streak: {n} days', 'En iyi seri: {n} gün'],
+['{n} jours actifs', '{n} active days', '{n} aktif gün'],
+['Rapport du mois · {m}', 'Monthly report · {m}', 'Aylık rapor · {m}'],
+['objectif {n}', 'goal {n}', 'hedef {n}'],
+['+ {n} autres séances', '+ {n} more workouts', '+ {n} antrenman daha'],
+['Fichier prêt : {f}', 'File ready: {f}', 'Dosya hazır: {f}']
+]);
+
 // phrases du rythme de poids (précédées de ". " dans la page)
 const PACE = [
 ['Rythme rapide : tu risques de perdre du muscle, ajoute un peu de calories.', 'Fast pace: you may lose muscle, add a few calories.', 'Hızlı tempo: kas kaybedebilirsin, biraz kalori ekle.'],
@@ -2009,6 +2410,7 @@ const UNITS = {
 'carré': ['square', 'squares', 'kare'], 'barre': ['bar', 'bars', 'bar'], 'part': ['slice', 'slices', 'dilim'], 'cookie': ['cookie', 'cookies', 'kurabiye'], 'madeleine': ['madeleine', 'madeleines', 'madlen'],
 'canette': ['can', 'cans', 'kutu'], 'tasse': ['cup', 'cups', 'fincan'], 'dose': ['scoop', 'scoops', 'ölçek'], 'pizza': ['pizza', 'pizzas', 'pizza'], 'sandwich': ['sandwich', 'sandwiches', 'sandviç'],
 'burger': ['burger', 'burgers', 'burger'], 'tacos': ['tacos', 'tacos', 'tacos'],
+'paume': ['palm', 'palms', 'avuç içi'], 'poing': ['fist', 'fists', 'yumruk'], 'pouce': ['thumb', 'thumbs', 'başparmak'], 'creux de main': ['cupped hand', 'cupped hands', 'avuç'],
 // noms comptables
 'jour': ['day', 'days', 'gün'], 'semaine': ['week', 'weeks', 'hafta'], 'mois': ['month', 'months', 'ay'], 'an': ['year', 'years', 'yıl'], 'séance': ['workout', 'workouts', 'antrenman'],
 'série': ['set', 'sets', 'set'], 'exercice': ['exercise', 'exercises', 'egzersiz'], 'record': ['record', 'records', 'rekor'], 'aliment': ['food', 'foods', 'besin'], 'article': ['item', 'items', 'ürün'],
@@ -2271,6 +2673,8 @@ const P = {
   trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4.5v1A3.5 3.5 0 0 0 8 10.5M16 6h3.5v1a3.5 3.5 0 0 1-3.5 3.5M12 13v4M8.5 20.5h7M9.5 17h5"/>',
   edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
   steps: '<path d="M8.2 3.5c1.9 0 3 2.1 3 4.6 0 1.9-.6 3.6-1.1 4.9l-3.6-.4c-.4-1.4-.9-3-.9-4.6 0-2.5 1-4.5 2.6-4.5zM6.6 15.2l3.5.4c.1 2-.6 3.9-2.1 3.9-1.2 0-1.8-1.1-1.6-2.4zM15.8 7.5c1.6 0 2.6 2 2.6 4.5 0 1.6-.5 3.2-.9 4.6l-3.6.4c-.5-1.3-1.1-3-1.1-4.9 0-2.5 1.1-4.6 3-4.6zM13.9 19.2l3.5-.4.2 1.9c.2 1.3-.4 2.4-1.6 2.4-1.5 0-2.2-1.9-2.1-3.9z"/>',
+  hand: '<path d="M8 11.5V5.8a1.4 1.4 0 0 1 2.8 0v5M10.8 10.6V4.6a1.4 1.4 0 0 1 2.8 0v6M13.6 10.8V5.6a1.4 1.4 0 0 1 2.8 0v6.6M16.4 11.6V8.4a1.4 1.4 0 0 1 2.8 0v5.2c0 4-2.6 6.9-6.4 6.9-2.7 0-4.3-1.3-5.6-3.4l-2.6-4.3a1.4 1.4 0 0 1 2.3-1.6L8 13.4"/>',
+  lock: '<rect x="5.5" y="10.5" width="13" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>',
   pill: '<rect x="2.8" y="8.3" width="18.4" height="7.4" rx="3.7" transform="rotate(-45 12 12)"/><path d="M9.4 9.4l5.2 5.2"/>',
   disc: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.4"/><path d="M12 3.5v3M12 17.5v3"/>',
   body: '<circle cx="12" cy="4.6" r="2.1"/><path d="M6 8.6c2 .8 4 1.2 6 1.2s4-.4 6-1.2M9.4 9.6l-.6 5.2 1.6 6.7M14.6 9.6l.6 5.2-1.6 6.7M9 14.6h6"/>',
@@ -2693,6 +3097,7 @@ NX.VIEWS.journal = () => {
     + '<div class="title" style="flex:1;min-width:0"><h1 class="h-view">' + esc(dayTitle(k)) + '</h1><div class="sub">' + (isToday ? esc(longDate(k)) : '<button data-a="day-today" style="color:var(--carb);font-weight:650">Revenir à aujourd\'hui</button>') + (streak > 1 ? ' · <span class="streak">' + ico('flame', 'sm') + streak + ' jours de suite</span>' : '') + '</div></div>'
     + '<button class="icon-btn" data-a="day" data-d="1" aria-label="Jour suivant">' + ico('right') + '</button></div>';
   h += NX.reviewBanner(k);
+  if (k === NX.today()) h += NX.todayCard('journal');
   if (!NX.isStandalone() && !S.main.hideInstall) h += '<div class="callout" style="display:flex;gap:10px;align-items:flex-start"><span style="flex:1"><b>Installe Nexafit :</b> dans Safari, touche Partager puis « Sur l\'écran d\'accueil ». Elle s\'ouvrira en plein écran, même sans connexion.</span><button class="icon-btn plain" style="width:28px;height:28px" data-a="hide-install" aria-label="Masquer">' + ico('x', 'sm') + '</button></div>';
   // résumé
   const wk = (day.workouts || []).length;
@@ -2724,7 +3129,7 @@ NX.VIEWS.journal = () => {
   }
   // actions rapides
   const y = NX.day(addDays(k, -1)), yN = NX.dayTotals(y).n;
-  h += '<div class="row-actions">' + (yN ? '<button class="chip" data-a="copy-yesterday">' + ico('copy', 'sm') + 'Copier les repas de la veille</button>' : '') + (S.main.combos.length ? '<button class="chip" data-a="combos-quick">' + ico('star', 'sm') + 'Repas favoris</button>' : '') + (NX.planDayChip ? NX.planDayChip(k) : '') + (!(S.main.supps || []).length ? '<button class="chip" data-a="supps">' + ico('pill', 'sm') + 'Suivre mes compléments</button>' : '') + '</div>';
+  h += '<div class="row-actions">' + (yN ? '<button class="chip" data-a="copy-yesterday">' + ico('copy', 'sm') + 'Copier les repas de la veille</button>' : '') + '<button class="chip hot" data-a="eat-open">' + ico('wand', 'sm') + 'Que manger ?</button>' + (S.main.combos.length ? '<button class="chip" data-a="combos-quick">' + ico('star', 'sm') + 'Repas favoris</button>' : '') + (NX.planDayChip ? NX.planDayChip(k) : '') + (!(S.main.supps || []).length ? '<button class="chip" data-a="supps">' + ico('pill', 'sm') + 'Suivre mes compléments</button>' : '') + '</div>';
   return h;
 };
 function costStat(day, t, g) {
@@ -2906,6 +3311,7 @@ function renderQty() {
   if (f.unit) [0.5, 1, 2, 3].forEach(q => quick.push([q * f.unit[1], fmt(q, 1) + ' ' + f.unit[0] + (q > 1 && !/s$|x$/.test(f.unit[0]) && !f.unit[0].includes(' ') ? 's' : '')]));
   [50, 100, 150, 200, 250].forEach(g => quick.push([g, g + ' g']));
   h += '<div class="chips">' + quick.map(q => '<button class="chip' + (Math.abs(QTY.g - q[0]) < .01 ? ' on' : '') + '" data-a="qty-set" data-g="' + q[0] + '">' + esc(q[1]) + '</button>').join('') + '</div>';
+  h += NX.handRow ? NX.handRow(f, QTY.g) : '';
   h += '<div class="sec"><div class="label">Repas</div><div class="seg">' + MEALS.map(([mk, mn]) => '<button class="' + (QTY.m === mk ? 'on' : '') + '" data-a="qty-meal" data-m="' + mk + '">' + mn.replace('Petit-déjeuner', 'Matin') + '</button>').join('') + '</div></div>';
   h += '<p class="note">Pour 100 g : ' + fmt(f.per.k) + ' kcal · P ' + fmt(f.per.p, 1) + ' g · G ' + fmt(f.per.c, 1) + ' g · L ' + fmt(f.per.f, 1) + ' g' + (f.kind === 'db' ? '. Valeurs moyennes, à ajuster si ton produit diffère.' : '') + (f.src === 'off' ? '. Source : Open Food Facts.' : '') + '</p>';
   h += '<div class="row-actions"><button class="chip" data-a="qty-fav">' + (isFav ? '★ Dans mes favoris' : '☆ Ajouter aux favoris') + '</button>' + (f.kind === 'mine' ? '<button class="chip" data-a="food-edit" data-id="' + f.id + '">' + ico('edit', 'sm') + 'Modifier l\'aliment</button>' : '') + '</div>';
@@ -3195,6 +3601,7 @@ function homeView() {
   const thisWeek = all.filter(w => w.date >= weekStart).length;
   let h = '<div class="topbar"><h1 class="h-view">Muscu</h1>' + NX.topRight() + '</div>';
   h += '<div class="stat-row"><div class="stat"><b>' + thisWeek + '</b><span>séance' + (thisWeek > 1 ? 's' : '') + ' cette semaine</span></div><div class="stat"><b>' + all.length + '</b><span>au total</span></div><div class="stat"><b>' + countPRs(all) + '</b><span>records battus</span></div></div>';
+  h += NX.todayCard('gym') + NX.weekStrip();
   h += '<button class="btn block" data-a="w-start-free">' + ico('play') + 'Démarrer une séance libre</button>';
   h += '<div class="row-actions"><button class="chip" data-a="plates-open">' + ico('disc', 'sm') + 'Calculateur de disques</button></div>';
   h += NX.muscleSection();
@@ -3219,12 +3626,14 @@ function volume(w) { return w.exercises.reduce((a, e) => a + e.sets.filter(s => 
 function newSet(prev) { return { w: prev ? prev.w : '', r: prev ? prev.r : '', done: false }; }
 function buildExercise(ex, nSets, reps) {
   const last = NX.lastFor(ex);
+  // coach : la charge et les répétitions conseillées pour aujourd'hui
+  const c = NX.coachOn && NX.coachOn() ? NX.coachFor(ex, reps || null) : null;
   const sets = [];
   for (let i = 0; i < Math.max(1, nSets || 3); i++) {
     const ls = last && (last.sets[i] || last.sets[last.sets.length - 1]);
-    sets.push({ w: ls ? ls.w : '', r: reps || (ls ? ls.r : ''), done: false });
+    sets.push(c ? { w: c.w, r: c.r, done: false } : { w: ls ? ls.w : '', r: reps || (ls ? ls.r : ''), done: false });
   }
-  return { ex, target: reps ? (nSets + ' × ' + reps) : '', sets };
+  return { ex, target: reps ? (nSets + ' × ' + reps) : '', sets, coach: c };
 }
 A['w-start-free'] = () => startWorkout({ name: 'Séance libre', exercises: [] });
 A['w-start'] = el => {
@@ -3259,7 +3668,7 @@ function restLabel(s) { return s >= 60 ? Math.floor(s / 60) + ' min' + (s % 60 ?
 function exoCard(e, i, w) {
   const last = NX.lastFor(e.ex, w.id), best = NX.bestFor(e.ex, w.id);
   let prev = last ? 'Dernière fois : ' + last.sets.map(s => fmt(s.w, 1) + '×' + s.r).join(', ') : 'Premier passage sur cet exercice';
-  let h = '<section class="exo" id="exo-' + i + '"><div class="exo-h"><div style="min-width:0"><b>' + esc(e.ex) + '</b>' + (e.target ? ' <span class="tag">' + esc(e.target) + '</span>' : '') + '<div class="prev">' + esc(prev) + '</div>' + (best.best ? '<div class="prev">Record estimé (1RM) : ' + fmt(best.best, 1) + ' kg</div>' : '') + '</div><button class="icon-btn plain" data-a="exo-menu" data-i="' + i + '" aria-label="Options de l\'exercice">' + ico('dots') + '</button></div>';
+  let h = '<section class="exo" id="exo-' + i + '"><div class="exo-h"><div style="min-width:0"><b>' + esc(e.ex) + '</b>' + (e.target ? ' <span class="tag">' + esc(e.target) + '</span>' : '') + '<div class="prev">' + esc(prev) + '</div>' + (best.best ? '<div class="prev">Record estimé (1RM) : ' + fmt(best.best, 1) + ' kg</div>' : '') + (e.coach ? NX.coachMsg(e.coach) : '') + '</div><button class="icon-btn plain" data-a="exo-menu" data-i="' + i + '" aria-label="Options de l\'exercice">' + ico('dots') + '</button></div>';
   h += '<div class="set-h"><span>Série</span><span>kg</span><span>reps</span><span></span></div><div class="sets">';
   e.sets.forEach((s, j) => {
     h += '<div class="set' + (s.done ? ' done' : '') + '"><span class="n">' + (s.pr ? '<span title="Record" style="color:var(--fat)">★</span>' : j + 1) + '</span>'
@@ -3298,6 +3707,7 @@ A['exo-menu'] = el => {
     + (i > 0 ? '<button class="li" data-a="exo-move" data-i="' + i + '" data-d="-1"><span class="lic">' + ico('upload') + '</span><span class="lt"><b>Monter</b></span></button>' : '')
     + (i < w.exercises.length - 1 ? '<button class="li" data-a="exo-move" data-i="' + i + '" data-d="1"><span class="lic">' + ico('download') + '</span><span class="lt"><b>Descendre</b></span></button>' : '')
     + '<button class="li" data-a="exo-swap" data-i="' + i + '"><span class="lic">' + ico('dumbbell') + '</span><span class="lt"><b>Remplacer l\'exercice</b><span>Machine prise ? Change sans perdre ta place</span></span></button>'
+    + '<button class="li" data-a="fiche-open" data-ex="' + esc(w.exercises[i].ex) + '"><span class="lic">' + ico('help') + '</span><span class="lt"><b>Fiche de l\'exercice</b><span>Muscles, conseils, erreur à éviter</span></span></button>'
     + '<button class="li" data-a="exo-history" data-ex="' + esc(w.exercises[i].ex) + '"><span class="lic">' + ico('chart') + '</span><span class="lt"><b>Voir la progression</b></span></button>'
     + '<button class="li" data-a="exo-rm" data-i="' + i + '"><span class="lic" style="color:var(--brand)">' + ico('trash') + '</span><span class="lt"><b>Retirer de la séance</b></span></button></div>' }) });
 };
@@ -3356,7 +3766,7 @@ function pickRes() {
   if (!all.length) return '<div class="callout">Aucun exercice trouvé. Crée-le avec le bouton en bas.</div>';
   const groups = {};
   all.forEach(e => { (groups[e.group] = groups[e.group] || []).push(e); });
-  return Object.keys(groups).map(g => '<div class="label group-label">' + esc(g) + '</div><div class="list">' + groups[g].map(e => '<button class="li" data-a="pick-ex" data-ex="' + esc(e.name) + '"><span class="lt"><b>' + esc(e.name) + '</b>' + (used.has(e.name) ? '<span>Déjà pratiqué</span>' : '') + '</span>' + ico('plus', 'sm') + '</button>').join('') + '</div>').join('');
+  return Object.keys(groups).map(g => '<div class="label group-label">' + esc(g) + '</div><div class="list">' + groups[g].map(e => '<div class="li pick-row"><button class="pick-main" data-a="pick-ex" data-ex="' + esc(e.name) + '"><span class="lt"><b>' + esc(e.name) + '</b>' + (used.has(e.name) ? '<span>Déjà pratiqué</span>' : '') + '</span></button><button class="icon-btn plain" data-a="fiche-open" data-ex="' + esc(e.name) + '" aria-label="Fiche de l\'exercice">' + ico('help', 'sm') + '</button><button class="icon-btn plain" data-a="pick-ex" data-ex="' + esc(e.name) + '" aria-label="Ajouter">' + ico('plus', 'sm') + '</button></div>').join('') + '</div>').join('');
 }
 IN['pick-q'] = el => { PICK.q = el.value; $('#pick-res').innerHTML = pickRes(); };
 A['pick-ex'] = el => {
@@ -4112,6 +4522,15 @@ function bodySvg(parts, M, view) {
   return '<svg viewBox="30 8 140 400" role="img" aria-label="' + (view === 'f' ? 'Face' : 'Dos') + '"><g class="base">' + base + '<g transform="matrix(-1 0 0 1 200 0)">' + base + '</g>' + BASE_X + '</g>'
     + '<g>' + mus() + '</g><g transform="matrix(-1 0 0 1 200 0)">' + mus() + '</g></svg>';
 }
+// petite silhouette pour une fiche d'exercice : muscle principal en orange vif, secondaire plus doux
+NX.exMuscles = name => exMap(name);
+NX.MUSCLE_NAMES = MUSCLES;
+NX.bodyPairFor = map => {
+  const lv = id => map[id] >= 1 ? 'good' : map[id] ? 'mid' : 'none';
+  const base = BASE.map(d => '<path d="' + d + '"/>').join('');
+  const svg = (parts, lbl) => { const mus = parts.map(([id, d]) => '<path class="mu static lv-' + lv(id) + '" d="' + d + '"/>').join(''); return '<figure><svg viewBox="30 8 140 400" aria-hidden="true"><g class="base">' + base + '<g transform="matrix(-1 0 0 1 200 0)">' + base + '</g>' + BASE_X + '</g><g>' + mus + '</g><g transform="matrix(-1 0 0 1 200 0)">' + mus + '</g></svg><figcaption>' + lbl + '</figcaption></figure>'; };
+  return '<div class="mm mini">' + svg(FRONT, 'Face') + svg(BACK, 'Dos') + '</div>';
+};
 function mmDetail(M) {
   const id = UI.mmSel;
   if (!id || !MUSCLES[id]) {
@@ -4610,6 +5029,625 @@ function send() {
 const ai = () => false; const askAI = () => {};
 })();
 
+/* Nexafit — coach de séance (surcharge progressive), planning de la semaine, fiches exercices. */
+(function () {
+'use strict';
+const { $, esc, fmt, num, addDays, today, ico, S, UI, A, CH } = NX;
+
+/* ================= COACH DE SÉANCE ================= */
+const HEAVY = ['Squat', 'Soulevé de terre', 'Presse à cuisses', 'Soulevé de terre roumain', 'Hip thrust', 'Fentes'];
+const SMALL = ['Élévations latérales', 'Oiseau', 'Curl haltères', 'Curl marteau', 'Extension nuque haltère', 'Développé couché haltères', 'Développé incliné haltères', 'Développé haltères assis', 'Rowing haltère'];
+const incFor = (ex, w) => HEAVY.includes(ex) ? (w >= 60 ? 5 : 2.5) : SMALL.includes(ex) ? 2 : 2.5;
+const coachOn = () => S.main.settings.coach !== false;
+function history(ex, excludeId, n) {
+  const out = [];
+  for (const w of NX.allWorkouts()) {
+    if (w.id === excludeId) continue;
+    const e = w.exercises.find(x => x.ex === ex && x.sets.some(s => s.done));
+    if (e) { out.push(e.sets.filter(s => s.done)); if (out.length >= n) break; }
+  }
+  return out;
+}
+const topW = sets => Math.max(0, ...sets.map(s => num(s.w) || 0));
+// double progression : on monte les répétitions, puis la charge quand toutes les séries sont réussies
+NX.coachFor = (ex, goal, excludeId) => {
+  const H = history(ex, excludeId, 3);
+  if (!H.length) return null;
+  const lo = goal || 8, hi = goal || 12;
+  const last = H[0], tw = topW(last), work = last.filter(s => (num(s.w) || 0) === tw), reps = work.map(s => num(s.r) || 0);
+  if (!tw) { const r = Math.max(...reps) + 1; return { w: 0, r, kind: 'reps' }; }
+  if (reps.every(r => r >= hi)) { const inc = incFor(ex, tw); return { w: tw + inc, r: lo, kind: 'up', inc }; }
+  // trois séances à la même charge sans mieux faire : on allège
+  if (H.length >= 3 && H.every(h => topW(h) === tw)) {
+    const best = H.map(h => Math.max(...h.filter(s => (num(s.w) || 0) === tw).map(s => num(s.r) || 0)));
+    if (best[0] <= best[1] && best[1] <= best[2]) return { w: Math.max(0, Math.round(tw * 0.9 / 2.5) * 2.5), r: lo, kind: 'down' };
+  }
+  return { w: tw, r: Math.min(hi, Math.max(lo, Math.min(...reps) + 1)), kind: 'same' };
+};
+NX.coachMsg = c => {
+  if (!c) return '';
+  const wr = (c.w ? fmt(c.w, 2) + ' kg × ' : '') + c.r;
+  const sub = { up: NXI.t('Toutes tes séries réussies : +{inc} kg', { inc: fmt(c.inc, 2) }), same: 'Même charge, une répétition de plus', down: 'Pas de progrès depuis 3 séances : allège de 10 % pour repartir', reps: 'Une répétition de plus que la dernière fois' }[c.kind];
+  return '<div class="coach k-' + c.kind + '">' + ico(c.kind === 'down' ? 'refresh' : 'wand', 'sm') + '<span><b>' + NXI.t('Coach : {wr}', { wr }) + '</b><small>' + sub + '</small></span></div>';
+};
+A['coach-toggle'] = () => { S.main.settings.coach = !coachOn(); NX.touchMain(); NX.render(); NX.toast(coachOn() ? 'Coach de séance activé' : 'Coach de séance désactivé'); };
+NX.coachOn = coachOn;
+
+/* ================= PLANNING DE LA SEMAINE ================= */
+const dow = k => (NX.keyToDate(k).getDay() + 6) % 7;
+const sched = () => { if (!Array.isArray(S.main.schedule) || S.main.schedule.length !== 7) S.main.schedule = [null, null, null, null, null, null, null]; return S.main.schedule; };
+const findDay = slot => { if (!slot) return null; const p = (S.main.programs || []).find(x => x.id === slot.p), d = p && p.days.find(x => x.id === slot.d); return d ? { p, d } : null; };
+const wdName = (i, style) => NX.keyToDate(addDays(today(), i - dow(today()))).toLocaleDateString(NX.LOC(), { weekday: style || 'long' });
+const doneOn = k => ((S.days[k] && S.days[k].workouts) || []).length > 0;
+NX.todayPlan = () => {
+  const sc = sched(); if (sc.every(x => !x)) return null;
+  const f = findDay(sc[dow(today())]);
+  return { f, done: doneOn(today()), rest: !f };
+};
+// carte « Aujourd'hui » (journal et muscu)
+NX.todayCard = where => {
+  const t = NX.todayPlan();
+  if (!t) return where === 'gym' ? '<button class="rev-link" data-a="sched-open"><span class="rh-i">' + ico('calendar') + '</span><span class="lt"><b>Planifier ma semaine</b><span>Choisis tes jours de séance : Nexafit te dit quoi faire chaque jour</span></span>' + ico('right', 'sm') + '</button>' : '';
+  if (S.main.active) return '';
+  if (t.done) return where === 'gym' ? '' : '<div class="today ok"><span class="rh-i">' + ico('check') + '</span><span class="lt"><b>Séance du jour faite</b><span>Bien joué, pense aux protéines</span></span></div>';
+  if (t.rest) return where === 'gym' ? '<div class="today rest"><span class="rh-i">' + ico('moon') + '</span><span class="lt"><b>Aujourd\'hui : repos</b><span>Tes muscles grandissent pendant la récupération</span></span></div>' : '';
+  const { p, d } = t.f;
+  return '<div class="today"><span class="rh-i">' + ico('dumbbell') + '</span><span class="lt"><b>' + NXI.t('Aujourd\'hui : {s}', { s: '<span data-notr>' + esc(NXI.tr(d.name) || d.name) + '</span>' }) + '</b><span>' + esc(p.name) + ' · ' + d.items.length + ' exercice' + (d.items.length > 1 ? 's' : '') + '</span></span><button class="btn sm" data-a="w-start" data-p="' + p.id + '" data-d="' + d.id + '">' + ico('play', 'sm') + 'Démarrer</button></div>';
+};
+NX.weekStrip = () => {
+  const sc = sched(); if (sc.every(x => !x)) return '';
+  const mon = addDays(today(), -dow(today()));
+  return '<div class="wk-strip">' + sc.map((slot, i) => {
+    const k = addDays(mon, i), f = findDay(slot), done = doneOn(k), past = k < today();
+    const st = done ? 'done' : f ? (past ? 'miss' : 'plan') : 'rest';
+    return '<div class="wk ' + st + (k === today() ? ' td' : '') + '"><span>' + wdName(i, 'narrow').toUpperCase() + '</span><i></i><small data-notr>' + (f ? esc((NXI.tr(f.d.name) || f.d.name).replace(/^Séance /, '')) : '') + '</small></div>';
+  }).join('') + '<button class="icon-btn plain" data-a="sched-open" aria-label="Modifier le planning">' + ico('edit', 'sm') + '</button></div>';
+};
+const PATTERNS = { 1: [0], 2: [0, 3], 3: [0, 2, 4], 4: [0, 1, 3, 4], 5: [0, 1, 2, 3, 4], 6: [0, 1, 2, 3, 4, 5], 7: [0, 1, 2, 3, 4, 5, 6] };
+A['sched-open'] = () => NX.openSheet({ id: 'sched', title: 'Planning de la semaine', render: () => {
+  const sc = sched(), progs = S.main.programs || [];
+  const opts = cur => '<option value="">Repos</option>' + progs.map(p => '<optgroup label="' + esc(p.name) + '">' + p.days.map(d => '<option value="' + p.id + '|' + d.id + '"' + (cur && cur.p === p.id && cur.d === d.id ? ' selected' : '') + '>' + esc(NXI.tr(d.name) || d.name) + '</option>').join('') + '</optgroup>').join('');
+  return { body: '<p class="note" style="margin:0">Choisis la séance de chaque jour. Le journal et l\'onglet Muscu t\'affichent la séance du jour, prête à démarrer.</p>'
+    + (progs.length ? '<div class="sec"><div class="label">Remplir automatiquement</div><div class="chips" style="flex-wrap:wrap">' + progs.map(p => '<button class="chip" data-a="sched-fill" data-p="' + p.id + '">' + ico('wand', 'sm') + esc(p.name) + '</button>').join('') + '</div></div>' : '')
+    + '<div class="list sched">' + sc.map((slot, i) => '<label class="li"><span class="lt"><b style="text-transform:capitalize">' + wdName(i) + '</b></span><select class="inp" data-ch="sched-set" data-i="' + i + '">' + opts(slot) + '</select></label>').join('') + '</div>',
+    foot: '<button class="btn ghost" data-a="sched-clear">Tout effacer</button><button class="btn" data-a="sheet-close">Valider</button>' };
+}, onClose: () => NX.render() });
+CH['sched-set'] = el => { const v = el.value; sched()[+el.dataset.i] = v ? { p: v.split('|')[0], d: v.split('|')[1] } : null; NX.touchMain(); };
+A['sched-fill'] = el => {
+  const p = (S.main.programs || []).find(x => x.id === el.dataset.p); if (!p || !p.days.length) return;
+  const pat = PATTERNS[Math.min(7, p.days.length)] || PATTERNS[3], sc = sched();
+  for (let i = 0; i < 7; i++) sc[i] = null;
+  pat.forEach((wd, j) => { sc[wd] = { p: p.id, d: p.days[j % p.days.length].id }; });
+  NX.touchMain(); NX.refreshSheet('sched');
+};
+A['sched-clear'] = () => { S.main.schedule = null; sched(); NX.touchMain(); NX.refreshSheet('sched'); };
+
+/* ================= FICHES EXERCICES ================= */
+// [conseils, erreur fréquente]
+const FICHE = {
+  'Développé couché': [['Omoplates serrées et basses, pieds bien ancrés au sol.', 'Descends la barre au bas des pectoraux, coudes à environ 45° du corps.'], 'Faire rebondir la barre sur la poitrine.'],
+  'Développé couché haltères': [['Descends les haltères sur les côtés de la poitrine, en contrôlant.', 'Remonte en rapprochant légèrement les haltères en haut.'], 'Écarter les coudes à 90°, ce qui fatigue les épaules.'],
+  'Développé incliné': [['Banc à 30° environ : plus haut, ce sont surtout les épaules qui travaillent.', 'Descends la barre vers le haut des pectoraux.'], 'Décoller les fesses du banc pour pousser plus lourd.'],
+  'Développé incliné haltères': [['Banc à 30°, omoplates serrées.', 'Descends lentement jusqu\'à sentir l\'étirement des pectoraux.'], 'Descendre trop vite et perdre le contrôle.'],
+  'Écarté poulie': [['Coudes légèrement fléchis et fixes pendant tout le mouvement.', 'Serre les pectoraux une seconde quand les mains se rejoignent.'], 'Plier les coudes et transformer l\'exercice en développé.'],
+  'Pec deck': [['Règle le siège pour avoir les poignées à hauteur de poitrine.', 'Reviens lentement, sans laisser les charges se toucher.'], 'Aller trop loin en arrière et forcer sur les épaules.'],
+  'Dips': [['Penche-toi en avant pour les pectoraux, reste droit pour les triceps.', 'Descends jusqu\'à ce que les bras soient à peu près parallèles au sol.'], 'Descendre trop bas quand on a les épaules fragiles.'],
+  'Pompes': [['Corps gainé, droit des épaules aux talons.', 'Mains un peu plus larges que les épaules, poitrine jusqu\'au sol.'], 'Laisser le bassin s\'affaisser.'],
+  'Tractions': [['Pars bras tendus, tire les coudes vers les hanches.', 'Monte jusqu\'à ce que le menton passe la barre.'], 'Se balancer pour monter.'],
+  'Rowing barre': [['Buste penché à 45°, dos plat.', 'Tire la barre vers le nombril en serrant les omoplates.'], 'Arrondir le bas du dos.'],
+  'Rowing haltère': [['Un genou et une main sur le banc, dos plat.', 'Tire le coude vers la hanche, pas vers le plafond.'], 'Tourner le buste pour soulever plus lourd.'],
+  'Tirage vertical': [['Prise un peu plus large que les épaules, poitrine sortie.', 'Tire la barre jusqu\'en haut de la poitrine.'], 'Tirer derrière la nuque ou se pencher trop en arrière.'],
+  'Tirage horizontal': [['Dos droit, épaules basses.', 'Tire la poignée vers le ventre en serrant les omoplates.'], 'Se balancer d\'avant en arrière avec le buste.'],
+  'Soulevé de terre': [['Barre collée aux tibias, dos plat, poitrine sortie.', 'Pousse avec les jambes puis tends les hanches en haut.'], 'Arrondir le dos pour décoller la barre.'],
+  'Pull-over poulie': [['Bras presque tendus, buste légèrement penché.', 'Ramène la barre vers les cuisses en contractant le dos.'], 'Plier les coudes et tirer avec les bras.'],
+  'Face pull': [['Corde à hauteur des yeux.', 'Tire vers le visage en écartant les mains, coudes hauts.'], 'Prendre trop lourd et tirer avec le dos.'],
+  'Développé militaire': [['Fessiers et abdos serrés, barre devant le visage.', 'Pousse au-dessus de la tête, la tête passe sous la barre en haut.'], 'Cambrer fort le bas du dos.'],
+  'Développé haltères assis': [['Dossier presque droit, dos collé.', 'Descends les haltères à hauteur des oreilles.'], 'Taper les haltères en haut et perdre la tension.'],
+  'Élévations latérales': [['Monte les bras sur les côtés jusqu\'à hauteur des épaules.', 'Coudes légèrement fléchis, mouvement lent.'], 'Prendre de l\'élan avec le corps.'],
+  'Oiseau': [['Buste penché vers l\'avant, dos plat.', 'Écarte les bras sur les côtés en serrant l\'arrière des épaules.'], 'Monter les haltères avec les trapèzes.'],
+  'Shrugs': [['Bras tendus, monte les épaules vers les oreilles.', 'Tiens une seconde en haut.'], 'Faire des rotations des épaules.'],
+  'Curl barre': [['Coudes collés au corps et immobiles.', 'Descends complètement, bras tendus.'], 'Balancer le buste pour monter la barre.'],
+  'Curl haltères': [['Tourne la paume vers le haut en montant.', 'Garde les coudes fixes contre le corps.'], 'Monter trop vite et redescendre sans contrôle.'],
+  'Curl marteau': [['Pouces vers le haut pendant tout le mouvement.', 'Travaille aussi les avant-bras : idéal en fin de séance.'], 'Avancer les coudes en montant.'],
+  'Curl pupitre': [['Aisselles calées contre le pupitre.', 'Descends lentement, sans verrouiller complètement les coudes.'], 'Décoller les bras du pupitre.'],
+  'Extension triceps poulie': [['Coudes collés au corps, seuls les avant-bras bougent.', 'Tends complètement les bras en bas.'], 'Écarter les coudes et pousser avec les épaules.'],
+  'Barre au front': [['Coudes pointés vers le plafond, sans s\'écarter.', 'Descends la barre vers le front ou juste derrière la tête.'], 'Ouvrir les coudes vers l\'extérieur.'],
+  'Extension nuque haltère': [['Coudes près de la tête, pointés vers le haut.', 'Descends l\'haltère derrière la nuque en contrôlant.'], 'Cambrer le dos pour remonter.'],
+  'Squat': [['Pieds largeur d\'épaules, genoux dans l\'axe des pieds.', 'Descends au moins jusqu\'à ce que les cuisses soient parallèles au sol.'], 'Laisser les genoux rentrer vers l\'intérieur.'],
+  'Presse à cuisses': [['Bas du dos bien collé au dossier.', 'Descends jusqu\'à 90° aux genoux environ.'], 'Verrouiller complètement les genoux en haut.'],
+  'Fentes': [['Grand pas en avant, buste droit.', 'Descends jusqu\'à ce que le genou arrière frôle le sol.'], 'Pousser avec la jambe arrière.'],
+  'Soulevé de terre roumain': [['Jambes presque tendues, pousse les fesses en arrière.', 'Descends la barre le long des cuisses jusqu\'à sentir l\'étirement.'], 'Arrondir le dos pour descendre plus bas.'],
+  'Leg extension': [['Dos collé au dossier, genoux dans l\'axe de la machine.', 'Tiens une seconde jambes tendues.'], 'Donner des coups pour monter la charge.'],
+  'Leg curl': [['Hanches collées au banc.', 'Remonte les talons vers les fesses, redescends lentement.'], 'Décoller le bassin pour aider.'],
+  'Hip thrust': [['Haut du dos appuyé sur le banc, menton rentré.', 'Pousse avec les talons et serre fort les fessiers en haut.'], 'Cambrer le dos au lieu de monter avec les hanches.'],
+  'Mollets debout': [['Monte le plus haut possible sur la pointe des pieds.', 'Descends lentement pour bien étirer.'], 'Faire des mouvements trop courts et rapides.'],
+  'Crunch': [['Enroule le haut du dos, sans tirer sur la nuque.', 'Souffle en montant.'], 'Tirer la tête avec les mains.'],
+  'Relevé de jambes': [['Monte les jambes en enroulant le bassin.', 'Redescends lentement, sans toucher le sol.'], 'Se balancer pour lever les jambes.'],
+  'Roue abdominale': [['Abdos serrés, dos rond, avance doucement.', 'Ne va pas plus loin que ce que tu contrôles.'], 'Creuser le bas du dos.'],
+  'Gainage (secondes)': [['Coudes sous les épaules, corps bien droit.', 'Serre les fessiers et les abdos, respire calmement.'], 'Lever les fesses ou laisser tomber le bassin.']
+};
+const lastBest = ex => { const l = NX.lastFor(ex), b = NX.bestFor(ex); return { l, b }; };
+NX.openFiche = ex => {
+  const map = NX.exMuscles(ex), F = FICHE[ex];
+  const prim = Object.keys(map).filter(k => map[k] >= 1), sec = Object.keys(map).filter(k => map[k] < 1);
+  const { l, b } = lastBest(ex);
+  NX.openSheet({ id: 'fiche', title: ex, render: () => ({ body:
+    '<div class="fiche-top">' + NX.bodyPairFor(map) + '<div class="fiche-mu">'
+      + (prim.length ? '<span class="label">Muscles principaux</span><div class="mm-ex">' + prim.map(k => '<span class="p">' + NX.MUSCLE_NAMES[k] + '</span>').join('') + '</div>' : '')
+      + (sec.length ? '<span class="label">Muscles secondaires</span><div class="mm-ex">' + sec.map(k => '<span>' + NX.MUSCLE_NAMES[k] + '</span>').join('') + '</div>' : '')
+      + (l ? '<span class="label">Dernière fois</span><b class="fv">' + l.sets.map(s => fmt(s.w, 1) + '×' + s.r).join(', ') + '</b>' : '')
+      + (b.best ? '<span class="label">Record estimé (1RM)</span><b class="fv">' + fmt(b.best, 1) + ' kg</b>' : '')
+      + '</div></div>'
+    + (F ? '<div class="sec"><div class="label">Bien l\'exécuter</div><div class="tips" style="margin:0">' + F[0].map(t => '<div class="tip">' + ico('check', 'sm') + '<span>' + esc(t) + '</span></div>').join('') + '</div></div>'
+      + '<div class="sec"><div class="label">Erreur fréquente</div><div class="tip bad">' + ico('x', 'sm') + '<span>' + esc(F[1]) + '</span></div></div>' : '<p class="note">Exercice personnalisé : pas de fiche détaillée.</p>'),
+    foot: l ? '<button class="btn ghost block" data-a="fiche-prog" data-ex="' + esc(ex) + '">' + ico('chart') + 'Voir la progression</button>' : ''
+  }) });
+};
+A['fiche-open'] = el => { NX.closeSheet('exo-menu', true); NX.openFiche(el.dataset.ex); };
+A['fiche-prog'] = el => { NX.closeSheet('fiche', true); NX.openExerciseChart && NX.openExerciseChart(el.dataset.ex); };
+})();
+
+/* Nexafit — « que manger avec ce qu'il me reste ? » et mesures à la main (sans balance). */
+(function () {
+'use strict';
+const { $, esc, uid, clone, clamp, fmt, today, ico, S, UI, A } = NX;
+
+/* ================= MESURES À LA MAIN ================= */
+const HAND = {
+  'Volaille': ['paume', 100], 'Viandes': ['paume', 100], 'Poissons & fruits de mer': ['paume', 100], 'Charcuterie': ['paume', 50], 'Légumineuses & soja': ['poing', 150],
+  'Féculents': ['poing', 150], 'Légumes': ['poing', 100], 'Fruits': ['poing', 130], 'Fruits secs & oléagineux': ['creux de main', 30], 'Matières grasses': ['pouce', 10],
+  'Sauces & condiments': ['pouce', 15], 'Fromages': ['pouce', 25], 'Produits laitiers': ['poing', 200], 'Céréales petit-déj': ['poing', 40], 'Sucré & desserts': ['poing', 80],
+  'Biscuits & snacks': ['creux de main', 30], 'Plats préparés': ['poing', 200], 'Pains & viennoiseries': ['poing', 50]
+};
+const RAW = /\b(cru|crue|crus|crues|sec|secs|sèche|sèches)\b/i;
+const plural = (n, u) => n > 1 && !u.includes(' ') ? u + 's' : u;
+NX.handRow = (f, g) => {
+  const h = HAND[f.cat];
+  if (!h || RAW.test(f.name) || f.kind !== 'db') return '';
+  const [u, base] = h;
+  return '<div class="sec hand"><div class="label">' + ico('hand', 'sm') + 'Sans balance</div><div class="chips">'
+    + [0.5, 1, 1.5, 2].map(q => '<button class="chip' + (Math.abs(g - q * base) < .01 ? ' on' : '') + '" data-a="qty-set" data-g="' + q * base + '">' + fmt(q, 1) + ' ' + plural(q, u) + '</button>').join('') + '</div>'
+    + '<p class="note" style="margin:0">' + { paume: 'Paume : la taille et l\'épaisseur de ta paume, sans les doigts.', poing: 'Poing : la taille de ton poing fermé.', pouce: 'Pouce : la taille de ton pouce entier.', 'creux de main': 'Creux de main : ce que tient ta main en coupe.' }[u] + '</p></div>';
+};
+
+/* ================= QUE MANGER ? ================= */
+const FRUIT = ['Banane', 'Pomme', 'Fraises', 'Myrtilles', 'Poire', 'Kiwi'];
+// [rôle, aliments, [min, max], pas]
+const IDEAS = [
+  ['Poulet, riz et légumes', [['P', ['Filet de poulet cuit', 'Escalope de dinde cuite'], [80, 250], 10], ['C', ['Riz basmati cuit', 'Riz complet cuit'], [0, 500], 10], ['V', ['Brocoli', 'Haricots verts', 'Courgette'], [100, 200], 50], ['F', ["Huile d'olive"], [0, 25], 5]]],
+  ['Pâtes au thon', [['P', ['Thon au naturel (égoutté)'], [50, 200], 10], ['C', ['Pâtes cuites', 'Pâtes complètes cuites'], [0, 500], 10], ['V', ['Tomate'], [0, 150], 50], ['F', ["Huile d'olive"], [0, 15], 5]]],
+  ['Omelette, pain et fromage', [['P', ['Œuf entier'], [110, 275], 55], ['C', ['Pain complet', 'Pain de campagne'], [0, 140], 35], ['F', ['Emmental râpé'], [0, 40], 10]]],
+  ['Bol skyr, muesli et fruit', [['P', ['Skyr nature', 'Fromage blanc 0 %'], [100, 450], 50], ['C', ['Muesli floconneux', "Flocons d'avoine"], [0, 120], 10], ['X', ['Banane', 'Fraises', 'Myrtilles'], [0, 150], 10]]],
+  ['Saumon et pommes de terre', [['P', ['Saumon cuit'], [80, 220], 10], ['C', ['Pomme de terre cuite', 'Patate douce cuite'], [0, 550], 10], ['V', ['Haricots verts', 'Épinards surgelés'], [100, 200], 50]]],
+  ['Steak haché, pâtes et salade', [['P', ['Steak haché 5 % cuit'], [100, 250], 10], ['C', ['Pâtes cuites'], [0, 500], 10], ['V', ['Salade verte'], [50, 150], 50], ['F', ["Huile d'olive"], [0, 15], 5]]],
+  ['Wrap au poulet', [['P', ['Filet de poulet cuit'], [60, 200], 10], ['C', ['Tortilla de blé'], [60, 180], 60], ['F', ['Emmental râpé'], [0, 30], 10], ['V', ['Salade verte', 'Tomate'], [0, 100], 50]]],
+  ['Shake protéiné', [['P', ['Whey protéine'], [0, 60], 5], ['D', ['Lait demi-écrémé'], [0, 400], 50], ['C', ["Flocons d'avoine"], [0, 80], 10], ['X', ['Banane'], [0, 120], 10]]],
+  ['Sandwich jambon de dinde', [['P', ['Jambon de dinde', 'Blanc de poulet'], [40, 160], 20], ['C', ['Pain complet', 'Baguette tradition'], [50, 200], 10], ['F', ['Beurre doux'], [0, 20], 5]]],
+  ['Yaourt et fruit', [['P', ['Skyr nature', 'Yaourt grec 0 %', 'Fromage blanc 0 %'], [100, 300], 50], ['X', FRUIT, [0, 150], 10]]],
+  ['Fruit et oléagineux', [['F', ['Amandes', 'Noix', 'Noix de cajou'], [10, 40], 5], ['X', FRUIT, [80, 200], 10]]],
+  ['Pois chiches et riz', [['P', ['Pois chiches en conserve (égouttés)'], [100, 300], 10], ['C', ['Riz basmati cuit'], [0, 500], 10], ['V', ['Tomate', 'Courgette'], [100, 200], 50], ['F', ["Huile d'olive"], [0, 15], 5]]]
+];
+const rng = seed => () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+function remaining(k) {
+  const g = S.main.goals, t = NX.dayTotals(NX.day(k));
+  return { k: g.k - t.k, p: g.p - t.p, c: g.c - t.c, f: g.f - t.f };
+}
+function buildIdea(tpl, R, rnd) {
+  const items = [];
+  for (const [role, names, b, step] of tpl[1]) {
+    const pool = names.map(n => NX.foodByName(n)).filter(Boolean);
+    if (!pool.length) { if (role === 'P') return null; continue; }
+    items.push({ f: pool[Math.floor(rnd() * pool.length)], lo: b[0], hi: b[1], s: step || 10, x: (b[0] + b[1]) / 2, role });
+  }
+  // moindres carrés sur ce qui reste (sans dépasser : surplus pénalisé plus fort)
+  const T = { k: Math.max(R.k, 60), p: Math.max(R.p, 0), c: Math.max(R.c, 0), f: Math.max(R.f, 0) };
+  const W = { k: 4, p: T.p > 5 ? 3 : 0.5, c: 1, f: 1 };
+  const tot = () => { const t = { k: 0, p: 0, c: 0, f: 0 }; for (const it of items) for (const m in t) t[m] += it.f.per[m] * it.x / 100; return t; };
+  const E = () => { const t = tot(); let e = 0; for (const m in T) { const sc = Math.max(T[m], m === 'k' ? 100 : 10), d = (t[m] - T[m]) / sc; e += W[m] * d * d * (d > 0 ? (m === 'p' ? 0.15 : 2) : 1); } return e; };
+  for (let sweep = 0; sweep < 40; sweep++) for (const it of items) {
+    let best = it.x, be = E();
+    for (const cand of [it.lo, it.hi, it.x - it.s * 4, it.x - it.s, it.x + it.s, it.x + it.s * 4]) { const v = clamp(Math.round(cand / it.s) * it.s, it.lo, it.hi); it.x = v; const e = E(); if (e < be - 1e-9) { be = e; best = v; } }
+    it.x = best;
+  }
+  const kept = items.filter(it => it.x > 0), t = tot();
+  return { title: tpl[0], items: kept, t, err: E() };
+}
+const EAT = { seed: 1, m: null };
+const mealByHour = () => { const h = new Date().getHours(); return h < 10 ? 'b' : h < 15 ? 'l' : h < 18 ? 's' : 'd'; };
+// une idée = un repas : si beaucoup reste à manger, on vise un repas copieux, pas toute la fin de journée d'un coup
+const mealCap = () => Math.round(S.main.goals.k * 0.4 / 10) * 10;
+function target(R) { const f = R.k > mealCap() ? mealCap() / R.k : 1; return { k: R.k * f, p: R.p * f, c: R.c * f, f: R.f * f, capped: f < 1 }; }
+function ideas(k) {
+  const R0 = remaining(k), R = target(R0), rnd = rng(EAT.seed * 7 + 3);
+  const all = IDEAS.map(tpl => buildIdea(tpl, R, rnd)).filter(x => x && x.items.length);
+  // une idée doit tomber à ±20 % des calories qui restent
+  const good = all.filter(x => Math.abs(x.t.k - R.k) <= Math.max(80, R.k * 0.2)).sort((a, b) => a.err - b.err);
+  const list = good.length >= 3 ? good : all.sort((a, b) => a.err - b.err);
+  const off = (EAT.seed - 1) * 3 % Math.max(1, list.length);
+  return { R: R0, T: R, list: list.slice(off).concat(list.slice(0, off)).slice(0, 3) };
+}
+A['eat-open'] = () => {
+  EAT.seed = 1; EAT.m = UI.date === today() ? mealByHour() : 'd';
+  NX.openSheet({ id: 'eat', full: true, title: 'Que manger ?', render: renderEat });
+};
+function renderEat() {
+  const k = UI.date, { R, T, list } = ideas(k);
+  const r = v => fmt(Math.max(0, Math.round(v)));
+  let h = '<div class="eat-left"><span class="label">Il te reste</span><div class="eat-nums"><div><b>' + r(R.k) + '</b><span>kcal</span></div><div style="--c:var(--prot)"><b>' + r(R.p) + ' g</b><span>prot.</span></div><div style="--c:var(--carb)"><b>' + r(R.c) + ' g</b><span>gluc.</span></div><div style="--c:var(--fat)"><b>' + r(R.f) + ' g</b><span>lip.</span></div></div></div>';
+  if (R.k < 100) {
+    h += '<div class="callout">' + (R.k < -100 ? 'Tu as déjà dépassé ton objectif du jour.' : 'Tu as presque atteint ton objectif du jour, bravo.') + (R.p > 15 ? ' Il te manque encore des protéines : un skyr ou une dose de whey suffit.' : '') + '</div>';
+    return { body: h };
+  }
+  h += '<div class="sec"><div class="label">Ajouter dans</div><div class="seg">' + NX.MEALS.map(([mk, mn]) => '<button class="' + (EAT.m === mk ? 'on' : '') + '" data-a="eat-meal" data-m="' + mk + '">' + mn.replace('Petit-déjeuner', 'Matin') + '</button>').join('') + '</div></div>';
+  if (T.capped) h += '<p class="note" style="margin:0">' + NXI.t('Idées pour un repas d\'environ {k} kcal : il te restera de quoi faire une collation.', { k: fmt(Math.round(T.k / 10) * 10) }) + '</p>';
+  h += list.map((x, i) => {
+    const pct = clamp(100 - Math.abs(x.t.k - T.k) / Math.max(T.k, 1) * 100, 0, 100);
+    return '<section class="idea"><div class="sec-head"><b class="it">' + esc(x.title) + '</b>' + (pct >= 85 ? '<span class="match">' + ico('check', 'sm') + Math.round(pct) + ' %</span>' : '') + '</div><div class="list">'
+      + x.items.map(it => '<div class="li"><span class="lt"><b>' + esc(it.f.name) + '</b><span>' + esc(NX.gramsLabel(it.x, it.f.unit)) + '</span></span><span class="rt">' + fmt(it.f.per.k * it.x / 100) + '</span></div>').join('')
+      + '</div><div class="idea-f"><span>' + fmt(x.t.k) + ' kcal · P ' + fmt(x.t.p) + ' g · G ' + fmt(x.t.c) + ' g · L ' + fmt(x.t.f) + ' g</span><button class="btn sm" data-a="eat-add" data-i="' + i + '">' + ico('plus', 'sm') + 'Ajouter</button></div></section>';
+  }).join('');
+  h += '<button class="btn ghost block" data-a="eat-more">' + ico('refresh') + 'Autres idées</button>';
+  return { body: h };
+}
+A['eat-meal'] = el => { EAT.m = el.dataset.m; NX.refreshSheet('eat', false); };
+A['eat-more'] = () => { EAT.seed++; NX.refreshSheet('eat', false); };
+A['eat-add'] = el => {
+  const k = UI.date, x = ideas(k).list[+el.dataset.i]; if (!x) return;
+  const d = NX.touchDay(k);
+  for (const it of x.items) d.meals[EAT.m].push({ id: uid(), fid: it.f.id, name: it.f.name + (it.f.brand ? ' · ' + it.f.brand : ''), g: it.x, per: clone(it.f.per), unit: it.f.unit ? clone(it.f.unit) : null });
+  NX.save('d-' + k); NX.closeSheet('eat'); NX.render();
+  NX.toast(NXI.t('« {t} » ajouté · {k} kcal', { t: NXI.tr(x.title) || x.title, k: fmt(x.t.k) }));
+};
+})();
+
+/* Nexafit — succès et séries, calendrier d'activité, rapport du mois en PDF. */
+(function () {
+'use strict';
+const { $, $$, esc, fmt, num, addDays, today, ico, S, UI, A } = NX;
+const T = s => (window.NXI && NXI.tr(s)) || s;
+
+/* ================= STATISTIQUES COMMUNES ================= */
+function streaks(test) {
+  // meilleure série et série en cours de jours consécutifs qui passent le test
+  const keys = Object.keys(S.days).filter(k => test(S.days[k], k)).sort();
+  let best = 0, run = 0, prev = null;
+  for (const k of keys) { run = prev && addDays(prev, 1) === k ? run + 1 : 1; best = Math.max(best, run); prev = k; }
+  let cur = 0, k = today();
+  if (!(S.days[k] && test(S.days[k], k))) k = addDays(k, -1);
+  while (S.days[k] && test(S.days[k], k) && cur < 5000) { cur++; k = addDays(k, -1); }
+  return { best, cur };
+}
+const logged = d => d && NX.dayTotals(d).n > 0;
+function stats() {
+  const g = S.main.goals, ws = NX.allWorkouts();
+  let vol = 0, prs = 0; const maxW = {};
+  for (const w of ws) for (const e of w.exercises) for (const s of e.sets) if (s.done) { vol += (s.w || 0) * (s.r || 0); if (s.pr) prs++; maxW[e.ex] = Math.max(maxW[e.ex] || 0, s.w || 0); }
+  const weigh = Object.keys(S.days).filter(k => S.days[k].weight).length;
+  const G = S.main.weightGoal, lw = NX.lastWeight();
+  const wgoal = G && lw ? ((G.target >= G.start && lw >= G.target) || (G.target < G.start && lw <= G.target) ? 1 : 0) : 0;
+  const suppBest = Math.max(0, ...(S.main.supps || []).map(sp => streaks(d => d.supps && d.supps[sp.id]).best));
+  return {
+    days: Object.values(S.days).filter(logged).length,
+    streak: streaks(logged),
+    prot: streaks(d => logged(d) && NX.dayTotals(d).p >= g.p * 0.95).best,
+    water: streaks(d => (d.water || 0) >= (g.water || 2500)).best,
+    sleep: streaks(d => (d.sleep || 0) >= 7).best,
+    w: ws.length, vol: vol / 1000, prs,
+    bench: maxW['Développé couché'] || 0, squat: maxW['Squat'] || 0, dead: maxW['Soulevé de terre'] || 0,
+    benchBw: lw && maxW['Développé couché'] >= lw ? 1 : 0,
+    weigh, wgoal, supp: suppBest, scan: Object.keys(S.main.barcodes || {}).length,
+    recipe: (S.main.recipes || []).length, plan: S.main.mealPlan && S.main.mealPlan.days ? 1 : 0,
+    meas: Object.keys(S.days).filter(k => S.days[k].measures).length
+  };
+}
+
+/* ================= SUCCÈS ================= */
+// [id, icône, palier (1 bronze, 2 argent, 3 or), titre, description, clé, objectif]
+const ACH = [
+  ['log1', 'journal', 1, 'Premier pas', 'Noter ton premier repas', 'days', 1],
+  ['str3', 'flame', 1, 'Lancé', '3 jours suivis de suite', 'streakBest', 3],
+  ['str7', 'flame', 2, 'Une semaine parfaite', '7 jours suivis de suite', 'streakBest', 7],
+  ['str30', 'flame', 3, 'Machine', '30 jours suivis de suite', 'streakBest', 30],
+  ['str100', 'flame', 3, 'Légende', '100 jours suivis de suite', 'streakBest', 100],
+  ['w1', 'dumbbell', 1, 'Première séance', 'Terminer ta première séance', 'w', 1],
+  ['w10', 'dumbbell', 1, 'Habitué', '10 séances terminées', 'w', 10],
+  ['w50', 'dumbbell', 2, 'Pilier de la salle', '50 séances terminées', 'w', 50],
+  ['w100', 'dumbbell', 3, 'Centurion', '100 séances terminées', 'w', 100],
+  ['v10', 'chart', 1, '10 tonnes', '10 t soulevées au total', 'vol', 10],
+  ['v100', 'chart', 2, '100 tonnes', '100 t soulevées au total', 'vol', 100],
+  ['v500', 'chart', 3, '500 tonnes', '500 t soulevées au total', 'vol', 500],
+  ['pr1', 'trophy', 1, 'Premier record', 'Battre un record', 'prs', 1],
+  ['pr25', 'trophy', 2, 'Collectionneur', '25 records battus', 'prs', 25],
+  ['bench100', 'disc', 3, 'Club des 100 kg', '100 kg au développé couché', 'bench', 100],
+  ['benchbw', 'disc', 2, 'Ton poids au développé', 'Soulever ton poids au développé couché', 'benchBw', 1],
+  ['squat140', 'disc', 3, 'Squat 140 kg', '140 kg au squat', 'squat', 140],
+  ['dead180', 'disc', 3, 'Soulevé 180 kg', '180 kg au soulevé de terre', 'dead', 180],
+  ['prot7', 'flame', 2, 'Protéines au top', 'Objectif de protéines 7 jours de suite', 'prot', 7],
+  ['prot30', 'flame', 3, 'Bâtisseur', 'Objectif de protéines 30 jours de suite', 'prot', 30],
+  ['water7', 'drop', 2, 'Bien hydraté', 'Objectif d\'eau 7 jours de suite', 'water', 7],
+  ['sleep7', 'moon', 2, 'Grand dormeur', '7 nuits d\'au moins 7 h de suite', 'sleep', 7],
+  ['weigh10', 'scale', 1, 'Régulier', '10 pesées', 'weigh', 10],
+  ['weigh50', 'scale', 2, 'Suivi sérieux', '50 pesées', 'weigh', 50],
+  ['wgoal', 'trophy', 3, 'Objectif atteint', 'Atteindre ton objectif de poids', 'wgoal', 1],
+  ['supp30', 'pill', 2, 'Discipline', 'Un complément pris 30 jours de suite', 'supp', 30],
+  ['scan10', 'barcode', 1, 'Scanner pro', '10 produits scannés', 'scan', 10],
+  ['chef', 'journal', 1, 'Chef', 'Créer ta première recette', 'recipe', 1],
+  ['planner', 'calendar', 1, 'Organisé', 'Créer ton menu de la semaine', 'plan', 1],
+  ['meas', 'chart', 1, 'Mètre ruban', 'Noter tes premières mensurations', 'meas', 1]
+];
+const TIER = { 1: 'bronze', 2: 'silver', 3: 'gold' };
+const valOf = (st, key) => key === 'streakBest' ? st.streak.best : st[key] || 0;
+let queue = [], showing = false, checkT = null;
+function check(silent) {
+  if (!S.main.profile) return;
+  const st = stats(), got = S.main.ach || {};
+  const first = !S.main.ach;
+  const fresh = [];
+  for (const a of ACH) if (!got[a[0]] && valOf(st, a[5]) >= a[6]) { got[a[0]] = Date.now(); fresh.push(a); }
+  if (first || fresh.length) { S.main.ach = got; NX.touchMain(); }
+  // à la première ouverture, les succès déjà mérités sont débloqués sans fête
+  if (!first && !silent && fresh.length) queue = queue.concat(fresh);
+  tryShow();
+}
+// la fête attend que la feuille ouverte soit fermée, pour ne jamais couper un geste en cours
+function tryShow() { if (!showing && queue.length && !NX.topSheet() && !S.main.active) celebrate(); }
+NX.checkAch = check;
+const origRender = NX.render;
+NX.render = function () { const r = origRender.apply(this, arguments); clearTimeout(checkT); checkT = setTimeout(() => check(false), 700); return r; };
+function badge(a, on, prog) {
+  return '<span class="badge ' + (on ? TIER[a[2]] : 'locked') + '"' + (prog != null ? ' style="--p:' + prog + '"' : '') + '>' + ico(a[1]) + (on ? '' : '<i class="lk">' + ico('lock', 'sm') + '</i>') + '</span>';
+}
+function celebrate() {
+  const a = queue.shift();
+  if (!a) { showing = false; return; }
+  showing = true;
+  const el = document.createElement('div');
+  el.className = 'ach-pop'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', T('Succès débloqué'));
+  el.innerHTML = '<div class="ach-card"><div class="ach-rays"></div>' + badge(a, true) + '<span class="label">Succès débloqué</span><b>' + esc(a[3]) + '</b><p>' + esc(a[4]) + '</p><button class="btn block" data-a="ach-close">' + (queue.length ? NXI.t('Suivant ({n})', { n: queue.length }) : 'Super') + '</button></div>'
+    + Array.from({ length: 18 }, (_, i) => '<i class="cf" style="--x:' + (Math.cos(i / 18 * 6.283) * (90 + (i % 3) * 30)).toFixed(0) + 'px;--y:' + (Math.sin(i / 18 * 6.283) * (90 + (i % 3) * 30)).toFixed(0) + 'px;--c:' + ['#FF7A45', '#FFC857', '#5B9DFF', '#4ADE95', '#FF5D73'][i % 5] + ';animation-delay:' + (i % 4) * 40 + 'ms"></i>').join('');
+  document.body.appendChild(el);
+  if (navigator.vibrate) try { navigator.vibrate(30); } catch (e) { }
+}
+A['ach-close'] = () => { const el = $('.ach-pop'); if (el) { el.classList.add('out'); setTimeout(() => { el.remove(); celebrate(); }, 220); } };
+NX.achSection = () => {
+  const st = stats(), got = S.main.ach || {}, n = ACH.filter(a => got[a[0]]).length;
+  const recent = ACH.filter(a => got[a[0]]).sort((a, b) => got[b[0]] - got[a[0]]).slice(0, 5);
+  const next = ACH.filter(a => !got[a[0]]).map(a => [a, Math.min(1, valOf(st, a[5]) / a[6])]).sort((x, y) => y[1] - x[1]).slice(0, 2);
+  return '<section class="sec"><div class="sec-head"><h2 class="h-sec">Succès</h2><button class="add-btn" data-a="ach-all">' + n + '/' + ACH.length + ico('right', 'sm') + '</button></div>'
+    + '<div class="streak-card"><span class="sf">' + ico('flame') + '</span><div><b>' + NXI.t(st.streak.cur > 1 ? '{n} jours de suite' : '{n} jour de suite', { n: st.streak.cur }) + '</b><span>' + NXI.t('Meilleure série : {n} jours', { n: st.streak.best }) + '</span></div></div>'
+    + (recent.length ? '<div class="badges">' + recent.map(a => '<button class="bd" data-a="ach-all">' + badge(a, true) + '<span>' + esc(a[3]) + '</span></button>').join('') + '</div>' : '')
+    + next.map(([a, p]) => '<div class="ach-next">' + badge(a, false, p) + '<div><b>' + esc(a[3]) + '</b><span>' + esc(a[4]) + '</span><div class="bar"><i style="width:' + (p * 100).toFixed(0) + '%"></i></div></div><em>' + Math.round(p * 100) + ' %</em></div>').join('')
+    + '</section>';
+};
+A['ach-all'] = () => NX.openSheet({ id: 'ach', full: true, title: 'Succès', render: () => {
+  const st = stats(), got = S.main.ach || {};
+  return { body: '<div class="ach-grid">' + ACH.map(a => { const on = !!got[a[0]], p = Math.min(1, valOf(st, a[5]) / a[6]); return '<div class="ach' + (on ? ' on' : '') + '">' + badge(a, on, on ? null : p) + '<b>' + esc(a[3]) + '</b><span>' + esc(a[4]) + '</span>' + (on ? '<small>' + new Date(got[a[0]]).toLocaleDateString(NX.LOC(), { day: 'numeric', month: 'short', year: 'numeric' }) + '</small>' : '<small>' + Math.round(p * 100) + ' %</small>') + '</div>'; }).join('') + '</div>' };
+} });
+
+/* ================= CALENDRIER D'ACTIVITÉ ================= */
+const WEEKS = 17;
+function dayLevel(k) {
+  const d = S.days[k]; if (!d) return 0;
+  const t = NX.dayTotals(d), g = S.main.goals, w = (d.workouts || []).length > 0;
+  const goal = t.n && Math.abs(t.k - g.k) <= g.k * 0.1;
+  return w ? (goal ? 4 : 3) : t.n ? (goal ? 2 : 1) : 0;
+}
+NX.heatSection = () => {
+  const end = today(), dowT = (NX.keyToDate(end).getDay() + 6) % 7, start = addDays(end, -dowT - (WEEKS - 1) * 7);
+  let cells = '', months = '', lastM = -1, active = 0;
+  for (let w = 0; w < WEEKS; w++) {
+    const k0 = addDays(start, w * 7), m = NX.keyToDate(k0).getMonth();
+    months += '<span style="grid-column:' + (w + 1) + '">' + (m !== lastM ? NX.keyToDate(k0).toLocaleDateString(NX.LOC(), { month: 'short' }).replace('.', '') : '') + '</span>';
+    lastM = m;
+    for (let d = 0; d < 7; d++) {
+      const k = addDays(k0, d);
+      if (k > end) { cells += '<i class="hc fut" style="grid-column:' + (w + 1) + ';grid-row:' + (d + 1) + '"></i>'; continue; }
+      const lv = dayLevel(k); if (lv) active++;
+      cells += '<button class="hc l' + lv + (k === end ? ' td' : '') + '" style="grid-column:' + (w + 1) + ';grid-row:' + (d + 1) + '" data-a="heat-pick" data-k="' + k + '" aria-label="' + esc(NX.dayTitle(k)) + '"></button>';
+    }
+  }
+  const lbl = [0, 2, 4].map(i => '<span style="grid-row:' + (i + 1) + '">' + NX.keyToDate(addDays(start, i)).toLocaleDateString(NX.LOC(), { weekday: 'short' }).replace('.', '') + '</span>').join('');
+  return '<section class="sec"><div class="sec-head"><h2 class="h-sec">Activité</h2><span class="faint">' + NXI.t('{n} jours actifs', { n: active }) + '</span></div><div class="heat"><div class="hm-months" style="grid-template-columns:repeat(' + WEEKS + ',1fr)">' + months + '</div><div class="hm-body"><div class="hm-days">' + lbl + '</div><div class="hm-grid" style="grid-template-columns:repeat(' + WEEKS + ',1fr)">' + cells + '</div></div>'
+    + '<div class="hm-leg"><span>Rien</span><i class="hc l0"></i><i class="hc l1"></i><i class="hc l2"></i><i class="hc l3"></i><i class="hc l4"></i><span>Séance + objectif</span></div><div id="heat-det" class="hm-det">Touche un jour pour le détail.</div></div></section>';
+};
+A['heat-pick'] = el => {
+  const k = el.dataset.k, d = S.days[k], t = d ? NX.dayTotals(d) : { n: 0 };
+  $$('.hc.sel').forEach(c => c.classList.remove('sel')); el.classList.add('sel');
+  const parts = [];
+  if (t.n) parts.push(fmt(t.k) + ' kcal · P ' + fmt(t.p) + ' g');
+  ((d && d.workouts) || []).forEach(w => parts.push(w.name));
+  if (d && d.weight) parts.push(fmt(d.weight, 1) + ' kg');
+  const det = $('#heat-det'); if (det) det.innerHTML = '<b style="text-transform:capitalize">' + esc(NX.longDate(k)) + '</b> · ' + (parts.length ? parts.map(esc).join(' · ') : T('Rien de noté'));
+};
+
+/* ================= RAPPORT DU MOIS (PDF) ================= */
+const RP = { off: 0, busy: false, url: null };
+A['report-open'] = () => { RP.url = null; NX.openSheet({ id: 'report', title: 'Rapport du mois', render: renderReportSheet }); };
+function monthRange(off) { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - off); const s = NX.dateKey(d); const e = new Date(d.getFullYear(), d.getMonth() + 1, 0); const ek = NX.dateKey(e); return { s, e: ek < today() ? ek : today(), label: d.toLocaleDateString(NX.LOC(), { month: 'long', year: 'numeric' }) }; }
+function renderReportSheet() {
+  const r = monthRange(RP.off);
+  return { body: '<p class="note" style="margin:0">Un résumé clair de ton mois en 2 pages : poids, calories, protéines, séances, records et muscles travaillés. Idéal à envoyer à un coach ou un diététicien.</p>'
+    + '<div class="seg">' + [[0, 'Ce mois-ci'], [1, 'Mois dernier']].map(([o, l]) => '<button class="' + (RP.off === o ? 'on' : '') + '" data-a="report-month" data-o="' + o + '">' + l + '</button>').join('') + '</div>'
+    + '<div class="rp-prev" id="rp-prev">' + (RP.url ? '<img src="' + RP.url + '" alt="">' : '<span class="rp-ph">' + ico('download') + '<b style="text-transform:capitalize" data-notr>' + esc(r.label) + '</b></span>') + '</div>',
+    foot: '<button class="btn block" data-a="report-make"' + (RP.busy ? ' disabled' : '') + '>' + ico('download') + (RP.busy ? 'Création…' : 'Créer le PDF') + '</button>' };
+}
+A['report-month'] = el => { RP.off = +el.dataset.o; RP.url = null; NX.refreshSheet('report', false); };
+A['report-make'] = async () => {
+  if (RP.busy) return;
+  RP.busy = true; NX.refreshSheet('report', false);
+  try {
+    const r = monthRange(RP.off), pages = drawReport(r);
+    RP.url = pages[0].toDataURL('image/jpeg', 0.6);
+    const jpgs = [];
+    for (const c of pages) jpgs.push(new Uint8Array(await (await new Promise(res => c.toBlob(res, 'image/jpeg', 0.9))).arrayBuffer()));
+    const pdf = makePdf(jpgs.map((d, i) => ({ d, w: pages[i].width, h: pages[i].height })));
+    await saveFile('nexafit-rapport-' + r.s.slice(0, 7) + '.pdf', pdf);
+  } catch (e) { NX.toast('Création du PDF impossible'); }
+  RP.busy = false; NX.refreshSheet('report', false);
+};
+async function saveFile(filename, blob) {
+  const dl = NX.cap && NX.cap.downloads;
+  if (dl) { try { await dl.save({ filename, data: blob }); NX.toast('Fichier enregistré'); return; } catch (e) { if (e && e.code === 'declined') return; } }
+  try { const f = new File([blob], filename, { type: 'application/pdf' }); if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f] }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+  const url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 15000);
+  NX.toast(NXI.t('Fichier prêt : {f}', { f: filename }));
+}
+// PDF minimal : une image JPEG pleine page par page
+function makePdf(pages) {
+  const enc = new TextEncoder(), parts = [], offs = [];
+  let len = 0;
+  const push = x => { const b = typeof x === 'string' ? enc.encode(x) : x; parts.push(b); len += b.length; };
+  const obj = (n, body) => { offs[n] = len; push(n + ' 0 obj\n'); body(); push('\nendobj\n'); };
+  const W = 595.28, H = 841.89, n = pages.length;
+  push('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n'.replace(/[\u0080-ÿ]/g, 'x'));
+  obj(1, () => push('<< /Type /Catalog /Pages 2 0 R >>'));
+  obj(2, () => push('<< /Type /Pages /Count ' + n + ' /Kids [' + pages.map((_, i) => (3 + i * 3) + ' 0 R').join(' ') + '] >>'));
+  pages.forEach((p, i) => {
+    const po = 3 + i * 3, co = po + 1, io = po + 2, cs = 'q ' + W + ' 0 0 ' + H + ' 0 0 cm /Im0 Do Q';
+    obj(po, () => push('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + W + ' ' + H + '] /Resources << /XObject << /Im0 ' + io + ' 0 R >> >> /Contents ' + co + ' 0 R >>'));
+    obj(co, () => { push('<< /Length ' + cs.length + ' >>\nstream\n' + cs + '\nendstream'); });
+    obj(io, () => { push('<< /Type /XObject /Subtype /Image /Width ' + p.w + ' /Height ' + p.h + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + p.d.length + ' >>\nstream\n'); push(p.d); push('\nendstream'); });
+  });
+  const total = 3 + n * 3, xref = len;
+  push('xref\n0 ' + total + '\n0000000000 65535 f \n');
+  for (let i = 1; i < total; i++) push(String(offs[i]).padStart(10, '0') + ' 00000 n \n');
+  push('trailer\n<< /Size ' + total + ' /Root 1 0 R >>\nstartxref\n' + xref + '\n%%EOF');
+  return new Blob(parts, { type: 'application/pdf' });
+}
+// dessin des pages (A4 à 150 dpi)
+const PW = 1240, PH = 1754, M = 80;
+const C = { ink: '#14171F', muted: '#6B7280', line: '#E5E7EB', soft: '#F5F6F8', brand: '#FF7A45', prot: '#FF5D73', carb: '#5B9DFF', fat: '#F2B53A', good: '#22B573', dark: '#0B0D12' };
+function drawReport(r) {
+  const font = (w, s) => w + ' ' + s + 'px ' + (getComputedStyle(document.body).fontFamily || 'sans-serif');
+  const g = S.main.goals, keys = []; for (let k = r.s; k <= r.e; k = addDays(k, 1)) keys.push(k);
+  const days = keys.map(k => ({ k, d: S.days[k], t: S.days[k] ? NX.dayTotals(S.days[k]) : { n: 0, k: 0, p: 0 } }));
+  const lg = days.filter(x => x.t.n), avg = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+  const wts = days.filter(x => x.d && x.d.weight).map(x => [x.k, x.d.weight]);
+  const ws = NX.allWorkouts().filter(w => w.date >= r.s && w.date <= r.e).sort((a, b) => a.start - b.start);
+  const vol = ws.reduce((a, w) => a + w.exercises.reduce((b, e) => b + e.sets.reduce((c, s) => c + (s.done ? (s.w || 0) * (s.r || 0) : 0), 0), 0), 0);
+  const prs = []; ws.forEach(w => w.exercises.forEach(e => e.sets.forEach(s => { if (s.pr) prs.push([w.date, e.ex, s]); })));
+  const sl = days.map(x => x.d && x.d.sleep).filter(Boolean), wa = days.map(x => x.d && x.d.water).filter(Boolean);
+  const mk = () => { const c = document.createElement('canvas'); c.width = PW; c.height = PH; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, PW, PH); x.textBaseline = 'alphabetic'; return [c, x]; };
+  const txt = (x, s, X, Y, f, col, al) => { x.font = f; x.fillStyle = col || C.ink; x.textAlign = al || 'left'; x.fillText(s, X, Y); };
+  const rr = (x, X, Y, w, h, rad, col) => { x.fillStyle = col; x.beginPath(); x.roundRect ? x.roundRect(X, Y, w, h, rad) : x.rect(X, Y, w, h); x.fill(); };
+  const header = (x, sub) => {
+    rr(x, 0, 0, PW, 210, 0, C.dark);
+    x.fillStyle = C.brand; x.beginPath(); x.arc(M + 16, 78, 16, 0, 7); x.fill();
+    txt(x, 'NEXAFIT', M + 46, 90, font(800, 34), '#F2F4F8');
+    txt(x, NXI.t('Rapport du mois · {m}', { m: r.label }), M, 160, font(700, 44), '#F2F4F8');
+    txt(x, sub, PW - M, 90, font(500, 24), '#A3ABBA', 'right');
+  };
+  const footer = (x, n) => { txt(x, T('Créé avec Nexafit') + ' · ' + new Date().toLocaleDateString(NX.LOC()) + ' · ' + n + '/2', PW / 2, PH - 40, font(500, 20), C.muted, 'center'); };
+  const goalLbl = S.main.profile ? T((NX.GOALS[S.main.profile.goal] || NX.GOALS.bulk)[0]) : '';
+  // ---------- page 1 ----------
+  const [c1, x1] = mk();
+  header(x1, goalLbl);
+  const w0 = wts[0], w1 = wts[wts.length - 1], dW = w0 && w1 && wts.length > 1 ? w1[1] - w0[1] : null;
+  const tiles = [
+    ['Poids', w1 ? fmt(w1[1], 1) + ' kg' : '–', dW != null ? (dW > 0 ? '+' : dW < 0 ? '−' : '') + fmt(Math.abs(dW), 1) + ' kg' : '', C.brand],
+    ['Calories / jour', lg.length ? fmt(Math.round(avg(lg.map(x => x.t.k)) / 10) * 10) : '–', NXI.t('objectif {n}', { n: fmt(g.k) }), C.brand],
+    ['Protéines / jour', lg.length ? fmt(Math.round(avg(lg.map(x => x.t.p)))) + ' g' : '–', NXI.t('objectif {n}', { n: fmt(g.p) + ' g' }), C.prot],
+    ['Jours suivis', lg.length + '/' + keys.length, Math.round(lg.length / keys.length * 100) + ' %', C.carb],
+    ['Séances', String(ws.length), fmt(vol / 1000, 1) + ' t', C.good],
+    ['Records', String(prs.length), '', C.fat],
+    ['Sommeil moyen', sl.length ? fmt(avg(sl), 1) + ' h' : '–', '', C.carb],
+    ['Eau / jour', wa.length ? fmt(avg(wa) / 1000, 1) + ' L' : '–', '', C.carb],
+    ['Pesées', String(wts.length), '', C.muted]
+  ];
+  const tw = (PW - 2 * M - 2 * 24) / 3;
+  tiles.forEach((t, i) => {
+    const X = M + (i % 3) * (tw + 24), Y = 260 + Math.floor(i / 3) * 170;
+    rr(x1, X, Y, tw, 146, 22, C.soft); rr(x1, X, Y + 24, 6, 98, 3, t[3]);
+    txt(x1, T(t[0]), X + 28, Y + 46, font(600, 22), C.muted);
+    txt(x1, t[1], X + 28, Y + 102, font(800, 44), C.ink);
+    if (t[2]) txt(x1, t[2], X + 28, Y + 132, font(500, 20), C.muted);
+  });
+  // courbe de poids
+  let Y0 = 800;
+  txt(x1, T('Évolution du poids'), M, Y0, font(700, 30)); Y0 += 24;
+  const chart = (x, X, Y, w, h) => { rr(x, X, Y, w, h, 22, C.soft); };
+  chart(x1, M, Y0, PW - 2 * M, 380);
+  if (wts.length > 1) {
+    const vs = wts.map(p => p[1]), lo = Math.min(...vs) - 0.5, hi = Math.max(...vs) + 0.5;
+    const px = k => M + 60 + (keys.indexOf(k) / Math.max(1, keys.length - 1)) * (PW - 2 * M - 120), py = v => Y0 + 330 - (v - lo) / (hi - lo) * 280;
+    x1.strokeStyle = C.line; x1.lineWidth = 2;
+    [lo + 0.5, (lo + hi) / 2, hi - 0.5].forEach(v => { x1.beginPath(); x1.moveTo(M + 40, py(v)); x1.lineTo(PW - M - 30, py(v)); x1.stroke(); txt(x1, fmt(v, 1), M + 30, py(v) + 7, font(500, 18), C.muted, 'right'); });
+    x1.strokeStyle = C.brand; x1.lineWidth = 5; x1.lineJoin = 'round'; x1.beginPath();
+    wts.forEach((p, i) => { const X = px(p[0]), Yv = py(p[1]); i ? x1.lineTo(X, Yv) : x1.moveTo(X, Yv); }); x1.stroke();
+    wts.forEach(p => { x1.fillStyle = '#fff'; x1.beginPath(); x1.arc(px(p[0]), py(p[1]), 7, 0, 7); x1.fill(); x1.strokeStyle = C.brand; x1.lineWidth = 4; x1.stroke(); });
+  } else txt(x1, T('Pèse-toi au moins deux fois pour voir ta courbe.'), PW / 2, Y0 + 200, font(500, 24), C.muted, 'center');
+  // calories
+  Y0 += 440;
+  txt(x1, T('Calories par jour'), M, Y0, font(700, 30)); Y0 += 24;
+  chart(x1, M, Y0, PW - 2 * M, 380);
+  const mx = Math.max(g.k * 1.3, ...days.map(x => x.t.k)), bw = (PW - 2 * M - 80) / days.length;
+  const by = v => Y0 + 330 - v / mx * 280;
+  days.forEach((x, i) => { if (!x.t.k) return; const ok = Math.abs(x.t.k - g.k) <= g.k * 0.1; rr(x1, M + 40 + i * bw + bw * 0.18, by(x.t.k), bw * 0.64, Y0 + 330 - by(x.t.k), 6, ok ? C.good : x.t.k < g.k ? C.carb : C.fat); });
+  x1.setLineDash([12, 10]); x1.strokeStyle = C.ink; x1.lineWidth = 2; x1.beginPath(); x1.moveTo(M + 30, by(g.k)); x1.lineTo(PW - M - 30, by(g.k)); x1.stroke(); x1.setLineDash([]);
+  txt(x1, NXI.t('objectif {n}', { n: fmt(g.k) }), PW - M - 34, by(g.k) - 10, font(600, 18), C.ink, 'right');
+  [[C.good, 'objectif atteint (±10 %)'], [C.carb, 'en dessous'], [C.fat, 'au-dessus']].forEach(([col, l], i) => { const X = M + 30 + i * 330; rr(x1, X, Y0 + 350, 18, 18, 4, col); txt(x1, T(l), X + 28, Y0 + 366, font(500, 19), C.muted); });
+  footer(x1, 1);
+  // ---------- page 2 ----------
+  const [c2, x2] = mk();
+  header(x2, goalLbl);
+  let Y = 290;
+  txt(x2, T('Séances du mois'), M, Y, font(700, 30)); Y += 30;
+  const cols = [M + 20, M + 210, M + 640, M + 820, PW - M - 20];
+  rr(x2, M, Y, PW - 2 * M, 50, 14, C.soft);
+  ['Date', 'Séance', 'Durée', 'Volume', 'Records'].forEach((h, i) => txt(x2, T(h), cols[i], Y + 33, font(700, 19), C.muted, i === 4 ? 'right' : 'left'));
+  Y += 50;
+  const rows = ws.slice(0, 14);
+  if (!rows.length) { txt(x2, T('Aucune séance ce mois-ci.'), M + 20, Y + 50, font(500, 22), C.muted); Y += 80; }
+  rows.forEach(w => {
+    Y += 46; const v = w.exercises.reduce((b, e) => b + e.sets.reduce((c, s) => c + (s.done ? (s.w || 0) * (s.r || 0) : 0), 0), 0), p = w.exercises.reduce((a, e) => a + e.sets.filter(s => s.pr).length, 0);
+    txt(x2, NX.keyToDate(w.date).toLocaleDateString(NX.LOC(), { weekday: 'short', day: 'numeric', month: 'short' }), cols[0], Y, font(500, 21));
+    txt(x2, (T(w.name) || w.name).slice(0, 34), cols[1], Y, font(600, 21));
+    txt(x2, NX.durTxt((w.end || w.start) - w.start), cols[2], Y, font(500, 21));
+    txt(x2, fmt(v) + ' kg', cols[3], Y, font(500, 21));
+    txt(x2, p ? '★ ' + p : '–', cols[4], Y, font(600, 21), p ? C.fat : C.muted, 'right');
+    x2.fillStyle = C.line; x2.fillRect(M, Y + 16, PW - 2 * M, 2);
+  });
+  if (ws.length > rows.length) { Y += 44; txt(x2, NXI.t('+ {n} autres séances', { n: ws.length - rows.length }), M + 20, Y, font(500, 20), C.muted); }
+  // records et muscles côte à côte
+  Y += 80;
+  const half = (PW - 2 * M - 40) / 2, Yb = Y;
+  txt(x2, T('Records battus'), M, Y, font(700, 28)); Y += 20;
+  rr(x2, M, Y, half, 420, 22, C.soft);
+  if (!prs.length) txt(x2, T('Aucun record ce mois-ci.'), M + 24, Y + 60, font(500, 21), C.muted);
+  prs.slice(0, 8).forEach((p, i) => { const yy = Y + 56 + i * 48; txt(x2, '★', M + 24, yy, font(700, 22), C.fat); txt(x2, (T(p[1]) || p[1]).slice(0, 24), M + 56, yy, font(600, 21)); txt(x2, fmt(p[2].w, 1) + ' × ' + p[2].r, M + half - 24, yy, font(700, 21), C.ink, 'right'); });
+  // séries par muscle
+  const ms = {};
+  ws.forEach(w => w.exercises.forEach(e => { const n = e.sets.filter(s => s.done).length, mp = NX.exMuscles(e.ex); for (const m in mp) ms[m] = (ms[m] || 0) + n * mp[m]; }));
+  const top = Object.entries(ms).sort((a, b) => b[1] - a[1]).slice(0, 8), mxs = top.length ? top[0][1] : 1;
+  const X2 = M + half + 40;
+  txt(x2, T('Séries par muscle'), X2, Yb, font(700, 28));
+  rr(x2, X2, Yb + 20, half, 420, 22, C.soft);
+  if (!top.length) txt(x2, T('Aucune séance ce mois-ci.'), X2 + 24, Yb + 80, font(500, 21), C.muted);
+  top.forEach(([m, v], i) => { const yy = Yb + 76 + i * 48; txt(x2, T(NX.MUSCLE_NAMES[m]), X2 + 24, yy, font(600, 20)); rr(x2, X2 + 230, yy - 18, (half - 330) * v / mxs, 22, 6, C.brand); txt(x2, fmt(v, v % 1 ? 1 : 0), X2 + half - 24, yy, font(700, 20), C.ink, 'right'); });
+  // semaine par semaine
+  Y = Yb + 500;
+  txt(x2, T('Semaine par semaine'), M, Y, font(700, 28)); Y += 26;
+  rr(x2, M, Y, PW - 2 * M, 50, 14, C.soft);
+  const wc = [M + 20, M + 330, M + 560, M + 790, PW - M - 20];
+  ['Semaine', 'Calories / jour', 'Protéines / jour', 'Poids moyen', 'Séances'].forEach((h, i) => txt(x2, T(h), wc[i], Y + 33, font(700, 19), C.muted, i === 4 ? 'right' : 'left'));
+  Y += 50;
+  for (let i = 0; i < keys.length; i += 7) {
+    const wk = days.slice(i, i + 7), l = wk.filter(x => x.t.n), wv = wk.filter(x => x.d && x.d.weight).map(x => x.d.weight), nw = ws.filter(w => w.date >= wk[0].k && w.date <= wk[wk.length - 1].k).length;
+    Y += 46;
+    txt(x2, NX.shortDate(wk[0].k) + ' – ' + NX.shortDate(wk[wk.length - 1].k), wc[0], Y, font(500, 21));
+    txt(x2, l.length ? fmt(Math.round(avg(l.map(x => x.t.k)) / 10) * 10) : '–', wc[1], Y, font(600, 21));
+    txt(x2, l.length ? fmt(Math.round(avg(l.map(x => x.t.p)))) + ' g' : '–', wc[2], Y, font(600, 21));
+    txt(x2, wv.length ? fmt(avg(wv), 1) + ' kg' : '–', wc[3], Y, font(600, 21));
+    txt(x2, String(nw), wc[4], Y, font(600, 21), C.ink, 'right');
+    x2.fillStyle = C.line; x2.fillRect(M, Y + 16, PW - 2 * M, 2);
+  }
+  footer(x2, 2);
+  return [c1, c2];
+}
+})();
+
 /* Nexafit — progrès, graphiques, profil et objectifs, accueil, réglages, sauvegarde. */
 (function () {
 'use strict';
@@ -4703,7 +5741,8 @@ NX.VIEWS.progress = () => {
   const g = S.main.goals;
   let h = '<div class="topbar"><h1 class="h-view">Progrès</h1>' + NX.topRight() + '</div>';
   if (NX.isLoss()) h += lossBlock();
-  if (S.main.profile) h += '<button class="rev-link" data-a="review-open"><span class="rh-i">' + ico('calendar') + '</span><span class="lt"><b>Bilan de la semaine</b><span>Poids, calories, séances et ajustement</span></span>' + ico('right', 'sm') + '</button>';
+  if (S.main.profile) h += '<button class="rev-link" data-a="review-open"><span class="rh-i">' + ico('calendar') + '</span><span class="lt"><b>Bilan de la semaine</b><span>Poids, calories, séances et ajustement</span></span>' + ico('right', 'sm') + '</button>'
+    + '<button class="rev-link" data-a="report-open"><span class="rh-i">' + ico('download') + '</span><span class="lt"><b>Rapport du mois</b><span>Un PDF clair à garder ou à envoyer à un coach</span></span>' + ico('right', 'sm') + '</button>';
   h += '<div class="seg">' + [[7, '7 j'], [30, '30 j'], [90, '3 mois'], [365, '1 an']].map(r => '<button class="' + (n === r[0] ? 'on' : '') + '" data-a="range" data-n="' + r[0] + '">' + r[1] + '</button>').join('') + '</div>';
 
   // Poids
@@ -4760,6 +5799,7 @@ NX.VIEWS.progress = () => {
   const avg = a => { const x = a.filter(v => v); return x.length ? x.reduce((s, v) => s + v, 0) / x.length : null; };
   h += '<section class="chart-card"><span class="label">Eau et sommeil</span><div class="stat-row" style="grid-template-columns:1fr 1fr"><div class="stat" style="box-shadow:inset 0 -3px 0 var(--water),var(--shadow)"><b>' + (avg(wv) ? fmt(avg(wv) / 1000, 1) + ' L' : '–') + '</b><span>d\'eau par jour</span></div><div class="stat" style="box-shadow:inset 0 -3px 0 var(--sleep),var(--shadow)"><b>' + (avg(sv) ? fmt(avg(sv), 1) + ' h' : '–') + '</b><span>de sommeil par nuit</span></div></div>'
     + barChart(sv, { goal: g.sleep || 8, color: 'var(--sleep)', startKey: start, dec: 0, label: 'Heures de sommeil', empty: 'Note ton sommeil dans le journal pour le voir ici.' }) + '</section>';
+  if (S.main.profile) h += NX.achSection() + NX.heatSection();
   return h;
 };
 const fullDate = k => { const d = NX.keyToDate(k); if (NX.LOC() !== 'fr-FR') return d.toLocaleDateString(NX.LOC(), d.getFullYear() !== new Date().getFullYear() ? { day: 'numeric', month: 'long', year: 'numeric' } : { day: 'numeric', month: 'long' }); return d.getDate() + ' ' + NX.MONTHS_L[d.getMonth()] + (d.getFullYear() !== new Date().getFullYear() ? ' ' + d.getFullYear() : ''); };
@@ -4966,6 +6006,8 @@ NX.VIEWS.more = () => {
     + '</div></section>';
   h += '<section class="sec"><div class="label">Suivi</div><div class="list">'
     + li('supps', 'pill', 'Compléments', (S.main.supps || []).length ? S.main.supps.map(s => s.name).join(', ') : 'Créatine, whey, vitamines…', 'var(--good)')
+    + li('sched-open', 'calendar', 'Planning de la semaine', NX.todayPlan() ? 'Tes jours de séance sont planifiés' : 'Choisis tes jours de séance', 'var(--brand)')
+    + '<button class="li" data-a="coach-toggle"><span class="lic" style="color:var(--brand)">' + ico('wand') + '</span><span class="lt"><b>Coach de séance</b><span>Te propose la charge et les répétitions à chaque séance</span></span><span class="sw' + (NX.coachOn() ? ' on' : '') + '" aria-hidden="true"><i></i></span></button>'
     + li('help-open', 'help', 'Assistant d\'aide', 'Une question, un souci ? Je t\'aide', 'var(--carb)')
     + '</div></section>';
   h += '<section class="sec"><div class="label">Mes données</div><div class="list">'
