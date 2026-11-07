@@ -322,6 +322,150 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 /* En-tête : réglages */
 .tb-r { display: flex; align-items: center; gap: 2px; }
 .tb-r .icon-btn { width: 36px; height: 36px; }
+/* les blocs d'une feuille ne se tassent jamais */
+.panel-b > * { flex-shrink: 0; }
+/* compléments */
+.supp-card { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 12px; display: flex; flex-direction: column; gap: 10px; transition: box-shadow .3s; }
+.supp-card.all { box-shadow: inset 0 0 0 1px rgba(74,222,149,.35), 0 12px 30px rgba(0,0,0,.35); }
+.supp-card .ct { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.supp-card .ct .ico { color: var(--good); }
+.supp-n { font-size: 12.5px; color: var(--faint); font-variant-numeric: tabular-nums; }
+.supp-n b { color: var(--ink); font-family: var(--f-display); font-size: 15px; }
+.supp-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.supp { display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 7px 10px 7px 8px; border-radius: 14px; background: var(--surface-2); text-align: left; transition: background .2s, box-shadow .2s, transform .12s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.supp:active { transform: scale(.97); }
+.supp .sb { width: 24px; height: 24px; flex: none; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px var(--faint); color: transparent; transition: background .2s, color .2s, box-shadow .2s; }
+.supp .sb .ico { width: 14px; height: 14px; stroke-width: 3; }
+.supp .sn { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.supp .sn b { font-size: 13.5px; font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.supp .sn span { font-size: 11.5px; color: var(--faint); }
+.supp .ss { display: flex; align-items: center; gap: 2px; font-size: 12px; font-weight: 700; color: var(--brand); font-variant-numeric: tabular-nums; }
+.supp .ss .ico { width: 13px; height: 13px; }
+.supp.on { background: rgba(74,222,149,.1); box-shadow: inset 0 0 0 1px rgba(74,222,149,.35); }
+.supp.on .sb { background: var(--good); color: #0B0D12; box-shadow: none; animation: pop .28s cubic-bezier(.3,1.6,.5,1); }
+@keyframes pop { 0% { transform: scale(.6); } 100% { transform: scale(1); } }
+/* bilan de la semaine */
+.rev-banner { display: flex; align-items: center; gap: 4px; background: linear-gradient(120deg, rgba(255,122,69,.16), rgba(255,93,115,.08)); border-radius: var(--r); box-shadow: inset 0 0 0 1px rgba(255,122,69,.35); padding-right: 6px; }
+.rv-main, .rev-link { flex: 1; display: flex; align-items: center; gap: 12px; padding: 12px 6px 12px 12px; text-align: left; min-width: 0; color: var(--ink); }
+.rev-link { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 12px 14px; width: 100%; }
+.rv-main .lt, .rev-link .lt { flex: 1; min-width: 0; }
+.rv-main .lt b, .rev-link .lt b { display: block; font-weight: 700; }
+.rv-main .lt span, .rev-link .lt span { display: block; font-size: 12.5px; color: var(--muted); }
+.rh-i { width: 38px; height: 38px; border-radius: 12px; flex: none; display: grid; place-items: center; background: rgba(255,122,69,.16); color: var(--brand); }
+.rev-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.rev-nav b { font-family: var(--f-display); font-weight: 700; font-size: 15px; text-align: center; }
+.rev-hero { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: var(--r); background: color-mix(in srgb, var(--c) 10%, var(--surface)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 35%, transparent); }
+.rev-hero .rh-i { background: color-mix(in srgb, var(--c) 18%, transparent); color: var(--c); }
+.rev-hero b { font-family: var(--f-display); font-size: 18px; font-weight: 750; }
+.rev-hero p { margin: 4px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.rev-bars { position: relative; display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; height: 150px; padding: 18px 10px 26px; background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); }
+.rb { position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+.rb i { display: block; width: 100%; max-width: 26px; border-radius: 7px 7px 4px 4px; background: var(--faint); min-height: 3px; transform-origin: bottom; animation: grow .5s cubic-bezier(.3,.7,.2,1) both; }
+.rb.ok i { background: var(--good); } .rb.low i { background: var(--carb); } .rb.high i { background: var(--warn); } .rb.none i, .rb.off i { background: var(--surface-2); }
+.rb .rv { font-size: 10px; color: var(--faint); margin-bottom: 3px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rb .rl { position: absolute; bottom: -20px; font-size: 11px; font-weight: 700; color: var(--muted); }
+.rev-bars .rg { position: absolute; left: 10px; right: 10px; bottom: calc(26px + (100% - 44px) * var(--goal) / 100); border-top: 1.5px dashed rgba(242,244,248,.45); pointer-events: none; }
+@keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rvt { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); padding: 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.rvt span { font-size: 12px; color: var(--muted); }
+.rvt b { font-family: var(--f-display); font-weight: 800; font-size: 20px; font-variant-numeric: tabular-nums; }
+.rvt small { font-size: 11.5px; color: var(--faint); }
+/* disques */
+.pl-top { display: flex; align-items: center; gap: 10px; justify-content: center; }
+.pl-w { position: relative; width: 150px; }
+.pl-w .inp { height: 60px; text-align: center; font: 800 30px/1 var(--f-display); padding: 0 34px 0 10px; }
+.pl-w span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 650; }
+.pl-top .icon-btn { width: 52px; height: 52px; border-radius: 16px; }
+.pl-vis { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 10px 10px 14px; display: flex; flex-direction: column; gap: 6px; }
+.pl-svg { width: 100%; height: auto; display: block; }
+.pl-p { transform-box: fill-box; transform-origin: center; animation: plIn .32s cubic-bezier(.3,1.4,.5,1) both; }
+@keyframes plIn { from { opacity: 0; transform: scaleY(.4); } to { opacity: 1; transform: none; } }
+.pl-res { display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; }
+.pl-res b { font: 800 22px/1.2 var(--f-display); }
+.pl-warn { font-size: 12.5px; color: var(--warn); }
+.pl-av { display: flex; flex-wrap: wrap; gap: 8px; }
+.pl-chip { display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 12px 0 9px; border-radius: 99px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-weight: 650; font-size: 13.5px; color: var(--faint); transition: all .18s; }
+.pl-chip i { width: 14px; height: 14px; border-radius: 50%; background: var(--pc); opacity: .35; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+.pl-chip.on { color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--pc); }
+.pl-chip.on i { opacity: 1; }
+.li.wu { min-height: 50px; }
+.wu-n { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); font-size: 12.5px; font-weight: 700; color: var(--muted); flex: none; }
+.li.wu.main .wu-n { background: rgba(255,122,69,.16); color: var(--brand); }
+/* carte des muscles */
+.mm { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 12px 6px 6px; }
+.mm figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.mm svg { width: 100%; max-width: 170px; height: auto; display: block; overflow: visible; }
+.mm figcaption { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); font-weight: 650; padding-bottom: 4px; }
+.mm .base { fill: #1E2430; }
+.mu { stroke: var(--surface); stroke-width: 1.4; stroke-linejoin: round; cursor: pointer; transition: fill .4s ease, filter .3s; -webkit-tap-highlight-color: transparent; }
+.mu.lv-none, .mm-leg i.lv-none { fill: #2C3341; background: #2C3341; }
+.mu.lv-low, .mm-leg i.lv-low { fill: #5E3B2E; background: #5E3B2E; }
+.mu.lv-mid, .mm-leg i.lv-mid { fill: #B8552F; background: #B8552F; }
+.mu.lv-good, .mm-leg i.lv-good { fill: #FF7A45; background: #FF7A45; }
+.mu.lv-high, .mm-leg i.lv-high { fill: #FF5D73; background: #FF5D73; }
+.mu.lv-good, .mu.lv-high { filter: drop-shadow(0 0 4px rgba(255,122,69,.45)); }
+.mu.sel { stroke: #F2F4F8; stroke-width: 1.8; }
+.mm-leg { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.mm-leg span { display: flex; align-items: center; gap: 5px; }
+.mm-leg i { width: 12px; height: 12px; border-radius: 4px; display: block; }
+.mm-leg em { font-style: normal; color: var(--faint); margin-left: auto; }
+.mm-sum { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mm-sum div { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mm-sum .faint { font-size: 12px; }
+.mm-sum b { font-size: 14px; }
+.mm-det { background: var(--surface); border-radius: var(--r); box-shadow: inset 3px 0 0 var(--lc, var(--faint)), var(--shadow); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; animation: fadeUp .25s ease both; }
+.mm-det.lv-low { --lc: #8A5440; } .mm-det.lv-mid { --lc: #B8552F; } .mm-det.lv-good { --lc: #FF7A45; } .mm-det.lv-high { --lc: #FF5D73; }
+.mm-det .sec-head b { font-family: var(--f-display); font-size: 17px; }
+.mm-v { font-weight: 700; color: var(--brand); font-variant-numeric: tabular-nums; }
+.mm-ex { display: flex; flex-wrap: wrap; gap: 6px; }
+.mm-ex span { font-size: 12.5px; background: var(--surface-2); border-radius: 99px; padding: 4px 10px; color: var(--muted); }
+.mm-ex b { color: var(--ink); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .supp.on .sb, .rb i, .pl-p, .mm-det { animation: none; } .mu { transition: none; } }
+/* menu de la semaine */
+.plan-hero { background: radial-gradient(120% 90% at 100% 0%, rgba(255,122,69,.18), transparent 60%), var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 18px 16px; display: flex; flex-direction: column; gap: 12px; }
+.plan-hero b { font: 750 20px/1.2 var(--f-display); }
+.plan-hero p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+.ph-i { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(255,122,69,.16); color: var(--brand); }
+.plan-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.pd { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0; border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); color: var(--muted); transition: background .18s, color .18s, box-shadow .18s; -webkit-tap-highlight-color: transparent; }
+.pd span { font-size: 11px; font-weight: 650; text-transform: capitalize; }
+.pd b { font: 750 16px/1 var(--f-display); color: var(--ink); }
+.pd.td span { color: var(--brand); }
+.pd.on { background: rgba(255,122,69,.16); box-shadow: inset 0 0 0 1.5px rgba(255,122,69,.6); }
+.pd.on b { color: var(--brand); }
+.plan-tot { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 12px; }
+.pm { position: relative; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.pm span { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+.pm b { font: 750 15px/1.1 var(--f-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pm b small { font: 600 10.5px var(--f-body); color: var(--faint); }
+.pm em { position: absolute; top: 0; right: 0; color: var(--good); }
+.pm em .ico { width: 13px; height: 13px; stroke-width: 3; }
+.plan-meal { display: flex; flex-direction: column; gap: 8px; }
+.plan-meal h3 { margin: 0; font: 700 15px var(--f-display); }
+.plan-meal .li .ico:last-child { color: var(--faint); }
+.chat { display: flex; flex-direction: column; gap: 10px; padding-bottom: 6px; }
+.msg { max-width: 88%; display: flex; flex-direction: column; gap: 8px; font-size: 14.5px; line-height: 1.5; animation: fadeUp .22s ease both; }
+.msg p { margin: 0; }
+.msg.me { align-self: flex-end; background: var(--brand); color: var(--brand-ink); padding: 9px 14px; border-radius: 18px 18px 6px 18px; font-weight: 550; }
+.msg.bot { align-self: flex-start; background: var(--surface); box-shadow: var(--shadow); padding: 12px 14px; border-radius: 18px 18px 18px 6px; color: var(--ink); }
+.msg.bot .mt { font-family: var(--f-display); font-size: 15.5px; }
+.msg.bot ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.msg.bot ol li::marker { color: var(--brand); font-weight: 700; }
+.mact { display: flex; flex-wrap: wrap; gap: 6px; }
+.mact .chip { height: auto; min-height: 34px; padding: 6px 12px; white-space: normal; text-align: left; }
+.diag { display: flex; flex-direction: column; border-radius: 12px; background: var(--surface-2); overflow: hidden; }
+.diag div { display: flex; justify-content: space-between; gap: 10px; padding: 7px 10px; font-size: 13px; border-top: 1px solid var(--line); }
+.diag div:first-child { border-top: 0; }
+.diag span { color: var(--muted); }
+.typing { display: flex; gap: 4px; padding: 4px 2px; }
+.typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: dots 1s infinite ease-in-out; }
+.typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes dots { 0%, 80%, 100% { opacity: .25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+.chat-in { display: flex; gap: 8px; width: 100%; }
+.chat-in .inp { flex: 1; border-radius: 99px; padding: 0 16px; }
+.chat-in .send { width: 46px; height: 46px; border-radius: 50%; background: var(--brand); color: var(--brand-ink); box-shadow: none; flex: none; }
 /* perte de poids */
 .loss-card { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 .loss-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -1542,6 +1686,268 @@ add([
 ['Ta tendance actuelle est de {v} : retire environ {kcal} kcal par jour.', 'Your current trend is {v}: cut about {kcal} kcal a day.', 'Mevcut eğilimin {v}: günde yaklaşık {kcal} kcal azalt.']
 ]);
 
+// fonctions ajoutées : compléments, bilan, disques, muscles, menu, assistant
+add([
+['1 comprimé', '1 tablet', '1 tablet'],
+['1 gélule', '1 capsule', '1 kapsül'],
+['2 gélules', '2 capsules', '2 kapsül'],
+['Abdominaux', 'Abs', 'Karın kasları'],
+['Ajouter le mien', 'Add my own', 'Kendiminkini ekle'],
+['Ajouter un repas', 'Add a meal', 'Öğün ekle'],
+['Arrière d\'épaule', 'Rear delts', 'Arka omuz'],
+['Assistant d\'aide', 'Help assistant', 'Yardım asistanı'],
+['Astuce : « Copier les repas de la veille » et les repas favoris te font gagner beaucoup de temps.', 'Tip: “Copy yesterday\'s meals” and favourite meals save you a lot of time.', 'İpucu: “Dünün öğünlerini kopyala” ve favori öğünler sana çok zaman kazandırır.'],
+['Aucun complément pour l\'instant. Choisis dans les suggestions ou ajoute le tien.', 'No supplements yet. Pick from the suggestions or add your own.', 'Henüz takviye yok. Önerilerden seç ya da kendininkini ekle.'],
+['Aucun problème trouvé dans tes données.', 'No problem found in your data.', 'Verilerinde sorun bulunamadı.'],
+['Aucune séance cette semaine : même 2 séances suffisent à garder tes muscles.', 'No workouts this week: even 2 sessions are enough to keep your muscle.', 'Bu hafta antrenman yok: kaslarını korumak için 2 antrenman bile yeter.'],
+['Avant-bras', 'Forearms', 'Ön kol'],
+['Avec plaisir ! Autre chose ?', 'You\'re welcome! Anything else?', 'Rica ederim! Başka bir şey var mı?'],
+['Avoir la dernière version', 'Get the latest version', 'Son sürümü al'],
+['Barre', 'Bar', 'Bar'],
+['Beaucoup de séries : surveille ta récupération.', 'Lots of sets: watch your recovery.', 'Çok fazla set: toparlanmana dikkat et.'],
+['Biceps', 'Biceps', 'Biseps'],
+['Bilan de la semaine', 'Weekly review', 'Haftalık özet'],
+['Bonne semaine', 'Good week', 'İyi bir hafta'],
+['Calculateur de disques', 'Plate calculator', 'Plaka hesaplayıcı'],
+['Calculer les disques à mettre', 'Work out which plates to load', 'Takılacak plakaları hesapla'],
+['Calories / jour', 'Calories / day', 'Kalori / gün'],
+['Calories jour par jour', 'Calories day by day', 'Gün gün kalori'],
+['Ce que tu ne veux pas dans ton menu. Les changements s\'appliquent au prochain menu.', 'What you don\'t want in your menu. Changes apply to the next menu.', 'Menünde istemediklerin. Değişiklikler bir sonraki menüde geçerli olur.'],
+['Changer la langue', 'Change the language', 'Dili değiştir'],
+['Changer mes objectifs', 'Change my goals', 'Hedeflerimi değiştir'],
+['Cherche l\'aliment, scanne-le ou choisis-le dans tes récents.', 'Search for the food, scan it or pick it from your recent ones.', 'Besini ara, tara ya da son kullanılanlardan seç.'],
+['Choisis « Perte de poids » ou « Perte de poids douce » dans ton profil. Le journal affiche alors ton déficit du jour, et l\'onglet Progrès ta perte, ton déficit moyen et des conseils. Garde tes protéines hautes pour garder ton muscle.', 'Choose “Weight loss” or “Gentle weight loss” in your profile. The log then shows your daily deficit, and the Progress tab your loss, average deficit and tips. Keep your protein high to keep your muscle.', 'Profilinde “Kilo verme” veya “Yavaş kilo verme”yi seç. Günlük o zaman günün açığını, İlerleme sekmesi de verdiğin kiloyu, ortalama açığını ve ipuçlarını gösterir. Kasını korumak için proteinini yüksek tut.'],
+['Coche tes compléments chaque jour dans le journal : Nexafit compte tes séries de jours pour t\'aider à être régulier.', 'Tick your supplements every day in the log: Nexafit counts your streaks to help you stay consistent.', 'Takviyelerini her gün günlükte işaretle: Nexafit düzenli kalman için seri günlerini sayar.'],
+['Collagène', 'Collagen', 'Kolajen'],
+['Compte en ligne', 'Online account', 'Çevrimiçi hesap'],
+['Compter mes pas', 'Count my steps', 'Adımlarımı say'],
+['Connexion', 'Connection', 'Bağlantı'],
+['Conseils', 'Tips', 'İpuçları'],
+['Correct, mais 10 à 20 séries par semaine donnent les meilleurs résultats.', 'Decent, but 10 to 20 sets a week give the best results.', 'Fena değil ama haftada 10-20 set en iyi sonucu verir.'],
+['Courses et prix', 'Groceries and prices', 'Alışveriş ve fiyatlar'],
+['Créatine', 'Creatine', 'Kreatin'],
+['Créer mon menu', 'Create my menu', 'Menümü oluştur'],
+['Créer un nouveau menu', 'Create a new menu', 'Yeni menü oluştur'],
+['Dans Courses › Menu, Nexafit compose 7 jours de repas qui tombent pile sur tes calories et tes protéines. Touche un aliment pour le remplacer, ajoute la journée à ton journal en un geste, et envoie les courses de la semaine dans ta liste.', 'In Groceries › Menu, Nexafit builds 7 days of meals that hit your calories and protein exactly. Tap a food to swap it, add the day to your log in one tap, and send the week\'s groceries to your list.', 'Alışveriş › Menü’de Nexafit kalorine ve proteinine tam uyan 7 günlük öğün hazırlar. Değiştirmek için bir besine dokun, günü tek dokunuşla günlüğüne ekle ve haftanın alışverişini listene gönder.'],
+['Dans Courses, « Ce qu\'il me faut » calcule ce que tu dois acheter et le total. Les prix sont des moyennes : touche une ligne pour mettre le prix de ton magasin. « Envoyer dans ma liste » crée ta liste à cocher.', 'In Groceries, “What I need” works out what to buy and the total. Prices are averages: tap a line to set your shop\'s price. “Send to my shopping list” creates your checklist.', 'Alışveriş’te “İhtiyacım olanlar” ne alman gerektiğini ve toplamı hesaplar. Fiyatlar ortalamadır: kendi marketinin fiyatını girmek için bir satıra dokun. “Alışveriş listeme gönder” işaretlenecek listeni oluşturur.'],
+['Dans Réglages › Compléments, ajoute ce que tu prends. Une carte apparaît dans le journal : coche chaque complément pris, Nexafit compte tes séries de jours.', 'In Settings › Supplements, add what you take. A card appears in the log: tick each supplement taken, Nexafit counts your streaks.', 'Ayarlar › Takviyeler’de aldıklarını ekle. Günlükte bir kart çıkar: aldığın her takviyeyi işaretle, Nexafit seri günlerini sayar.'],
+['Dans Réglages › Objectif de poids, indique le poids visé et le délai. Nexafit calcule le rythme par semaine, te dit s\'il est réaliste et peut adapter tes calories.', 'In Settings › Weight goal, enter the target weight and deadline. Nexafit works out the weekly pace, tells you if it\'s realistic and can adjust your calories.', 'Ayarlar › Kilo hedefi’nde hedef kiloyu ve süreyi gir. Nexafit haftalık tempoyu hesaplar, gerçekçi olup olmadığını söyler ve kalorini ayarlayabilir.'],
+['Dernière sauvegarde', 'Last backup', 'Son yedek'],
+['Des erreurs ont été détectées : lance la réparation, puis vide le cache si le souci continue.', 'Errors were detected: run the repair, then clear the cache if the problem continues.', 'Hatalar tespit edildi: onarımı çalıştır, sorun devam ederse önbelleği temizle.'],
+['Diagnostic', 'Diagnostics', 'Tanılama'],
+['Disques disponibles', 'Available plates', 'Mevcut plakalar'],
+['Dose', 'Dose', 'Doz'],
+['Décoche les disques que ta salle n\'a pas.', 'Untick the plates your gym doesn\'t have.', 'Salonunda olmayan plakaların işaretini kaldır.'],
+['Eau et taille du verre', 'Water and glass size', 'Su ve bardak boyutu'],
+['En ligne', 'Online', 'Çevrimiçi'],
+['Exporter une sauvegarde', 'Export a backup', 'Yedek dışa aktar'],
+['Face', 'Front', 'Ön'],
+['Faire une séance de muscu', 'Do a workout', 'Antrenman yap'],
+['Fessiers', 'Glutes', 'Kalça'],
+['Grand dorsal', 'Lats', 'Kanat'],
+['Hors ligne', 'Offline', 'Çevrimdışı'],
+['Installer l\'appli sur le téléphone', 'Install the app on your phone', 'Uygulamayı telefona yükle'],
+['Ischios', 'Hamstrings', 'Arka bacak'],
+['Jamais', 'Never', 'Hiç'],
+['Je n\'ai pas bien compris. Essaie avec d\'autres mots, ou choisis un sujet :', 'I didn\'t quite understand. Try other words, or pick a topic:', 'Tam anlayamadım. Başka kelimelerle dene ya da bir konu seç:'],
+['Je ne trouve pas un aliment', 'I can\'t find a food', 'Bir besini bulamıyorum'],
+['Jours enregistrés', 'Days saved', 'Kayıtlı günler'],
+['L\'appli bug, est lente ou affiche une page blanche', 'The app is buggy, slow or shows a blank page', 'Uygulama hata veriyor, yavaş ya da boş sayfa gösteriyor'],
+['L\'appli va se recharger avec la dernière version. Tes données ne sont pas touchées.', 'The app will reload with the latest version. Your data won\'t be touched.', 'Uygulama son sürümle yeniden yüklenecek. Verilerine dokunulmaz.'],
+['La carte des muscles', 'The muscle map', 'Kas haritası'],
+['La recherche du produit a besoin d\'internet. Si le produit est inconnu, recopie une fois son étiquette pour 100 g : il sera reconnu instantanément aux prochains scans.', 'Looking up the product needs internet. If the product is unknown, copy its label once per 100 g: it will be recognised instantly on the next scans.', 'Ürün araması internet gerektirir. Ürün bilinmiyorsa etiketini bir kez 100 g için gir: sonraki taramalarda hemen tanınır.'],
+['Lancer un diagnostic', 'Run diagnostics', 'Tanılama çalıştır'],
+['Le bilan de la semaine', 'The weekly review', 'Haftalık özet'],
+['Le chrono de repos démarre tout seul. Touche « Terminer » à la fin : la séance et tes records sont enregistrés.', 'The rest timer starts by itself. Tap “Finish” at the end: the workout and your records are saved.', 'Dinlenme sayacı kendiliğinden başlar. Sonunda “Bitir”e dokun: antrenman ve rekorların kaydedilir.'],
+['Le chrono ne sonne pas', 'The timer doesn\'t ring', 'Sayaç çalmıyor'],
+['Le comptage automatique des pas arrivera avec la version App Store : sur iPhone, une appli web n\'a pas le droit de lire le podomètre. Les calories brûlées en marchant seront alors ajoutées en direct.', 'Automatic step counting will come with the App Store version: on iPhone, a web app isn\'t allowed to read the pedometer. Calories burned walking will then be added live.', 'Otomatik adım sayma App Store sürümüyle gelecek: iPhone’da bir web uygulaması adımsayarı okuyamaz. Yürüyerek yakılan kaloriler o zaman anlık eklenecek.'],
+['Le meilleur juge, c\'est ta balance : pèse-toi plusieurs fois par semaine. Le bilan du dimanche te propose d\'ajuster tes calories si tu ne prends ou ne perds pas au bon rythme.', 'The best judge is your scale: weigh yourself several times a week. The Sunday review suggests adjusting your calories if you\'re not gaining or losing at the right pace.', 'En iyi hakem tartındır: haftada birkaç kez tartıl. Pazar özeti, doğru tempoda almıyor ya da vermiyorsan kalorini ayarlamayı önerir.'],
+['Le menu de la semaine', 'The weekly menu', 'Haftalık menü'],
+['Le plus travaillé', 'Most worked', 'En çok çalışan'],
+['Le scanner ne marche pas', 'The scanner doesn\'t work', 'Tarayıcı çalışmıyor'],
+['Lombaires', 'Lower back', 'Bel'],
+['Magnésium', 'Magnesium', 'Magnezyum'],
+['Mange ton objectif', 'Eat your target', 'Hedefini ye'],
+['Menu de la semaine prêt', 'Weekly menu ready', 'Haftalık menü hazır'],
+['Menu du jour', 'Today\'s menu', 'Günün menüsü'],
+['Menu', 'Menu', 'Menü'],
+['Mes calories sont-elles justes ?', 'Are my calories right?', 'Kalorim doğru mu?'],
+['Mes compléments', 'My supplements', 'Takviyelerim'],
+['Mes données ont disparu', 'My data has disappeared', 'Verilerim kayboldu'],
+['Mes données sont-elles privées ?', 'Is my data private?', 'Verilerim gizli mi?'],
+['Modifier mon profil', 'Edit my profile', 'Profilimi düzenle'],
+['Modifier ou supprimer un aliment du journal', 'Edit or delete a food in the log', 'Günlükteki bir besini düzenle veya sil'],
+['Mollets', 'Calves', 'Baldır'],
+['Multivitamines', 'Multivitamins', 'Multivitamin'],
+['Muscles travaillés', 'Muscles worked', 'Çalışan kaslar'],
+['Nexafit compose 7 jours de repas simples qui tombent pile sur tes calories et tes protéines, puis remplit ta liste de courses en un geste.', 'Nexafit builds 7 days of simple meals that hit your calories and protein exactly, then fills your shopping list in one tap.', 'Nexafit kalorine ve proteinine tam uyan 7 günlük basit öğünler hazırlar, sonra alışveriş listeni tek dokunuşla doldurur.'],
+['Non', 'No', 'Hayır'],
+['Note tes repas au moins 3 jours par semaine pour un bilan fiable.', 'Log your meals at least 3 days a week for a reliable review.', 'Güvenilir bir özet için öğünlerini haftada en az 3 gün kaydet.'],
+['Nouveau menu', 'New menu', 'Yeni menü'],
+['Objectif de poids avec une date', 'Weight goal with a date', 'Tarihli kilo hedefi'],
+['Obliques', 'Obliques', 'Yan karın'],
+['Oméga-3', 'Omega-3', 'Omega-3'],
+['Oui', 'Yes', 'Evet'],
+['Oui : pas de compte, pas de serveur. Tout reste sur ton téléphone et personne d\'autre ne peut voir tes données.', 'Yes: no account, no server. Everything stays on your phone and nobody else can see your data.', 'Evet: hesap yok, sunucu yok. Her şey telefonunda kalır ve verilerini kimse göremez.'],
+['Oui, recharger', 'Yes, reload', 'Evet, yeniden yükle'],
+['Ouvre Réglages › Sauvegarde et export.', 'Open Settings › Backup and export.', 'Ayarlar › Yedekleme ve dışa aktarma’yı aç.'],
+['Ouvre ensuite Nexafit depuis son icône : elle s\'affiche en plein écran et marche même sans connexion.', 'Then open Nexafit from its icon: it shows full screen and works even offline.', 'Sonra Nexafit’i simgesinden aç: tam ekran açılır ve bağlantısız da çalışır.'],
+['Ouvrir Sauvegarde et export', 'Open Backup and export', 'Yedekleme ve dışa aktarmayı aç'],
+['Ouvrir le menu', 'Open the menu', 'Menüyü aç'],
+['Ouvrir les réglages', 'Open settings', 'Ayarları aç'],
+['Par côté', 'Per side', 'Her tarafa'],
+['Pas assez de données', 'Not enough data', 'Yeterli veri yok'],
+['Pas travaillé sur la période.', 'Not worked in this period.', 'Bu dönemde çalışılmadı.'],
+['Perdre du poids', 'Lose weight', 'Kilo vermek'],
+['Peu travaillé : vise au moins 10 séries par semaine pour qu\'il grossisse.', 'Under-worked: aim for at least 10 sets a week for it to grow.', 'Az çalışılmış: büyümesi için haftada en az 10 set hedefle.'],
+['Plus tu notes de jours, plus le bilan et les ajustements sont précis.', 'The more days you log, the more accurate the review and adjustments.', 'Ne kadar çok gün kaydedersen özet ve ayarlamalar o kadar doğru olur.'],
+['Poids moyen', 'Average weight', 'Ortalama kilo'],
+['Prends le code-barres bien à plat, de près, sans reflet, avec assez de lumière. Si la photo reste illisible, tape les chiffres sous le code-barres avec le bouton « Taper ».', 'Shoot the barcode flat, up close, without glare and with enough light. If the photo is still unreadable, type the digits under the barcode with the “Type” button.', 'Barkodu düz, yakından, yansımasız ve yeterli ışıkta çek. Fotoğraf yine okunmazsa barkodun altındaki rakamları “Yaz” düğmesiyle gir.'],
+['Protéines / jour', 'Protein / day', 'Protein / gün'],
+['Préférences', 'Preferences', 'Tercihler'],
+['Préférences du menu', 'Menu preferences', 'Menü tercihleri'],
+['Prête hors ligne', 'Ready offline', 'Çevrimdışı hazır'],
+['Quadriceps', 'Quads', 'Ön bacak'],
+['Quantités recalculées', 'Amounts recalculated', 'Miktarlar yeniden hesaplandı'],
+['Recalcule les quantités pour que le menu suive.', 'Recalculate the amounts so the menu keeps up.', 'Menünün uyması için miktarları yeniden hesapla.'],
+['Recalculer', 'Recalculate', 'Yeniden hesapla'],
+['Recevoir des rappels', 'Get reminders', 'Hatırlatma al'],
+['Remplacer', 'Swap', 'Değiştir'],
+['Reste dans ton objectif', 'Stay within your target', 'Hedefinde kal'],
+['Retirer du menu', 'Remove from menu', 'Menüden çıkar'],
+['Règle la quantité puis touche « Ajouter ».', 'Set the amount then tap “Add”.', 'Miktarı ayarla, sonra “Ekle”ye dokun.'],
+['Salut ! Dis-moi ce qui ne va pas ou ce que tu veux faire, je t\'explique.', 'Hi! Tell me what\'s wrong or what you want to do, I\'ll explain.', 'Selam! Neyin ters gittiğini ya da ne yapmak istediğini söyle, açıklayayım.'],
+['Salut ! Je suis l\'assistant Nexafit. Pose-moi ta question, ou choisis un sujet :', 'Hi! I\'m the Nexafit assistant. Ask me your question, or pick a topic:', 'Selam! Ben Nexafit asistanıyım. Sorunu sor ya da bir konu seç:'],
+['Sans poisson', 'No fish', 'Balıksız'],
+['Sans produits laitiers', 'No dairy', 'Süt ürünsüz'],
+['Sans viande rouge', 'No red meat', 'Kırmızı etsiz'],
+['Sans œufs', 'No eggs', 'Yumurtasız'],
+['Sauvegarder ou changer de téléphone', 'Back up or change phones', 'Yedekle veya telefon değiştir'],
+['Si tu as exporté une sauvegarde, tu peux tout récupérer en l\'important.', 'If you exported a backup, you can get everything back by importing it.', 'Yedek aldıysan, onu içe aktararak her şeyi geri alabilirsin.'],
+['Sinon, scanne le code-barres du produit ou crée-le : touche + puis « Créer cet aliment ». Il sera ensuite en tête de tes recherches.', 'Otherwise, scan the product\'s barcode or create it: tap + then “create this food”. It will then come first in your searches.', 'Yoksa ürünün barkodunu tara ya da oluştur: + düğmesine, sonra “bu besini oluştur”a dokun. Sonra aramalarında önce çıkar.'],
+['Sommeil moyen', 'Average sleep', 'Ortalama uyku'],
+['Stockage', 'Storage', 'Depolama'],
+['Suggestions', 'Suggestions', 'Öneriler'],
+['Suivi', 'Tracking', 'Takip'],
+['Suivre mes compléments', 'Track my supplements', 'Takviyelerimi takip et'],
+['Sur le nouveau téléphone, installe Nexafit puis touche « Importer une sauvegarde » et choisis ce fichier.', 'On the new phone, install Nexafit then tap “Import a backup” and choose that file.', 'Yeni telefonda Nexafit’i yükle, sonra “Yedeği içe aktar”a dokun ve o dosyayı seç.'],
+['Séries de travail', 'Working sets', 'Çalışma setleri'],
+['Taille des données', 'Data size', 'Veri boyutu'],
+['Termine une séance pour voir quels muscles tu as travaillés. Touche un muscle pour le détail.', 'Finish a workout to see which muscles you worked. Tap a muscle for details.', 'Hangi kasları çalıştırdığını görmek için bir antrenman bitir. Ayrıntı için bir kasa dokun.'],
+['Tes charges de la dernière fois sont déjà remplies : ajuste-les et valide chaque série avec ✓.', 'Your weights from last time are already filled in: adjust them and complete each set with ✓.', 'Geçen seferki ağırlıkların zaten dolu: ayarla ve her seti ✓ ile tamamla.'],
+['Tes données approchent la limite du navigateur : exporte une sauvegarde.', 'Your data is nearing the browser\'s limit: export a backup.', 'Verilerin tarayıcı sınırına yaklaşıyor: yedek al.'],
+['Tes objectifs ont changé.', 'Your goals have changed.', 'Hedeflerin değişti.'],
+['Ton bilan de la semaine est prêt', 'Your weekly review is ready', 'Haftalık özetin hazır'],
+['Ton menu de la semaine, calculé pour toi', 'Your weekly menu, worked out for you', 'Senin için hesaplanmış haftalık menün'],
+['Ton poids n\'avance pas assez pour ton objectif : ajoute quelques calories.', 'Your weight isn\'t moving enough for your goal: add a few calories.', 'Kilon hedefin için yeterince değişmiyor: biraz kalori ekle.'],
+['Ton poids ne baisse pas assez pour ton objectif : retire quelques calories.', 'Your weight isn\'t dropping enough for your goal: cut a few calories.', 'Kilon hedefin için yeterince düşmüyor: biraz kalori azalt.'],
+['Ton poids évolue au bon rythme pour ton objectif. Garde le cap.', 'Your weight is moving at the right pace for your goal. Keep it up.', 'Kilon hedefin için doğru tempoda değişiyor. Böyle devam.'],
+['Touche l\'aliment dans le journal : tu peux changer la quantité, le déplacer dans un autre repas ou le supprimer. Après une suppression, le bouton « Annuler » le remet.', 'Tap the food in the log: you can change the amount, move it to another meal or delete it. After deleting, the “Undo” button puts it back.', 'Günlükte besine dokun: miktarı değiştirebilir, başka bir öğüne taşıyabilir veya silebilirsin. Sildikten sonra “Geri al” düğmesi geri getirir.'],
+['Touche la carte Eau du journal pour ajouter un verre. La taille du verre se change dans Réglages › Taille du verre d\'eau.', 'Tap the Water card in the log to add a glass. Change the glass size in Settings › Water glass size.', 'Bardak eklemek için günlükteki Su kartına dokun. Bardak boyutu Ayarlar › Su bardağı boyutu’ndan değişir.'],
+['Touche le gros bouton + en bas, ou « Ajouter » sous un repas.', 'Tap the big + button at the bottom, or “Add” under a meal.', 'Alttaki büyük + düğmesine ya da bir öğünün altındaki “Ekle”ye dokun.'],
+['Touche un aliment pour le remplacer : les quantités se recalculent pour garder tes objectifs. Le menu se répète chaque semaine tant que tu n\'en crées pas un nouveau.', 'Tap a food to swap it: amounts recalculate to keep your goals. The menu repeats every week until you create a new one.', 'Değiştirmek için bir besine dokun: miktarlar hedeflerini korumak için yeniden hesaplanır. Yeni bir menü oluşturana kadar menü her hafta tekrarlanır.'],
+['Touche un muscle pour le détail.', 'Tap a muscle for details.', 'Ayrıntı için bir kasa dokun.'],
+['Touche « Exporter une sauvegarde complète » et garde le fichier dans Fichiers ou iCloud Drive.', 'Tap “Export a full backup” and keep the file in Files or iCloud Drive.', '“Tam yedek dışa aktar”a dokun ve dosyayı Dosyalar’da veya iCloud Drive’da sakla.'],
+['Tous tes compléments sont pris ✓', 'All your supplements are taken ✓', 'Tüm takviyelerin alındı ✓'],
+['Tout a l\'air normal.', 'Everything looks normal.', 'Her şey normal görünüyor.'],
+['Tout ajouter au journal', 'Add all to the log', 'Hepsini günlüğe ekle'],
+['Trapèzes', 'Traps', 'Trapez'],
+['Triceps', 'Triceps', 'Triseps'],
+['Tu dors moins de 7 h : le sommeil compte autant que l\'entraînement pour progresser.', 'You sleep less than 7 h: sleep matters as much as training for progress.', '7 saatten az uyuyorsun: ilerlemek için uyku antrenman kadar önemli.'],
+['Tu manques de protéines : ajoute un skyr, des œufs ou une dose de whey dans ta journée.', 'You\'re short on protein: add a skyr, some eggs or a scoop of whey to your day.', 'Proteinin eksik: gününe bir skyr, yumurta ya da bir ölçek whey ekle.'],
+['Tu n\'as jamais exporté de sauvegarde : fais-le, c\'est ta seule copie si tu changes de téléphone.', 'You\'ve never exported a backup: do it, it\'s your only copy if you change phones.', 'Hiç yedek almadın: al, telefon değiştirirsen tek kopyan o.'],
+['Tu parles de :', 'Do you mean:', 'Bunu mu demek istiyorsun:'],
+['Tu perds trop vite', 'You\'re losing too fast', 'Çok hızlı veriyorsun'],
+['Tu risques de perdre du muscle : remonte un peu tes calories.', 'You may lose muscle: raise your calories a little.', 'Kas kaybedebilirsin: kalorini biraz artır.'],
+['Une partie du poids pris risque d\'être du gras : baisse un peu tes calories.', 'Some of the weight gained may be fat: lower your calories a little.', 'Alınan kilonun bir kısmı yağ olabilir: kalorini biraz düşür.'],
+['Utiliser sans internet', 'Use without internet', 'İnternetsiz kullan'],
+['Valeurs pour 100 g.', 'Values per 100 g.', 'Değerler 100 g içindir.'],
+['Version', 'Version', 'Sürüm'],
+['Vider le cache ?', 'Clear the cache?', 'Önbellek temizlensin mi?'],
+['Vider le cache et recharger', 'Clear the cache and reload', 'Önbelleği temizle ve yeniden yükle'],
+['Vitamine D', 'Vitamin D', 'D vitamini'],
+['Voir mon bilan', 'See my review', 'Özetimi gör'],
+['Volume idéal pour la prise de muscle.', 'Ideal volume for building muscle.', 'Kas kazanımı için ideal hacim.'],
+['Vérification terminée', 'Check complete', 'Kontrol tamamlandı'],
+['Vérifier et réparer mes données', 'Check and repair my data', 'Verilerimi kontrol et ve onar'],
+['Whey', 'Whey', 'Whey'],
+['Zinc', 'Zinc', 'Çinko'],
+['aucune pesée', 'no weigh-in', 'tartı yok'],
+['aucune séance', 'no workouts', 'antrenman yok'],
+['barre seule', 'bar only', 'sadece bar'],
+['non noté', 'not logged', 'girilmedi'],
+['pris sur la semaine', 'taken this week', 'bu hafta alındı'],
+['séries / sem.', 'sets / wk', 'set / hafta'],
+['très régulier', 'very consistent', 'çok düzenli'],
+['un peu court', 'a bit short', 'biraz kısa'],
+['bien', 'good', 'iyi'],
+['correct', 'fine', 'idare eder'],
+['bravo', 'well done', 'tebrikler'],
+['Aliments perso', 'Custom foods', 'Özel besinler'],
+['Jours suivis', 'Days logged', 'Kaydedilen günler'],
+['Séances', 'Workouts', 'Antrenmanlar'],
+['Records', 'Records', 'Rekorlar'],
+['À travailler', 'Needs work', 'Çalışılmalı'],
+['Ça monte trop lentement', 'It\'s going up too slowly', 'Çok yavaş artıyor'],
+['Ça monte trop vite', 'It\'s going up too fast', 'Çok hızlı artıyor'],
+['Ça ne descend pas assez', 'It\'s not coming down enough', 'Yeterince düşmüyor'],
+['Échauffement conseillé', 'Suggested warm-up', 'Önerilen ısınma'],
+['à améliorer', 'could be better', 'geliştirilmeli'],
+['Une question, un souci ? Je t\'aide', 'A question, a problem? I\'ll help', 'Bir soru, bir sorun mu? Yardım edeyim'],
+['Créatine, whey, vitamines…', 'Creatine, whey, vitamins…', 'Kreatin, whey, vitaminler…'],
+['Poids, calories, séances et conseils', 'Weight, calories, workouts and tips', 'Kilo, kalori, antrenman ve ipuçları'],
+['Poids, calories, séances et ajustement', 'Weight, calories, workouts and adjustment', 'Kilo, kalori, antrenman ve ayarlama'],
+['7 derniers jours', 'Last 7 days', 'Son 7 gün'],
+['4 semaines (moy.)', '4 weeks (avg.)', '4 hafta (ort.)'],
+['Disques', 'Plates', 'Plakalar'],
+['20 kg', '20 kg', '20 kg'],
+['EZ 10 kg', 'EZ 10 kg', 'EZ 10 kg'],
+['Semaine précédente', 'Previous week', 'Önceki hafta'],
+['Semaine suivante', 'Next week', 'Sonraki hafta'],
+['Charge totale', 'Total weight', 'Toplam ağırlık'],
+['Moins 2,5 kg', 'Minus 2.5 kg', '2,5 kg azalt'],
+['Plus 2,5 kg', 'Plus 2.5 kg', '2,5 kg artır'],
+['Écris ta question…', 'Type your question…', 'Sorunu yaz…'],
+['Envoyer', 'Send', 'Gönder'],
+['Monter', 'Move up', 'Yukarı taşı'],
+['Ex. Ashwagandha', 'e.g. Ashwagandha', 'Örn. Ashwagandha'],
+['Ex. 1 gélule', 'e.g. 1 capsule', 'Örn. 1 kapsül'],
+['Kcal', 'Kcal', 'Kcal'],
+['Tu as mangé en moyenne {a} kcal sur {b}. Atteins d\'abord ton objectif avant de l\'augmenter.', 'You ate an average of {a} kcal out of {b}. Reach your target first before raising it.', 'Ortalama {b} kcal’nin {a} kcal’sini yedin. Artırmadan önce hedefine ulaş.'],
+['Tu as mangé en moyenne {a} kcal sur {b}. Reviens à ton objectif avant de le baisser.', 'You ate an average of {a} kcal out of {b}. Get back to your target before lowering it.', 'Ortalama {b} kcal hedefe karşı {a} kcal yedin. Düşürmeden önce hedefine dön.'],
+['Semaine du {a} au {b}', 'Week of {a} to {b}', '{a} – {b} haftası'],
+['Appliquer : {d} kcal par jour', 'Apply: {d} kcal a day', 'Uygula: günde {d} kcal'],
+['Ton objectif passera de {a} à {b} kcal.', 'Your target will go from {a} to {b} kcal.', 'Hedefin {a} kcal’den {b} kcal’ye geçecek.'],
+['Objectif ajusté : {k} kcal par jour', 'Goal adjusted: {k} kcal a day', 'Hedef ayarlandı: günde {k} kcal'],
+['Charge la plus proche : {w} kg', 'Closest weight: {w} kg', 'En yakın ağırlık: {w} kg'],
+['La barre pèse déjà {w} kg', 'The bar already weighs {w} kg', 'Bar zaten {w} kg'],
+['{n} séries / sem.', '{n} sets / wk', '{n} set / hafta'],
+['Ajouter au journal · {d}', 'Add to log · {d}', 'Günlüğe ekle · {d}'],
+['Courses de la semaine · {c}', 'Week\'s groceries · {c}', 'Haftanın alışverişi · {c}'],
+['{n} aliments ajoutés au journal', '{n} foods added to the log', 'Günlüğe {n} besin eklendi'],
+['{n} correction(s) faite(s). Tes données sont en ordre.', '{n} fix(es) made. Your data is in order.', '{n} düzeltme yapıldı. Verilerin düzende.']
+]);
+
+add([
+['Dans Muscu, la carte colore les muscles selon le nombre de séries faites : de gris (pas travaillé) à orange (10 à 20 séries par semaine, l\'idéal). Touche un muscle pour voir le détail et les exercices.', 'In Workout, the map colours each muscle by the number of sets done: from grey (not worked) to orange (10 to 20 sets a week, the ideal). Tap a muscle to see details and exercises.', 'Antrenman’da harita kasları yapılan set sayısına göre renklendirir: griden (çalışılmadı) turuncuya (haftada 10-20 set, ideal). Ayrıntılar ve egzersizler için bir kasa dokun.'],
+['Dans Muscu, touche « Calculateur de disques » (ou « Disques » sous un exercice pendant la séance). Tape la charge : Nexafit te dit quels disques mettre de chaque côté et propose les séries d\'échauffement.', 'In Workout, tap “Plate calculator” (or “Plates” under an exercise during a workout). Type the weight: Nexafit tells you which plates to load on each side and suggests warm-up sets.', 'Antrenman’da “Plaka hesaplayıcı”ya (ya da antrenman sırasında bir egzersizin altındaki “Plakalar”a) dokun. Ağırlığı yaz: Nexafit her tarafa hangi plakaları takacağını söyler ve ısınma setleri önerir.'],
+['Essaie un mot plus simple (par exemple « poulet » plutôt que « blanc de poulet grillé »). La recherche marche aussi en anglais et en turc.', 'Try a simpler word (for example “chicken” rather than “grilled chicken breast”). Search also works in French and Turkish.', 'Daha basit bir kelime dene (örneğin “ızgara tavuk göğsü” yerine “tavuk”). Arama Fransızca ve İngilizce de çalışır.'],
+['Ferme complètement Nexafit (balaye-la vers le haut dans le sélecteur d\'apps) puis rouvre-la avec internet : la nouvelle version se charge toute seule. Si ce n\'est pas le cas, vide le cache.', 'Fully close Nexafit (swipe it up in the app switcher) then reopen it with internet: the new version loads by itself. If not, clear the cache.', 'Nexafit’i tamamen kapat (uygulama değiştiricide yukarı kaydır), sonra internetle yeniden aç: yeni sürüm kendiliğinden yüklenir. Yüklenmezse önbelleği temizle.'],
+['Je peux vérifier tes données et réparer ce qui cloche, sans rien effacer. Si ça ne suffit pas, vider le cache recharge la dernière version de l\'appli (tes données restent).', 'I can check your data and fix what\'s wrong, without deleting anything. If that\'s not enough, clearing the cache reloads the latest version of the app (your data stays).', 'Verilerini kontrol edip sorunlu olanı hiçbir şey silmeden onarabilirim. Yetmezse önbelleği temizlemek uygulamanın son sürümünü yeniden yükler (verilerin kalır).'],
+['Nexafit calcule ta dépense avec la formule de Mifflin-St Jeor et ton niveau d\'activité, puis ajoute un surplus (masse) ou retire un déficit (perte de poids). C\'est une estimation de départ.', 'Nexafit works out your expenditure with the Mifflin-St Jeor equation and your activity level, then adds a surplus (bulk) or subtracts a deficit (weight loss). It\'s a starting estimate.', 'Nexafit harcamanı Mifflin-St Jeor formülü ve aktivite düzeyinle hesaplar, sonra bir fazlalık ekler (kütle) ya da bir açık çıkarır (kilo verme). Bu bir başlangıç tahminidir.'],
+['Ouvre le lien de Nexafit dans Safari (sur Android : Chrome).', 'Open the Nexafit link in Safari (on Android: Chrome).', 'Nexafit bağlantısını Safari’de aç (Android’de: Chrome).'],
+['Pèse-toi au moins 2 fois cette semaine (et une fois la semaine d\'avant) pour mesurer ton évolution.', 'Weigh yourself at least twice this week (and once the week before) to measure your progress.', 'Değişimini ölçmek için bu hafta en az 2 kez (ve önceki hafta bir kez) tartıl.'],
+['Tes données sont gardées sur ce téléphone, dans le navigateur. Elles peuvent sembler disparaître si tu as effacé l\'historique de Safari, si tu es en navigation privée, ou si tu ouvres Nexafit depuis Safari au lieu de l\'icône de l\'écran d\'accueil (ce sont deux espaces séparés).', 'Your data is kept on this phone, in the browser. It may seem to disappear if you cleared Safari\'s history, if you\'re in private browsing, or if you open Nexafit from Safari instead of the home screen icon (they are two separate spaces).', 'Verilerin bu telefonda, tarayıcıda saklanır. Safari geçmişini sildiysen, gizli moddaysan ya da Nexafit’i ana ekran simgesi yerine Safari’den açıyorsan kaybolmuş gibi görünebilir (ikisi ayrı alanlardır).'],
+['Touche Partager puis « Sur l\'écran d\'accueil » (sur Android : menu ⋮ puis « Ajouter à l\'écran d\'accueil »).', 'Tap Share then “Add to Home Screen” (on Android: menu ⋮ then “Add to Home screen”).', 'Paylaş’a, sonra “Ana Ekrana Ekle”ye dokun (Android’de: ⋮ menüsü, sonra “Ana ekrana ekle”).'],
+['Touche l\'engrenage en haut à droite : la langue se choisit tout en haut des réglages (Français, Türkçe, English).', 'Tap the gear at the top right: the language is chosen at the very top of settings (Français, Türkçe, English).', 'Sağ üstteki dişliye dokun: dil, ayarların en üstünden seçilir (Français, Türkçe, English).'],
+['Touche l\'engrenage en haut à droite, puis la carte du haut (« Modifier »). Change ton poids, ton activité ou ton objectif : tes calories et tes macros se recalculent. Tu peux aussi les ajuster à la main.', 'Tap the gear at the top right, then the top card (“Edit”). Change your weight, activity or goal: your calories and macros recalculate. You can also adjust them by hand.', 'Sağ üstteki dişliye, sonra üstteki karta (“Düzenle”) dokun. Kilonu, aktiviteni veya hedefini değiştir: kalorin ve makroların yeniden hesaplanır. Elle de ayarlayabilirsin.'],
+['Une appli web ne peut pas envoyer de notifications fiables sur iPhone. Crée des rappels qui se répètent dans l\'appli Rappels de ton téléphone (pesée le matin, eau toutes les 2 heures…).', 'A web app can\'t send reliable notifications on iPhone. Create repeating reminders in your phone\'s Reminders app (weigh-in in the morning, water every 2 hours…).', 'Bir web uygulaması iPhone’da güvenilir bildirim gönderemez. Telefonunun Anımsatıcılar uygulamasında tekrarlanan hatırlatmalar oluştur (sabah tartı, 2 saatte bir su…).'],
+['Va dans l\'onglet Muscu et lance une séance de ton programme (ou une séance libre).', 'Go to the Workout tab and start a workout from your programme (or a free workout).', 'Antrenman sekmesine git ve programından bir antrenman (ya da serbest antrenman) başlat.'],
+['Une fois installée, Nexafit marche sans internet : journal, muscu, progrès, courses. Seule la recherche d\'un produit scanné inconnu a besoin de connexion.', 'Once installed, Nexafit works without internet: log, workouts, progress, groceries. Only looking up an unknown scanned product needs a connection.', 'Yüklendikten sonra Nexafit internetsiz çalışır: günlük, antrenman, ilerleme, alışveriş. Sadece bilinmeyen taranmış ürün araması bağlantı gerektirir.'],
+['Erreurs (7 jours)', 'Errors (7 days)', 'Hatalar (7 gün)'],
+['Ko', 'KB', 'KB']
+]);
+
 // phrases du rythme de poids (précédées de ". " dans la page)
 const PACE = [
 ['Rythme rapide : tu risques de perdre du muscle, ajoute un peu de calories.', 'Fast pace: you may lose muscle, add a few calories.', 'Hızlı tempo: kas kaybedebilirsin, biraz kalori ekle.'],
@@ -1622,6 +2028,10 @@ const P = [];
 const rule = (src, fn) => P.push([new RegExp('^' + src + '$'), fn]);
 const dur = (n, u) => n + ' ' + (lang === 'tr' ? ({ min: 'dk', s: 'sn', h: 'sa' }[u]) : u);
 
+rule('Ajustement appliqué : ([+−-]?[\d\s  .,]+) kcal par jour\.', m => L('Adjustment applied: ' + m[1] + ' kcal a day.', 'Ayarlama uygulandı: günde ' + m[1] + ' kcal.'));
+rule('(.+) kg vs semaine d\'avant', m => L(m[1] + ' kg vs previous week', 'önceki haftaya göre ' + m[1] + ' kg'));
+rule(N + ' pesées?', m => L(m[1] + (many(m[1]) ? ' weigh-ins' : ' weigh-in'), m[1] + ' tartı'));
+rule('objectif ' + N + ' g', m => L('goal ' + m[1] + ' g', 'hedef ' + m[1] + ' g'));
 rule('BARRE CHARGÉE À ' + N + ' %', m => L('BAR ' + m[1] + '% LOADED', 'BAR %' + m[1] + ' YÜKLÜ'));
 rule(N + ' jours? de suite', m => L(m[1] + '-day streak', m[1] + ' gün üst üste'));
 rule('sur ' + N + ' (kcal|L)', m => L('of ' + m[1] + ' ' + m[2], 'hedef ' + m[1] + ' ' + m[2]));
@@ -1725,7 +2135,7 @@ function tr(s) {
     }
     if (r == null && s.includes(', ')) {
       const parts = s.replace(/…$/, '').split(', ');
-      if (parts.some(p => D.has(p))) r = parts.map(p => D.has(p) ? D.get(p)[E() ? 0 : 1] : p).join(', ') + (s.endsWith('…') ? '…' : '');
+      if (!/[:.!?]/.test(s.replace(/…$/, '')) && parts.every(p => p.split(' ').length <= 5) && parts.some(p => D.has(p))) r = parts.map(p => D.has(p) ? D.get(p)[E() ? 0 : 1] : p).join(', ') + (s.endsWith('…') ? '…' : '');
     }
     if (r == null && s.startsWith('· ')) { const x = tr(s.slice(2)); if (x != null) r = '· ' + x; }
   }
@@ -1860,6 +2270,15 @@ const P = {
   timer: '<circle cx="12" cy="13.5" r="7.5"/><path d="M12 10v3.5l2.3 1.8M9.5 2.8h5"/>',
   trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4.5v1A3.5 3.5 0 0 0 8 10.5M16 6h3.5v1a3.5 3.5 0 0 1-3.5 3.5M12 13v4M8.5 20.5h7M9.5 17h5"/>',
   edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
+  steps: '<path d="M8.2 3.5c1.9 0 3 2.1 3 4.6 0 1.9-.6 3.6-1.1 4.9l-3.6-.4c-.4-1.4-.9-3-.9-4.6 0-2.5 1-4.5 2.6-4.5zM6.6 15.2l3.5.4c.1 2-.6 3.9-2.1 3.9-1.2 0-1.8-1.1-1.6-2.4zM15.8 7.5c1.6 0 2.6 2 2.6 4.5 0 1.6-.5 3.2-.9 4.6l-3.6.4c-.5-1.3-1.1-3-1.1-4.9 0-2.5 1.1-4.6 3-4.6zM13.9 19.2l3.5-.4.2 1.9c.2 1.3-.4 2.4-1.6 2.4-1.5 0-2.2-1.9-2.1-3.9z"/>',
+  pill: '<rect x="2.8" y="8.3" width="18.4" height="7.4" rx="3.7" transform="rotate(-45 12 12)"/><path d="M9.4 9.4l5.2 5.2"/>',
+  disc: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.4"/><path d="M12 3.5v3M12 17.5v3"/>',
+  body: '<circle cx="12" cy="4.6" r="2.1"/><path d="M6 8.6c2 .8 4 1.2 6 1.2s4-.4 6-1.2M9.4 9.6l-.6 5.2 1.6 6.7M14.6 9.6l.6 5.2-1.6 6.7M9 14.6h6"/>',
+  help: '<circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.7"/><circle cx="12" cy="17" r=".6" class="f"/>',
+  send: '<path d="M4.5 12.2L19.5 5l-4.6 14.2-3.5-5.6z"/><path d="M11.4 13.6L19.5 5"/>',
+  calendar: '<rect x="3.8" y="5.2" width="16.4" height="15" rx="3"/><path d="M3.8 9.8h16.4M8.4 3.4v3.6M15.6 3.4v3.6"/>',
+  wand: '<path d="M4.5 19.5l10-10M13 6.5l1.2-2.8 1.2 2.8 2.8 1.2-2.8 1.2-1.2 2.8-1.2-2.8-2.8-1.2zM18.5 13.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z"/>',
+  refresh: '<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4.5v4h-4"/>',
   flame: '<path d="M12 21a6.2 6.2 0 0 0 6.2-6.2c0-3.8-2.6-6.1-4-10.3-1.9 1.7-3 3.8-3 6-1-.8-1.8-2-2-3.8-1.8 2-3.4 4.8-3.4 8.1A6.2 6.2 0 0 0 12 21z"/>',
   fork: '<path d="M7 3v6.5a2 2 0 0 0 4 0V3M9 11.5V21M16.5 3c-2 1.6-2.3 6.4 0 8.3V21"/>',
   play: '<path d="M8 5.5v13l10.5-6.5z" class="f"/>',
@@ -1883,7 +2302,8 @@ const defaultMain = () => ({
   goals: { k: 2800, p: 140, c: 350, f: 85, water: 2500, sleep: 8 },
   settings: { glass: 250, rest: 90 },
   foods: [], recipes: [], combos: [], fav: [], recent: [], barcodes: {},
-  programs: null, exCustom: [], shopping: [], active: null, prices: {}, basket: null, weightGoal: null
+  programs: null, exCustom: [], shopping: [], active: null, prices: {}, basket: null, weightGoal: null,
+  supps: [], reviewSeen: null, reviewApplied: {}, mealPlan: null
 });
 const S = NX.S = { main: defaultMain(), days: {} };
 const UI = NX.UI = { tab: 'journal', date: today(), range: 30, progEx: null };
@@ -2272,6 +2692,7 @@ NX.VIEWS.journal = () => {
   h += '<div class="daynav"><button class="icon-btn" data-a="day" data-d="-1" aria-label="Jour précédent">' + ico('left') + '</button>'
     + '<div class="title" style="flex:1;min-width:0"><h1 class="h-view">' + esc(dayTitle(k)) + '</h1><div class="sub">' + (isToday ? esc(longDate(k)) : '<button data-a="day-today" style="color:var(--carb);font-weight:650">Revenir à aujourd\'hui</button>') + (streak > 1 ? ' · <span class="streak">' + ico('flame', 'sm') + streak + ' jours de suite</span>' : '') + '</div></div>'
     + '<button class="icon-btn" data-a="day" data-d="1" aria-label="Jour suivant">' + ico('right') + '</button></div>';
+  h += NX.reviewBanner(k);
   if (!NX.isStandalone() && !S.main.hideInstall) h += '<div class="callout" style="display:flex;gap:10px;align-items:flex-start"><span style="flex:1"><b>Installe Nexafit :</b> dans Safari, touche Partager puis « Sur l\'écran d\'accueil ». Elle s\'ouvrira en plein écran, même sans connexion.</span><button class="icon-btn plain" style="width:28px;height:28px" data-a="hide-install" aria-label="Masquer">' + ico('x', 'sm') + '</button></div>';
   // résumé
   const wk = (day.workouts || []).length;
@@ -2289,6 +2710,7 @@ NX.VIEWS.journal = () => {
     + '<button class="chk' + (day.weight ? '' : ' todo') + '" style="--c:var(--steel)" data-a="weight-open"><span class="ct">' + ico('scale') + 'Poids</span><b>' + (day.weight ? fmt(day.weight, 1) + '<small> kg</small>' : 'Peser') + '</b><span class="faint" style="font-size:12px">' + (day.weight ? weightDelta(k) : 'à jeun, le matin') + '</span></button>'
     + '<button class="chk' + (day.sleep ? '' : ' todo') + '" style="--c:var(--sleep)" data-a="sleep-open"><span class="ct">' + ico('moon') + 'Sommeil</span><b>' + (day.sleep ? fmt(day.sleep, 1) + '<small> h</small>' : 'Noter') + '</b><span class="faint" style="font-size:12px">objectif ' + fmt(g.sleep || 8) + ' h</span></button>'
     + '</div>';
+  h += NX.suppCard(k);
   // repas
   for (const [mk, mn] of MEALS) {
     const list = (day.meals && day.meals[mk]) || [];
@@ -2302,7 +2724,7 @@ NX.VIEWS.journal = () => {
   }
   // actions rapides
   const y = NX.day(addDays(k, -1)), yN = NX.dayTotals(y).n;
-  h += '<div class="row-actions">' + (yN ? '<button class="chip" data-a="copy-yesterday">' + ico('copy', 'sm') + 'Copier les repas de la veille</button>' : '') + (S.main.combos.length ? '<button class="chip" data-a="combos-quick">' + ico('star', 'sm') + 'Repas favoris</button>' : '') + '</div>';
+  h += '<div class="row-actions">' + (yN ? '<button class="chip" data-a="copy-yesterday">' + ico('copy', 'sm') + 'Copier les repas de la veille</button>' : '') + (S.main.combos.length ? '<button class="chip" data-a="combos-quick">' + ico('star', 'sm') + 'Repas favoris</button>' : '') + (NX.planDayChip ? NX.planDayChip(k) : '') + (!(S.main.supps || []).length ? '<button class="chip" data-a="supps">' + ico('pill', 'sm') + 'Suivre mes compléments</button>' : '') + '</div>';
   return h;
 };
 function costStat(day, t, g) {
@@ -2774,6 +3196,8 @@ function homeView() {
   let h = '<div class="topbar"><h1 class="h-view">Muscu</h1>' + NX.topRight() + '</div>';
   h += '<div class="stat-row"><div class="stat"><b>' + thisWeek + '</b><span>séance' + (thisWeek > 1 ? 's' : '') + ' cette semaine</span></div><div class="stat"><b>' + all.length + '</b><span>au total</span></div><div class="stat"><b>' + countPRs(all) + '</b><span>records battus</span></div></div>';
   h += '<button class="btn block" data-a="w-start-free">' + ico('play') + 'Démarrer une séance libre</button>';
+  h += '<div class="row-actions"><button class="chip" data-a="plates-open">' + ico('disc', 'sm') + 'Calculateur de disques</button></div>';
+  h += NX.muscleSection();
   h += '<section class="sec"><div class="sec-head"><h2 class="h-sec">Mes programmes</h2><button class="add-btn" data-a="prog-new">' + ico('plus') + 'Nouveau</button></div>';
   for (const p of S.main.programs) {
     h += '<div class="prog-card"><div class="sec-head"><b style="font-family:var(--f-display);font-weight:750;font-size:16px">' + esc(p.name) + '</b><button class="icon-btn plain" data-a="prog-edit" data-id="' + p.id + '" aria-label="Modifier le programme">' + ico('edit', 'sm') + '</button></div><div class="prog-days">'
@@ -2843,7 +3267,7 @@ function exoCard(e, i, w) {
       + '<input class="inp" inputmode="numeric" value="' + (s.r === '' ? '' : s.r) + '" placeholder="0" data-in="set-r" data-i="' + i + '" data-j="' + j + '" aria-label="Répétitions série ' + (j + 1) + '">'
       + '<button class="ok" data-a="set-done" data-i="' + i + '" data-j="' + j + '" aria-label="Valider la série">' + ico('check') + '</button></div>';
   });
-  h += '</div><div class="row-actions"><button class="chip" data-a="set-add" data-i="' + i + '">' + ico('plus', 'sm') + 'Série</button>' + (e.sets.length > 1 ? '<button class="chip" data-a="set-rm" data-i="' + i + '">' + ico('minus', 'sm') + 'Retirer la dernière</button>' : '') + '</div></section>';
+  h += '</div><div class="row-actions"><button class="chip" data-a="set-add" data-i="' + i + '">' + ico('plus', 'sm') + 'Série</button>' + (e.sets.length > 1 ? '<button class="chip" data-a="set-rm" data-i="' + i + '">' + ico('minus', 'sm') + 'Retirer la dernière</button>' : '') + '<button class="chip" data-a="plates-open" data-i="' + i + '">' + ico('disc', 'sm') + 'Disques</button></div></section>';
   return h;
 }
 const saveActive = (() => { let t; return () => { clearTimeout(t); t = setTimeout(() => NX.touchMain(), 600); }; })();
@@ -3192,8 +3616,8 @@ function qtyLabel(r) {
 NX.VIEWS.shop = () => {
   const n = S.main.shopping.filter(x => !x.done).length;
   let h = '<div class="topbar"><h1 class="h-view">Courses</h1>' + NX.topRight() + '</div>';
-  h += '<div class="seg"><button class="' + (UI.shopTab === 'need' ? 'on' : '') + '" data-a="shop-tab" data-t="need">Ce qu\'il me faut</button><button class="' + (UI.shopTab === 'list' ? 'on' : '') + '" data-a="shop-tab" data-t="list">Ma liste' + (n ? ' · ' + n : '') + '</button></div>';
-  return h + (UI.shopTab === 'list' ? listView() : needView());
+  h += '<div class="seg"><button class="' + (UI.shopTab === 'menu' ? 'on' : '') + '" data-a="shop-tab" data-t="menu">Menu</button><button class="' + (UI.shopTab === 'need' ? 'on' : '') + '" data-a="shop-tab" data-t="need">Ce qu\'il me faut</button><button class="' + (UI.shopTab === 'list' ? 'on' : '') + '" data-a="shop-tab" data-t="list">Ma liste' + (n ? ' · ' + n : '') + '</button></div>';
+  return h + (UI.shopTab === 'list' ? listView() : UI.shopTab === 'menu' ? NX.planView() : needView());
 };
 A['shop-tab'] = el => { UI.shopTab = el.dataset.t; NX.render(); };
 
@@ -3289,6 +3713,16 @@ A['price-edit'] = el => {
   A['pe-reset'] = () => { delete S.main.prices[key]; NX.touchMain(); NX.closeSheet('price'); NX.render(); };
 };
 
+NX.buyList = buyList; NX.qtyLabel = qtyLabel;
+NX.sendToList = list => {
+  for (const r of list) {
+    const ex = S.main.shopping.find(x => !x.done && x.key === r.id);
+    const line = { name: r.name, qty: qtyLabel(r), price: r.cost != null ? Math.round(r.cost * 100) / 100 : null, key: r.id };
+    if (ex) Object.assign(ex, line); else S.main.shopping.push(Object.assign({ id: uid(), done: false }, line));
+  }
+  NX.touchMain(); UI.tab = 'shop'; UI.shopTab = 'list'; NX.render(); window.scrollTo(0, 0);
+  NX.toast(list.length + ' article' + (list.length > 1 ? 's' : '') + ' dans ta liste');
+};
 A['need-send'] = () => {
   const list = buyList(needLines(), basket().days);
   for (const r of list) {
@@ -3347,6 +3781,833 @@ A['shop-recipe'] = el => {
   }
   NX.touchMain(); NX.render(); NX.toast('Ingrédients de « ' + r.name + ' » ajoutés');
 };
+})();
+
+/* Nexafit — compléments, bilan de la semaine, calculateur de disques, carte des muscles. */
+(function () {
+'use strict';
+const { $, $$, esc, uid, clamp, num, fmt, norm, addDays, today, ico, S, UI, A, IN } = NX;
+
+/* ================= COMPLÉMENTS ================= */
+const SUPP_PRESETS = [['Créatine', '5 g'], ['Whey', '30 g'], ['Vitamine D', '1 gélule'], ['Oméga-3', '2 gélules'], ['Magnésium', '1 gélule'], ['Multivitamines', '1 comprimé'], ['Zinc', '1 gélule'], ['Collagène', '10 g']];
+const supps = () => S.main.supps || (S.main.supps = []);
+const takenOn = (k, id) => !!(S.days[k] && S.days[k].supps && S.days[k].supps[id]);
+NX.suppStreak = id => {
+  let k = today(), n = 0;
+  if (!takenOn(k, id)) k = addDays(k, -1);
+  while (takenOn(k, id) && n < 3650) { n++; k = addDays(k, -1); }
+  return n;
+};
+// carte du journal
+NX.suppCard = k => {
+  const list = supps();
+  if (!list.length) return '';
+  const d = NX.day(k), on = list.filter(s => d.supps && d.supps[s.id]).length;
+  return '<section class="supp-card' + (on === list.length ? ' all' : '') + '" id="supp-card"><div class="sec-head"><span class="ct">' + ico('pill', 'sm') + 'Compléments</span><span class="supp-n"><b>' + on + '</b>/' + list.length + '</span></div><div class="supp-list">'
+    + list.map(s => {
+      const t = !!(d.supps && d.supps[s.id]), st = NX.suppStreak(s.id);
+      return '<button class="supp' + (t ? ' on' : '') + '" data-a="supp-tog" data-id="' + s.id + '" aria-pressed="' + t + '"><span class="sb">' + ico('check', 'sm') + '</span><span class="sn"><b data-notr>' + esc(s.name) + '</b>' + (s.dose ? '<span data-notr>' + esc(s.dose) + '</span>' : '') + '</span>' + (st > 1 ? '<span class="ss">' + ico('flame', 'sm') + st + '</span>' : '') + '</button>';
+    }).join('') + '</div></section>';
+};
+A['supp-tog'] = el => {
+  const k = UI.date, d = NX.touchDay(k), id = el.dataset.id;
+  d.supps = d.supps || {};
+  if (d.supps[id]) delete d.supps[id]; else d.supps[id] = Date.now();
+  NX.save('d-' + k);
+  const c = $('#supp-card');
+  if (c) { const tmp = document.createElement('div'); tmp.innerHTML = NX.suppCard(k); c.replaceWith(tmp.firstChild); }
+  const list = supps();
+  if (d.supps[id] && list.every(s => d.supps[s.id])) NX.toast('Tous tes compléments sont pris ✓');
+};
+// gestion
+const SP = { name: '', dose: '' };
+A.supps = () => NX.openSheet({ id: 'supps', title: 'Compléments', render: () => {
+  const list = supps(), have = new Set(list.map(s => norm(s.name)));
+  const sugg = SUPP_PRESETS.filter(p => !have.has(norm(p[0])) && !have.has(norm(NXI.tr(p[0]) || p[0])));
+  return { body: '<p class="note" style="margin:0">Coche tes compléments chaque jour dans le journal : Nexafit compte tes séries de jours pour t\'aider à être régulier.</p>'
+    + (list.length ? '<div class="list">' + list.map((s, i) => '<div class="li"><span class="lic" style="color:var(--good)">' + ico('pill') + '</span><span class="lt"><b data-notr>' + esc(s.name) + '</b><span data-notr>' + esc(s.dose || '') + '</span></span>'
+      + (i > 0 ? '<button class="icon-btn plain" data-a="supp-up" data-i="' + i + '" aria-label="Monter" style="transform:rotate(90deg)">' + ico('left', 'sm') + '</button>' : '')
+      + '<button class="icon-btn plain" data-a="supp-rm" data-i="' + i + '" aria-label="Retirer">' + ico('trash', 'sm') + '</button></div>').join('') + '</div>' : '<div class="callout">Aucun complément pour l\'instant. Choisis dans les suggestions ou ajoute le tien.</div>')
+    + (sugg.length ? '<div class="sec"><div class="label">Suggestions</div><div class="chips" style="flex-wrap:wrap">' + sugg.map(p => '<button class="chip" data-a="supp-preset" data-n="' + esc(p[0]) + '" data-d="' + esc(p[1]) + '">' + ico('plus', 'sm') + esc(p[0]) + '</button>').join('') + '</div></div>' : '')
+    + '<div class="sec"><div class="label">Ajouter le mien</div><div class="grid2"><label class="field"><span>Nom</span><input class="inp" id="sp-name" placeholder="Ex. Ashwagandha" value="' + esc(SP.name) + '" data-in="sp" data-k="name"></label><label class="field"><span>Dose</span><input class="inp" id="sp-dose" placeholder="Ex. 1 gélule" value="' + esc(SP.dose) + '" data-in="sp" data-k="dose"></label></div><button class="btn ghost block" data-a="supp-add">' + ico('plus') + 'Ajouter</button></div>' };
+} });
+IN.sp = el => { SP[el.dataset.k] = el.value; };
+const suppChanged = () => { NX.touchMain(); NX.refreshSheet('supps'); NX.render(); };
+A['supp-preset'] = el => { supps().push({ id: uid(), name: NXI.tr(el.dataset.n) || el.dataset.n, dose: NXI.tr(el.dataset.d) || el.dataset.d }); suppChanged(); };
+A['supp-add'] = () => {
+  const n = SP.name.trim();
+  if (!n) return NX.toast('Donne un nom');
+  supps().push({ id: uid(), name: n.slice(0, 40), dose: SP.dose.trim().slice(0, 30) });
+  SP.name = ''; SP.dose = ''; suppChanged();
+};
+A['supp-rm'] = el => { const l = supps(), i = +el.dataset.i, old = l[i]; l.splice(i, 1); suppChanged(); NX.toast(old.name + ' retiré', { label: 'Annuler', fn: () => { supps().splice(i, 0, old); suppChanged(); } }); };
+A['supp-up'] = el => { const l = supps(), i = +el.dataset.i; if (i > 0) { [l[i - 1], l[i]] = [l[i], l[i - 1]]; suppChanged(); } };
+
+/* ================= BILAN DE LA SEMAINE ================= */
+const mondayOf = k => { const d = NX.keyToDate(k); const dow = (d.getDay() + 6) % 7; return addDays(k, -dow); };
+// semaine à présenter : celle en cours le dimanche, sinon la précédente
+const reviewWeek = () => { const t = today(), dow = (NX.keyToDate(t).getDay() + 6) % 7; return dow === 6 ? mondayOf(t) : addDays(mondayOf(t), -7); };
+const PACE = { lean: [0.1, 0.3], bulk: [0.25, 0.5], keep: [-0.2, 0.2], slim: [-0.5, -0.15], cut: [-0.9, -0.35] };
+const avg = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+
+function weekData(start) {
+  const keys = Array.from({ length: 7 }, (_, i) => addDays(start, i)).filter(k => k <= today());
+  const days = keys.map(k => ({ k, d: S.days[k], t: S.days[k] ? NX.dayTotals(S.days[k]) : { n: 0, k: 0, p: 0 } }));
+  const logged = days.filter(x => x.t.n > 0);
+  const wOf = ks => ks.map(k => S.days[k] && S.days[k].weight).filter(Boolean);
+  const wNow = wOf(keys), wPrev = wOf(Array.from({ length: 7 }, (_, i) => addDays(start, i - 7)));
+  const ws = NX.allWorkouts().filter(w => w.date >= start && w.date <= addDays(start, 6));
+  const vol = ws.reduce((a, w) => a + w.exercises.reduce((b, e) => b + e.sets.filter(s => s.done).reduce((c, s) => c + (s.w || 0) * (s.r || 0), 0), 0), 0);
+  const prs = ws.reduce((a, w) => a + w.exercises.reduce((b, e) => b + e.sets.filter(s => s.pr).length, 0), 0);
+  const sl = days.map(x => x.d && x.d.sleep).filter(Boolean);
+  const sp = supps();
+  const suppPct = sp.length ? days.reduce((a, x) => a + sp.filter(s => x.d && x.d.supps && x.d.supps[s.id]).length, 0) / (sp.length * days.length) : null;
+  return {
+    start, keys, days, logged: logged.length,
+    avgK: avg(logged.map(x => x.t.k)), avgP: avg(logged.map(x => x.t.p)),
+    wAvg: avg(wNow), wPrev: avg(wPrev), wN: wNow.length, wPrevN: wPrev.length,
+    dW: wNow.length >= 2 && wPrev.length >= 1 ? avg(wNow) - avg(wPrev) : null,
+    nW: ws.length, vol, prs, sleep: avg(sl), suppPct
+  };
+}
+function verdict(D) {
+  const g = S.main.goals, goal = (S.main.profile && S.main.profile.goal) || 'bulk';
+  let [lo, hi] = PACE[goal] || PACE.bulk;
+  const G = S.main.weightGoal;
+  if (G && G.endDate > today()) {
+    const left = G.target - (NX.lastWeight() || G.start), wk = Math.max(1, NX.daysBetween(today(), G.endDate) / 7);
+    const need = clamp(left / wk, -1, 0.75); lo = need - 0.12; hi = need + 0.12;
+  }
+  const mid = (lo + hi) / 2, gaining = mid > 0.05, losing = mid < -0.05;
+  if (D.logged < 3 || D.dW == null) return { kind: 'data', title: 'Pas assez de données', msg: D.logged < 3 ? 'Note tes repas au moins 3 jours par semaine pour un bilan fiable.' : 'Pèse-toi au moins 2 fois cette semaine (et une fois la semaine d\'avant) pour mesurer ton évolution.' };
+  const adh = D.avgK / g.k;
+  if (D.dW < lo) {
+    if ((gaining || !losing) && adh < 0.93) return { kind: 'eat', title: 'Mange ton objectif', msg: NXI.t('Tu as mangé en moyenne {a} kcal sur {b}. Atteins d\'abord ton objectif avant de l\'augmenter.', { a: fmt(Math.round(D.avgK / 10) * 10), b: fmt(g.k) }) };
+    const d = clamp(Math.round((mid - D.dW) * 1100 / 50) * 50, 100, 300);
+    return { kind: 'up', title: losing ? 'Tu perds trop vite' : 'Ça monte trop lentement', msg: losing ? 'Tu risques de perdre du muscle : remonte un peu tes calories.' : 'Ton poids n\'avance pas assez pour ton objectif : ajoute quelques calories.', delta: d };
+  }
+  if (D.dW > hi) {
+    if ((losing || !gaining) && adh > 1.07) return { kind: 'eat', title: 'Reste dans ton objectif', msg: NXI.t('Tu as mangé en moyenne {a} kcal sur {b}. Reviens à ton objectif avant de le baisser.', { a: fmt(Math.round(D.avgK / 10) * 10), b: fmt(g.k) }) };
+    const d = -clamp(Math.round((D.dW - mid) * 1100 / 50) * 50, 100, 300);
+    return { kind: 'down', title: gaining ? 'Ça monte trop vite' : 'Ça ne descend pas assez', msg: gaining ? 'Une partie du poids pris risque d\'être du gras : baisse un peu tes calories.' : 'Ton poids ne baisse pas assez pour ton objectif : retire quelques calories.', delta: d };
+  }
+  return { kind: 'ok', title: 'Bonne semaine', msg: 'Ton poids évolue au bon rythme pour ton objectif. Garde le cap.' };
+}
+const REV = { start: null };
+NX.openReview = start => {
+  REV.start = start || reviewWeek();
+  S.main.reviewSeen = reviewWeek(); NX.touchMain();
+  NX.openSheet({ id: 'review', full: true, title: 'Bilan de la semaine', render: renderReview, onClose: () => NX.render() });
+};
+A['review-open'] = () => NX.openReview();
+A['review-hide'] = () => { S.main.reviewSeen = reviewWeek(); NX.touchMain(); NX.render(); };
+A['review-week'] = el => { const s = addDays(REV.start, +el.dataset.d * 7); if (s > today()) return; REV.start = s; NX.refreshSheet('review', false); };
+function renderReview() {
+  const D = weekData(REV.start), V = verdict(D), g = S.main.goals, end = addDays(REV.start, 6);
+  const applied = (S.main.reviewApplied || {})[REV.start];
+  const sign = v => (v > 0 ? '+' : v < 0 ? '−' : '') + fmt(Math.abs(v), 1);
+  // barres des calories
+  const max = Math.max(g.k * 1.25, ...D.days.map(x => x.t.k)) || 1;
+  const bars = Array.from({ length: 7 }, (_, i) => {
+    const k = addDays(REV.start, i), x = D.days.find(y => y.k === k), v = x ? x.t.k : 0;
+    const lbl = NX.keyToDate(k).toLocaleDateString(NX.LOC(), { weekday: 'narrow' });
+    const st = !x || k > today() ? 'off' : !v ? 'none' : Math.abs(v - g.k) <= g.k * 0.1 ? 'ok' : v < g.k ? 'low' : 'high';
+    return '<div class="rb ' + st + '"><span class="rv">' + (v ? fmt(Math.round(v / 100) / 10, 1) + 'k' : '') + '</span><i style="height:' + (v / max * 100).toFixed(1) + '%"></i><span class="rl">' + lbl.toUpperCase() + '</span></div>';
+  }).join('');
+  const tile = (lbl, val, sub, c) => '<div class="rvt"><span>' + lbl + '</span><b' + (c ? ' style="color:' + c + '"' : '') + '>' + val + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div>';
+  const kc = { ok: 'var(--good)', up: 'var(--carb)', down: 'var(--warn)', eat: 'var(--fat)', data: 'var(--muted)' }[V.kind];
+  let h = '<div class="rev-nav"><button class="icon-btn" data-a="review-week" data-d="-1" aria-label="Semaine précédente">' + ico('left') + '</button><b>' + NXI.t('Semaine du {a} au {b}', { a: NX.shortDate(REV.start), b: NX.shortDate(end) }) + '</b><button class="icon-btn" data-a="review-week" data-d="1" aria-label="Semaine suivante"' + (addDays(REV.start, 7) > today() ? ' disabled' : '') + '>' + ico('right') + '</button></div>';
+  h += '<div class="rev-hero" style="--c:' + kc + '"><span class="rh-i">' + ico(V.kind === 'ok' ? 'trophy' : V.kind === 'data' ? 'chart' : 'flame') + '</span><div><b>' + V.title + '</b><p>' + V.msg + '</p></div></div>';
+  if (V.delta && REV.start === reviewWeek()) {
+    h += applied ? '<div class="callout">' + ico('check', 'sm') + ' Ajustement appliqué : ' + (applied > 0 ? '+' : '−') + fmt(Math.abs(applied)) + ' kcal par jour.</div>'
+      : '<button class="btn block" data-a="review-apply" data-v="' + V.delta + '">' + ico('wand') + NXI.t('Appliquer : {d} kcal par jour', { d: (V.delta > 0 ? '+' : '−') + fmt(Math.abs(V.delta)) }) + '</button><p class="note" style="margin:-4px 0 0;text-align:center">' + NXI.t('Ton objectif passera de {a} à {b} kcal.', { a: fmt(g.k), b: fmt(g.k + V.delta) }) + '</p>';
+  }
+  h += '<section class="sec"><div class="label">Calories jour par jour</div><div class="rev-bars" style="--goal:' + (g.k / max * 100).toFixed(1) + '%">' + bars + '<span class="rg"></span></div></section>';
+  h += '<div class="rev-grid">'
+    + tile('Poids moyen', D.wAvg ? fmt(D.wAvg, 1) + ' kg' : '–', D.dW != null ? sign(D.dW) + ' kg vs semaine d\'avant' : (D.wN ? D.wN + ' pesée' + (D.wN > 1 ? 's' : '') : 'aucune pesée'))
+    + tile('Calories / jour', D.avgK != null ? fmt(Math.round(D.avgK / 10) * 10) : '–', 'objectif ' + fmt(g.k), D.avgK != null ? (Math.abs(D.avgK - g.k) <= g.k * 0.08 ? 'var(--good)' : 'var(--ink)') : null)
+    + tile('Protéines / jour', D.avgP != null ? fmt(Math.round(D.avgP)) + ' g' : '–', 'objectif ' + fmt(g.p) + ' g', D.avgP != null && D.avgP >= g.p * 0.9 ? 'var(--good)' : null)
+    + tile('Jours suivis', D.logged + '/7', D.logged >= 5 ? 'très régulier' : D.logged >= 3 ? 'correct' : 'à améliorer')
+    + tile('Séances', String(D.nW), D.nW ? fmt(D.vol / 1000, 1) + ' t soulevées' : 'aucune séance')
+    + tile('Records', String(D.prs), D.prs ? 'bravo' : '–', D.prs ? 'var(--fat)' : null)
+    + tile('Sommeil moyen', D.sleep ? fmt(D.sleep, 1) + ' h' : '–', D.sleep ? (D.sleep >= 7 ? 'bien' : 'un peu court') : 'non noté')
+    + (D.suppPct != null ? tile('Compléments', Math.round(D.suppPct * 100) + ' %', 'pris sur la semaine') : tile('Eau', '–', ''))
+    + '</div>';
+  const tips = [];
+  if (D.avgP != null && D.avgP < g.p * 0.85) tips.push(['flame', 'Tu manques de protéines : ajoute un skyr, des œufs ou une dose de whey dans ta journée.']);
+  if (D.sleep && D.sleep < 7) tips.push(['moon', 'Tu dors moins de 7 h : le sommeil compte autant que l\'entraînement pour progresser.']);
+  if (D.logged < 5) tips.push(['journal', 'Plus tu notes de jours, plus le bilan et les ajustements sont précis.']);
+  if (D.nW === 0) tips.push(['dumbbell', 'Aucune séance cette semaine : même 2 séances suffisent à garder tes muscles.']);
+  if (tips.length) h += '<section class="sec"><div class="label">Conseils</div><div class="tips" style="margin:0">' + tips.map(t => '<div class="tip">' + ico(t[0], 'sm') + '<span>' + t[1] + '</span></div>').join('') + '</div></section>';
+  return { body: h };
+}
+A['review-apply'] = el => {
+  const d = +el.dataset.v, g = S.main.goals;
+  g.k = Math.max(1200, g.k + d); g.c = Math.max(0, Math.round(g.c + d / 4));
+  S.main.reviewApplied = S.main.reviewApplied || {}; S.main.reviewApplied[REV.start] = d;
+  NX.touchMain(); NX.refreshSheet('review');
+  NX.toast(NXI.t('Objectif ajusté : {k} kcal par jour', { k: fmt(g.k) }));
+};
+// bannière du journal (dimanche, lundi, mardi)
+NX.reviewBanner = k => {
+  if (!S.main.profile || k !== today()) return '';
+  const dow = (NX.keyToDate(today()).getDay() + 6) % 7;
+  if (![6, 0, 1].includes(dow)) return '';
+  const wk = reviewWeek();
+  if (S.main.reviewSeen === wk) return '';
+  const D = weekData(wk);
+  if (D.logged < 2 && !D.nW) return '';
+  return '<div class="rev-banner"><button class="rv-main" data-a="review-open"><span class="rh-i">' + ico('calendar') + '</span><span class="lt"><b>Ton bilan de la semaine est prêt</b><span>Poids, calories, séances et conseils</span></span>' + ico('right', 'sm') + '</button><button class="icon-btn plain" data-a="review-hide" aria-label="Masquer">' + ico('x', 'sm') + '</button></div>';
+};
+
+/* ================= CALCULATEUR DE DISQUES ================= */
+const PLATES = [25, 20, 15, 10, 5, 2.5, 1.25];
+const PCOL = { 25: '#E5484D', 20: '#3E7BFA', 15: '#F5C044', 10: '#3DBE7A', 5: '#E9ECF1', 2.5: '#3A4150', 1.25: '#A3ABBA' };
+const PSIZE = { 25: [15, 118], 20: [14, 118], 15: [13, 100], 10: [11, 84], 5: [9, 62], 2.5: [8, 50], 1.25: [7, 42] };
+const plCfg = () => { const s = S.main.settings; if (!s.plates) s.plates = PLATES.slice(); if (s.bar == null) s.bar = 20; return s; };
+function solvePlates(target, bar, avail) {
+  let side = (target - bar) / 2;
+  const out = [];
+  if (side <= 0) return { side: [], total: bar, exact: Math.abs(target - bar) < 0.01 };
+  for (const p of avail.slice().sort((a, b) => b - a)) while (side >= p - 1e-6) { out.push(p); side -= p; }
+  const total = bar + 2 * out.reduce((a, b) => a + b, 0);
+  return { side: out, total, exact: Math.abs(total - target) < 0.01 };
+}
+function barSvg(side) {
+  const W = 340, H = 140, cy = 70, inner = 118, maxW = inner - 16;
+  let tw = side.reduce((a, p) => a + PSIZE[p][0] + 2, 0);
+  const k = tw > maxW ? maxW / tw : 1;
+  let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="pl-svg" aria-hidden="true">'
+    + '<rect x="6" y="' + (cy - 4) + '" width="' + (W - 12) + '" height="8" rx="4" fill="#4A5262"/>'
+    + '<rect x="' + (inner - 6) + '" y="' + (cy - 11) + '" width="7" height="22" rx="2" fill="#6B7383"/><rect x="' + (W - inner - 1) + '" y="' + (cy - 11) + '" width="7" height="22" rx="2" fill="#6B7383"/>'
+    + '<rect x="' + (inner + 1) + '" y="' + (cy - 5) + '" width="' + (W - 2 * inner - 2) + '" height="10" rx="3" fill="#5A6272"/>';
+  const plate = (x, p, i) => { const [w0, h0] = PSIZE[p], w = w0 * k, h = h0; return '<rect class="pl-p" style="animation-delay:' + (i * 45) + 'ms" x="' + x.toFixed(1) + '" y="' + (cy - h / 2) + '" width="' + w.toFixed(1) + '" height="' + h + '" rx="3" fill="' + PCOL[p] + '"' + (p === 2.5 ? ' stroke="#5A6272" stroke-width="1"' : '') + '/>'; };
+  let xl = inner - 7, xr = W - inner + 7;
+  side.forEach((p, i) => { const w = PSIZE[p][0] * k; xl -= w + 2; s += plate(xl, p, i); s += plate(xr, p, i); xr += w + 2; });
+  return s + '</svg>';
+}
+const plTxt = side => side.length ? side.map(p => fmt(p, 2)).join(' + ') : 'barre seule';
+const PL = { w: 60 };
+NX.openPlates = w => {
+  if (w > 0) PL.w = w;
+  NX.openSheet({ id: 'plates', title: 'Calculateur de disques', render: renderPlates });
+};
+A['plates-open'] = el => {
+  let w = 0;
+  const a = S.main.active;
+  if (el.dataset.i != null && a) { const e = a.exercises[+el.dataset.i]; const s = e && (e.sets.find(x => !x.done && x.w > 0) || e.sets.filter(x => x.w > 0).pop()); w = s ? num(s.w) : 0; }
+  NX.openPlates(w);
+};
+function renderPlates() {
+  const cfg = plCfg(), bar = cfg.bar, avail = PLATES.filter(p => cfg.plates.includes(p));
+  const r = solvePlates(PL.w, bar, avail);
+  let h = '<div class="pl-top"><button class="icon-btn" data-a="pl-step" data-v="-2.5" aria-label="Moins 2,5 kg">' + ico('minus') + '</button><label class="pl-w"><input class="inp" inputmode="decimal" id="pl-w" value="' + fmt(PL.w, 2).replace(/\s/g, '') + '" data-in="pl-w" aria-label="Charge totale"><span>kg</span></label><button class="icon-btn" data-a="pl-step" data-v="2.5" aria-label="Plus 2,5 kg">' + ico('plus') + '</button></div>';
+  h += '<div class="pl-vis" id="pl-vis">' + plVis(r, bar) + '</div>';
+  h += '<div class="sec"><div class="label">Barre</div><div class="seg">' + [[20, '20 kg'], [15, '15 kg'], [10, 'EZ 10 kg']].map(b => '<button class="' + (bar === b[0] ? 'on' : '') + '" data-a="pl-bar" data-v="' + b[0] + '">' + b[1] + '</button>').join('') + '</div></div>';
+  h += '<div class="sec" id="pl-wu">' + warmup(PL.w, bar, avail) + '</div>';
+  h += '<div class="sec"><div class="label">Disques disponibles</div><div class="pl-av">' + PLATES.map(p => '<button class="pl-chip' + (cfg.plates.includes(p) ? ' on' : '') + '" data-a="pl-av" data-v="' + p + '" style="--pc:' + PCOL[p] + '"><i></i>' + fmt(p, 2) + '</button>').join('') + '</div><p class="note" style="margin:0">Décoche les disques que ta salle n\'a pas.</p></div>';
+  return { body: h };
+}
+function plVis(r, bar) {
+  return barSvg(r.side) + '<div class="pl-res"><span class="label">Par côté</span><b>' + plTxt(r.side) + '</b>'
+    + (r.exact ? '' : '<span class="pl-warn">' + NXI.t('Charge la plus proche : {w} kg', { w: fmt(r.total, 2) }) + '</span>')
+    + (PL.w < bar ? '<span class="pl-warn">' + NXI.t('La barre pèse déjà {w} kg', { w: fmt(bar) }) + '</span>' : '') + '</div>';
+}
+function warmup(w, bar, avail) {
+  if (w < bar + 20) return '';
+  const rnd = x => Math.max(bar, Math.floor(x / 2.5) * 2.5);
+  const rows = [[bar, 10]].concat([[0.4, 8], [0.6, 5], [0.75, 3], [0.9, 1]].map(([p, r]) => [rnd(w * p), r]));
+  const seen = new Set(), list = rows.filter(([x]) => { if (seen.has(x) || x >= w) return false; seen.add(x); return true; });
+  return '<div class="label">Échauffement conseillé</div><div class="list">' + list.map(([x, r], i) => '<div class="li wu"><span class="wu-n">' + (i + 1) + '</span><span class="lt"><b>' + fmt(x, 2) + ' kg × ' + r + '</b><span>' + plTxt(solvePlates(x, bar, avail).side) + '</span></span></div>').join('')
+    + '<div class="li wu main"><span class="wu-n">' + ico('dumbbell', 'sm') + '</span><span class="lt"><b>' + fmt(w, 2) + ' kg</b><span>Séries de travail</span></span></div></div>';
+}
+const plRefresh = () => {
+  const cfg = plCfg(), avail = PLATES.filter(p => cfg.plates.includes(p)), r = solvePlates(PL.w, cfg.bar, avail);
+  const v = $('#pl-vis'), wu = $('#pl-wu');
+  if (v) v.innerHTML = plVis(r, cfg.bar);
+  if (wu) wu.innerHTML = warmup(PL.w, cfg.bar, avail);
+};
+A['pl-step'] = el => { PL.w = Math.max(0, Math.round((PL.w + num(el.dataset.v)) * 4) / 4); const i = $('#pl-w'); if (i) i.value = fmt(PL.w, 2).replace(/\s/g, ''); plRefresh(); };
+IN['pl-w'] = el => { const v = num(el.value); if (v >= 0 && v < 1000) { PL.w = v; plRefresh(); } };
+A['pl-bar'] = el => { plCfg().bar = +el.dataset.v; NX.touchMain(); NX.refreshSheet('plates'); };
+A['pl-av'] = el => { const cfg = plCfg(), p = +el.dataset.v; cfg.plates = cfg.plates.includes(p) ? cfg.plates.filter(x => x !== p) : cfg.plates.concat(p); NX.touchMain(); NX.refreshSheet('plates'); };
+
+/* ================= CARTE DES MUSCLES ================= */
+const MUSCLES = {
+  chest: 'Pectoraux', delts: 'Épaules', rear: 'Arrière d\'épaule', biceps: 'Biceps', triceps: 'Triceps', fore: 'Avant-bras', abs: 'Abdominaux', obl: 'Obliques',
+  quads: 'Quadriceps', hams: 'Ischios', glutes: 'Fessiers', calves: 'Mollets', lats: 'Grand dorsal', traps: 'Trapèzes', lower: 'Lombaires'
+};
+// séries comptées : 1 pour le muscle principal, 0,5 pour les muscles secondaires
+const EXMAP = {
+  'Développé couché': { chest: 1, triceps: .5, delts: .5 }, 'Développé couché haltères': { chest: 1, triceps: .5, delts: .5 },
+  'Développé incliné': { chest: 1, delts: .5, triceps: .5 }, 'Développé incliné haltères': { chest: 1, delts: .5, triceps: .5 },
+  'Écarté poulie': { chest: 1 }, 'Pec deck': { chest: 1 }, 'Dips': { chest: 1, triceps: 1, delts: .5 }, 'Pompes': { chest: 1, triceps: .5, delts: .5, abs: .5 },
+  'Tractions': { lats: 1, biceps: .5, fore: .5, rear: .5 }, 'Rowing barre': { lats: 1, traps: .5, rear: .5, biceps: .5, lower: .5 }, 'Rowing haltère': { lats: 1, rear: .5, biceps: .5 },
+  'Tirage vertical': { lats: 1, biceps: .5 }, 'Tirage horizontal': { lats: 1, traps: .5, rear: .5, biceps: .5 }, 'Soulevé de terre': { lower: 1, glutes: 1, hams: 1, traps: .5, fore: .5, quads: .5 },
+  'Pull-over poulie': { lats: 1 }, 'Face pull': { rear: 1, traps: .5 },
+  'Développé militaire': { delts: 1, triceps: .5, traps: .5 }, 'Développé haltères assis': { delts: 1, triceps: .5 }, 'Élévations latérales': { delts: 1 }, 'Oiseau': { rear: 1 }, 'Shrugs': { traps: 1, fore: .5 },
+  'Curl barre': { biceps: 1, fore: .5 }, 'Curl haltères': { biceps: 1, fore: .5 }, 'Curl marteau': { biceps: 1, fore: 1 }, 'Curl pupitre': { biceps: 1 },
+  'Extension triceps poulie': { triceps: 1 }, 'Barre au front': { triceps: 1 }, 'Extension nuque haltère': { triceps: 1 },
+  'Squat': { quads: 1, glutes: 1, lower: .5, hams: .5 }, 'Presse à cuisses': { quads: 1, glutes: .5 }, 'Fentes': { quads: 1, glutes: 1, hams: .5 },
+  'Soulevé de terre roumain': { hams: 1, glutes: 1, lower: .5 }, 'Leg extension': { quads: 1 }, 'Leg curl': { hams: 1 }, 'Hip thrust': { glutes: 1, hams: .5 }, 'Mollets debout': { calves: 1 },
+  'Crunch': { abs: 1 }, 'Relevé de jambes': { abs: 1, obl: .5 }, 'Roue abdominale': { abs: 1, obl: .5, lats: .5 }, 'Gainage (secondes)': { abs: 1, obl: .5 }
+};
+const GROUPMAP = { 'Pectoraux': { chest: 1, triceps: .5 }, 'Dos': { lats: 1, biceps: .5 }, 'Épaules': { delts: 1 }, 'Bras': { biceps: .5, triceps: .5 }, 'Jambes': { quads: 1, glutes: .5, hams: .5 }, 'Abdos': { abs: 1 } };
+function exMap(name) {
+  if (EXMAP[name]) return EXMAP[name];
+  const e = NX.allExercises().find(x => x.name === name);
+  return (e && GROUPMAP[e.group]) || {};
+}
+function muscleSets(days) {
+  const from = addDays(today(), -(days - 1)), sets = {}, by = {};
+  for (const w of NX.allWorkouts()) {
+    if (w.date < from) continue;
+    for (const e of w.exercises) {
+      const n = e.sets.filter(s => s.done).length;
+      if (!n) continue;
+      const m = exMap(e.ex);
+      for (const id in m) { sets[id] = (sets[id] || 0) + n * m[id]; (by[id] = by[id] || {})[e.ex] = (by[id][e.ex] || 0) + n; }
+    }
+  }
+  const div = days / 7;
+  for (const id in sets) sets[id] /= div;
+  return { sets, by };
+}
+const LEVELS = [[0, 'none'], [0.01, 'low'], [4, 'mid'], [10, 'good'], [20.01, 'high']];
+const level = v => { let l = 'none'; for (const [t, n] of LEVELS) if ((v || 0) >= t) l = n; return l; };
+// silhouette et muscles (moitié gauche de l'image, l'autre moitié est le miroir)
+const BASE = [
+  'M100 58C93 59 86 62 80 65L66 71C58 74 56 84 57 98C60 128 65 168 69 200C67 212 66 222 66 230L100 234Z',
+  'M66 71C52 72 43 84 42 102C41 122 42 140 44 152C50 157 58 155 62 150C63 130 64 112 66 97Z',
+  'M44 150C40 170 37 192 37 212C40 216 46 216 48 212C54 192 59 170 62 150Z',
+  'M66 228C63 260 67 292 71 320C79 326 89 324 94 318C98 290 100 262 100 234Z',
+  'M71 318C69 340 69 362 73 388C77 396 86 396 88 388C92 364 94 340 94 318Z'
+];
+const BASE_X = '<ellipse cx="100" cy="32" rx="16" ry="20"/><path d="M92 48H108L110 62H90Z"/><ellipse cx="40" cy="226" rx="6" ry="12"/><ellipse cx="160" cy="226" rx="6" ry="12"/><ellipse cx="80" cy="400" rx="9" ry="6"/><ellipse cx="120" cy="400" rx="9" ry="6"/>';
+const FRONT = [
+  ['traps', 'M91 56C88 62 80 67 70 71L92 71Z'],
+  ['delts', 'M64 72C53 73 45 81 45 94C45 103 47 109 50 113C55 104 61 96 70 90C71 82 69 76 64 72Z'],
+  ['chest', 'M98 80V117C90 124 77 124 67 117C61 111 60 99 66 90C73 82 85 79 98 80Z'],
+  ['biceps', 'M50 116C56 110 62 112 62 122C63 134 60 146 54 150C48 148 45 138 46 128C46 122 47 118 50 116Z'],
+  ['fore', 'M46 154C52 152 58 154 58 162C58 180 52 200 46 211C42 212 40 208 40 204C39 186 40 166 46 154Z'],
+  ['abs', 'M88 127H98V143H88ZM88 146H98V162H88ZM88 165H98V181H88ZM88 184H98V208C94 212 90 210 88 204Z'],
+  ['obl', 'M70 128C77 130 83 134 85 140V196C80 200 74 198 72 192C70 176 68 150 70 128Z'],
+  ['quads', 'M72 234C80 229 92 231 97 239C98 263 96 292 92 311C86 318 78 318 74 310C70 290 68 258 72 234Z'],
+  ['calves', 'M74 330C78 326 84 328 86 334C87 350 84 370 80 384C77 386 74 382 73 376C71 360 71 344 74 330Z']
+];
+const BACK = [
+  ['traps', 'M100 52C96 59 86 66 70 72C80 79 90 92 100 120Z'],
+  ['rear', 'M64 72C54 74 46 82 45 94C46 102 50 108 52 110C56 100 62 94 70 90C70 82 68 76 64 72Z'],
+  ['triceps', 'M49 114C55 110 61 114 61 124C61 136 58 146 52 150C47 146 45 136 46 126C46 120 47 116 49 114Z'],
+  ['fore', 'M46 154C52 152 58 154 58 162C58 180 52 200 46 211C42 212 40 208 40 204C39 186 40 166 46 154Z'],
+  ['lats', 'M72 96C82 104 92 118 97 130V170C91 178 84 184 78 186C72 170 68 140 66 112C67 104 69 99 72 96Z'],
+  ['lower', 'M90 172C94 174 97 176 99 176V214C93 214 88 212 84 206C84 192 86 180 90 172Z'],
+  ['glutes', 'M98 218C98 240 96 256 88 262C78 266 70 258 68 246C66 234 70 224 78 220C86 216 94 216 98 218Z'],
+  ['hams', 'M72 268C80 266 92 266 96 272C97 290 95 306 91 316C85 320 78 320 74 314C70 300 69 282 72 268Z'],
+  ['calves', 'M74 326C80 322 90 324 93 332C95 346 92 362 87 372C82 376 77 374 75 368C71 354 71 338 74 326Z']
+];
+function bodySvg(parts, M, view) {
+  const base = BASE.map(d => '<path d="' + d + '"/>').join('');
+  const mus = side => parts.map(([id, d]) => '<path class="mu lv-' + level(M.sets[id]) + (UI.mmSel === id ? ' sel' : '') + '" data-m="' + id + '" data-a="mm-pick" d="' + d + '"/>').join('');
+  return '<svg viewBox="30 8 140 400" role="img" aria-label="' + (view === 'f' ? 'Face' : 'Dos') + '"><g class="base">' + base + '<g transform="matrix(-1 0 0 1 200 0)">' + base + '</g>' + BASE_X + '</g>'
+    + '<g>' + mus() + '</g><g transform="matrix(-1 0 0 1 200 0)">' + mus() + '</g></svg>';
+}
+function mmDetail(M) {
+  const id = UI.mmSel;
+  if (!id || !MUSCLES[id]) {
+    const ranked = Object.keys(MUSCLES).map(k => [k, M.sets[k] || 0]).sort((a, b) => b[1] - a[1]);
+    const top = ranked.filter(x => x[1] > 0).slice(0, 2), weak = ranked.filter(x => x[1] < 4).slice(-3).reverse();
+    if (!top.length) return '<p class="note" style="margin:0">Termine une séance pour voir quels muscles tu as travaillés. Touche un muscle pour le détail.</p>';
+    return '<div class="mm-sum"><div><span class="faint">Le plus travaillé</span><b>' + top.map(x => MUSCLES[x[0]]).join(', ') + '</b></div>' + (weak.length ? '<div><span class="faint">À travailler</span><b>' + weak.map(x => MUSCLES[x[0]]).join(', ') + '</b></div>' : '') + '</div><p class="note" style="margin:0">Touche un muscle pour le détail.</p>';
+  }
+  const v = M.sets[id] || 0, lv = level(v);
+  const msg = { none: 'Pas travaillé sur la période.', low: 'Peu travaillé : vise au moins 10 séries par semaine pour qu\'il grossisse.', mid: 'Correct, mais 10 à 20 séries par semaine donnent les meilleurs résultats.', good: 'Volume idéal pour la prise de muscle.', high: 'Beaucoup de séries : surveille ta récupération.' }[lv];
+  const ex = Object.entries(M.by[id] || {}).sort((a, b) => b[1] - a[1]);
+  return '<div class="mm-det lv-' + lv + '"><div class="sec-head"><b>' + MUSCLES[id] + '</b><span class="mm-v">' + NXI.t('{n} séries / sem.', { n: fmt(v, v % 1 ? 1 : 0) }) + '</span></div><p class="note" style="margin:0">' + msg + '</p>'
+    + (ex.length ? '<div class="mm-ex">' + ex.map(([n, c]) => '<span>' + esc(n) + ' <b>' + c + '</b></span>').join('') + '</div>' : '') + '</div>';
+}
+NX.muscleSection = () => {
+  const days = UI.mmRange || 7, M = muscleSets(days);
+  return '<section class="sec" id="mm-sec"><div class="sec-head"><h2 class="h-sec">Muscles travaillés</h2></div>'
+    + '<div class="seg"><button class="' + (days === 7 ? 'on' : '') + '" data-a="mm-range" data-v="7">7 derniers jours</button><button class="' + (days === 28 ? 'on' : '') + '" data-a="mm-range" data-v="28">4 semaines (moy.)</button></div>'
+    + '<div class="mm"><figure>' + bodySvg(FRONT, M, 'f') + '<figcaption>Face</figcaption></figure><figure>' + bodySvg(BACK, M, 'b') + '<figcaption>Dos</figcaption></figure></div>'
+    + '<div class="mm-leg"><span><i class="lv-none"></i>0</span><span><i class="lv-low"></i>1-3</span><span><i class="lv-mid"></i>4-9</span><span><i class="lv-good"></i>10-20</span><span><i class="lv-high"></i>20+</span><em>séries / sem.</em></div>'
+    + '<div id="mm-detail">' + mmDetail(M) + '</div></section>';
+};
+const mmRefresh = () => { const s = $('#mm-sec'); if (!s) return; const t = document.createElement('div'); t.innerHTML = NX.muscleSection(); s.replaceWith(t.firstChild); };
+A['mm-range'] = el => { UI.mmRange = +el.dataset.v; mmRefresh(); };
+A['mm-pick'] = el => {
+  const id = el.dataset.m;
+  UI.mmSel = UI.mmSel === id ? null : id;
+  $$('#mm-sec .mu').forEach(p => p.classList.toggle('sel', p.dataset.m === UI.mmSel));
+  const d = $('#mm-detail'); if (d) d.innerHTML = mmDetail(muscleSets(UI.mmRange || 7));
+};
+})();
+
+/* Nexafit — menu de la semaine : repas calculés pour tomber pile sur les objectifs, puis courses automatiques. */
+(function () {
+'use strict';
+const { $, esc, uid, clone, clamp, fmt, addDays, today, ico, S, UI, A } = NX;
+
+/* ---------- modèles de repas ---------- */
+// rôle : P protéines, C féculent, F matière grasse (quantités calculées) ; V légumes, X fruit, D lait (quantités fixes)
+const PROT = ['Filet de poulet cuit', 'Escalope de dinde cuite', 'Steak haché 5 % cuit', 'Saumon cuit', 'Cabillaud cuit', 'Thon au naturel (égoutté)', 'Steak de bœuf cuit', 'Crevettes cuites décortiquées', 'Œuf entier', 'Tofu nature'];
+const CARB = ['Riz basmati cuit', 'Pâtes cuites', 'Pomme de terre cuite', 'Patate douce cuite', 'Quinoa cuit', 'Pâtes complètes cuites', 'Riz complet cuit', 'Lentilles cuites'];
+const VEG = ['Brocoli', 'Haricots verts', 'Courgette', 'Poêlée de légumes surgelés', 'Carotte', 'Épinards surgelés', 'Chou-fleur', 'Champignons de Paris', 'Salade verte', 'Tomate'];
+const FRUIT = ['Banane', 'Pomme', 'Orange', 'Kiwi', 'Poire', 'Clémentine', 'Fraises', 'Myrtilles'];
+const B = {
+  P: { r: [100, 300], s: 10 }, C: { r: [60, 450], s: 10 }, F: { r: [0, 25], s: 5 }
+};
+const TPL = {
+  b: [
+    [['C', ["Flocons d'avoine"], [30, 160], 5], ['D', ['Lait demi-écrémé'], 250], ['P', ['Skyr nature', 'Fromage blanc 0 %'], [100, 300], 50], ['X', ['Banane', 'Myrtilles', 'Pomme']], ['F', ['Beurre de cacahuète', 'Amandes'], [0, 40], 5]],
+    [['C', ['Pain complet', 'Pain aux céréales', 'Pain de campagne'], [35, 245], 5], ['P', ['Œuf entier'], [55, 220], 55], ['F', ['Beurre doux', 'Avocat'], [0, 30], 5], ['X', ['Orange', 'Kiwi', 'Clémentine']]],
+    [['P', ['Fromage blanc 3 %', 'Skyr nature'], [100, 400], 50], ['C', ['Muesli floconneux', "Flocons d'avoine"], [30, 150], 5], ['X', ['Fraises', 'Pomme', 'Banane']], ['F', ['Noix', 'Amandes'], [0, 40], 5]]
+  ],
+  l: [[['P', PROT], ['C', CARB], ['V', VEG], ['F', ["Huile d'olive"]], ['C', ['Baguette tradition', 'Pain complet'], [0, 120], 5]]],
+  d: [[['P', PROT], ['C', CARB], ['V', VEG], ['F', ["Huile d'olive"]], ['C', ['Pain complet', 'Baguette tradition'], [0, 120], 5]]],
+  s: [
+    [['P', ['Skyr nature', 'Yaourt grec nature', 'Fromage blanc 0 %'], [100, 300], 50], ['X', FRUIT], ['C', ['Muesli floconneux', "Flocons d'avoine"], [0, 80], 5], ['F', ['Amandes', 'Noix de cajou', 'Noisettes'], [0, 40], 5]],
+    [['C', ['Pain complet'], [0, 140], 5], ['F', ['Beurre de cacahuète'], [0, 40], 5], ['X', ['Banane', 'Pomme']], ['P', ['Skyr nature'], [100, 250], 50]],
+    [['P', ['Œuf dur'], [50, 150], 50], ['C', ['Galette de riz soufflé'], [0, 54], 9], ['X', FRUIT], ['F', ['Amandes'], [0, 30], 5]]
+  ]
+};
+const SHARE = { b: 0.25, l: 0.32, s: 0.13, d: 0.30 };
+const EXCL = { fish: ['Poissons & fruits de mer'], eggs: ['Œufs'], dairy: ['Produits laitiers', 'Fromages'], meat: ['Viandes'] };
+const EXCL_LBL = { fish: 'Sans poisson', eggs: 'Sans œufs', dairy: 'Sans produits laitiers', meat: 'Sans viande rouge' };
+
+const rng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+const loss = () => NX.isLoss();
+function allowed(name) {
+  const f = NX.foodByName(name);
+  if (!f) return null;
+  const ex = (S.main.mealPlan && S.main.mealPlan.excl) || [];
+  for (const k of ex) if ((EXCL[k] || []).includes(f.cat)) return null;
+  return f;
+}
+const pool = names => names.map(allowed).filter(Boolean);
+function slotBounds(role, spec, f) {
+  if (role === 'V') return { fixed: loss() ? 250 : 150 };
+  if (role === 'X') return { fixed: f.unit && f.unit[1] ? f.unit[1] : 120 };
+  if (role === 'D') return { fixed: spec[2] };
+  if (!spec[2] && role === 'P' && /œuf/i.test(f.name) && f.unit && f.unit[1]) return { r: [f.unit[1], f.unit[1] * 5], s: f.unit[1] };
+  // pain en tranches entières
+  if (role === 'C' && f.unit && f.unit[0] === 'tranche') { const u = f.unit[1], r = spec[2] || B.C.r; return { r: [Math.max(u, Math.ceil(r[0] / u) * u), Math.floor(r[1] / u) * u], s: u }; }
+  return { r: spec[2] || B[role].r, s: spec[3] || B[role].s };
+}
+
+/* ---------- génération ---------- */
+function buildDay(i, seed) {
+  const R = rng(seed * 31 + i * 7919);
+  const day = { meals: {} }, usedP = new Set();
+  for (const mk of ['b', 'l', 's', 'd']) {
+    const tpls = TPL[mk], tpl = tpls[(i + Math.floor(R() * 3)) % tpls.length];
+    day.meals[mk] = [];
+    for (const spec of tpl) {
+      const role = spec[0];
+      let cands = pool(spec[1]);
+      if (role === 'D' && loss()) cands = pool(['Lait écrémé']).concat(cands);
+      if (role === 'P' && (mk === 'l' || mk === 'd')) cands = cands.filter(f => !usedP.has(f.id));
+      if (!cands.length) continue;
+      const f = cands[Math.floor(R() * cands.length)];
+      if (role === 'P') usedP.add(f.id);
+      day.meals[mk].push({ id: uid(), fid: f.id, role, slot: tpls.indexOf(tpl) + ':' + tpl.indexOf(spec), g: 0 });
+    }
+  }
+  return day;
+}
+const specOf = (mk, it) => { const [a, b] = String(it.slot).split(':').map(Number); return TPL[mk][a] && TPL[mk][a][b]; };
+
+/* ---------- calcul des quantités (descente par coordonnées, bornes, arrondi) ---------- */
+function solveDay(day) {
+  const g = S.main.goals, T = { k: g.k, p: g.p, c: g.c, f: g.f };
+  const vars = [], fixed = { k: 0, p: 0, c: 0, f: 0 }, fixedMeal = { b: 0, l: 0, s: 0, d: 0 }, fixedMealP = { b: 0, l: 0, s: 0, d: 0 };
+  for (const mk in day.meals) for (const it of day.meals[mk]) {
+    const f = NX.foodById(it.fid), spec = specOf(mk, it);
+    if (!f || !spec) { it.g = 0; continue; }
+    it._f = f;
+    const bd = slotBounds(it.role, spec, f);
+    if (bd.fixed != null) { it.g = bd.fixed; const m = NX.macrosOf(f.per, it.g); for (const k in fixed) fixed[k] += m[k]; fixedMeal[mk] += m.k; fixedMealP[mk] += m.p; continue; }
+    vars.push({ it, mk, f, lo: bd.r[0], hi: bd.r[1], s: bd.s, x: (bd.r[0] + bd.r[1]) / 2, x0: (bd.r[0] + bd.r[1]) / 2 });
+  }
+  // termes : poids × (Σ c·x − d)²
+  const terms = [];
+  const W = { k: 8, p: 3, c: 3, f: 2 };
+  for (const m of ['k', 'p', 'c', 'f']) terms.push({ w: W[m], c: vars.map(v => v.f.per[m] / 100 / T[m]), d: (T[m] - fixed[m]) / T[m] });
+  for (const mk of ['b', 'l', 's', 'd']) {
+    terms.push({ w: 0.6, c: vars.map(v => v.mk === mk ? v.f.per.k / 100 / T.k : 0), d: (SHARE[mk] * T.k - fixedMeal[mk]) / T.k });
+    // protéines réparties sur la journée (un peu moins au goûter)
+    const ps = { b: 0.25, l: 0.3, s: 0.15, d: 0.3 }[mk];
+    terms.push({ w: 0.9, c: vars.map(v => v.mk === mk ? v.f.per.p / 100 / T.p : 0), d: (ps * T.p - fixedMealP[mk]) / T.p });
+  }
+  vars.forEach((v, i) => { const R = (v.hi - v.lo) || 1; terms.push({ w: 0.015, c: vars.map((_, j) => j === i ? 1 / R : 0), d: v.x0 / R }); });
+  const dot = t => t.c.reduce((a, c, j) => a + c * vars[j].x, 0);
+  const E = () => terms.reduce((a, t) => a + t.w * (dot(t) - t.d) ** 2, 0);
+  const descend = n => { for (let sweep = 0; sweep < n; sweep++) {
+    for (let i = 0; i < vars.length; i++) {
+      let num = 0, den = 0;
+      for (const t of terms) { const ci = t.c[i]; if (!ci) continue; const rest = dot(t) - ci * vars[i].x; num += t.w * ci * (t.d - rest); den += t.w * ci * ci; }
+      if (den > 0) vars[i].x = clamp(num / den, vars[i].lo, vars[i].hi);
+    }
+  } };
+  descend(80);
+  // les petites quantités facultatives (5 g d'amandes…) sont retirées, puis on recalcule
+  const MINQ = { F: 10, C: 20, P: 50 };
+  let drop = false;
+  for (const v of vars) if (v.lo === 0 && v.x < (MINQ[v.it.role] || 10)) { v.lo = v.hi = v.x = 0; drop = true; }
+  if (drop) descend(40);
+  // arrondi puis petits ajustements pas à pas
+  for (const v of vars) v.x = clamp(Math.round(v.x / v.s) * v.s, v.lo, v.hi);
+  for (let pass = 0; pass < 6; pass++) {
+    let better = false;
+    for (const v of vars) for (const dir of [1, -1]) {
+      const old = v.x, e0 = E(); v.x = clamp(old + dir * v.s, v.lo, v.hi);
+      if (E() < e0 - 1e-9) better = true; else v.x = old;
+    }
+    if (!better) break;
+  }
+  for (const v of vars) v.it.g = v.x;
+  // on retire les aliments arrivés à 0
+  for (const mk in day.meals) { day.meals[mk] = day.meals[mk].filter(it => it.g > 0); day.meals[mk].forEach(it => delete it._f); }
+  return day;
+}
+const goalSig = () => { const g = S.main.goals, p = S.main.profile || {}; return [g.k, g.p, g.c, g.f, p.goal || ''].join('|'); };
+function generate(seed) {
+  const P = S.main.mealPlan || {};
+  seed = seed || (Date.now() % 100000);
+  const days = Array.from({ length: 7 }, (_, i) => solveDay(buildDay(i, seed)));
+  S.main.mealPlan = { seed, sig: goalSig(), excl: P.excl || [], days, created: Date.now() };
+  NX.touchMain();
+}
+function resolveAll() { const P = S.main.mealPlan; P.days.forEach(solveDay); P.sig = goalSig(); NX.touchMain(); }
+const dayTot = day => { const t = { k: 0, p: 0, c: 0, f: 0 }; for (const mk in day.meals) for (const it of day.meals[mk]) { const f = NX.foodById(it.fid); if (!f) continue; const m = NX.macrosOf(f.per, it.g); for (const k in t) t[k] += m[k]; } return t; };
+
+/* ---------- vue ---------- */
+const dowIdx = k => (NX.keyToDate(k).getDay() + 6) % 7;
+const weekDate = i => addDays(today(), i - dowIdx(today()));
+UI.planDay = UI.planDay == null ? dowIdx(today()) : UI.planDay;
+NX.planView = () => {
+  const P = S.main.mealPlan;
+  if (!P || !P.days) {
+    return '<div class="plan-hero"><span class="ph-i">' + ico('wand') + '</span><b>Ton menu de la semaine, calculé pour toi</b><p>Nexafit compose 7 jours de repas simples qui tombent pile sur tes calories et tes protéines, puis remplit ta liste de courses en un geste.</p>'
+      + exclChips([]) + '<button class="btn block" data-a="plan-gen">' + ico('wand') + 'Créer mon menu</button></div>';
+  }
+  const i = UI.planDay, day = P.days[i], t = dayTot(day), g = S.main.goals;
+  let h = '';
+  if (P.sig !== goalSig()) h += '<div class="callout"><b>Tes objectifs ont changé.</b> Recalcule les quantités pour que le menu suive. <button data-a="plan-resolve" style="color:var(--carb);font-weight:650">Recalculer</button></div>';
+  h += '<div class="plan-days">' + P.days.map((_, j) => { const k = weekDate(j), d = NX.keyToDate(k); return '<button class="pd' + (j === i ? ' on' : '') + (k === today() ? ' td' : '') + '" data-a="plan-day" data-i="' + j + '"><span>' + d.toLocaleDateString(NX.LOC(), { weekday: 'short' }).replace('.', '') + '</span><b>' + d.getDate() + '</b></button>'; }).join('') + '</div>';
+  const mb = (lbl, v, goal, c) => { const pct = goal ? v / goal * 100 : 0, ok = Math.abs(pct - 100) <= 6; return '<div class="pm" style="--c:' + c + '"><span>' + lbl + '</span><b>' + fmt(v) + '<small> / ' + fmt(goal) + '</small></b><div class="bar"><i style="width:' + Math.min(100, pct).toFixed(1) + '%"></i></div>' + (ok ? '<em>' + ico('check', 'sm') + '</em>' : '') + '</div>'; };
+  h += '<div class="plan-tot">' + mb('Kcal', t.k, g.k, 'var(--brand)') + mb('Prot.', t.p, g.p, 'var(--prot)') + mb('Gluc.', t.c, g.c, 'var(--carb)') + mb('Lip.', t.f, g.f, 'var(--fat)') + '</div>';
+  for (const [mk, mn] of NX.MEALS) {
+    const list = day.meals[mk] || [];
+    if (!list.length) continue;
+    const mt = list.reduce((a, it) => { const f = NX.foodById(it.fid); return a + (f ? f.per.k * it.g / 100 : 0); }, 0);
+    h += '<section class="plan-meal"><div class="sec-head"><h3>' + mn + '</h3><span class="faint">' + fmt(mt) + ' kcal</span></div><div class="list">'
+      + list.map(it => { const f = NX.foodById(it.fid); if (!f) return ''; return '<button class="li" data-a="plan-item" data-m="' + mk + '" data-id="' + it.id + '"><span class="lt"><b>' + esc(f.name) + '</b><span>' + esc(NX.gramsLabel(it.g, f.unit)) + '</span></span><span class="rt">' + fmt(f.per.k * it.g / 100) + '<small style="font-size:11px;color:var(--faint);font-weight:600"> kcal</small></span>' + ico('refresh', 'sm') + '</button>'; }).join('') + '</div></section>';
+  }
+  const k = weekDate(i);
+  h += '<button class="btn block" data-a="plan-to-journal">' + ico('plus') + NXI.t('Ajouter au journal · {d}', { d: NX.dayTitle(k) }) + '</button>';
+  const list = NX.buyList(allLines(), 1), cost = list.reduce((a, r) => a + (r.cost || 0), 0);
+  h += '<button class="btn ghost block" data-a="plan-shop">' + ico('cart') + NXI.t('Courses de la semaine · {c}', { c: '≈ ' + NX.euro(cost) }) + '</button>';
+  h += '<div class="row-actions"><button class="chip" data-a="plan-gen">' + ico('refresh', 'sm') + 'Nouveau menu</button><button class="chip" data-a="plan-prefs">' + ico('gear', 'sm') + 'Préférences</button></div>';
+  h += '<p class="note">Touche un aliment pour le remplacer : les quantités se recalculent pour garder tes objectifs. Le menu se répète chaque semaine tant que tu n\'en crées pas un nouveau.</p>';
+  return h;
+};
+function exclChips(ex) { return '<div class="chips" style="flex-wrap:wrap">' + Object.keys(EXCL).map(k => '<button class="chip' + (ex.includes(k) ? ' on' : '') + '" data-a="plan-excl" data-k="' + k + '">' + EXCL_LBL[k] + '</button>').join('') + '</div>'; }
+const allLines = () => { const out = []; for (const d of S.main.mealPlan.days) for (const mk in d.meals) for (const it of d.meals[mk]) { const f = NX.foodById(it.fid); if (f) out.push({ food: f, g: it.g, name: f.name }); } return out; };
+const PEND = { excl: [] };
+A['plan-excl'] = el => {
+  const k = el.dataset.k, P = S.main.mealPlan;
+  const ex = P ? P.excl || (P.excl = []) : PEND.excl;
+  const i = ex.indexOf(k); if (i >= 0) ex.splice(i, 1); else ex.push(k);
+  el.classList.toggle('on', ex.includes(k));
+  if (P) NX.touchMain();
+};
+A['plan-gen'] = () => {
+  if (!S.main.profile) return NX.toast('Complète ton profil');
+  if (!S.main.mealPlan) S.main.mealPlan = { excl: PEND.excl.slice() };
+  generate(); NX.render();
+  NX.toast('Menu de la semaine prêt');
+};
+A['plan-resolve'] = () => { resolveAll(); NX.render(); NX.toast('Quantités recalculées'); };
+A['plan-day'] = el => { UI.planDay = +el.dataset.i; NX.render(); };
+A['plan-prefs'] = () => NX.openSheet({ id: 'plan-prefs', title: 'Préférences du menu', render: () => ({ body: '<p class="note" style="margin:0">Ce que tu ne veux pas dans ton menu. Les changements s\'appliquent au prochain menu.</p>' + exclChips(S.main.mealPlan.excl || []), foot: '<button class="btn" data-a="plan-prefs-go">' + ico('refresh') + 'Créer un nouveau menu</button>' }) });
+A['plan-prefs-go'] = () => { NX.closeSheet('plan-prefs'); generate(); NX.render(); NX.toast('Menu de la semaine prêt'); };
+// remplacer un aliment
+let SW = null;
+A['plan-item'] = el => {
+  const P = S.main.mealPlan, day = P.days[UI.planDay], mk = el.dataset.m, it = day.meals[mk].find(x => x.id === el.dataset.id);
+  if (!it) return;
+  const spec = specOf(mk, it);
+  let cands = spec ? pool(spec[1]) : [];
+  if (it.role === 'V') cands = pool(VEG); if (it.role === 'X') cands = pool(FRUIT);
+  SW = { mk, id: it.id };
+  NX.openSheet({ id: 'plan-swap', title: 'Remplacer', render: () => ({ body: '<div class="list">' + cands.map(f => '<button class="li" data-a="plan-swap" data-fid="' + esc(f.id) + '"><span class="lt"><b>' + esc(f.name) + '</b><span>' + fmt(f.per.k) + ' kcal · P ' + fmt(f.per.p, 1) + ' g · G ' + fmt(f.per.c, 1) + ' g · L ' + fmt(f.per.f, 1) + ' g</span></span>' + (f.id === it.fid ? ico('check', 'sm') : '') + '</button>').join('') + '</div><p class="note">Valeurs pour 100 g.</p>', foot: '<button class="btn danger" data-a="plan-rm">' + ico('trash') + 'Retirer du menu</button>' }) });
+};
+A['plan-swap'] = el => {
+  const P = S.main.mealPlan, day = P.days[UI.planDay], it = day.meals[SW.mk].find(x => x.id === SW.id);
+  if (it) { it.fid = el.dataset.fid; solveDay(day); NX.touchMain(); }
+  NX.closeSheet('plan-swap'); NX.render();
+};
+A['plan-rm'] = () => {
+  const P = S.main.mealPlan, day = P.days[UI.planDay];
+  day.meals[SW.mk] = day.meals[SW.mk].filter(x => x.id !== SW.id);
+  solveDay(day); NX.touchMain(); NX.closeSheet('plan-swap'); NX.render();
+};
+// vers le journal
+function addDayToJournal(i, k, only) {
+  const day = S.main.mealPlan.days[i], d = NX.touchDay(k);
+  let n = 0;
+  for (const mk in day.meals) {
+    if (only && mk !== only) continue;
+    for (const it of day.meals[mk]) {
+      const f = NX.foodById(it.fid); if (!f) continue;
+      d.meals[mk].push({ id: uid(), fid: f.id, name: f.name + (f.brand ? ' · ' + f.brand : ''), g: it.g, per: clone(f.per), unit: f.unit ? clone(f.unit) : null });
+      n++;
+    }
+  }
+  NX.save('d-' + k);
+  return n;
+}
+A['plan-to-journal'] = () => {
+  const k = weekDate(UI.planDay), n = addDayToJournal(UI.planDay, k);
+  UI.date = k; UI.tab = 'journal'; NX.render(); window.scrollTo(0, 0);
+  NX.toast(NXI.t('{n} aliments ajoutés au journal', { n }));
+};
+A['plan-shop'] = () => NX.sendToList(NX.buyList(allLines(), 1));
+// raccourci dans le journal
+NX.planDayChip = k => S.main.mealPlan && S.main.mealPlan.days ? '<button class="chip" data-a="plan-today" data-k="' + k + '">' + ico('wand', 'sm') + 'Menu du jour</button>' : '';
+A['plan-today'] = el => {
+  const k = el.dataset.k, i = dowIdx(k), day = S.main.mealPlan.days[i];
+  NX.openSheet({ id: 'plan-today', title: 'Menu du jour', render: () => ({
+    body: NX.MEALS.map(([mk, mn]) => { const l = day.meals[mk] || []; if (!l.length) return ''; return '<section class="plan-meal"><div class="sec-head"><h3>' + mn + '</h3><button class="add-btn" data-a="plan-add-meal" data-m="' + mk + '" data-k="' + k + '">' + ico('plus') + 'Ajouter</button></div><div class="list">' + l.map(it => { const f = NX.foodById(it.fid); return f ? '<div class="li"><span class="lt"><b>' + esc(f.name) + '</b><span>' + esc(NX.gramsLabel(it.g, f.unit)) + '</span></span><span class="rt">' + fmt(f.per.k * it.g / 100) + '</span></div>' : ''; }).join('') + '</div></section>'; }).join(''),
+    foot: '<button class="btn" data-a="plan-add-all" data-k="' + k + '">' + ico('plus') + 'Tout ajouter au journal</button>'
+  }) });
+};
+A['plan-add-meal'] = el => { const n = addDayToJournal(dowIdx(el.dataset.k), el.dataset.k, el.dataset.m); NX.render(); NX.toast(NXI.t('{n} aliments ajoutés au journal', { n })); el.disabled = true; };
+A['plan-add-all'] = el => { const n = addDayToJournal(dowIdx(el.dataset.k), el.dataset.k); NX.closeSheet('plan-today'); NX.render(); NX.toast(NXI.t('{n} aliments ajoutés au journal', { n })); };
+NX._planSolve = solveDay; // pour les tests
+})();
+
+/* Nexafit — assistant d'aide : comprend la question, répond, diagnostique et répare. */
+(function () {
+'use strict';
+const { $, esc, uid, fmt, norm, today, ico, S, UI, A, IN } = NX;
+const VERSION = '2.4';
+
+/* ---------- journal des erreurs (pour le diagnostic) ---------- */
+const ERR_KEY = 'nexafit-errors';
+const logErr = m => { try { const l = JSON.parse(localStorage.getItem(ERR_KEY) || '[]'); l.push({ t: Date.now(), m: String(m).slice(0, 160) }); localStorage.setItem(ERR_KEY, JSON.stringify(l.slice(-15))); } catch (e) { } };
+window.addEventListener('error', e => logErr(e.message || 'erreur'));
+window.addEventListener('unhandledrejection', e => logErr((e.reason && (e.reason.message || e.reason)) || 'promesse'));
+const errors = () => { try { return JSON.parse(localStorage.getItem(ERR_KEY) || '[]'); } catch (e) { return []; } };
+
+/* ---------- base de connaissances ---------- */
+// k : mots-clés (français, anglais, turc) ; a : paragraphes ; s : étapes ; act : boutons
+const KB = [
+  { id: 'lost', t: 'Mes données ont disparu', k: ['disparu', 'perdu', 'efface', 'supprime', 'plus rien', 'vide', 'donnees', 'historique', 'lost', 'missing', 'gone', 'deleted', 'data', 'kayboldu', 'silindi', 'veriler', 'gitti'],
+    a: ['Tes données sont gardées sur ce téléphone, dans le navigateur. Elles peuvent sembler disparaître si tu as effacé l\'historique de Safari, si tu es en navigation privée, ou si tu ouvres Nexafit depuis Safari au lieu de l\'icône de l\'écran d\'accueil (ce sont deux espaces séparés).', 'Si tu as exporté une sauvegarde, tu peux tout récupérer en l\'important.'], act: ['backup', 'diag'] },
+  { id: 'backup', t: 'Sauvegarder ou changer de téléphone', k: ['sauvegarde', 'sauvegarder', 'exporter', 'importer', 'changer de telephone', 'nouveau telephone', 'transferer', 'backup', 'export', 'import', 'new phone', 'transfer', 'yedek', 'yedekle', 'telefon degistir', 'aktar'],
+    s: ['Ouvre Réglages › Sauvegarde et export.', 'Touche « Exporter une sauvegarde complète » et garde le fichier dans Fichiers ou iCloud Drive.', 'Sur le nouveau téléphone, installe Nexafit puis touche « Importer une sauvegarde » et choisis ce fichier.'], act: ['backup', 'export'] },
+  { id: 'install', t: 'Installer l\'appli sur le téléphone', k: ['installer', 'installation', 'ecran d accueil', 'icone', 'telecharger', 'install', 'home screen', 'download', 'app store', 'kur', 'yukle', 'ana ekran', 'indir'],
+    s: ['Ouvre le lien de Nexafit dans Safari (sur Android : Chrome).', 'Touche Partager puis « Sur l\'écran d\'accueil » (sur Android : menu ⋮ puis « Ajouter à l\'écran d\'accueil »).', 'Ouvre ensuite Nexafit depuis son icône : elle s\'affiche en plein écran et marche même sans connexion.'] },
+  { id: 'scan', t: 'Le scanner ne marche pas', k: ['scanner', 'scan', 'code barre', 'codes barres', 'camera', 'photo', 'barcode', 'tarama', 'barkod', 'kamera', 'okumuyor'],
+    a: ['Prends le code-barres bien à plat, de près, sans reflet, avec assez de lumière. Si la photo reste illisible, tape les chiffres sous le code-barres avec le bouton « Taper ».', 'La recherche du produit a besoin d\'internet. Si le produit est inconnu, recopie une fois son étiquette pour 100 g : il sera reconnu instantanément aux prochains scans.'] },
+  { id: 'notfound', t: 'Je ne trouve pas un aliment', k: ['trouve pas', 'introuvable', 'existe pas', 'pas dans la liste', 'manque un aliment', 'not found', 'cant find', 'missing food', 'bulamiyorum', 'yok', 'besin yok'],
+    a: ['Essaie un mot plus simple (par exemple « poulet » plutôt que « blanc de poulet grillé »). La recherche marche aussi en anglais et en turc.', 'Sinon, scanne le code-barres du produit ou crée-le : touche + puis « Créer cet aliment ». Il sera ensuite en tête de tes recherches.'] },
+  { id: 'add', t: 'Ajouter un repas', k: ['ajouter un repas', 'ajouter un aliment', 'noter un repas', 'comment ajouter', 'manger', 'add food', 'add meal', 'log food', 'ogun ekle', 'besin ekle', 'nasil eklerim'],
+    s: ['Touche le gros bouton + en bas, ou « Ajouter » sous un repas.', 'Cherche l\'aliment, scanne-le ou choisis-le dans tes récents.', 'Règle la quantité puis touche « Ajouter ».'], a: ['Astuce : « Copier les repas de la veille » et les repas favoris te font gagner beaucoup de temps.'] },
+  { id: 'edit', t: 'Modifier ou supprimer un aliment du journal', k: ['modifier', 'supprimer', 'enlever', 'retirer', 'erreur de quantite', 'changer la quantite', 'edit', 'delete', 'remove', 'change amount', 'duzenle', 'sil', 'kaldir', 'miktar'],
+    a: ['Touche l\'aliment dans le journal : tu peux changer la quantité, le déplacer dans un autre repas ou le supprimer. Après une suppression, le bouton « Annuler » le remet.'] },
+  { id: 'goals', t: 'Changer mes objectifs', k: ['objectif', 'objectifs', 'changer mon objectif', 'prise de masse', 'seche', 'maintien', 'profil', 'poids', 'taille', 'age', 'goal', 'goals', 'profile', 'bulk', 'cut', 'hedef', 'profil', 'kilo', 'boy'],
+    a: ['Touche l\'engrenage en haut à droite, puis la carte du haut (« Modifier »). Change ton poids, ton activité ou ton objectif : tes calories et tes macros se recalculent. Tu peux aussi les ajuster à la main.'], act: ['profile'] },
+  { id: 'kcal', t: 'Mes calories sont-elles justes ?', k: ['calories', 'trop de calories', 'pas assez', 'trop haut', 'trop bas', 'combien', 'calcul', 'macros', 'proteines', 'too many', 'too high', 'too low', 'kalori', 'cok fazla', 'az', 'protein'],
+    a: ['Nexafit calcule ta dépense avec la formule de Mifflin-St Jeor et ton niveau d\'activité, puis ajoute un surplus (masse) ou retire un déficit (perte de poids). C\'est une estimation de départ.', 'Le meilleur juge, c\'est ta balance : pèse-toi plusieurs fois par semaine. Le bilan du dimanche te propose d\'ajuster tes calories si tu ne prends ou ne perds pas au bon rythme.'], act: ['review', 'profile'] },
+  { id: 'loss', t: 'Perdre du poids', k: ['perdre du poids', 'maigrir', 'perte de poids', 'deficit', 'regime', 'lose weight', 'weight loss', 'diet', 'kilo ver', 'zayifla', 'diyet'],
+    a: ['Choisis « Perte de poids » ou « Perte de poids douce » dans ton profil. Le journal affiche alors ton déficit du jour, et l\'onglet Progrès ta perte, ton déficit moyen et des conseils. Garde tes protéines hautes pour garder ton muscle.'], act: ['profile'] },
+  { id: 'wgoal', t: 'Objectif de poids avec une date', k: ['objectif de poids', 'poids vise', 'date', 'delai', 'en combien de temps', 'target weight', 'deadline', 'hedef kilo', 'tarih', 'ne kadar surede'],
+    a: ['Dans Réglages › Objectif de poids, indique le poids visé et le délai. Nexafit calcule le rythme par semaine, te dit s\'il est réaliste et peut adapter tes calories.'], act: ['wgoal'] },
+  { id: 'workout', t: 'Faire une séance de muscu', k: ['seance', 'muscu', 'entrainement', 'programme', 'exercice', 'serie', 'workout', 'training', 'program', 'exercise', 'set', 'antrenman', 'egzersiz', 'set'],
+    s: ['Va dans l\'onglet Muscu et lance une séance de ton programme (ou une séance libre).', 'Tes charges de la dernière fois sont déjà remplies : ajuste-les et valide chaque série avec ✓.', 'Le chrono de repos démarre tout seul. Touche « Terminer » à la fin : la séance et tes records sont enregistrés.'] },
+  { id: 'sound', t: 'Le chrono ne sonne pas', k: ['son', 'sonne pas', 'bip', 'alarme', 'chrono', 'minuteur', 'repos', 'vibre', 'sound', 'timer', 'beep', 'ses', 'zamanlayici', 'calmiyor'],
+    a: ['Sur iPhone, vérifie que le bouton silencieux sur le côté n\'est pas activé et que le volume est monté. Garde Nexafit ouverte pendant le repos : une appli web ne peut pas sonner écran verrouillé.'] },
+  { id: 'plates', t: 'Calculer les disques à mettre', k: ['disque', 'disques', 'barre', 'charger la barre', 'echauffement', 'plates', 'plate', 'warm up', 'warmup', 'plaka', 'agirlik', 'isinma'],
+    a: ['Dans Muscu, touche « Calculateur de disques » (ou « Disques » sous un exercice pendant la séance). Tape la charge : Nexafit te dit quels disques mettre de chaque côté et propose les séries d\'échauffement.'], act: ['plates'] },
+  { id: 'muscles', t: 'La carte des muscles', k: ['carte des muscles', 'muscles', 'muscle', 'quel muscle', 'body map', 'kas', 'kaslar'],
+    a: ['Dans Muscu, la carte colore les muscles selon le nombre de séries faites : de gris (pas travaillé) à orange (10 à 20 séries par semaine, l\'idéal). Touche un muscle pour voir le détail et les exercices.'] },
+  { id: 'menu', t: 'Le menu de la semaine', k: ['menu', 'plan de repas', 'quoi manger', 'idee de repas', 'repas de la semaine', 'meal plan', 'what to eat', 'menu', 'yemek plani', 'ne yesem'],
+    a: ['Dans Courses › Menu, Nexafit compose 7 jours de repas qui tombent pile sur tes calories et tes protéines. Touche un aliment pour le remplacer, ajoute la journée à ton journal en un geste, et envoie les courses de la semaine dans ta liste.'], act: ['menu'] },
+  { id: 'shop', t: 'Courses et prix', k: ['courses', 'liste de courses', 'prix', 'cout', 'budget', 'magasin', 'shopping', 'price', 'groceries', 'alisveris', 'fiyat', 'market'],
+    a: ['Dans Courses, « Ce qu\'il me faut » calcule ce que tu dois acheter et le total. Les prix sont des moyennes : touche une ligne pour mettre le prix de ton magasin. « Envoyer dans ma liste » crée ta liste à cocher.'] },
+  { id: 'supps', t: 'Suivre mes compléments', k: ['complement', 'complements', 'creatine', 'whey', 'vitamine', 'supplement', 'supplements', 'takviye', 'kreatin', 'vitamin'],
+    a: ['Dans Réglages › Compléments, ajoute ce que tu prends. Une carte apparaît dans le journal : coche chaque complément pris, Nexafit compte tes séries de jours.'], act: ['supps'] },
+  { id: 'review', t: 'Le bilan de la semaine', k: ['bilan', 'resume de la semaine', 'semaine', 'dimanche', 'ajuster', 'weekly', 'review', 'haftalik', 'ozet'],
+    a: ['Chaque dimanche, Nexafit prépare ton bilan : poids, calories, protéines, séances, sommeil. Si ton poids n\'avance pas au bon rythme, il propose d\'ajuster tes calories en un geste. Tu le retrouves aussi dans Progrès.'], act: ['review'] },
+  { id: 'lang', t: 'Changer la langue', k: ['langue', 'anglais', 'turc', 'francais', 'traduire', 'language', 'english', 'turkish', 'french', 'dil', 'ingilizce', 'turkce', 'fransizca'],
+    a: ['Touche l\'engrenage en haut à droite : la langue se choisit tout en haut des réglages (Français, Türkçe, English).'], act: ['settings'] },
+  { id: 'water', t: 'Eau et taille du verre', k: ['eau', 'verre', 'boire', 'hydratation', 'water', 'glass', 'drink', 'su', 'bardak'],
+    a: ['Touche la carte Eau du journal pour ajouter un verre. La taille du verre se change dans Réglages › Taille du verre d\'eau.'], act: ['glass'] },
+  { id: 'steps', t: 'Compter mes pas', k: ['pas', 'podometre', 'marche', 'steps', 'pedometer', 'walk', 'adim', 'yuruyus'],
+    a: ['Le comptage automatique des pas arrivera avec la version App Store : sur iPhone, une appli web n\'a pas le droit de lire le podomètre. Les calories brûlées en marchant seront alors ajoutées en direct.'] },
+  { id: 'slow', t: 'L\'appli bug, est lente ou affiche une page blanche', k: ['bug', 'beug', 'bloque', 'lent', 'lente', 'plante', 'crash', 'page blanche', 'ecran blanc', 'marche pas', 'fonctionne pas', 'probleme', 'souci', 'freeze', 'slow', 'broken', 'not working', 'blank', 'hata', 'donuyor', 'yavas', 'calismiyor', 'sorun'],
+    a: ['Je peux vérifier tes données et réparer ce qui cloche, sans rien effacer. Si ça ne suffit pas, vider le cache recharge la dernière version de l\'appli (tes données restent).'], act: ['repair', 'diag', 'cache'] },
+  { id: 'update', t: 'Avoir la dernière version', k: ['mise a jour', 'nouvelle version', 'derniere version', 'mettre a jour', 'update', 'new version', 'latest', 'guncelle', 'yeni surum'],
+    a: ['Ferme complètement Nexafit (balaye-la vers le haut dans le sélecteur d\'apps) puis rouvre-la avec internet : la nouvelle version se charge toute seule. Si ce n\'est pas le cas, vide le cache.'], act: ['cache'] },
+  { id: 'offline', t: 'Utiliser sans internet', k: ['hors ligne', 'sans internet', 'sans connexion', 'reseau', 'offline', 'no internet', 'internet yok', 'cevrimdisi'],
+    a: ['Une fois installée, Nexafit marche sans internet : journal, muscu, progrès, courses. Seule la recherche d\'un produit scanné inconnu a besoin de connexion.'] },
+  { id: 'notif', t: 'Recevoir des rappels', k: ['rappel', 'rappels', 'notification', 'notifications', 'alerte', 'reminder', 'reminders', 'hatirlatma', 'bildirim'],
+    a: ['Une appli web ne peut pas envoyer de notifications fiables sur iPhone. Crée des rappels qui se répètent dans l\'appli Rappels de ton téléphone (pesée le matin, eau toutes les 2 heures…).'] },
+  { id: 'privacy', t: 'Mes données sont-elles privées ?', k: ['prive', 'confidentialite', 'qui voit', 'securite', 'compte', 'privacy', 'private', 'secure', 'gizlilik', 'guvenli', 'hesap'],
+    a: ['Oui : pas de compte, pas de serveur. Tout reste sur ton téléphone et personne d\'autre ne peut voir tes données.'] }
+];
+const KBI = Object.fromEntries(KB.map(e => [e.id, e]));
+const QUICK = ['lost', 'scan', 'backup', 'kcal', 'slow', 'install', 'menu', 'plates'];
+const ACTS = {
+  backup: ['cloud', 'Ouvrir Sauvegarde et export', () => { closeHelp(); A.backup(); }],
+  export: ['download', 'Exporter une sauvegarde', () => { A['export-json'] && A['export-json'](); }],
+  diag: ['chart', 'Lancer un diagnostic', () => say(diagMsg())],
+  repair: ['wand', 'Vérifier et réparer mes données', () => say(repairMsg())],
+  cache: ['refresh', 'Vider le cache et recharger', () => say({ t: 'Vider le cache ?', a: ['L\'appli va se recharger avec la dernière version. Tes données ne sont pas touchées.'], act: ['cacheGo'] })],
+  cacheGo: ['refresh', 'Oui, recharger', () => clearCache()],
+  profile: ['user', 'Modifier mon profil', () => { closeHelp(); A['profile-edit'](); }],
+  wgoal: ['trophy', 'Objectif de poids', () => { closeHelp(); A['wgoal-open'](); }],
+  review: ['calendar', 'Voir mon bilan', () => { closeHelp(); NX.openReview(); }],
+  plates: ['disc', 'Calculateur de disques', () => { closeHelp(); NX.openPlates(); }],
+  menu: ['wand', 'Ouvrir le menu', () => { closeHelp(); UI.tab = 'shop'; UI.shopTab = 'menu'; NX.render(); window.scrollTo(0, 0); }],
+  supps: ['pill', 'Mes compléments', () => { closeHelp(); A.supps(); }],
+  settings: ['gear', 'Ouvrir les réglages', () => { closeHelp(); UI.tab = 'more'; NX.render(); window.scrollTo(0, 0); }],
+  glass: ['drop', 'Taille du verre', () => { closeHelp(); A['set-glass'](); }]
+};
+
+/* ---------- compréhension de la question ---------- */
+const clean = s => norm(s).replace(/ı/g, 'i').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+const STOP = new Set('je tu il le la les un une des de du et a au aux en mon ma mes ton ta tes est pas ne que qui quoi comment pourquoi ca ce cette sur pour avec dans the a an is my i to how why it do does of and on in bir bu ne nasil neden ve ile mi mu'.split(' '));
+function lev(a, b) {
+  if (Math.abs(a.length - b.length) > 1) return 2;
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+function match(q) {
+  const cq = ' ' + clean(q) + ' ', words = cq.trim().split(' ').filter(w => w.length > 1 && !STOP.has(w));
+  const scored = KB.map(e => {
+    let s = 0;
+    for (const kw of e.k) {
+      const ck = clean(kw);
+      if (cq.includes(' ' + ck + ' ') || (ck.length >= 5 && cq.includes(' ' + ck))) { s += 2 + ck.split(' ').length; continue; }
+      if (ck.includes(' ')) continue;
+      for (const w of words) if (w.length >= 4 && ck.length >= 4 && (w.slice(0, 5) === ck.slice(0, 5) || (w.length >= 5 && lev(w, ck) <= 1))) { s += 1.2; break; }
+    }
+    return [e, s];
+  }).sort((a, b) => b[1] - a[1]);
+  return scored;
+}
+const GREET = /^(salut|bonjour|bonsoir|coucou|hello|hi|hey|merhaba|selam|slm)\b/;
+const THANKS = /\b(merci|thanks|thank you|thx|tesekkur|tesekkurler|sagol)\b/;
+
+/* ---------- conversation ---------- */
+const H = { msgs: [], busy: false, ctl: null };
+function say(m) { H.msgs.push(Object.assign({ who: 'bot', id: uid() }, m)); refresh(); }
+function refresh() { NX.refreshSheet('help'); requestAnimationFrame(() => { const b = NX.sheetEl('help') && NX.sheetEl('help').querySelector('.panel-b'); if (b) b.scrollTop = b.scrollHeight; }); }
+const closeHelp = () => NX.closeSheet('help', true);
+function reply(q) {
+  const c = clean(q);
+  if (GREET.test(c) && c.split(' ').length <= 3) return say({ a: ['Salut ! Dis-moi ce qui ne va pas ou ce que tu veux faire, je t\'explique.'], quick: true });
+  if (THANKS.test(c) && c.split(' ').length <= 4) return say({ a: ['Avec plaisir ! Autre chose ?'], quick: true });
+  const r = match(q), [best, s1] = r[0], [second, s2] = r[1];
+  if (s1 < 2) return say({ a: ['Je n\'ai pas bien compris. Essaie avec d\'autres mots, ou choisis un sujet :'], quick: true, act: ['diag'] });
+  if (s2 >= 2 && s2 >= s1 * 0.85) return say({ a: ['Tu parles de :'], pick: [best.id, second.id] });
+  say(Object.assign({ kb: best.id }, answerOf(best)));
+}
+const answerOf = e => ({ t: e.t, a: e.a, s: e.s, act: e.act, more: true });
+
+/* ---------- diagnostic et réparation ---------- */
+function diagMsg() {
+  let size = 0;
+  try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (/^nexafit/.test(k)) size += (localStorage.getItem(k) || '').length; } } catch (e) { }
+  const nDays = Object.keys(S.days).length, last = S.main.lastExport || 0;
+  const errs = errors().filter(e => Date.now() - e.t < 7 * 864e5);
+  const sw = 'serviceWorker' in navigator && navigator.serviceWorker.controller ? 'Oui' : 'Non';
+  const rows = [
+    ['Version', VERSION], ['Stockage', NX.Store && NX.Store.mode === 'db' ? 'Compte en ligne' : 'Sur cet appareil'], ['Taille des données', fmt(Math.round(size / 1024)) + ' Ko'],
+    ['Jours enregistrés', String(nDays)], ['Aliments perso', String(S.main.foods.length)], ['Dernière sauvegarde', last ? new Date(last).toLocaleDateString(NX.LOC()) : 'Jamais'],
+    ['Prête hors ligne', sw], ['Connexion', navigator.onLine ? 'En ligne' : 'Hors ligne'], ['Erreurs (7 jours)', String(errs.length)]
+  ];
+  const tips = [];
+  if (!last && nDays > 3 && !(NX.Store && NX.Store.mode === 'db')) tips.push('Tu n\'as jamais exporté de sauvegarde : fais-le, c\'est ta seule copie si tu changes de téléphone.');
+  if (size > 3.5e6) tips.push('Tes données approchent la limite du navigateur : exporte une sauvegarde.');
+  if (errs.length) tips.push('Des erreurs ont été détectées : lance la réparation, puis vide le cache si le souci continue.');
+  if (!tips.length) tips.push('Tout a l\'air normal.');
+  return { t: 'Diagnostic', rows, a: tips, act: errs.length ? ['repair', 'cache'] : (!last ? ['export'] : []) };
+}
+function repairMsg() {
+  let n = 0;
+  const M = S.main;
+  for (const key of ['foods', 'recipes', 'combos', 'fav', 'recent', 'exCustom', 'shopping', 'supps']) if (!Array.isArray(M[key])) { M[key] = []; n++; }
+  for (const key of ['barcodes', 'prices']) if (!M[key] || typeof M[key] !== 'object') { M[key] = {}; n++; }
+  if (!M.goals || !(M.goals.k > 0)) { M.goals = Object.assign({ k: 2800, p: 140, c: 350, f: 85, water: 2500, sleep: 8 }, M.goals || {}); if (!(M.goals.k > 0)) M.goals.k = 2800; n++; }
+  if (M.active && !Array.isArray(M.active.exercises)) { M.active = null; n++; }
+  for (const k of Object.keys(S.days)) {
+    const d = S.days[k];
+    if (!d || typeof d !== 'object' || !/^\d{4}-\d{2}-\d{2}$/.test(k)) { delete S.days[k]; n++; continue; }
+    d.meals = d.meals || {};
+    for (const [mk] of NX.MEALS) {
+      if (!Array.isArray(d.meals[mk])) { d.meals[mk] = []; n++; }
+      const before = d.meals[mk].length;
+      d.meals[mk] = d.meals[mk].filter(e => e && e.per && isFinite(e.g) && e.g > 0 && isFinite(e.per.k));
+      n += before - d.meals[mk].length;
+    }
+    if (!Array.isArray(d.workouts)) { d.workouts = []; n++; }
+    if (!(d.water >= 0)) { d.water = 0; n++; }
+    NX.save('d-' + k);
+  }
+  NX.touchMain(); NX.render();
+  return { t: 'Vérification terminée', a: [n ? NXI.t('{n} correction(s) faite(s). Tes données sont en ordre.', { n }) : 'Aucun problème trouvé dans tes données.'], act: n ? [] : ['cache'] };
+}
+async function clearCache() {
+  try { if (window.caches) for (const k of await caches.keys()) await caches.delete(k); } catch (e) { }
+  try { if (navigator.serviceWorker) for (const r of await navigator.serviceWorker.getRegistrations()) await r.unregister(); } catch (e) { }
+  setTimeout(() => location.reload(), 150);
+}
+
+/* ---------- affichage ---------- */
+function bubble(m) {
+  if (m.who === 'me') return '<div class="msg me"><p data-notr>' + esc(m.text) + '</p></div>';
+  let h = '<div class="msg bot">';
+  if (m.typing) return h + '<div class="typing"><i></i><i></i><i></i></div></div>';
+  if (m.t) h += '<b class="mt">' + esc(m.t) + '</b>';
+  if (m.ai) h += m.ai.split(/\n{2,}/).map(p => '<p data-notr>' + esc(p).replace(/\n/g, '<br>').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>') + '</p>').join('');
+  (m.a || []).forEach(p => { h += '<p>' + esc(p) + '</p>'; });
+  if (m.s) h += '<ol>' + m.s.map(x => '<li>' + esc(x) + '</li>').join('') + '</ol>';
+  if (m.rows) h += '<div class="diag">' + m.rows.map(r => '<div><span>' + esc(r[0]) + '</span><b>' + esc(r[1]) + '</b></div>').join('') + '</div>';
+  if (m.act && m.act.length) h += '<div class="mact">' + m.act.map(a => ACTS[a] ? '<button class="chip" data-a="help-act" data-x="' + a + '">' + ico(ACTS[a][0], 'sm') + ACTS[a][1] + '</button>' : '').join('') + '</div>';
+  if (m.pick) h += '<div class="mact">' + m.pick.map(id => '<button class="chip" data-a="help-kb" data-id="' + id + '">' + esc(KBI[id].t) + '</button>').join('') + '</div>';
+  if (m.quick) h += '<div class="mact">' + QUICK.map(id => '<button class="chip" data-a="help-kb" data-id="' + id + '">' + esc(KBI[id].t) + '</button>').join('') + '</div>';
+  return h + '</div>';
+}
+A['help-open'] = () => {
+  if (!H.msgs.length) H.msgs.push({ who: 'bot', id: uid(), a: ['Salut ! Je suis l\'assistant Nexafit. Pose-moi ta question, ou choisis un sujet :'], quick: true });
+  NX.openSheet({ id: 'help', full: true, title: 'Assistant d\'aide', render: () => ({
+    body: '<div class="chat">' + H.msgs.map(bubble).join('') + '</div>',
+    foot: '<div class="chat-in"><input class="inp" id="help-q" placeholder="Écris ta question…" autocomplete="off" enterkeyhint="send"><button class="icon-btn send" data-a="help-send" aria-label="Envoyer">' + ico('send') + '</button></div>'
+  }), onOpen: el => {
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'help-q') { e.preventDefault(); send(); } });
+    requestAnimationFrame(() => { const b = el.querySelector('.panel-b'); if (b) b.scrollTop = b.scrollHeight; });
+  }, onClose: () => { if (H.ctl) H.ctl.abort(); } });
+};
+A['help-send'] = () => send();
+A['help-kb'] = el => { const e = KBI[el.dataset.id]; if (!e) return; H.msgs.push({ who: 'me', id: uid(), text: NXI.tr(e.t) || e.t }); say(Object.assign({ kb: e.id }, answerOf(e))); };
+A['help-act'] = el => { const a = ACTS[el.dataset.x]; if (a) a[2](); };
+function send() {
+  const i = $('#help-q'); if (!i) return;
+  const q = i.value.trim(); if (!q || H.busy) return;
+  H.msgs.push({ who: 'me', id: uid(), text: q.slice(0, 600) });
+  i.value = '';
+  if (ai()) askAI(q); else reply(q);
+  setTimeout(() => { const j = $('#help-q'); if (j) j.focus(); }, 30);
+}
+const ai = () => false; const askAI = () => {};
 })();
 
 /* Nexafit — progrès, graphiques, profil et objectifs, accueil, réglages, sauvegarde. */
@@ -3442,6 +4703,7 @@ NX.VIEWS.progress = () => {
   const g = S.main.goals;
   let h = '<div class="topbar"><h1 class="h-view">Progrès</h1>' + NX.topRight() + '</div>';
   if (NX.isLoss()) h += lossBlock();
+  if (S.main.profile) h += '<button class="rev-link" data-a="review-open"><span class="rh-i">' + ico('calendar') + '</span><span class="lt"><b>Bilan de la semaine</b><span>Poids, calories, séances et ajustement</span></span>' + ico('right', 'sm') + '</button>';
   h += '<div class="seg">' + [[7, '7 j'], [30, '30 j'], [90, '3 mois'], [365, '1 an']].map(r => '<button class="' + (n === r[0] ? 'on' : '') + '" data-a="range" data-n="' + r[0] + '">' + r[1] + '</button>').join('') + '</div>';
 
   // Poids
@@ -3701,6 +4963,10 @@ NX.VIEWS.more = () => {
     + li('set-glass', 'drop', 'Taille du verre d\'eau', S.main.settings.glass + ' ml par appui', 'var(--water)')
     + li('rest-cfg', 'timer', 'Temps de repos', (S.main.settings.rest || 90) + ' s entre les séries')
     + li('reminders', 'bell', 'Rappels', 'Pesée, eau, repas')
+    + '</div></section>';
+  h += '<section class="sec"><div class="label">Suivi</div><div class="list">'
+    + li('supps', 'pill', 'Compléments', (S.main.supps || []).length ? S.main.supps.map(s => s.name).join(', ') : 'Créatine, whey, vitamines…', 'var(--good)')
+    + li('help-open', 'help', 'Assistant d\'aide', 'Une question, un souci ? Je t\'aide', 'var(--carb)')
     + '</div></section>';
   h += '<section class="sec"><div class="label">Mes données</div><div class="list">'
     + li('backup', 'cloud', 'Sauvegarde et export', S.main.lastExport ? 'Dernière sauvegarde le ' + new Date(S.main.lastExport).toLocaleDateString(NX.LOC()) : 'Aucune sauvegarde pour l\'instant')
