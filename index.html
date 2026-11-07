@@ -585,6 +585,29 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 .rp-ph { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--muted); }
 .rp-ph .ico { width: 36px; height: 36px; color: var(--brand); }
 @media (prefers-reduced-motion: reduce) { .ach-card, .ach-card .badge, .ach-pop .cf, .idea { animation: none; } }
+.mu.pick { fill: #2C3341; cursor: pointer; transition: fill .25s ease, filter .25s ease; }
+.mu.pick:hover { fill: #3A4253; }
+.mu.pick.red { fill: #FF3B4E; filter: drop-shadow(0 0 6px rgba(255,59,78,.65)); stroke: #FFD5DA; stroke-width: 1.2; animation: muPulse .45s ease; }
+@keyframes muPulse { 0% { fill: #FF8A96; } 100% { fill: #FF3B4E; } }
+.mb-cats { display: flex; flex-wrap: wrap; gap: 8px; }
+.mb-cats::-webkit-scrollbar { display: none; }
+.mb-cat { flex: none; height: 38px; padding: 0 16px; border-radius: 99px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-weight: 650; font-size: 14px; color: var(--muted); scroll-snap-align: start; transition: all .18s; -webkit-tap-highlight-color: transparent; }
+.mb-cat.on { background: rgba(255,59,78,.14); box-shadow: inset 0 0 0 1.5px #FF3B4E; color: #FF6B7A; }
+.mb-ex .li, .draft .li { padding: 0 6px 0 0; gap: 4px; }
+.mb-info { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; text-align: left; padding: 11px 6px 11px 14px; color: var(--ink); min-height: 56px; }
+.mb-info .lt { flex: 1; min-width: 0; }
+.mb-info > .ico { color: var(--faint); flex: none; }
+.mb-add { width: 40px; height: 40px; border-radius: 50%; flex: none; display: grid; place-items: center; background: var(--brand); color: var(--brand-ink); transition: transform .15s, background .2s; -webkit-tap-highlight-color: transparent; }
+.mb-add:active { transform: scale(.9); }
+.mb-add.on { background: rgba(74,222,149,.16); color: var(--good); box-shadow: inset 0 0 0 1.5px rgba(74,222,149,.5); }
+.mb-add .ico { stroke-width: 2.6; }
+.star, .lt .star { display: inline !important; color: var(--fat); font-size: .95em; }
+#mb-body svg { max-width: 150px; }
+.draft .dn { width: 26px; height: 26px; margin-left: 12px; border-radius: 50%; flex: none; display: grid; place-items: center; background: rgba(255,122,69,.16); color: var(--brand); font-size: 12.5px; font-weight: 700; }
+.draft .mb-info { padding-left: 6px; }
+.draft-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.chip.rec { box-shadow: inset 0 0 0 1px rgba(255,200,87,.45); }
+.chip.rec.on { box-shadow: inset 0 0 0 1.5px var(--brand); }
 /* perte de poids */
 .loss-card { background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 .loss-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -1152,12 +1175,8 @@ window.NX_PROGRAMS = [
   ["Full body · 3 jours", [
     ["Séance A", [["Squat",3,8],["Développé couché",3,8],["Rowing barre",3,10],["Élévations latérales",3,12],["Curl haltères",2,12]]],
     ["Séance B", [["Soulevé de terre roumain",3,8],["Développé militaire",3,8],["Tirage vertical",3,10],["Fentes",3,10],["Extension triceps poulie",2,12]]]
-  ]],
-  ["Push · Pull · Legs", [
-    ["Push", [["Développé couché",4,6],["Développé incliné haltères",3,10],["Développé militaire",3,8],["Élévations latérales",3,15],["Extension triceps poulie",3,12]]],
-    ["Pull", [["Tractions",4,6],["Rowing barre",3,8],["Tirage horizontal",3,10],["Face pull",3,15],["Curl barre",3,10]]],
-    ["Legs", [["Squat",4,6],["Presse à cuisses",3,10],["Leg curl",3,12],["Hip thrust",3,10],["Mollets debout",4,12]]]
   ]]
+
 ];
 
 /* Nexafit — noms des aliments : [anglais, turc]. La clé est le nom français de data.js. */
@@ -2347,6 +2366,31 @@ add([
 ['objectif {n}', 'goal {n}', 'hedef {n}'],
 ['+ {n} autres séances', '+ {n} more workouts', '+ {n} antrenman daha'],
 ['Fichier prêt : {f}', 'File ready: {f}', 'Dosya hazır: {f}']
+]);
+
+// créer mon programme
+add([
+['Créer mon programme', 'Create my programme', 'Programımı oluştur'],
+['Touche un muscle ou une catégorie, puis le + pour ajouter l\'exercice à ta séance.', 'Tap a muscle or a category, then + to add the exercise to your workout.', 'Bir kasa ya da kategoriye, sonra egzersizi antrenmanına eklemek için +’ya dokun.'],
+['Très recommandé', 'Highly recommended', 'Çok önerilen'],
+['Très recommandé : les exercices les plus efficaces pour prendre du muscle.', 'Highly recommended: the most effective exercises for building muscle.', 'Çok önerilen: kas kazanmak için en etkili egzersizler.'],
+['Ma séance', 'My workout', 'Antrenmanım'],
+['Vider la séance', 'Clear the workout', 'Antrenmanı temizle'],
+['Séance vidée', 'Workout cleared', 'Antrenman temizlendi'],
+['Durée (secondes)', 'Duration (seconds)', 'Süre (saniye)'],
+['Repos entre les séries', 'Rest between sets', 'Setler arası dinlenme'],
+['Très recommandé pour cet exercice en prise de masse.', 'Highly recommended for this exercise when bulking.', 'Kütle döneminde bu egzersiz için çok önerilen.'],
+['Valeurs recommandées', 'Recommended values', 'Önerilen değerler'],
+['OK', 'OK', 'Tamam'],
+['Enregistrer ma séance', 'Save my workout', 'Antrenmanımı kaydet'],
+['Haut du corps', 'Upper body', 'Üst vücut'],
+['Ranger dans', 'Save in', 'Şuraya kaydet'],
+['Un programme à son nom', 'A programme of its own', 'Kendi adıyla bir program'],
+['Tout voir', 'See all', 'Tümünü gör'],
+['Réduire', 'Show less', 'Daralt'],
+['repos {r}', 'rest {r}', 'dinlenme {r}'],
+['Ajouter comme séance n° {n}', 'Add as workout no. {n}', '{n}. antrenman olarak ekle'],
+['{ex} ajouté à ta séance', '{ex} added to your workout', '{ex} antrenmanına eklendi']
 ]);
 
 // phrases du rythme de poids (précédées de ". " dans la page)
@@ -3604,8 +3648,9 @@ function homeView() {
   h += NX.todayCard('gym') + NX.weekStrip();
   h += '<button class="btn block" data-a="w-start-free">' + ico('play') + 'Démarrer une séance libre</button>';
   h += '<div class="row-actions"><button class="chip" data-a="plates-open">' + ico('disc', 'sm') + 'Calculateur de disques</button></div>';
-  h += NX.muscleSection();
-  h += '<section class="sec"><div class="sec-head"><h2 class="h-sec">Mes programmes</h2><button class="add-btn" data-a="prog-new">' + ico('plus') + 'Nouveau</button></div>';
+  NX.migratePrograms();
+  h += NX.muscleBuilder();
+  h += '<section class="sec"><div class="sec-head"><h2 class="h-sec">Mes programmes</h2></div>';
   for (const p of S.main.programs) {
     h += '<div class="prog-card"><div class="sec-head"><b style="font-family:var(--f-display);font-weight:750;font-size:16px">' + esc(p.name) + '</b><button class="icon-btn plain" data-a="prog-edit" data-id="' + p.id + '" aria-label="Modifier le programme">' + ico('edit', 'sm') + '</button></div><div class="prog-days">'
       + p.days.map(d => { const last = all.find(w => w.dayId === d.id); return '<button class="prog-day" data-a="w-start" data-p="' + p.id + '" data-d="' + d.id + '"><span class="lt"><b>' + esc(d.name) + '</b><span>' + d.items.length + ' exercices · ' + esc(d.items.slice(0, 3).map(i => i.ex).join(', ')) + (d.items.length > 3 ? '…' : '') + '</span>' + (last ? '<span>Dernière fois : ' + esc(NX.shortDate(last.date)) + '</span>' : '') + '</span><span class="play">' + ico('play') + '</span></button>'; }).join('')
@@ -3613,8 +3658,8 @@ function homeView() {
   }
   if (!S.main.programs.length) h += '<div class="callout">Aucun programme. Crée le tien ou démarre une séance libre.</div>';
   h += '</section>';
-  h += '<section class="sec"><h2 class="h-sec">Historique</h2>';
-  if (all.length) h += '<div class="list">' + all.slice(0, 15).map(w => { const v = volume(w), prs = w.exercises.reduce((a, e) => a + e.sets.filter(s => s.pr).length, 0); return '<button class="li" data-a="w-detail" data-id="' + w.id + '" data-date="' + w.date + '"><span class="lt"><b>' + esc(w.name) + (prs ? ' <span class="tag pr">' + prs + ' record' + (prs > 1 ? 's' : '') + '</span>' : '') + '</b><span>' + esc(NX.dayTitle(w.date)) + ' · ' + NX.durTxt((w.end || w.start) - w.start) + ' · ' + fmt(v / 1000, 1) + ' t soulevées</span></span>' + ico('right', 'sm') + '</button>'; }).join('') + '</div>';
+  h += '<section class="sec"><div class="sec-head"><h2 class="h-sec">Historique</h2>' + (all.length > 4 ? '<button class="add-btn" data-a="hist-all">' + (UI.histAll ? 'Réduire' : 'Tout voir') + '</button>' : '') + '</div>';
+  if (all.length) h += '<div class="list">' + all.slice(0, UI.histAll ? 30 : 4).map(w => { const v = volume(w), prs = w.exercises.reduce((a, e) => a + e.sets.filter(s => s.pr).length, 0); return '<button class="li" data-a="w-detail" data-id="' + w.id + '" data-date="' + w.date + '"><span class="lt"><b>' + esc(w.name) + (prs ? ' <span class="tag pr">' + prs + ' record' + (prs > 1 ? 's' : '') + '</span>' : '') + '</b><span>' + esc(NX.dayTitle(w.date)) + ' · ' + NX.durTxt((w.end || w.start) - w.start) + ' · ' + fmt(v / 1000, 1) + ' t soulevées</span></span>' + ico('right', 'sm') + '</button>'; }).join('') + '</div>';
   else h += '<div class="callout">Tes séances terminées apparaîtront ici, avec la durée, le volume et tes records.</div>';
   h += '</section>';
   return h;
@@ -3624,7 +3669,7 @@ function volume(w) { return w.exercises.reduce((a, e) => a + e.sets.filter(s => 
 
 /* ================= DÉMARRER ================= */
 function newSet(prev) { return { w: prev ? prev.w : '', r: prev ? prev.r : '', done: false }; }
-function buildExercise(ex, nSets, reps) {
+function buildExercise(ex, nSets, reps, rest) {
   const last = NX.lastFor(ex);
   // coach : la charge et les répétitions conseillées pour aujourd'hui
   const c = NX.coachOn && NX.coachOn() ? NX.coachFor(ex, reps || null) : null;
@@ -3633,14 +3678,16 @@ function buildExercise(ex, nSets, reps) {
     const ls = last && (last.sets[i] || last.sets[last.sets.length - 1]);
     sets.push(c ? { w: c.w, r: c.r, done: false } : { w: ls ? ls.w : '', r: reps || (ls ? ls.r : ''), done: false });
   }
-  return { ex, target: reps ? (nSets + ' × ' + reps) : '', sets, coach: c };
+  return { ex, target: reps ? (nSets + ' × ' + reps) : '', sets, coach: c, rest: rest || null };
 }
+NX.buildExercise = buildExercise;
 A['w-start-free'] = () => startWorkout({ name: 'Séance libre', exercises: [] });
 A['w-start'] = el => {
   const p = S.main.programs.find(x => x.id === el.dataset.p), d = p && p.days.find(x => x.id === el.dataset.d);
   if (!d) return;
-  startWorkout({ name: d.name, programId: p.id, dayId: d.id, exercises: d.items.map(it => buildExercise(it.ex, it.sets, it.reps)) });
+  startWorkout({ name: d.name, programId: p.id, dayId: d.id, exercises: d.items.map(it => buildExercise(it.ex, it.sets, it.reps, it.rest)) });
 };
+NX.startWorkout = o => startWorkout(o);
 function startWorkout(o) {
   if (S.main.active) { NX.toast('Une séance est déjà en cours'); UI.tab = 'gym'; NX.render(); return; }
   S.main.active = Object.assign({ id: uid(), start: Date.now(), date: today() }, o);
@@ -3692,7 +3739,7 @@ A['set-done'] = el => {
     const inSession = e.sets.filter(x => x !== s && x.done).reduce((m, x) => Math.max(m, NX.e1rm(x.w, x.r)), 0);
     const v = NX.e1rm(s.w, s.r);
     if (best > 0 && v > best && v > inSession) { s.pr = true; NX.toast('Nouveau record sur ' + e.ex + ' : ' + fmt(s.w, 1) + ' kg × ' + s.r); }
-    startRest(S.main.settings.rest || 90, e.ex);
+    startRest(e.rest || S.main.settings.rest || 90, e.ex);
     // la série suivante reprend la charge et les reps si elles sont vides
     const nxt = e.sets[+el.dataset.j + 1];
     if (nxt && !nxt.done && nxt.w === '' && nxt.r === '') { nxt.w = s.w; nxt.r = s.r; }
@@ -3789,6 +3836,7 @@ A['ex-new-save'] = () => {
 /* ================= PROGRAMMES ================= */
 let PG = null;
 A['prog-new'] = () => openProgram(null);
+A['hist-all'] = () => { UI.histAll = !UI.histAll; NX.render(); };
 A['prog-edit'] = el => openProgram(S.main.programs.find(p => p.id === el.dataset.id));
 function openProgram(p) {
   PG = p ? clone(p) : { id: null, name: '', days: [{ id: uid(), name: 'Jour 1', items: [] }] };
@@ -4530,6 +4578,12 @@ NX.bodyPairFor = map => {
   const base = BASE.map(d => '<path d="' + d + '"/>').join('');
   const svg = (parts, lbl) => { const mus = parts.map(([id, d]) => '<path class="mu static lv-' + lv(id) + '" d="' + d + '"/>').join(''); return '<figure><svg viewBox="30 8 140 400" aria-hidden="true"><g class="base">' + base + '<g transform="matrix(-1 0 0 1 200 0)">' + base + '</g>' + BASE_X + '</g><g>' + mus + '</g><g transform="matrix(-1 0 0 1 200 0)">' + mus + '</g></svg><figcaption>' + lbl + '</figcaption></figure>'; };
   return '<div class="mm mini">' + svg(FRONT, 'Face') + svg(BACK, 'Dos') + '</div>';
+};
+// corps à toucher pour choisir un muscle : neutre, le groupe choisi passe en rouge
+NX.bodyPick = sel => {
+  const base = BASE.map(d => '<path d="' + d + '"/>').join('');
+  const svg = (parts, lbl) => { const mus = parts.map(([id, d]) => '<path class="mu pick' + (sel.includes(id) ? ' red' : '') + '" data-a="mb-pick" data-m="' + id + '" d="' + d + '"/>').join(''); return '<figure><svg viewBox="30 8 140 400" role="img" aria-label="' + lbl + '"><g class="base">' + base + '<g transform="matrix(-1 0 0 1 200 0)">' + base + '</g>' + BASE_X + '</g><g>' + mus + '</g><g transform="matrix(-1 0 0 1 200 0)">' + mus + '</g></svg><figcaption>' + lbl + '</figcaption></figure>'; };
+  return '<div class="mm" id="mb-body">' + svg(FRONT, 'Face') + svg(BACK, 'Dos') + '</div>';
 };
 function mmDetail(M) {
   const id = UI.mmSel;
@@ -5646,6 +5700,164 @@ function drawReport(r) {
   footer(x2, 2);
   return [c1, c2];
 }
+})();
+
+/* Nexafit — créer son programme : un muscle (ou une catégorie), un « + », c'est ajouté.
+   Séries, répétitions et repos réglables, avec les valeurs très recommandées marquées d'une étoile. */
+(function () {
+'use strict';
+const { $, $$, esc, uid, fmt, ico, S, UI, A, IN } = NX;
+
+// catégories : [id, nom, muscles du corps qui s'allument]
+const GROUPS = [
+  ['chest', 'Pectoraux', ['chest']], ['back', 'Dos', ['lats', 'traps', 'lower']], ['shoulders', 'Épaules', ['delts', 'rear']],
+  ['biceps', 'Biceps', ['biceps', 'fore']], ['triceps', 'Triceps', ['triceps']], ['legs', 'Jambes', ['quads', 'hams', 'glutes']],
+  ['calves', 'Mollets', ['calves']], ['abs', 'Abdos', ['abs', 'obl']]
+];
+const GROUP_OF = {}; GROUPS.forEach(g => g[2].forEach(m => { GROUP_OF[m] = g[0]; }));
+// exercices par catégorie : [nom, très recommandé, type]
+const CAT = {
+  chest: [['Développé couché', 1, 'heavy'], ['Développé incliné haltères', 1, 'comp'], ['Développé couché haltères', 0, 'comp'], ['Développé incliné', 0, 'comp'], ['Dips', 0, 'comp'], ['Écarté poulie', 0, 'iso'], ['Pec deck', 0, 'iso'], ['Pompes', 0, 'comp']],
+  back: [['Tractions', 1, 'comp'], ['Rowing barre', 1, 'heavy'], ['Tirage vertical', 1, 'comp'], ['Tirage horizontal', 0, 'comp'], ['Rowing haltère', 0, 'comp'], ['Soulevé de terre', 0, 'heavy'], ['Pull-over poulie', 0, 'iso'], ['Shrugs', 0, 'iso']],
+  shoulders: [['Développé militaire', 1, 'heavy'], ['Élévations latérales', 1, 'iso'], ['Développé haltères assis', 0, 'comp'], ['Face pull', 0, 'iso'], ['Oiseau', 0, 'iso']],
+  biceps: [['Curl barre', 1, 'iso'], ['Curl marteau', 1, 'iso'], ['Curl haltères', 0, 'iso'], ['Curl pupitre', 0, 'iso']],
+  triceps: [['Extension triceps poulie', 1, 'iso'], ['Barre au front', 1, 'iso'], ['Dips', 0, 'comp'], ['Extension nuque haltère', 0, 'iso']],
+  legs: [['Squat', 1, 'heavy'], ['Soulevé de terre roumain', 1, 'heavy'], ['Presse à cuisses', 1, 'comp'], ['Fentes', 0, 'comp'], ['Hip thrust', 0, 'comp'], ['Leg extension', 0, 'iso'], ['Leg curl', 0, 'iso']],
+  calves: [['Mollets debout', 1, 'iso']],
+  abs: [['Relevé de jambes', 1, 'abs'], ['Gainage (secondes)', 1, 'hold'], ['Crunch', 0, 'abs'], ['Roue abdominale', 0, 'abs']]
+};
+// réglages très recommandés pour la prise de muscle, et choix proposés
+const PRESC = {
+  heavy: { sets: 4, reps: 8, rest: 150, R: [5, 6, 8, 10, 12] },
+  comp: { sets: 3, reps: 10, rest: 120, R: [6, 8, 10, 12, 15] },
+  iso: { sets: 3, reps: 12, rest: 75, R: [8, 10, 12, 15, 20] },
+  abs: { sets: 3, reps: 15, rest: 60, R: [10, 12, 15, 20, 25] },
+  hold: { sets: 3, reps: 45, rest: 60, R: [20, 30, 45, 60, 90] }
+};
+const SETS = [2, 3, 4, 5], RESTS = [45, 60, 75, 90, 120, 150, 180];
+const typeOf = ex => { for (const g in CAT) { const e = CAT[g].find(x => x[0] === ex); if (e) return e[2]; } return 'comp'; };
+const restTxt = s => s >= 60 ? (s % 60 ? Math.floor(s / 60) + ' min ' + (s % 60) : (s / 60) + ' min') : s + ' s';
+const repTxt = (ex, r) => typeOf(ex) === 'hold' ? r + ' s' : String(r);
+const draft = () => S.main.draft || (S.main.draft = { items: [] });
+const inDraft = ex => draft().items.some(it => it.ex === ex);
+
+/* ---------- PPL retiré : seul le Full body reste parmi les programmes proposés ---------- */
+NX.migratePrograms = () => {
+  if (S.main.progMig >= 2 || !S.main.programs) return;
+  const ppl = S.main.programs.find(p => p.name === 'Push · Pull · Legs');
+  if (ppl) {
+    S.main.programs = S.main.programs.filter(p => p !== ppl);
+    if (Array.isArray(S.main.schedule)) S.main.schedule = S.main.schedule.map(x => x && x.p === ppl.id ? null : x);
+  }
+  S.main.progMig = 2; NX.touchMain();
+};
+
+/* ---------- section de la page Muscu ---------- */
+NX.muscleBuilder = () => {
+  const gid = UI.mbGroup || null, g = GROUPS.find(x => x[0] === gid);
+  let h = '<section class="sec" id="mb-sec"><div class="sec-head"><h2 class="h-sec">Créer mon programme</h2></div>'
+    + '<p class="note" style="margin:0">Touche un muscle ou une catégorie, puis le + pour ajouter l\'exercice à ta séance.</p>'
+    + NX.bodyPick(g ? g[2] : [])
+    + '<div class="mb-cats">' + GROUPS.map(x => '<button class="mb-cat' + (x[0] === gid ? ' on' : '') + '" data-a="mb-group" data-g="' + x[0] + '">' + x[1] + '</button>').join('') + '</div>'
+    + '<div id="mb-list">' + listHtml(gid) + '</div></section>';
+  h += draftHtml();
+  return h;
+};
+function listHtml(gid) {
+  if (!gid) return '';
+  const OLD = { chest: 'Pectoraux', back: 'Dos', shoulders: 'Épaules', biceps: 'Bras', triceps: 'Bras', legs: 'Jambes', abs: 'Abdos' };
+  const custom = NX.allExercises().filter(e => e.mine && OLD[gid] === e.group).map(e => [e.name, 0, 'comp']);
+  const list = CAT[gid].concat(custom);
+  return '<div class="list mb-ex">' + list.map(([ex, star, type]) => {
+    const p = PRESC[type], on = inDraft(ex);
+    return '<div class="li"><button class="mb-info" data-a="fiche-open" data-ex="' + esc(ex) + '"><span class="lt"><b>' + esc(ex) + (star ? ' <span class="star" title="Très recommandé">★</span>' : '') + '</b><span>' + p.sets + ' × ' + repTxt(ex, p.reps) + ' · ' + restTxt(p.rest) + '</span></span></button>'
+      + '<button class="mb-add' + (on ? ' on' : '') + '" data-a="mb-add" data-ex="' + esc(ex) + '" aria-label="' + (on ? 'Retirer' : 'Ajouter') + '">' + ico(on ? 'check' : 'plus') + '</button></div>';
+  }).join('') + '</div><p class="note" style="margin:0"><span class="star">★</span> Très recommandé : les exercices les plus efficaces pour prendre du muscle.</p>';
+}
+function draftHtml() {
+  const items = draft().items;
+  if (!items.length) return '';
+  return '<section class="sec draft" id="mb-draft"><div class="sec-head"><h2 class="h-sec">Ma séance</h2><span class="faint">' + items.length + ' exercice' + (items.length > 1 ? 's' : '') + '</span></div><div class="list">'
+    + items.map((it, i) => {
+      const p = PRESC[typeOf(it.ex)], rec = it.sets === p.sets && it.reps === p.reps && it.rest === p.rest;
+      return '<div class="li"><span class="dn">' + (i + 1) + '</span><button class="mb-info" data-a="dr-edit" data-i="' + i + '"><span class="lt"><b>' + esc(it.ex) + '</b><span>' + it.sets + ' × ' + repTxt(it.ex, it.reps) + ' · ' + NXI.t('repos {r}', { r: restTxt(it.rest) }) + (rec ? ' <span class="star">★</span>' : '') + '</span></span>' + ico('edit', 'sm') + '</button>'
+        + (i > 0 ? '<button class="icon-btn plain" data-a="dr-up" data-i="' + i + '" aria-label="Monter" style="transform:rotate(90deg)">' + ico('left', 'sm') + '</button>' : '')
+        + '<button class="icon-btn plain" data-a="dr-rm" data-i="' + i + '" aria-label="Retirer">' + ico('x', 'sm') + '</button></div>';
+    }).join('') + '</div>'
+    + '<div class="draft-actions"><button class="btn ghost" data-a="dr-start">' + ico('play') + 'Démarrer</button><button class="btn" data-a="dr-save">' + ico('check') + 'Enregistrer</button></div>'
+    + '<button class="add-btn" data-a="dr-clear" style="align-self:center;color:var(--muted)">Vider la séance</button></section>';
+}
+// rafraîchit la section sans recharger toute la page (le corps et la liste restent fluides)
+function refresh(scrollToDraft) {
+  const sec = $('#mb-sec'); if (!sec) return NX.render();
+  const g = GROUPS.find(x => x[0] === UI.mbGroup);
+  $$('#mb-body .mu').forEach(p => p.classList.toggle('red', !!g && g[2].includes(p.dataset.m)));
+  $$('.mb-cat').forEach(b => b.classList.toggle('on', b.dataset.g === UI.mbGroup));
+  $('#mb-list').innerHTML = listHtml(UI.mbGroup);
+  const old = $('#mb-draft'), t = document.createElement('div'); t.innerHTML = draftHtml();
+  if (old) { if (t.firstChild) old.replaceWith(t.firstChild); else old.remove(); }
+  else if (t.firstChild) sec.after(t.firstChild);
+  if (scrollToDraft) { const d = $('#mb-draft'); d && d.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+}
+A['mb-pick'] = el => { const gid = GROUP_OF[el.dataset.m]; UI.mbGroup = UI.mbGroup === gid ? null : gid; refresh(); };
+A['mb-group'] = el => { UI.mbGroup = UI.mbGroup === el.dataset.g ? null : el.dataset.g; refresh(); };
+A['mb-add'] = el => {
+  const ex = el.dataset.ex, d = draft();
+  if (inDraft(ex)) { d.items = d.items.filter(it => it.ex !== ex); NX.touchMain(); refresh(); return; }
+  const p = PRESC[typeOf(ex)];
+  d.items.push({ ex, sets: p.sets, reps: p.reps, rest: p.rest });
+  NX.touchMain(); refresh();
+  NX.toast(NXI.t('{ex} ajouté à ta séance', { ex: NXI.tr(ex) || ex }));
+};
+A['dr-rm'] = el => { draft().items.splice(+el.dataset.i, 1); NX.touchMain(); refresh(); };
+A['dr-up'] = el => { const l = draft().items, i = +el.dataset.i; [l[i - 1], l[i]] = [l[i], l[i - 1]]; NX.touchMain(); refresh(); };
+A['dr-clear'] = () => { const old = draft().items.slice(); draft().items = []; NX.touchMain(); refresh(); NX.toast('Séance vidée', { label: 'Annuler', fn: () => { draft().items = old; NX.touchMain(); refresh(); } }); };
+// réglages d'un exercice
+let ED = null;
+A['dr-edit'] = el => {
+  ED = +el.dataset.i;
+  const it = draft().items[ED]; if (!it) return;
+  NX.openSheet({ id: 'dr-edit', title: it.ex, render: () => {
+    const x = draft().items[ED], p = PRESC[typeOf(x.ex)];
+    const row = (lbl, key, vals, fmtV) => '<div class="sec"><div class="label">' + lbl + '</div><div class="chips" style="flex-wrap:wrap">' + vals.map(v => '<button class="chip' + (x[key] === v ? ' on' : '') + (p[key] === v ? ' rec' : '') + '" data-a="dr-set" data-k="' + key + '" data-v="' + v + '">' + fmtV(v) + (p[key] === v ? ' <span class="star">★</span>' : '') + '</button>').join('') + '</div></div>';
+    return { body: row('Séries', 'sets', SETS, String) + row(typeOf(x.ex) === 'hold' ? 'Durée (secondes)' : 'Répétitions', 'reps', p.R, String) + row('Repos entre les séries', 'rest', RESTS, restTxt)
+      + '<p class="note" style="margin:0"><span class="star">★</span> Très recommandé pour cet exercice en prise de masse.</p>',
+      foot: '<button class="btn ghost" data-a="dr-rec">' + ico('wand') + 'Valeurs recommandées</button><button class="btn" data-a="sheet-close">OK</button>' };
+  }, onClose: () => refresh() });
+};
+A['dr-set'] = el => { const x = draft().items[ED]; x[el.dataset.k] = +el.dataset.v; NX.touchMain(); NX.refreshSheet('dr-edit'); };
+A['dr-rec'] = () => { const x = draft().items[ED], p = PRESC[typeOf(x.ex)]; Object.assign(x, { sets: p.sets, reps: p.reps, rest: p.rest }); NX.touchMain(); NX.refreshSheet('dr-edit'); };
+// démarrer tout de suite
+A['dr-start'] = () => {
+  const items = draft().items; if (!items.length) return;
+  NX.startWorkout({ name: NXI.tr('Ma séance') || 'Ma séance', exercises: items.map(it => NX.buildExercise(it.ex, it.sets, it.reps, it.rest)) });
+};
+// enregistrer comme programme
+const SV = { name: '', into: '' };
+A['dr-save'] = () => {
+  SV.name = ''; SV.into = '';
+  NX.openSheet({ id: 'dr-save', title: 'Enregistrer ma séance', render: () => {
+    const progs = S.main.programs || [];
+    return { body: '<label class="field"><span>Nom de la séance</span><input class="inp" id="sv-name" placeholder="Ex. Haut du corps" value="' + esc(SV.name) + '" data-in="sv-name"></label>'
+      + '<div class="sec"><div class="label">Ranger dans</div><div class="list">'
+      + '<button class="li" data-a="sv-into" data-p=""><span class="lic">' + ico('plus') + '</span><span class="lt"><b>Nouveau programme</b><span>Un programme à son nom</span></span>' + (SV.into === '' ? ico('check', 'sm') : '') + '</button>'
+      + progs.map(p => '<button class="li" data-a="sv-into" data-p="' + p.id + '"><span class="lic">' + ico('dumbbell') + '</span><span class="lt"><b>' + esc(p.name) + '</b><span>' + NXI.t('Ajouter comme séance n° {n}', { n: p.days.length + 1 }) + '</span></span>' + (SV.into === p.id ? ico('check', 'sm') : '') + '</button>').join('')
+      + '</div></div>', foot: '<button class="btn block" data-a="sv-go">' + ico('check') + 'Enregistrer</button>' };
+  }, onOpen: el => setTimeout(() => { const i = el.querySelector('#sv-name'); i && i.focus(); }, 250) });
+};
+IN['sv-name'] = el => { SV.name = el.value; };
+A['sv-into'] = el => { SV.into = el.dataset.p; NX.refreshSheet('dr-save'); };
+A['sv-go'] = () => {
+  const name = SV.name.trim() || (NXI.tr('Ma séance') || 'Ma séance');
+  const items = draft().items.map(it => ({ ex: it.ex, sets: it.sets, reps: it.reps, rest: it.rest }));
+  if (!items.length) return;
+  const day = { id: uid(), name, items };
+  const target = (S.main.programs || []).find(p => p.id === SV.into);
+  if (target) target.days.push(day); else S.main.programs.push({ id: uid(), name, days: [day] });
+  draft().items = [];
+  NX.touchMain(); NX.closeSheet('dr-save'); NX.render();
+  NX.toast('Programme enregistré');
+};
 })();
 
 /* Nexafit — progrès, graphiques, profil et objectifs, accueil, réglages, sauvegarde. */
