@@ -685,6 +685,120 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------- Accueil ---------- */
+.tb-l { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.hm-hello { min-width: 0; }
+.hm-brand { display: flex; align-items: center; gap: 10px; margin: 0; font: 800 24px/1.1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
+.hm-brand .brand-mark { width: 30px; height: 30px; }
+.hm-hello .sub { padding-left: 40px; }
+.hm-hello .sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.hm-hello .sub::first-letter { text-transform: uppercase; }
+.hm-sm { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+.hm-sm .ico { width: 14px; height: 14px; color: var(--brand); }
+.hm-hero { width: 100%; text-align: left; color: var(--ink); display: flex; flex-direction: column; gap: 16px; padding: 18px; border-radius: 24px; position: relative; overflow: hidden;
+  background: radial-gradient(120% 90% at 100% 0%, rgba(255,122,69,.22), transparent 55%), radial-gradient(90% 80% at 0% 100%, rgba(91,157,255,.10), transparent 60%), var(--hero);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 16px 36px rgba(0,0,0,.4); }
+.hm-hero:active { transform: scale(.99); }
+.hm-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.hm-k { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.hm-k b { font: 800 46px/1 var(--f-display); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.hm-k b.over { color: var(--warn); }
+.hm-u { font-size: 13.5px; color: var(--muted); font-weight: 600; }
+.hm-ring { position: relative; width: 84px; height: 84px; flex: none; }
+.hm-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.hm-ring .trk { stroke: rgba(255,255,255,.08); }
+.hm-ring .val { stroke: var(--brand); transition: stroke-dashoffset .6s cubic-bezier(.3,.7,.2,1); }
+.hm-ring.over .val { stroke: var(--warn); }
+.hm-ring b { position: absolute; inset: 0; display: grid; place-items: center; font: 800 19px var(--f-display); font-variant-numeric: tabular-nums; }
+.hm-ring b small { font-size: 11px; color: var(--muted); margin-left: 1px; }
+.hm-ring b { grid-auto-flow: column; align-content: center; justify-content: center; align-items: baseline; }
+.hm-mac { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.hm-m { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.hm-m > span { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hm-m > span i { width: 7px; height: 7px; border-radius: 50%; background: var(--c); flex: none; }
+.hm-m b { font: 750 15px var(--f-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hm-m b small { font: 600 11.5px var(--f-body); color: var(--faint); }
+.hm-m .bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,.08); overflow: hidden; }
+.hm-m .bar i { display: block; height: 100%; border-radius: 3px; background: var(--c); }
+.hm-go { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.07); font-size: 13px; color: var(--muted); }
+.hm-open { display: flex; align-items: center; gap: 2px; color: var(--ink); font-weight: 700; white-space: nowrap; }
+.hm-open .ico { width: 16px; height: 16px; color: var(--brand); }
+.hm-quick { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.hq { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 4px 10px; border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); color: var(--ink); text-align: center; min-width: 0; }
+.hq:active { transform: scale(.96); }
+.hq-i { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: color-mix(in srgb, var(--c) 17%, transparent); color: var(--c); }
+.hq-i .ico { width: 22px; height: 22px; }
+.hq b { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.hq small { font-size: 11px; color: var(--muted); line-height: 1.25; font-variant-numeric: tabular-nums; max-width: 100%; overflow-wrap: anywhere; }
+.hm-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ht { position: relative; min-height: 140px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; padding: 14px; border-radius: 22px; text-align: left; color: var(--ink); min-width: 0;
+  background: linear-gradient(155deg, color-mix(in srgb, var(--c) 24%, var(--surface)) 0%, var(--surface) 72%); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 28%, transparent), 0 12px 30px rgba(0,0,0,.35); }
+.ht:active { transform: scale(.98); }
+.ht-i { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: color-mix(in srgb, var(--c) 22%, transparent); color: var(--c); }
+.ht-i .ico { width: 24px; height: 24px; }
+.ht-n { position: absolute; top: 14px; right: 14px; min-width: 28px; height: 28px; padding: 0 8px; border-radius: 14px; display: grid; place-items: center; font: 800 14px var(--f-display); font-style: normal; background: var(--c); color: var(--bg); }
+.ht-n.ok .ico { width: 16px; height: 16px; stroke-width: 3; }
+.ht-t b { display: block; font: 750 16.5px/1.2 var(--f-display); }
+.ht-t span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+.hm-motiv { width: 100%; display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: var(--r); text-align: left; color: var(--ink); background: linear-gradient(120deg, rgba(255,122,69,.18), rgba(255,200,87,.05)); box-shadow: inset 0 0 0 1px rgba(255,122,69,.3); }
+.hm-motiv .sf { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; flex: none; background: rgba(255,122,69,.2); color: var(--brand); }
+.hm-motiv .lt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.hm-motiv .lt > b { font: 800 19px var(--f-display); }
+.hm-motiv .hm-sm { margin-top: 4px; }
+.hm-an { font-size: 13.5px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hm-motiv .bar { display: block; height: 5px; border-radius: 3px; background: rgba(255,255,255,.1); overflow: hidden; margin-top: 2px; }
+.hm-motiv .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--brand), var(--fat)); border-radius: 3px; }
+.hm-motiv em { font: 800 15px var(--f-display); font-style: normal; color: var(--fat); flex: none; }
+.hm-w { width: 100%; display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: var(--r); background: var(--surface); box-shadow: var(--shadow); text-align: left; color: var(--ink); }
+.hm-w > .ico { color: var(--faint); flex: none; }
+.hm-wi { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; flex: none; background: rgba(168,152,255,.16); color: var(--sleep); }
+.hm-w .lt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.hm-w .lt > b { font: 800 22px var(--f-display); font-variant-numeric: tabular-nums; }
+.hm-w .lt > b small { font: 600 13px var(--f-body); color: var(--muted); }
+.hm-wd { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.hm-wd.up { color: var(--good); } .hm-wd.down { color: var(--carb); }
+.hm-wg { display: flex; flex-direction: column; gap: 5px; margin-top: 6px; }
+.hm-wg .bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,.08); overflow: hidden; }
+.hm-wg .bar i { display: block; height: 100%; background: var(--sleep); border-radius: 3px; }
+.hm-wg span { font-size: 12px; color: var(--faint); }
+.hm-tip { padding: 14px 16px; border-radius: var(--r); background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+.hm-tip p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+@media (max-width: 360px) { .hm-k b { font-size: 40px; } .hq b { font-size: 12px; } .hm-mac { gap: 8px; } }
+
+/* ---------- Retours au toucher ---------- */
+.rp-host { position: relative; overflow: hidden; isolation: isolate; }
+.rpl { position: absolute; border-radius: 50%; background: currentColor; opacity: .16; transform: scale(0); pointer-events: none; animation: rpl .6s cubic-bezier(.2,.7,.2,1) forwards; z-index: 0; }
+.btn .rpl, .fab .rpl { opacity: .22; }
+@keyframes rpl { to { transform: scale(1); opacity: 0; } }
+.hm-hero, .hq, .ht, .hm-motiv, .hm-w, .hm-tip, .btn, .chip, .chk, .rev-link, .add-btn, .today, .tab, .fab, .item, .li { transition: transform .16s cubic-bezier(.3,.7,.2,1), background-color .18s, box-shadow .2s, filter .18s; }
+.chk:active, .rev-link:active, .hm-motiv:active, .hm-w:active, .hm-tip:active { transform: scale(.98); }
+.chip:active, .add-btn:active { transform: scale(.95); }
+.tab:active { transform: scale(.9); }
+.tab.on.pop .ico { animation: tabPop .35s cubic-bezier(.3,1.6,.5,1); }
+@keyframes tabPop { 0% { transform: scale(.75); } 100% { transform: scale(1); } }
+.hm-hero:active, .ht:active, .hq:active { filter: brightness(1.12); }
+@media (hover: hover) { .hm-hero:hover, .ht:hover, .hq:hover, .hm-motiv:hover, .hm-w:hover, .hm-tip:hover { filter: brightness(1.08); } }
+.hm-tip { width: 100%; text-align: left; color: var(--ink); }
+.hm-more { margin-left: auto; display: grid; place-items: center; color: var(--faint); }
+.hm-more .ico { color: var(--faint) !important; transition: transform .4s; }
+.hm-tip:active .hm-more .ico { transform: rotate(180deg); }
+.hm-tip p.swap { animation: tipIn .35s cubic-bezier(.2,.7,.2,1); }
+@keyframes tipIn { from { opacity: 0; transform: translateY(6px); } }
+.hq { position: relative; }
+.hq.bump .hq-i { animation: bump .45s cubic-bezier(.3,1.6,.5,1); }
+@keyframes bump { 0% { transform: scale(1); } 35% { transform: scale(1.22); } 100% { transform: scale(1); } }
+.hq-pop { position: absolute; left: 50%; top: 6px; transform: translateX(-50%); font: 800 12px var(--f-display); color: var(--water); pointer-events: none; animation: hqPop .9s ease-out forwards; white-space: nowrap; }
+@keyframes hqPop { 0% { opacity: 0; transform: translate(-50%, 6px); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -22px); } }
+.view-in > * { animation: viewIn .38s cubic-bezier(.2,.7,.2,1) both; }
+.view-in > *:nth-child(2) { animation-delay: .03s; } .view-in > *:nth-child(3) { animation-delay: .06s; } .view-in > *:nth-child(4) { animation-delay: .09s; }
+.view-in > *:nth-child(5) { animation-delay: .12s; } .view-in > *:nth-child(6) { animation-delay: .15s; } .view-in > *:nth-child(7) { animation-delay: .18s; } .view-in > *:nth-child(n+8) { animation-delay: .21s; }
+@keyframes viewIn { from { opacity: 0; transform: translate(var(--vx, 0), 10px); } }
+.view-in .hm-ring .val { animation: ringIn 1s cubic-bezier(.2,.7,.2,1) .12s both; }
+@keyframes ringIn { from { stroke-dashoffset: var(--rc); } }
+.view-in .bar i { animation: barIn .85s cubic-bezier(.2,.7,.2,1) .18s both; }
+@keyframes barIn { from { width: 0; } }
+@media (prefers-reduced-motion: reduce) { .view-in > *, .view-in .bar i, .view-in .hm-ring .val, .rpl, .hq-pop { animation: none !important; } }
 </style>
 </head>
 <body>
@@ -704,6 +818,65 @@ select.inp { appearance: none; background-image: linear-gradient(45deg, transpar
 
 <script async src="https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js"></script>
 <script>
+/* Nexafit — écran d'ouverture : le point orange rebondit, NEXAFIT se déroule, puis la phrase. Touche pour passer. */
+(function () {
+'use strict';
+try { if (sessionStorage.getItem('nx-splash')) return; sessionStorage.setItem('nx-splash', '1'); } catch (e) { }
+let lang = 'fr';
+try { const l = localStorage.getItem('nexafit-lang') || (navigator.language || '').slice(0, 2); if (l === 'en' || l === 'tr') lang = l; } catch (e) { }
+const TXT = {
+  fr: [['Chaque', 'repas', 'compte.'], ['Chaque', 'rep', 'aussi.'], 'une création <b>Nexalis</b>'],
+  en: [['Every', 'meal', 'counts.'], ['Every', 'rep', 'too.'], 'a <b>Nexalis</b> creation'],
+  tr: [['Her', 'öğün', 'önemli.'], ['Her', 'tekrar', 'de.'], 'bir <b>Nexalis</b> ürünü']
+}[lang];
+const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css = `
+#nx-splash{position:fixed;inset:0;z-index:9999;background:#0B0D12;display:grid;place-items:center;font-family:"Sora","Manrope",system-ui,sans-serif;color:#F2F4F8;-webkit-user-select:none;user-select:none;cursor:pointer;animation:spOut .45s ease 2.55s forwards}
+#nx-splash .st{display:flex;flex-direction:column;align-items:center;gap:22px;position:relative}
+#nx-splash .glow{position:absolute;left:50%;top:50%;width:440px;height:440px;margin:-220px 0 0 -220px;border-radius:50%;background:radial-gradient(circle,rgba(255,122,69,.2),transparent 65%);opacity:0;transform:scale(.6);animation:spGlow .9s ease .1s forwards;pointer-events:none}
+#nx-splash .row{display:flex;align-items:center;gap:16px}
+#nx-splash .dot{width:60px;height:60px;transform:scale(0);animation:spPop .55s cubic-bezier(.3,1.6,.5,1) .12s forwards}
+#nx-splash .dot circle.r{stroke-dasharray:170;stroke-dashoffset:170;animation:spDraw .55s ease .38s forwards}
+#nx-splash .fit{font-weight:800;font-size:46px;letter-spacing:.1em;clip-path:inset(0 100% 0 0);animation:spWipe .65s cubic-bezier(.6,0,.2,1) .3s forwards}
+#nx-splash .ph{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:19px;font-weight:600;letter-spacing:.01em;color:#C7CDD9}
+#nx-splash .ph span{display:flex;gap:7px}
+#nx-splash .ph i{font-style:normal;opacity:0;transform:translateY(10px);animation:spUp .38s cubic-bezier(.3,.7,.2,1) forwards}
+#nx-splash .ph i.k{color:#FF7A45;font-weight:800}
+#nx-splash .sig{position:absolute;left:0;right:0;bottom:calc(36px + env(safe-area-inset-bottom));display:flex;justify-content:center;font-family:"Space Grotesk","Manrope",sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#737B8D;opacity:0;animation:spUp .45s ease 1.25s forwards}
+#nx-splash .sig b{color:#C7CDD9}
+@keyframes spDraw{to{stroke-dashoffset:0}}
+@keyframes spPop{to{transform:scale(1)}}
+@keyframes spWipe{to{clip-path:inset(0 0 0 0)}}
+@keyframes spUp{to{opacity:1;transform:none}}
+@keyframes spGlow{to{opacity:1;transform:scale(1)}}
+@keyframes spOut{to{opacity:0;visibility:hidden}}
+#nx-splash.rm *{animation-duration:.01s!important;animation-delay:0s!important}
+#nx-splash.rm{animation:spOut .4s ease 1s forwards!important}
+#nx-splash.skip{animation:spOut .25s ease forwards!important}`;
+// la phrase arrive mot par mot ; le mot clé de chaque ligne est en orange
+let d = 0.95;
+const line = ws => '<span>' + ws.map((w, i) => { const s = '<i' + (i === 1 ? ' class="k"' : '') + ' style="animation-delay:' + d.toFixed(2) + 's">' + w + '</i>'; d += 0.09; return s; }).join('') + '</span>';
+const phrase = line(TXT[0]) + (d += 0.12, line(TXT[1]));
+const html = `<div class="st"><div class="glow"></div>
+<div class="row"><svg class="dot" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="#FF7A45"/><circle class="r" cx="50" cy="50" r="26" fill="none" stroke="#C9552B" stroke-width="9"/></svg><div class="fit">NEXAFIT</div></div>
+<div class="ph">${phrase}</div></div>
+<div class="sig"><span>${TXT[2]}</span></div>`;
+function show() {
+  if (!document.body) return requestAnimationFrame(show);
+  const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+  const el = document.createElement('div');
+  el.id = 'nx-splash'; el.setAttribute('data-notr', ''); el.setAttribute('role', 'img'); el.setAttribute('aria-label', 'Nexafit');
+  if (reduce) el.classList.add('rm');
+  el.innerHTML = html;
+  document.body.appendChild(el);
+  const end = () => { el.remove(); st.remove(); };
+  el.addEventListener('animationend', e => { if (e.target === el && e.animationName === 'spOut') end(); });
+  el.addEventListener('click', () => { el.classList.add('skip'); setTimeout(end, 300); });
+  setTimeout(end, 3600); // sécurité
+}
+show();
+})();
+
 /* Nexafit — données de référence.
    Aliments : valeurs moyennes pour 100 g (ou 100 ml).
    Format : [nom, catégorie, kcal, protéines, glucides, lipides, nom de la portion, g par portion,
@@ -2415,6 +2588,34 @@ add([
 ['Sucré & desserts', 'Sweets & desserts', 'Tatlılar'], ['Biscuits & snacks', 'Biscuits & snacks', 'Bisküvi ve atıştırmalık'], ['Boissons', 'Drinks', 'İçecekler'], ['Compléments', 'Supplements', 'Takviyeler'],
 ['Plats préparés', 'Ready meals', 'Hazır yemekler'], ['Fast-food & resto', 'Fast food & restaurants', 'Fast food ve restoran'], ['Mes recettes', 'My recipes', 'Tariflerim'], ['Mes aliments', 'My foods', 'Besinlerim']
 ]);
+add([
+['Accueil', 'Home', 'Ana sayfa'], ['Bonjour', 'Good morning', 'Günaydın'], ['Bon après-midi', 'Good afternoon', 'Tünaydın'], ['Bonsoir', 'Good evening', 'İyi akşamlar'], ['Bonne nuit', 'Good night', 'İyi geceler'],
+['Idées', 'Ideas', 'Fikirler'], ['+1 verre', '+1 glass', '+1 bardak'], ['À faire', 'To do', 'Yapılacak'], ['Première', 'First one', 'İlk tartı'],
+['Planifier', 'Plan', 'Planla'], ['Menu de la semaine', 'Weekly menu', 'Haftalık menü'], ['Prochain succès', 'Next achievement', 'Sıradaki başarı'],
+['Ouvrir le journal', 'Open the log', 'Günlüğü aç'], ['Le conseil du jour', 'Tip of the day', 'Günün ipucu'], ["Retour à l'accueil", 'Back to home', 'Ana sayfaya dön'],
+['Prénom (facultatif)', 'First name (optional)', 'Adın (isteğe bağlı)'], ['Ex. Mikail', 'e.g. Mikail', 'Örn. Mikail'],
+["Pesé aujourd'hui", 'Weighed today', 'Bugün tartıldın'], ['Dernière pesée : {d}', 'Last weigh-in: {d}', 'Son tartı: {d}'],
+['{d} kg en 7 jours', '{d} kg in 7 days', '7 günde {d} kg'], ['Objectif {t} kg · {p} %', 'Goal {t} kg · {p}%', 'Hedef {t} kg · %{p}'],
+['Au-dessus de ton objectif', 'Over your goal', 'Hedefinin üstünde'], ["kcal aujourd'hui", 'kcal today', 'kcal bugün'], ["kcal en trop aujourd'hui", 'kcal over today', 'kcal fazla bugün'],
+['{n} aliments notés', '{n} foods logged', '{n} besin kaydedildi'], ['{n} aliment noté', '{n} food logged', '{n} besin kaydedildi'], ["Rien noté pour l'instant", 'Nothing logged yet', 'Henüz bir şey kaydedilmedi'],
+["Reprends là où tu t'es arrêté", 'Pick up where you left off', 'Kaldığın yerden devam et'],
+['{n} articles à acheter', '{n} items to buy', 'Alınacak {n} ürün'], ['{n} article à acheter', '{n} item to buy', 'Alınacak {n} ürün'], ["Ce qu'il me faut cette semaine", 'What I need this week', 'Bu hafta neye ihtiyacım var'],
+['Prêt, adapté à tes macros', 'Ready, matched to your macros', 'Hazır, makrolarına göre'], ['Créé pour toi en un geste', 'Made for you in one tap', 'Tek dokunuşla senin için'],
+["Lance ta série aujourd'hui", 'Start your streak today', 'Serine bugün başla'], ['Tous les succès sont débloqués', 'Every achievement unlocked', 'Tüm başarılar açıldı'],
+["Ajouter un verre d'eau ({v} ml)", 'Add a glass of water ({v} ml)', 'Bir bardak su ekle ({v} ml)'], ["+{v} ml d'eau", '+{v} ml of water', '+{v} ml su'],
+["Une source de protéines à chaque repas, c'est le plus simple pour atteindre ton objectif.", 'A source of protein at every meal is the easiest way to hit your goal.', 'Her öğünde bir protein kaynağı, hedefine ulaşmanın en kolay yolu.'],
+["Bois un grand verre d'eau au réveil : tu commences la journée déjà hydraté.", 'Drink a big glass of water when you wake up: you start the day already hydrated.', 'Uyanınca büyük bir bardak su iç: güne susuz kalmadan başlarsın.'],
+['Le muscle se construit pendant le sommeil. Vise 7 à 9 h cette nuit.', 'Muscle is built while you sleep. Aim for 7 to 9 hours tonight.', 'Kas uykuda gelişir. Bu gece 7 ila 9 saat uyumayı hedefle.'],
+["Note tes repas juste après les avoir mangés : tu n'oublieras rien.", "Log your meals right after eating: you won't forget anything.", 'Öğünlerini yedikten hemen sonra kaydet: hiçbir şeyi unutmazsın.'],
+["Ajoute un peu de poids ou une répétition à chaque séance : c'est ça, progresser.", "Add a little weight or one rep every session: that's what progress is.", 'Her antrenmanda biraz ağırlık ya da bir tekrar ekle: ilerlemek budur.'],
+["Pèse-toi le matin, à jeun : c'est la mesure la plus fiable d'un jour à l'autre.", 'Weigh yourself in the morning on an empty stomach: it is the most reliable reading from one day to the next.', 'Sabah aç karnına tartıl: günden güne en güvenilir ölçüm budur.'],
+["Ton poids bouge d'un jour à l'autre, regarde plutôt la tendance sur une semaine.", 'Your weight moves from day to day, so look at the trend over a week instead.', 'Kilon günden güne değişir; bunun yerine haftalık eğilime bak.'],
+['Des légumes à chaque repas : plus de fibres, plus de vitamines, moins de fringales.', 'Vegetables at every meal: more fibre, more vitamins, fewer cravings.', 'Her öğünde sebze: daha çok lif, daha çok vitamin, daha az aşırı açlık.'],
+["Prépare tes repas pour 2 ou 3 jours : moins de stress, moins d'écarts.", 'Prep your meals for 2 or 3 days: less stress, fewer slip-ups.', 'Öğünlerini 2-3 günlük hazırla: daha az stres, daha az sapma.'],
+['Un échauffement de 5 minutes protège tes articulations et te rend plus fort dès la première série.', 'A 5-minute warm-up protects your joints and makes you stronger from the very first set.', '5 dakikalık ısınma eklemlerini korur ve ilk setten itibaren seni daha güçlü yapar.'],
+["La régularité bat l'intensité : mieux vaut 3 séances par semaine toute l'année que 6 pendant un mois.", 'Consistency beats intensity: 3 sessions a week all year beat 6 for a month.', 'Düzenlilik yoğunluğu yener: tüm yıl haftada 3 antrenman, bir ay boyunca 6 antrenmandan iyidir.'],
+['Une collation protéinée après la séance aide la récupération.', 'A protein snack after your session helps recovery.', 'Antrenmandan sonra proteinli bir ara öğün toparlanmaya yardımcı olur.'],
+]);
 
 // exercices
 const EX = {
@@ -2719,6 +2920,7 @@ const P = {
   steps: '<path d="M8.2 3.5c1.9 0 3 2.1 3 4.6 0 1.9-.6 3.6-1.1 4.9l-3.6-.4c-.4-1.4-.9-3-.9-4.6 0-2.5 1-4.5 2.6-4.5zM6.6 15.2l3.5.4c.1 2-.6 3.9-2.1 3.9-1.2 0-1.8-1.1-1.6-2.4zM15.8 7.5c1.6 0 2.6 2 2.6 4.5 0 1.6-.5 3.2-.9 4.6l-3.6.4c-.5-1.3-1.1-3-1.1-4.9 0-2.5 1.1-4.6 3-4.6zM13.9 19.2l3.5-.4.2 1.9c.2 1.3-.4 2.4-1.6 2.4-1.5 0-2.2-1.9-2.1-3.9z"/>',
   hand: '<path d="M8 11.5V5.8a1.4 1.4 0 0 1 2.8 0v5M10.8 10.6V4.6a1.4 1.4 0 0 1 2.8 0v6M13.6 10.8V5.6a1.4 1.4 0 0 1 2.8 0v6.6M16.4 11.6V8.4a1.4 1.4 0 0 1 2.8 0v5.2c0 4-2.6 6.9-6.4 6.9-2.7 0-4.3-1.3-5.6-3.4l-2.6-4.3a1.4 1.4 0 0 1 2.3-1.6L8 13.4"/>',
   lock: '<rect x="5.5" y="10.5" width="13" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>',
+  home: '<path d="M4 10.5L12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5H15v-5.5H9v5.5H5.5A1.5 1.5 0 0 1 4 19z"/>',
   pill: '<rect x="2.8" y="8.3" width="18.4" height="7.4" rx="3.7" transform="rotate(-45 12 12)"/><path d="M9.4 9.4l5.2 5.2"/>',
   disc: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.4"/><path d="M12 3.5v3M12 17.5v3"/>',
   body: '<circle cx="12" cy="4.6" r="2.1"/><path d="M6 8.6c2 .8 4 1.2 6 1.2s4-.4 6-1.2M9.4 9.6l-.6 5.2 1.6 6.7M14.6 9.6l.6 5.2-1.6 6.7M9 14.6h6"/>',
@@ -2754,7 +2956,7 @@ const defaultMain = () => ({
   supps: [], reviewSeen: null, reviewApplied: {}, mealPlan: null
 });
 const S = NX.S = { main: defaultMain(), days: {} };
-const UI = NX.UI = { tab: 'journal', date: today(), range: 30, progEx: null };
+const UI = NX.UI = { tab: 'home', date: today(), range: 30, progEx: null };
 
 const emptyDay = k => ({ date: k, updatedAt: 0, meals: { b: [], l: [], s: [], d: [] }, water: 0, sleep: null, weight: null, measures: null, workouts: [] });
 NX.day = k => S.days[k] || emptyDay(k);
@@ -3068,10 +3270,11 @@ NX.render = () => {
   migrate();
   const sl = S.main.settings && S.main.settings.lang;
   if (sl && sl !== NXI.lang) NXI.set(sl);
-  const tabs = [['journal', 'Journal', 'journal'], ['gym', 'Muscu', 'dumbbell'], ['add'], ['shop', 'Courses', 'cart'], ['progress', 'Progrès', 'chart']];
+  const tabs = [['home', 'Accueil', 'home'], ['journal', 'Journal', 'journal'], ['add'], ['gym', 'Muscu', 'dumbbell'], ['progress', 'Progrès', 'chart']];
+  const onTab = UI.tab === 'shop' ? 'home' : UI.tab;
   $('#tabs').innerHTML = tabs.map(t => t[0] === 'add'
     ? '<button class="fab" data-a="fab" aria-label="Ajouter un aliment">' + ico('plus') + '</button>'
-    : '<button class="tab' + (UI.tab === t[0] ? ' on' : '') + '" data-a="tab" data-tab="' + t[0] + '"' + (UI.tab === t[0] ? ' aria-current="page"' : '') + '>' + ico(t[2]) + '<span>' + t[1] + '</span></button>').join('');
+    : '<button class="tab' + (onTab === t[0] ? ' on' : '') + '" data-a="tab" data-tab="' + t[0] + '"' + (onTab === t[0] ? ' aria-current="page"' : '') + '>' + ico(t[2]) + '<span>' + t[1] + '</span></button>').join('');
   $('.tabs').hidden = !S.main.profile;
   const v = VIEWS[S.main.profile ? UI.tab : 'welcome'] || VIEWS.journal;
   $('#view').innerHTML = v();
@@ -3196,6 +3399,7 @@ function emptyMealText(mk) {
   if (NX.isLoss()) return { b: 'Rien encore. Œufs, skyr, fruits : un petit-déjeuner qui cale sans trop de calories.', l: 'Rien encore. Remplis la moitié de l\'assiette de légumes, un quart de protéines, un quart de féculents.', s: 'Une collation protéinée (skyr, fromage blanc, fruit) aide à tenir jusqu\'au dîner.', d: 'Rien encore pour ce soir. Un dîner léger et riche en protéines aide la perte de poids.' }[mk];
   return { b: 'Rien encore. Flocons d\'avoine, œufs, whey : un bon début pour la masse.', l: 'Rien encore. Vise une source de protéines et un féculent.', s: 'Une collation aide à atteindre tes calories sans te forcer.', d: 'Rien encore pour ce soir.' }[mk];
 }
+NX.ring = ring; NX.macroBar = macroBar;
 function weightDelta(k) {
   const keys = Object.keys(S.days).filter(x => x < k && S.days[x].weight).sort();
   if (!keys.length) return 'première pesée';
@@ -4073,7 +4277,7 @@ function qtyLabel(r) {
 /* ================= VUE ================= */
 NX.VIEWS.shop = () => {
   const n = S.main.shopping.filter(x => !x.done).length;
-  let h = '<div class="topbar"><h1 class="h-view">Courses</h1>' + NX.topRight() + '</div>';
+  let h = '<div class="topbar"><div class="tb-l"><button class="icon-btn" data-a="tab" data-tab="home" aria-label="Retour à l\'accueil">' + ico('left') + '</button><h1 class="h-view">Courses</h1></div>' + NX.topRight() + '</div>';
   h += '<div class="seg"><button class="' + (UI.shopTab === 'menu' ? 'on' : '') + '" data-a="shop-tab" data-t="menu">Menu</button><button class="' + (UI.shopTab === 'need' ? 'on' : '') + '" data-a="shop-tab" data-t="need">Ce qu\'il me faut</button><button class="' + (UI.shopTab === 'list' ? 'on' : '') + '" data-a="shop-tab" data-t="list">Ma liste' + (n ? ' · ' + n : '') + '</button></div>';
   return h + (UI.shopTab === 'list' ? listView() : UI.shopTab === 'menu' ? NX.planView() : needView());
 };
@@ -5473,6 +5677,11 @@ NX.achSection = () => {
     + next.map(([a, p]) => '<div class="ach-next">' + badge(a, false, p) + '<div><b>' + esc(a[3]) + '</b><span>' + esc(a[4]) + '</span><div class="bar"><i style="width:' + (p * 100).toFixed(0) + '%"></i></div></div><em>' + Math.round(p * 100) + ' %</em></div>').join('')
     + '</section>';
 };
+NX.nextAch = () => {
+  const st = stats(), got = S.main.ach || {};
+  const nx = ACH.filter(a => !got[a[0]]).map(a => [a, Math.min(1, valOf(st, a[5]) / a[6])]).filter(x => x[1] < 1).sort((x, y) => y[1] - x[1] || x[0][2] - y[0][2] || ACH.indexOf(x[0]) - ACH.indexOf(y[0]))[0];
+  return { streak: st.streak, next: nx ? { a: nx[0], p: nx[1], badge: badge(nx[0], false, nx[1]) } : null, n: ACH.filter(a => got[a[0]]).length, total: ACH.length };
+};
 A['ach-all'] = () => NX.openSheet({ id: 'ach', full: true, title: 'Succès', render: () => {
   const st = stats(), got = S.main.ach || {};
   return { body: '<div class="ach-grid">' + ACH.map(a => { const on = !!got[a[0]], p = Math.min(1, valOf(st, a[5]) / a[6]); return '<div class="ach' + (on ? ' on' : '') + '">' + badge(a, on, on ? null : p) + '<b>' + esc(a[3]) + '</b><span>' + esc(a[4]) + '</span>' + (on ? '<small>' + new Date(got[a[0]]).toLocaleDateString(NX.LOC(), { day: 'numeric', month: 'short', year: 'numeric' }) + '</small>' : '<small>' + Math.round(p * 100) + ' %</small>') + '</div>'; }).join('') + '</div>' };
@@ -5860,6 +6069,164 @@ A['sv-go'] = () => {
 };
 })();
 
+/* Nexafit — page d'accueil : le résumé du jour et des raccourcis vers tout le reste. */
+(function () {
+'use strict';
+const { esc, fmt, addDays, today, longDate, ico, S, UI, A } = NX;
+
+const hello = () => { const h = new Date().getHours(); return h < 5 ? 'Bonne nuit' : h < 12 ? 'Bonjour' : h < 18 ? 'Bon après-midi' : 'Bonsoir'; };
+
+// conseils qui changent chaque jour
+const TIPS = [
+  'Une source de protéines à chaque repas, c\'est le plus simple pour atteindre ton objectif.',
+  'Bois un grand verre d\'eau au réveil : tu commences la journée déjà hydraté.',
+  'Le muscle se construit pendant le sommeil. Vise 7 à 9 h cette nuit.',
+  'Note tes repas juste après les avoir mangés : tu n\'oublieras rien.',
+  'Ajoute un peu de poids ou une répétition à chaque séance : c\'est ça, progresser.',
+  'Pèse-toi le matin, à jeun : c\'est la mesure la plus fiable d\'un jour à l\'autre.',
+  'Ton poids bouge d\'un jour à l\'autre, regarde plutôt la tendance sur une semaine.',
+  'Des légumes à chaque repas : plus de fibres, plus de vitamines, moins de fringales.',
+  'Prépare tes repas pour 2 ou 3 jours : moins de stress, moins d\'écarts.',
+  'Un échauffement de 5 minutes protège tes articulations et te rend plus fort dès la première série.',
+  'La régularité bat l\'intensité : mieux vaut 3 séances par semaine toute l\'année que 6 pendant un mois.',
+  'Une collation protéinée après la séance aide la récupération.'
+];
+const dayNum = () => Math.floor(Date.now() / 864e5 - new Date().getTimezoneOffset() / 1440);
+
+function miniRing(val, goal) {
+  const R = 34, C = 2 * Math.PI * R, ratio = goal ? val / goal : 0, off = C * (1 - Math.min(1, ratio));
+  return '<div class="hm-ring' + (ratio > 1.1 ? ' over' : '') + '"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="' + R + '" fill="none" stroke-width="9"/><circle class="val" cx="42" cy="42" r="' + R + '" fill="none" stroke-width="9" stroke-linecap="round" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '" style="--rc:' + C.toFixed(1) + '"/></svg><b>' + Math.round(ratio * 100) + '<small>%</small></b></div>';
+}
+const mac = (lbl, v, g, c) => '<div class="hm-m" style="--c:' + c + '"><span><i></i>' + lbl + '</span><b>' + fmt(v) + '<small> / ' + fmt(g) + ' g</small></b><div class="bar"><i style="width:' + (g ? Math.min(100, v / g * 100) : 0).toFixed(1) + '%"></i></div></div>';
+
+function weightAt(k) { // dernière pesée à cette date ou avant
+  const ks = Object.keys(S.days).filter(x => x <= k && S.days[x].weight).sort();
+  return ks.length ? { k: ks[ks.length - 1], w: S.days[ks[ks.length - 1]].weight } : null;
+}
+function weightCard() {
+  const now = weightAt(today());
+  if (!now) return '';
+  const before = weightAt(addDays(today(), -7));
+  const d = before && before.k !== now.k ? now.w - before.w : null;
+  const G = S.main.weightGoal;
+  let goal = '';
+  if (G && G.target && G.start && G.target !== G.start) {
+    const p = Math.max(0, Math.min(1, (now.w - G.start) / (G.target - G.start)));
+    goal = '<div class="hm-wg"><div class="bar"><i style="width:' + (p * 100).toFixed(0) + '%"></i></div><span>' + NXI.t('Objectif {t} kg · {p} %', { t: fmt(G.target, 1), p: Math.round(p * 100) }) + '</span></div>';
+  }
+  return '<button class="hm-w" data-a="tab" data-tab="progress"><span class="hm-wi">' + ico('scale') + '</span><span class="lt"><span class="hm-sm">Poids</span><b>' + fmt(now.w, 1) + '<small> kg</small></b>'
+    + (d != null ? '<span class="hm-wd' + (Math.abs(d) < 0.05 ? '' : d > 0 ? ' up' : ' down') + '">' + NXI.t('{d} kg en 7 jours', { d: (d > 0 ? '+' : d < 0 ? '−' : '') + fmt(Math.abs(d), 1) }) + '</span>' : '<span class="hm-wd">' + (now.k === today() ? 'Pesé aujourd\'hui' : NXI.t('Dernière pesée : {d}', { d: NX.shortDate(now.k) })) + '</span>')
+    + goal + '</span>' + ico('right', 'sm') + '</button>';
+}
+
+NX.VIEWS.home = () => {
+  UI.date = today();
+  const k = today(), day = NX.day(k), t = NX.dayTotals(day), g = S.main.goals;
+  const rest = g.k - t.k, name = S.main.profile && S.main.profile.name;
+  const gl = S.main.settings.glass || 250, gw = g.water || 2500;
+  let h = '<div class="topbar hm-top"><div class="hm-hello"><h1 class="hm-brand" lang="en" data-notr><span class="brand-mark"></span>Nexafit</h1><div class="sub">' + esc(longDate(k)) + '</div></div>' + NX.topRight() + '</div>';
+  h += NX.reviewBanner(k);
+  // le résumé du jour
+  h += '<button class="hm-hero" data-a="tab" data-tab="journal" aria-label="Ouvrir le journal">'
+    + '<div class="hm-hero-top"><div class="hm-k"><span class="hm-sm">' + (rest < 0 ? 'Au-dessus de ton objectif' : 'Il te reste') + '</span><b class="hm-num' + (rest < 0 ? ' over' : '') + '" data-v="' + Math.round(Math.abs(rest)) + '">' + fmt(Math.abs(rest)) + '</b><span class="hm-u">' + (rest < 0 ? 'kcal en trop aujourd\'hui' : 'kcal aujourd\'hui') + '</span></div>' + miniRing(t.k, g.k) + '</div>'
+    + '<div class="hm-mac">' + mac('Protéines', t.p, g.p, 'var(--prot)') + mac('Glucides', t.c, g.c, 'var(--carb)') + mac('Lipides', t.f, g.f, 'var(--fat)') + '</div>'
+    + '<div class="hm-go"><span>' + (t.n ? NXI.t(t.n > 1 ? '{n} aliments notés' : '{n} aliment noté', { n: t.n }) : 'Rien noté pour l\'instant') + '</span><span class="hm-open">Ouvrir le journal' + ico('right', 'sm') + '</span></div></button>';
+  // séance du jour
+  if (S.main.active) h += '<div class="today"><span class="rh-i">' + ico('dumbbell') + '</span><span class="lt"><b>Séance en cours</b><span>Reprends là où tu t\'es arrêté</span></span><button class="btn sm" data-a="tab" data-tab="gym">' + ico('play', 'sm') + 'Reprendre</button></div>';
+  else h += NX.todayCard('journal') || NX.todayCard('gym');
+  // raccourcis
+  const lw = NX.lastWeight();
+  h += '<div class="hm-quick">'
+    + '<button class="hq" style="--c:var(--brand)" data-a="fab"><span class="hq-i">' + ico('plus') + '</span><b>Repas</b><small>' + esc(NX.MEAL_NAME[NX.defaultMeal()]) + '</small></button>'
+    + '<button class="hq" style="--c:var(--fat)" data-a="eat-open"><span class="hq-i">' + ico('wand') + '</span><b>Idées</b><small>Que manger ?</small></button>'
+    + '<button class="hq" style="--c:var(--water)" data-a="hm-water" aria-label="' + esc(NXI.t('Ajouter un verre d\'eau ({v} ml)', { v: gl })) + '"><span class="hq-i">' + ico('drop') + '</span><b>+1 verre</b><small>' + fmt((day.water || 0) / 1000, 1) + ' / ' + fmt(gw / 1000, 1) + ' L</small></button>'
+    + '<button class="hq" style="--c:var(--sleep)" data-a="weight-open"><span class="hq-i">' + ico('scale') + '</span><b>Pesée</b><small>' + (day.weight ? fmt(day.weight, 1) + ' kg' : lw ? 'À faire' : 'Première') + '</small></button>'
+    + '</div>';
+  // courses et menu
+  const n = S.main.shopping.filter(x => !x.done).length, plan = S.main.mealPlan && S.main.mealPlan.days;
+  h += '<section class="sec"><div class="sec-head"><h2 class="h-sec">Planifier</h2></div><div class="hm-tiles">'
+    + '<button class="ht" style="--c:var(--carb)" data-a="hm-shop" data-t="' + (n ? 'list' : 'need') + '"><span class="ht-i">' + ico('cart') + '</span>' + (n ? '<em class="ht-n">' + n + '</em>' : '') + '<span class="ht-t"><b>Courses</b><span>' + (n ? NXI.t(n > 1 ? '{n} articles à acheter' : '{n} article à acheter', { n }) : 'Ce qu\'il me faut cette semaine') + '</span></span></button>'
+    + '<button class="ht" style="--c:var(--good)" data-a="hm-shop" data-t="menu"><span class="ht-i">' + ico('calendar') + '</span>' + (plan ? '<em class="ht-n ok">' + ico('check', 'sm') + '</em>' : '') + '<span class="ht-t"><b>Menu de la semaine</b><span>' + (plan ? 'Prêt, adapté à tes macros' : 'Créé pour toi en un geste') + '</span></span></button>'
+    + '</div></section>';
+  // motivation
+  const m = NX.nextAch ? NX.nextAch() : null;
+  if (m) h += '<button class="hm-motiv" data-a="ach-all"><span class="sf">' + ico('flame') + '</span><span class="lt"><b>' + (m.streak.cur ? NXI.t(m.streak.cur > 1 ? '{n} jours de suite' : '{n} jour de suite', { n: m.streak.cur }) : 'Lance ta série aujourd\'hui') + '</b>'
+    + (m.next ? '<span class="hm-sm">Prochain succès</span><span class="hm-an">' + esc(m.next.a[3]) + '</span><span class="bar"><i style="width:' + (m.next.p * 100).toFixed(0) + '%"></i></span>' : '<span>Tous les succès sont débloqués</span>')
+    + '</span>' + (m.next ? '<em>' + Math.round(m.next.p * 100) + ' %</em>' : '') + '</button>';
+  h += weightCard();
+  h += '<button class="hm-tip" data-a="hm-tip"><span class="hm-sm">' + ico('star', 'sm') + 'Le conseil du jour<span class="hm-more">' + ico('refresh', 'sm') + '</span></span><p>' + esc(TIPS[(dayNum() + (UI.tipOff || 0)) % TIPS.length]) + '</p></button>';
+  return h;
+};
+
+A['hm-water'] = () => {
+  const k = today(), gl = S.main.settings.glass || 250, gw = S.main.goals.water || 2500;
+  const d = NX.touchDay(k), before = d.water || 0;
+  d.water = before + gl; NX.save('d-' + k); NX.render();
+  const hq = document.querySelector('.hq[data-a=hm-water]');
+  if (hq) { hq.classList.add('bump'); const pop = document.createElement('span'); pop.className = 'hq-pop'; pop.textContent = '+' + gl + ' ml'; pop.setAttribute('data-notr', ''); hq.appendChild(pop); setTimeout(() => pop.remove(), 900); }
+  if (d.water >= gw && before < gw) NX.toast('Objectif d\'eau atteint 💧');
+  else NX.toast(NXI.t('+{v} ml d\'eau', { v: gl }), { label: 'Annuler', fn: () => { const x = NX.touchDay(k); x.water = Math.max(0, (x.water || 0) - gl); NX.save('d-' + k); NX.render(); } });
+};
+A['hm-tip'] = el => {
+  UI.tipOff = (UI.tipOff || 0) + 1;
+  const p = el.querySelector('p'); if (!p) return;
+  p.classList.remove('swap'); void p.offsetWidth;
+  p.textContent = TIPS[(dayNum() + UI.tipOff) % TIPS.length]; p.classList.add('swap');
+};
+A['hm-shop'] = el => { UI.tab = 'shop'; UI.shopTab = el.dataset.t; NX.render(); window.scrollTo(0, 0); };
+
+/* ================= RETOURS AU TOUCHER ================= */
+// chaque appui réagit : onde, léger enfoncement, petite vibration, et les pages glissent en entrant
+const still = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const RP = '.hm-hero,.hq,.ht,.hm-motiv,.hm-w,.hm-tip,.btn,.chip,.chk,.rev-link,.tab,.add-btn,.item,.li,.today,.mb-cat,.pd,.supp';
+document.addEventListener('pointerdown', e => {
+  if (still() || e.button > 0) return;
+  const el = e.target.closest(RP);
+  if (!el || el.disabled || e.target.closest('input,select,textarea') || el.querySelector('select,input,textarea')) return;
+  const r = el.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2;
+  const s = document.createElement('span');
+  s.className = 'rpl'; s.setAttribute('aria-hidden', 'true'); s.setAttribute('data-notr', '');
+  s.style.cssText = 'width:' + d + 'px;height:' + d + 'px;left:' + (e.clientX - r.left - d / 2) + 'px;top:' + (e.clientY - r.top - d / 2) + 'px';
+  el.classList.add('rp-host'); el.appendChild(s);
+  setTimeout(() => s.remove(), 650);
+}, { passive: true, capture: true });
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-a]');
+  if (el && navigator.vibrate && !(S.main.settings && S.main.settings.haptics === false)) try { navigator.vibrate(7); } catch (x) { }
+}, { capture: true });
+
+// entrée de page : quand on change d'onglet, le contenu glisse et les jauges se remplissent
+const ORDER = ['home', 'journal', 'gym', 'progress', 'shop', 'more'];
+let lastTab = null, enterT = null;
+function enter(dir) {
+  const v = document.getElementById('view'); if (!v || still()) return;
+  v.style.setProperty('--vx', (dir * 18) + 'px');
+  v.classList.remove('view-in'); void v.offsetWidth; v.classList.add('view-in');
+  clearTimeout(enterT); enterT = setTimeout(() => v.classList.remove('view-in'), 1300);
+  const tb = document.querySelector('#tabs .tab.on'); if (tb) tb.classList.add('pop');
+  const n = v.querySelector('.hm-num');
+  if (n) { // le nombre de calories défile
+    const to = +n.dataset.v || 0, t0 = performance.now(), D = 750;
+    const step = t => { const p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 3); if (!n.isConnected) return; n.textContent = NX.fmt(Math.round(to * e)); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+}
+const base = NX.render;
+NX.render = function () {
+  const r = base.apply(this, arguments);
+  const tab = S.main.profile ? UI.tab : 'welcome';
+  if (tab !== lastTab) {
+    const a = ORDER.indexOf(lastTab), b = ORDER.indexOf(tab), dir = a < 0 || b < 0 ? 0 : b > a ? 1 : -1;
+    const first = lastTab === null; lastTab = tab;
+    if (first && document.getElementById('nx-splash')) { // attendre la fin de l'écran d'ouverture
+      const t0 = Date.now(), wait = () => document.getElementById('nx-splash') && Date.now() - t0 < 4000 ? setTimeout(wait, 80) : enter(0);
+      wait();
+    } else enter(dir);
+  }
+  return r;
+};
+})();
+
 /* Nexafit — progrès, graphiques, profil et objectifs, accueil, réglages, sauvegarde. */
 (function () {
 'use strict';
@@ -6133,7 +6500,8 @@ A['measures-save'] = () => {
 let PF = null;
 function profileForm(withOverride) {
   const c = NX.calcGoals(PF);
-  let h = '<div class="sec"><div class="label">Sexe</div><div class="seg"><button class="' + (PF.sex !== 'f' ? 'on' : '') + '" data-a="pf-sex" data-v="h">Homme</button><button class="' + (PF.sex === 'f' ? 'on' : '') + '" data-a="pf-sex" data-v="f">Femme</button></div></div>'
+  let h = '<label class="field"><span>Prénom (facultatif)</span><input class="inp" value="' + esc(PF.name || '') + '" data-in="pf-name" placeholder="Ex. Mikail" autocomplete="given-name" maxlength="24"></label>'
+    + '<div class="sec"><div class="label">Sexe</div><div class="seg"><button class="' + (PF.sex !== 'f' ? 'on' : '') + '" data-a="pf-sex" data-v="h">Homme</button><button class="' + (PF.sex === 'f' ? 'on' : '') + '" data-a="pf-sex" data-v="f">Femme</button></div></div>'
     + '<div class="grid3"><label class="field"><span>Âge</span><input class="inp" inputmode="numeric" value="' + esc(PF.age || '') + '" data-in="pf" data-k="age" placeholder="ans"></label><label class="field"><span>Taille</span><input class="inp" inputmode="numeric" value="' + esc(PF.height || '') + '" data-in="pf" data-k="height" placeholder="cm"></label><label class="field"><span>Poids</span><input class="inp" inputmode="decimal" value="' + esc(PF.weight || '') + '" data-in="pf" data-k="weight" placeholder="kg"></label></div>'
     + '<label class="field"><span>Activité</span><select class="inp" data-ch="pf-act">' + NX.ACTIVITY.map(a => '<option value="' + a[0] + '"' + (num(PF.activity) === a[0] ? ' selected' : '') + '>' + a[1] + ' · ' + a[2] + '</option>').join('') + '</select></label>'
     + '<div class="sec"><div class="label">Objectif</div><div class="seg" style="flex-wrap:wrap">' + Object.keys(NX.GOALS).map(k => '<button class="' + (PF.goal === k ? 'on' : '') + '" data-a="pf-goal" data-v="' + k + '" style="flex:1 1 40%">' + NX.GOALS[k][0] + '</button>').join('') + '</div></div>'
@@ -6151,6 +6519,7 @@ function goalCard(c) {
   return '<div class="res-goal"><span class="label" style="color:inherit;opacity:.7">Ton objectif par jour</span><div class="big">' + fmt(c.k) + ' kcal</div><div class="mm"><span><i class="plate-dot" style="--c:var(--prot)"></i><b>' + c.p + '</b> g prot.</span><span><i class="plate-dot" style="--c:var(--carb)"></i><b>' + c.c + '</b> g gluc.</span><span><i class="plate-dot" style="--c:var(--fat)"></i><b>' + c.f + '</b> g lip.</span><span><b>' + fmt(c.water / 1000, 1) + '</b> L d\'eau</span></div><span style="font-size:12.5px;opacity:.75">Métabolisme de base ' + fmt(c.bmr) + ' kcal · dépense estimée ' + fmt(c.tdee) + ' kcal' + (PF.goal !== 'keep' ? ' · ' + (c.k > c.tdee ? '+' : '−') + fmt(Math.abs(Math.round((c.k - c.tdee) / 10) * 10)) + ' kcal pour ton objectif' : '') + '</span>' + (c.floored ? '<span style="font-size:12.5px;color:var(--warn)">Calories remontées au minimum conseillé pour ta santé.</span>' : '') + '</div>';
 }
 const refreshPF = () => { const r = $('#pf-res'); if (r) r.innerHTML = goalCard(NX.calcGoals(PF)); };
+IN['pf-name'] = el => { PF.name = el.value; };
 IN.pf = el => { PF[el.dataset.k] = el.value; refreshPF(); };
 CH['pf-act'] = el => { PF.activity = num(el.value); refreshPF(); };
 A['pf-sex'] = el => { PF.sex = el.dataset.v; $$('[data-a="pf-sex"]').forEach(b => b.classList.toggle('on', b === el)); refreshPF(); };
@@ -6173,22 +6542,22 @@ NX.VIEWS.welcome = () => {
 A['pf-start'] = () => {
   const c = NX.calcGoals(PF);
   if (!c) return NX.toast('Complète ton âge, ta taille et ton poids');
-  S.main.profile = { sex: PF.sex, age: num(PF.age), height: num(PF.height), weight: num(PF.weight), activity: num(PF.activity), goal: PF.goal };
+  S.main.profile = { name: String(PF.name || '').trim().slice(0, 24), sex: PF.sex, age: num(PF.age), height: num(PF.height), weight: num(PF.weight), activity: num(PF.activity), goal: PF.goal };
   S.main.goals = { k: c.k, p: c.p, c: c.c, f: c.f, water: c.water, sleep: 8 };
   NX.touchMain();
   const d = NX.touchDay(today()); if (!d.weight) d.weight = num(PF.weight);
-  UI.tab = 'journal'; UI.date = today(); NX.render(); window.scrollTo(0, 0);
+  UI.tab = 'home'; UI.date = today(); NX.render(); window.scrollTo(0, 0);
   NX.toast('Objectif : ' + fmt(c.k) + ' kcal par jour');
 };
 A['profile-edit'] = () => {
   const p = S.main.profile || {};
-  PF = { sex: p.sex || 'h', age: p.age || '', height: p.height || '', weight: NX.lastWeight() || p.weight || '', activity: p.activity || 1.55, goal: p.goal || 'bulk', _g: clone(S.main.goals) };
+  PF = { name: p.name || '', sex: p.sex || 'h', age: p.age || '', height: p.height || '', weight: NX.lastWeight() || p.weight || '', activity: p.activity || 1.55, goal: p.goal || 'bulk', _g: clone(S.main.goals) };
   NX.openSheet({ id: 'profile', full: true, title: 'Profil et objectifs', render: () => ({ body: profileForm(true), foot: '<button class="btn block" data-a="pf-save">Enregistrer</button>' }) });
 };
 A['pf-save'] = () => {
   const c = NX.calcGoals(PF);
   if (!c) return NX.toast('Complète ton âge, ta taille et ton poids');
-  S.main.profile = { sex: PF.sex, age: num(PF.age), height: num(PF.height), weight: num(PF.weight), activity: num(PF.activity), goal: PF.goal };
+  S.main.profile = { name: String(PF.name || '').trim().slice(0, 24), sex: PF.sex, age: num(PF.age), height: num(PF.height), weight: num(PF.weight), activity: num(PF.activity), goal: PF.goal };
   const v = k => { const i = $('#go-' + k); return i ? numOrNull(i.value) : null; };
   // valeurs touchées à la main : on les garde ; sinon on applique le nouveau calcul
   const manual = ['k', 'p', 'c', 'f', 'water'].some(k => v(k) != null && v(k) !== PF._g[k]);
@@ -6292,7 +6661,7 @@ $('#file-import').addEventListener('change', async e => {
     Object.keys(S.days).forEach(k => NX.save('d-' + k));
     oldDays.filter(k => !S.days[k]).forEach(k => NX.save('d-' + k));
     NX.closeSheet('import-ok'); NX.closeSheet('backup', true);
-    UI.tab = 'journal'; UI.date = today(); NX.render(); NX.toast('Sauvegarde importée');
+    UI.tab = 'home'; UI.date = today(); NX.render(); NX.toast('Sauvegarde importée');
   };
 });
 
